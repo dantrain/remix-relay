@@ -6,6 +6,6 @@
       "~/*": ["./app/*"]
     }
   },
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "build"]
 }

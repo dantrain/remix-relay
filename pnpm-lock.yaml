@@ -66,9 +66,6 @@ importers:
 
   apps/web:
     dependencies:
-      '@remix-run/css-bundle':
-        specifier: ^2.4.1
-        version: 2.4.1
       '@remix-run/node':
         specifier: ^2.4.1
         version: 2.4.1(typescript@5.2.2)
@@ -93,7 +90,7 @@ importers:
     devDependencies:
       '@remix-run/dev':
         specifier: ^2.4.1
-        version: 2.4.1(@remix-run/serve@2.4.1)(@types/node@17.0.45)(typescript@5.2.2)
+        version: 2.4.1(@remix-run/serve@2.4.1)(@types/node@17.0.45)(typescript@5.2.2)(vite@5.0.10)
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -118,6 +115,12 @@ importers:
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
+      vite:
+        specifier: ^5.0.10
+        version: 5.0.10(@types/node@17.0.45)
+      vite-tsconfig-paths:
+        specifier: ^4.2.3
+        version: 4.2.3(typescript@5.2.2)(vite@5.0.10)
 
   packages/eslint-config:
     devDependencies:
@@ -1518,12 +1521,7 @@ packages:
       tslib: 2.6.2
     dev: true
 
-  /@remix-run/css-bundle@2.4.1:
-    resolution: {integrity: sha512-+Gl/bj8yfkVAlimbZZnTgzrrQJgnhV2xNNGc0lMXekEiDobk7DTTyonAXqrkxaRYGvMhBVwMaaDKWUE1iy4fHg==}
-    engines: {node: '>=18.0.0'}
-    dev: false
-
-  /@remix-run/dev@2.4.1(@remix-run/serve@2.4.1)(@types/node@17.0.45)(typescript@5.2.2):
+  /@remix-run/dev@2.4.1(@remix-run/serve@2.4.1)(@types/node@17.0.45)(typescript@5.2.2)(vite@5.0.10):
     resolution: {integrity: sha512-T8GLCKpZ8AX/NCJ+vyMmcTq328xo9stvDSXG2hSJx7njz4Q9sC25miQLXPRb3Lx/Sdf4YlJhWQpR6uq5pnXCZg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
@@ -1593,6 +1591,7 @@ packages:
       tar-fs: 2.1.1
       tsconfig-paths: 4.2.0
       typescript: 5.2.2
+      vite: 5.0.10(@types/node@17.0.45)
       ws: 7.5.9
     transitivePeerDependencies:
       - '@types/node'
@@ -4476,6 +4475,10 @@ packages:
       slash: 4.0.0
     dev: true
 
+  /globrex@0.1.2:
+    resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
+    dev: true
+
   /gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
     dependencies:
@@ -6575,6 +6578,15 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
+  /postcss@8.4.32:
+    resolution: {integrity: sha512-D/kj5JNu6oo2EIy+XL/26JEDTlIbB8hw85G8StOE6L74RQAVVP5rej6wxCNqyMbR4RkPfqvezVbPw81Ngd6Kcw==}
+    engines: {node: ^10 || ^12 || >=14}
+    dependencies:
+      nanoid: 3.3.7
+      picocolors: 1.0.0
+      source-map-js: 1.0.2
+    dev: true
+
   /prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
@@ -7712,6 +7724,19 @@ packages:
       yn: 3.1.1
     dev: true
 
+  /tsconfck@2.1.2(typescript@5.2.2):
+    resolution: {integrity: sha512-ghqN1b0puy3MhhviwO2kGF8SeMDNhEbnKxjK7h6+fvY9JAxqvXi8y5NAHSQv687OVboS2uZIByzGd45/YxrRHg==}
+    engines: {node: ^14.13.1 || ^16 || >=18}
+    hasBin: true
+    peerDependencies:
+      typescript: ^4.3.5 || ^5.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      typescript: 5.2.2
+    dev: true
+
   /tsconfig-paths@3.14.2:
     resolution: {integrity: sha512-o/9iXgCYc5L/JxCHPe3Hvh8Q/2xm5Z+p18PESBU6Ff33695QnCHBEjcytY2q19ua7Mbl/DavtBOLq+oG0RCL+g==}
     dependencies:
@@ -8161,6 +8186,23 @@ packages:
       - terser
     dev: true
 
+  /vite-tsconfig-paths@4.2.3(typescript@5.2.2)(vite@5.0.10):
+    resolution: {integrity: sha512-xVsA2xe6QSlzBujtWF8q2NYexh7PAUYfzJ4C8Axpe/7d2pcERYxuxGgph9F4f0iQO36g5tyGq6eBUYIssdUrVw==}
+    peerDependencies:
+      vite: '*'
+    peerDependenciesMeta:
+      vite:
+        optional: true
+    dependencies:
+      debug: 4.3.4
+      globrex: 0.1.2
+      tsconfck: 2.1.2(typescript@5.2.2)
+      vite: 5.0.10(@types/node@17.0.45)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+    dev: true
+
   /vite@4.5.1(@types/node@17.0.45):
     resolution: {integrity: sha512-AXXFaAJ8yebyqzoNB9fu2pHoo/nWX+xZlaRwoeYUxEqBO+Zj4msE5G+BhGBll9lYEKv9Hfks52PAF2X7qDYXQA==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -8193,6 +8235,42 @@ packages:
       esbuild: 0.18.20
       postcss: 8.4.31
       rollup: 3.29.4
+    optionalDependencies:
+      fsevents: 2.3.3
+    dev: true
+
+  /vite@5.0.10(@types/node@17.0.45):
+    resolution: {integrity: sha512-2P8J7WWgmc355HUMlFrwofacvr98DAjoE52BfdbwQtyLH06XKwaL/FMnmKM2crF0iX4MpmMKoDlNCB1ok7zHCw==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': ^18.0.0 || >=20.0.0
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      '@types/node': 17.0.45
+      esbuild: 0.19.11
+      postcss: 8.4.32
+      rollup: 4.9.2
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
