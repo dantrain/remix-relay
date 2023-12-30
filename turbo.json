@@ -12,6 +12,12 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "topo": {
+      "dependsOn": ["^topo"]
+    },
+    "typecheck": {
+      "dependsOn": ["topo"]
     }
   }
 }

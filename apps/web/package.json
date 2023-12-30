@@ -6,7 +6,7 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev --manual",
-    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/index.js",
     "typecheck": "tsc"
   },
@@ -25,8 +25,8 @@
     "@repo/typescript-config": "workspace:*",
     "@types/eslint": "^8.44.7",
     "@types/node": "^17.0.12",
-    "@types/react": "^18.2.20",
-    "@types/react-dom": "^18.2.7",
+    "@types/react": "^18.2.46",
+    "@types/react-dom": "^18.2.18",
     "eslint": "^8.53.0",
     "typescript": "^5.2.2"
   }

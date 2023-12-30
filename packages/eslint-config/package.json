@@ -5,6 +5,7 @@
   "files": [
     "library.js",
     "next.js",
+    "remix.js",
     "react-internal.js"
   ],
   "devDependencies": {
