@@ -1,5 +1,6 @@
 "use client";
 
-export { Button } from "./button";
-export { Card } from "./card";
-export { Code } from "./code";
+// Component exports
+export * from "./Button/Button";
+export * from "./Card/Card";
+export * from "./Code/Code";

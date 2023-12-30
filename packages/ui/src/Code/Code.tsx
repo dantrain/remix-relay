@@ -1,9 +1,8 @@
-export function Code({
-  children,
-  className,
-}: {
+type CodeProps = {
   children: React.ReactNode;
   className?: string;
-}): JSX.Element {
+};
+
+export function Code({ children, className }: CodeProps) {
   return <code className={className}>{children}</code>;
 }

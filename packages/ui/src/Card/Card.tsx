@@ -1,14 +1,11 @@
-export function Card({
-  className,
-  title,
-  children,
-  href,
-}: {
+type CardProps = {
   className?: string;
   title: string;
   children: React.ReactNode;
   href: string;
-}): JSX.Element {
+};
+
+export function Card({ className, title, children, href }: CardProps) {
   return (
     <a
       className={className}
