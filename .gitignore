@@ -26,6 +26,8 @@ coverage
 out/
 build
 dist
+.cache
+public/build
 
 
 # Debug
