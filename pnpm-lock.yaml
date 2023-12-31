@@ -94,6 +94,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      '@repo/tailwind-config':
+        specifier: workspace:*
+        version: link:../../packages/tailwind-config
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
@@ -112,6 +115,9 @@ importers:
       eslint:
         specifier: ^8.53.0
         version: 8.54.0
+      tailwindcss:
+        specifier: ^3.4.0
+        version: 3.4.0
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -7922,7 +7928,7 @@ packages:
       execa: 5.1.1
       globby: 11.1.0
       joycon: 3.1.1
-      postcss-load-config: 4.0.2(postcss@8.4.31)
+      postcss-load-config: 4.0.2(postcss@8.4.32)
       resolve-from: 5.0.0
       rollup: 4.9.2
       source-map: 0.8.0-beta.0

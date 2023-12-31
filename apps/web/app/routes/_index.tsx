@@ -10,10 +10,12 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>Welcome to Remix</h1>
+    <main className="px-8 py-6 bg-blue-50 h-[100dvh]">
+      <h1 className="text-3xl font-bold mb-4 text-blue-950">
+        Welcome to Remix
+      </h1>
       <Button appName="docs">Click me!</Button>
-      <ul>
+      <ul className="mt-4 flex flex-col gap-4 text-blue-900">
         <li>
           <a
             target="_blank"
@@ -38,6 +40,6 @@ export default function Index() {
           </a>
         </li>
       </ul>
-    </div>
+    </main>
   );
 }
