@@ -14,7 +14,7 @@ export default function Index() {
       <h1 className="mb-4 text-3xl font-bold text-blue-950">
         Welcome to Remix
       </h1>
-      <Button appName="docs">Click me!</Button>
+      <Button appName="Remix">Click me!</Button>
       <ul className="mt-4 flex flex-col gap-4 text-blue-900">
         <li>
           <a
