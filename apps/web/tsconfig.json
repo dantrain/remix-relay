@@ -6,6 +6,5 @@
       "~/*": ["./app/*"]
     }
   },
-  "include": ["env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "build"]
+  "include": ["env.d.ts", "**/*.ts", "**/*.tsx"]
 }
