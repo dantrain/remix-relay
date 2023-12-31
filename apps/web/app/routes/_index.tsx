@@ -10,8 +10,8 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <main className="px-8 py-6 bg-blue-50 h-[100dvh]">
-      <h1 className="text-3xl font-bold mb-4 text-blue-950">
+    <main className="h-[100dvh] bg-blue-50 px-8 py-6">
+      <h1 className="mb-4 text-3xl font-bold text-blue-950">
         Welcome to Remix
       </h1>
       <Button appName="docs">Click me!</Button>
