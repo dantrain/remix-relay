@@ -10,13 +10,11 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <main className="h-[100dvh] bg-blue-50 px-8 py-6">
-      <h1 className="mb-4 text-3xl font-bold text-blue-950">
-        Welcome to Remix
-      </h1>
-      <Button className="text-blue-50">Click me!</Button>
+    <main>
+      <h1 className="mb-8 mt-2 text-2xl font-bold">Welcome to Remix</h1>
+      <Button>Click me!</Button>
       <Spinner />
-      <ul className="mt-4 flex flex-col gap-4 text-blue-900">
+      <ul className="mt-4 flex flex-col gap-4 text-slate-200">
         <li>
           <a
             target="_blank"
