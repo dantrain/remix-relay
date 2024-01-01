@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Button } from "@repo/ui";
+import { Button, Spinner } from "@repo/ui";
 
 export const meta: MetaFunction = () => {
   return [
@@ -14,7 +14,8 @@ export default function Index() {
       <h1 className="mb-4 text-3xl font-bold text-blue-950">
         Welcome to Remix
       </h1>
-      <Button appName="Remix">Click me!</Button>
+      <Button className="text-blue-50">Click me!</Button>
+      <Spinner />
       <ul className="mt-4 flex flex-col gap-4 text-blue-900">
         <li>
           <a

@@ -1,17 +1,36 @@
-import { ReactNode } from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cx } from "class-variance-authority";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { forwardRef } from "react";
 
 type ButtonProps = {
+  className?: string;
   children: ReactNode;
-  appName: string;
-};
+} & (
+  | ({ asChild?: false } & ComponentPropsWithoutRef<"button">)
+  | { asChild: true }
+);
 
-export const Button = ({ children, appName }: ButtonProps) => {
-  return (
-    <button
-      className="rounded-full bg-blue-600 px-5 py-2 text-white hover:bg-blue-500"
-      onClick={() => alert(`Hello from your ${appName} app!`)}
-    >
-      {children}
-    </button>
-  );
-};
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ asChild, className, ...rest }, ref) => {
+    const Comp = asChild ? Slot : "button";
+
+    return (
+      <Comp
+        className={cx(
+          className,
+          "rounded-md border px-2 py-1 text-left",
+          "border-slate-700 bg-slate-900",
+          "hover:bg-slate-800 active:bg-slate-800",
+          "hover:border-slate-600 active:border-slate-600",
+        )}
+        ref={ref}
+        {...rest}
+      />
+    );
+  },
+);
+
+Button.displayName = "Button";
+
+export { Button };
