@@ -76,9 +76,7 @@ export default function Page(): JSX.Element {
         </div>
       </div>
 
-      <Button appName="docs" className={styles.button}>
-        Click me!
-      </Button>
+      <Button appName="docs">Click me!</Button>
 
       <div className={styles.hero}>
         <div className={styles.heroContent}>
