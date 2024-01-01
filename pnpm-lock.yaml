@@ -67,7 +67,7 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2
 
-  apps/web:
+  apps/movie-app:
     dependencies:
       '@remix-run/node':
         specifier: ^2.4.1
