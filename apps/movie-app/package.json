@@ -13,6 +13,7 @@
     "write-graphql-schema": "node --import 'data:text/javascript,import { register } from \"node:module\"; import { pathToFileURL } from \"node:url\"; register(\"ts-node/esm\", pathToFileURL(\"./\"));' ./scripts/write-graphql-schema.ts"
   },
   "dependencies": {
+    "@apollo/server": "^4.10.0",
     "@pothos/core": "^3.41.0",
     "@pothos/plugin-relay": "^3.45.1",
     "@remix-run/node": "^2.4.1",

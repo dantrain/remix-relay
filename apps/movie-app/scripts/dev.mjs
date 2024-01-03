@@ -15,3 +15,4 @@ process.on("uncaughtException", () => {
 
 $`pnpm exec vite dev`;
 $`watchman-make -p 'app/graphql/**/*.ts' --run 'pnpm write-graphql-schema'`;
+$`relay-compiler --watch`;
