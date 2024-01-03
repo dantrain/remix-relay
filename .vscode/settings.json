@@ -3,5 +3,6 @@
     {
       "mode": "auto"
     }
-  ]
+  ],
+  "relay.rootDirectory": "apps/movie-app"
 }
