@@ -90,6 +90,9 @@ importers:
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.0
       graphql:
         specifier: 17.0.0-alpha.2
         version: 17.0.0-alpha.2
