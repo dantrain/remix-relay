@@ -69,6 +69,12 @@ importers:
 
   apps/movie-app:
     dependencies:
+      '@pothos/core':
+        specifier: ^3.41.0
+        version: 3.41.0(graphql@17.0.0-alpha.2)
+      '@pothos/plugin-relay':
+        specifier: ^3.45.1
+        version: 3.45.1(@pothos/core@3.41.0)(graphql@17.0.0-alpha.2)
       '@remix-run/node':
         specifier: ^2.4.1
         version: 2.4.1(typescript@5.2.2)
@@ -81,19 +87,28 @@ importers:
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      graphql:
+        specifier: 17.0.0-alpha.2
+        version: 17.0.0-alpha.2
       isbot:
         specifier: ^3.6.8
         version: 3.7.1
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
       react:
         specifier: ^18.2.0
         version: 18.2.0
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      tiny-invariant:
+        specifier: ^1.3.1
+        version: 1.3.1
     devDependencies:
       '@remix-run/dev':
         specifier: ^2.4.1
-        version: 2.4.1(@remix-run/serve@2.4.1)(@types/node@20.10.6)(typescript@5.2.2)(vite@5.0.10)
+        version: 2.4.1(@remix-run/serve@2.4.1)(@types/node@20.10.6)(ts-node@10.9.2)(typescript@5.2.2)(vite@5.0.10)
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -106,6 +121,9 @@ importers:
       '@types/eslint':
         specifier: ^8.44.7
         version: 8.44.7
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       '@types/node':
         specifier: ^20.10.6
         version: 20.10.6
@@ -120,7 +138,10 @@ importers:
         version: 8.54.0
       tailwindcss:
         specifier: ^3.4.0
-        version: 3.4.0
+        version: 3.4.0(ts-node@10.9.2)
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@20.10.6)(typescript@5.2.2)
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -177,7 +198,7 @@ importers:
         version: link:../typescript-config
       tailwindcss:
         specifier: ^3.4.0
-        version: 3.4.0
+        version: 3.4.0(ts-node@10.9.2)
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -231,7 +252,7 @@ importers:
         version: 18.2.0
       tailwindcss:
         specifier: ^3.4.0
-        version: 3.4.0
+        version: 3.4.0(ts-node@10.9.2)
       tsup:
         specifier: ^8.0.1
         version: 8.0.1(postcss@8.4.32)(typescript@5.2.2)
@@ -1568,6 +1589,24 @@ packages:
       tslib: 2.6.2
     dev: true
 
+  /@pothos/core@3.41.0(graphql@17.0.0-alpha.2):
+    resolution: {integrity: sha512-Nb7uPDTXVjdrWqHs5aoD1r6JEdQ9FnJYlf7gv47o1b/bb8rVDAZQaviVvaChal7YQcyFGgCFb0/YNNHLNBEjNw==}
+    peerDependencies:
+      graphql: '>=15.1.0'
+    dependencies:
+      graphql: 17.0.0-alpha.2
+    dev: false
+
+  /@pothos/plugin-relay@3.45.1(@pothos/core@3.41.0)(graphql@17.0.0-alpha.2):
+    resolution: {integrity: sha512-rumqbqd69wAP49XffhcI+ZdXLzu18IVrN4CWSX9mFqHQEwivnltUl9aCfdSTd63oVqPi8p5pTi63Dm+YkWpK4w==}
+    peerDependencies:
+      '@pothos/core': '*'
+      graphql: '>=15.1.0'
+    dependencies:
+      '@pothos/core': 3.41.0(graphql@17.0.0-alpha.2)
+      graphql: 17.0.0-alpha.2
+    dev: false
+
   /@radix-ui/react-compose-refs@1.0.1(@types/react@18.2.46)(react@18.2.0):
     resolution: {integrity: sha512-fDSBgd44FKHa1FRMU59qBMPFcl2PZE+2nmqunj+BWFyYYjnhIDWL2ItDs3rrbJDQOtzt5nIebLCQc4QRfz6LJw==}
     peerDependencies:
@@ -1597,7 +1636,7 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@remix-run/dev@2.4.1(@remix-run/serve@2.4.1)(@types/node@20.10.6)(typescript@5.2.2)(vite@5.0.10):
+  /@remix-run/dev@2.4.1(@remix-run/serve@2.4.1)(@types/node@20.10.6)(ts-node@10.9.2)(typescript@5.2.2)(vite@5.0.10):
     resolution: {integrity: sha512-T8GLCKpZ8AX/NCJ+vyMmcTq328xo9stvDSXG2hSJx7njz4Q9sC25miQLXPRb3Lx/Sdf4YlJhWQpR6uq5pnXCZg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
@@ -1655,7 +1694,7 @@ packages:
       pidtree: 0.6.0
       postcss: 8.4.32
       postcss-discard-duplicates: 5.1.0(postcss@8.4.32)
-      postcss-load-config: 4.0.2(postcss@8.4.32)
+      postcss-load-config: 4.0.2(postcss@8.4.32)(ts-node@10.9.2)
       postcss-modules: 6.0.0(postcss@8.4.32)
       prettier: 2.8.8
       pretty-ms: 7.0.1
@@ -2048,6 +2087,16 @@ packages:
     resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==}
     dependencies:
       '@types/node': 20.10.6
+    dev: true
+
+  /@types/lodash-es@4.17.12:
+    resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
+    dependencies:
+      '@types/lodash': 4.14.202
+    dev: true
+
+  /@types/lodash@4.14.202:
+    resolution: {integrity: sha512-OvlIYQK9tNneDlS0VN54LLd5uiPCBOp7gS5Z0f1mjoJYBrtStzgmJBxONW3U6OZqdtNzZPmn9BS/7WI7BFFcFQ==}
     dev: true
 
   /@types/mdast@3.0.15:
@@ -4687,6 +4736,11 @@ packages:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
 
+  /graphql@17.0.0-alpha.2:
+    resolution: {integrity: sha512-aRAd/BQ5hSO0+l7x+sHBfJVUp2JUOjPTE/iwJ3BhtYNH/MC7n4gjlZbKvnBVFZZAczyMS3vezS4teEZivoqIzw==}
+    engines: {node: ^14.19.0 || ^16.10.0 || >=18.0.0}
+    dev: false
+
   /gunzip-maybe@1.4.2:
     resolution: {integrity: sha512-4haO1M4mLO91PW57BMsDFf75UmwoRX0GkdD+Faw+Lr+r/OZrOCS0pIBwOL1xCKQqnQzbNFGgK2V2CpBUPeFNTw==}
     hasBin: true
@@ -5475,6 +5529,10 @@ packages:
     dependencies:
       p-locate: 5.0.0
     dev: true
+
+  /lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+    dev: false
 
   /lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
@@ -6753,7 +6811,7 @@ packages:
       postcss: 8.4.32
     dev: true
 
-  /postcss-load-config@4.0.2(postcss@8.4.32):
+  /postcss-load-config@4.0.2(postcss@8.4.32)(ts-node@10.9.2):
     resolution: {integrity: sha512-bSVhyJGL00wMVoPUzAVAnbEoWyqRxkjv64tUl427SKnPrENtq6hJwUojroMz2VB+Q1edmi4IfrAPpami5VVgMQ==}
     engines: {node: '>= 14'}
     peerDependencies:
@@ -6767,6 +6825,7 @@ packages:
     dependencies:
       lilconfig: 3.0.0
       postcss: 8.4.32
+      ts-node: 10.9.2(@types/node@20.10.6)(typescript@5.2.2)
       yaml: 2.3.4
     dev: true
 
@@ -7914,7 +7973,7 @@ packages:
       tslib: 2.6.2
     dev: true
 
-  /tailwindcss@3.4.0:
+  /tailwindcss@3.4.0(ts-node@10.9.2):
     resolution: {integrity: sha512-VigzymniH77knD1dryXbyxR+ePHihHociZbXnLZHUyzf2MMs2ZVqlUrZ3FvpXP8pno9JzmILt1sZPD19M3IxtA==}
     engines: {node: '>=14.0.0'}
     hasBin: true
@@ -7936,7 +7995,7 @@ packages:
       postcss: 8.4.32
       postcss-import: 15.1.0(postcss@8.4.32)
       postcss-js: 4.0.1(postcss@8.4.32)
-      postcss-load-config: 4.0.2(postcss@8.4.32)
+      postcss-load-config: 4.0.2(postcss@8.4.32)(ts-node@10.9.2)
       postcss-nested: 6.0.1(postcss@8.4.32)
       postcss-selector-parser: 6.0.15
       resolve: 1.22.8
@@ -8009,6 +8068,10 @@ packages:
   /through@2.3.8:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}
     dev: true
+
+  /tiny-invariant@1.3.1:
+    resolution: {integrity: sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==}
+    dev: false
 
   /title-case@2.1.1:
     resolution: {integrity: sha512-EkJoZ2O3zdCz3zJsYCsxyq2OC5hrxR9mfdd5I+w8h/tmFfeOxJ+vvkxsKxdmN0WtS9zLdHEgfgVOiMVgv+Po4Q==}
@@ -8111,6 +8174,37 @@ packages:
       yn: 3.1.1
     dev: true
 
+  /ts-node@10.9.2(@types/node@20.10.6)(typescript@5.2.2):
+    resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
+    hasBin: true
+    peerDependencies:
+      '@swc/core': '>=1.2.50'
+      '@swc/wasm': '>=1.2.50'
+      '@types/node': '*'
+      typescript: '>=2.7'
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      '@swc/wasm':
+        optional: true
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.9
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.4
+      '@types/node': 20.10.6
+      acorn: 8.10.0
+      acorn-walk: 8.2.0
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 5.2.2
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+    dev: true
+
   /tsconfck@2.1.2(typescript@5.2.2):
     resolution: {integrity: sha512-ghqN1b0puy3MhhviwO2kGF8SeMDNhEbnKxjK7h6+fvY9JAxqvXi8y5NAHSQv687OVboS2uZIByzGd45/YxrRHg==}
     engines: {node: ^14.13.1 || ^16 || >=18}
@@ -8177,7 +8271,7 @@ packages:
       globby: 11.1.0
       joycon: 3.1.1
       postcss: 8.4.32
-      postcss-load-config: 4.0.2(postcss@8.4.32)
+      postcss-load-config: 4.0.2(postcss@8.4.32)(ts-node@10.9.2)
       resolve-from: 5.0.0
       rollup: 4.9.2
       source-map: 0.8.0-beta.0
