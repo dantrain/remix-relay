@@ -1,6 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { Spinner } from "@repo/ui";
+import { Spinner } from "@remix-relay/ui";
 import { graphql, useLazyLoadQuery } from "react-relay";
 import MovieLink from "~/components/MovieLink";
 import { Suspense } from "~/components/Suspense";

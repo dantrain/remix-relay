@@ -1,5 +1,5 @@
 {
-  "name": "@repo/tailwind-config",
+  "name": "@remix-relay/tailwind-config",
   "version": "0.0.0",
   "private": true,
   "exports": {
@@ -9,7 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
+    "@remix-relay/typescript-config": "workspace:*",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.2.2"
   }

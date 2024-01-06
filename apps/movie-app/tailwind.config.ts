@@ -1,4 +1,4 @@
-import sharedConfig from "@repo/tailwind-config";
+import sharedConfig from "@remix-relay/tailwind-config";
 import type { Config } from "tailwindcss";
 
 export default {

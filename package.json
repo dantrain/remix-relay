@@ -9,8 +9,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@remix-relay/eslint-config": "workspace:*",
+    "@remix-relay/typescript-config": "workspace:*",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.10",
     "turbo": "latest"

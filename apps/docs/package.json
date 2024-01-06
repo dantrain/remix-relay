@@ -9,15 +9,15 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
+    "@remix-relay/ui": "workspace:*",
     "next": "^14.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.0.2",
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@remix-relay/eslint-config": "workspace:*",
+    "@remix-relay/typescript-config": "workspace:*",
     "@types/eslint": "^8.44.7",
     "@types/node": "^20.10.6",
     "@types/react": "^18.2.46",

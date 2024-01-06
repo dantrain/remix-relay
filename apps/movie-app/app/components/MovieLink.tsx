@@ -1,5 +1,5 @@
 import { NavLink } from "@remix-run/react";
-import { Button, Spinner } from "@repo/ui";
+import { Button, Spinner } from "@remix-relay/ui";
 import { cx } from "class-variance-authority";
 import { graphql, useFragment } from "react-relay";
 import type { MovieLinkFragment$key } from "./__generated__/MovieLinkFragment.graphql";

@@ -1,5 +1,5 @@
 {
-  "name": "@repo/ui",
+  "name": "@remix-relay/ui",
   "version": "0.0.0",
   "private": true,
   "sideEffects": false,
@@ -22,9 +22,9 @@
     "class-variance-authority": "^0.7.0"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/tailwind-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@remix-relay/eslint-config": "workspace:*",
+    "@remix-relay/tailwind-config": "workspace:*",
+    "@remix-relay/typescript-config": "workspace:*",
     "@turbo/gen": "^1.10.12",
     "@types/eslint": "^8.44.7",
     "@types/node": "^20.10.6",

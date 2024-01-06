@@ -1,4 +1,4 @@
-import { Button } from "@repo/ui";
+import { Button } from "@remix-relay/ui";
 import Image from "next/image";
 import styles from "./page.module.css";
 

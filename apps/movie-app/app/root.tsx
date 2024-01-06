@@ -6,7 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import "@repo/ui/dist/index.css";
+import "@remix-relay/ui/dist/index.css";
 import { RelayEnvironmentProvider } from "react-relay";
 import { getCurrentEnvironment } from "~/lib/relay-environment";
 import Progress from "./components/Progress";
