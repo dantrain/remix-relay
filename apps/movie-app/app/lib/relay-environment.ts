@@ -1,4 +1,4 @@
-// import { getCachedResponse } from "@remix-relay/react";
+import { getCachedResponse } from "@remix-relay/react";
 import { meros } from "meros/browser";
 import { trackPromise } from "react-promise-tracker";
 import type {
@@ -21,7 +21,7 @@ const fetchFn: FetchFunction = (
   cacheConfig: CacheConfig,
 ) => {
   return (
-    // getCachedResponse(params, variables, cacheConfig) ??
+    getCachedResponse(params, variables, cacheConfig) ??
     Observable.create((sink) => {
       setTimeout(
         () =>

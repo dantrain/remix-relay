@@ -1,5 +1,5 @@
 {
-  "extends": "@remix-relay/typescript-config/base.json",
+  "extends": "@remix-relay/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist"
   },
