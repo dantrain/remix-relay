@@ -1,4 +1,4 @@
-import { loaderQuery as remixRelayLoaderQuery } from "@remix-relay/remix-relay";
+import { loaderQuery as remixRelayLoaderQuery } from "@remix-relay/node";
 import { OperationType } from "relay-runtime";
 import { getServer } from "./apollo-server";
 

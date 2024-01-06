@@ -1,4 +1,4 @@
-// import { getCachedResponse } from "@remix-relay/remix-relay";
+// import { getCachedResponse } from "@remix-relay/react";
 import { meros } from "meros/browser";
 import { trackPromise } from "react-promise-tracker";
 import type {

@@ -19,7 +19,7 @@
     "@remix-run/node": "^2.4.1",
     "@remix-run/react": "^2.4.1",
     "@remix-run/serve": "^2.4.1",
-    "@remix-relay/remix-relay": "workspace:*",
+    "@remix-relay/node": "workspace:*",
     "@remix-relay/ui": "workspace:*",
     "class-variance-authority": "^0.7.0",
     "graphql": "17.0.0-alpha.2",
