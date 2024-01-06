@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3caf900d87ae9f6096259c09e2f710d0>>
+ * @generated SignedSource<<7977be8e84b86f32d181a7757ce579ac>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -46,20 +46,20 @@ v2 = {
   "name": "title",
   "storageKey": null
 },
-v3 = [
-  {
-    "kind": "Literal",
-    "name": "first",
-    "value": 5
-  }
-],
-v4 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-};
+},
+v4 = [
+  {
+    "kind": "Literal",
+    "name": "first",
+    "value": 5
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -141,6 +141,14 @@ return {
             "name": "imgUrl",
             "storageKey": null
           },
+          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "liked",
+            "storageKey": null
+          },
           {
             "if": null,
             "kind": "Defer",
@@ -148,7 +156,7 @@ return {
             "selections": [
               {
                 "alias": null,
-                "args": (v3/*: any*/),
+                "args": (v4/*: any*/),
                 "concreteType": "MovieReviewsConnection",
                 "kind": "LinkedField",
                 "name": "reviews",
@@ -170,7 +178,7 @@ return {
                         "name": "node",
                         "plural": false,
                         "selections": [
-                          (v4/*: any*/),
+                          (v3/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -249,29 +257,28 @@ return {
               },
               {
                 "alias": null,
-                "args": (v3/*: any*/),
+                "args": (v4/*: any*/),
                 "filters": null,
                 "handle": "connection",
                 "key": "MovieReviewsListFragment_reviews",
                 "kind": "LinkedHandle",
                 "name": "reviews"
               },
-              (v4/*: any*/)
+              (v3/*: any*/)
             ]
-          },
-          (v4/*: any*/)
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "19bb440e42180f91ad4c0fc69d58cda3",
+    "cacheID": "2134a41479a0844d155c1c62a6a2b5d8",
     "id": null,
     "metadata": {},
     "name": "movieQuery",
     "operationKind": "query",
-    "text": "query movieQuery(\n  $slug: String!\n) {\n  movie(slug: $slug) {\n    title\n    ...MovieDetailFragment\n    ...MovieReviewsListFragment @defer(label: \"movieQuery$defer$MovieReviewsListFragment\")\n    id\n  }\n}\n\nfragment MovieDetailFragment on Movie {\n  title\n  criticScore\n  audienceScore\n  criticsConsensus\n  imgUrl\n}\n\nfragment MovieReviewFragment on Review {\n  quote\n  fresh\n  criticName\n  criticSource\n}\n\nfragment MovieReviewsListFragment on Movie {\n  reviews(first: 5) {\n    edges {\n      node {\n        id\n        ...MovieReviewFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
+    "text": "query movieQuery(\n  $slug: String!\n) {\n  movie(slug: $slug) {\n    title\n    ...MovieDetailFragment\n    ...MovieReviewsListFragment @defer(label: \"movieQuery$defer$MovieReviewsListFragment\")\n    id\n  }\n}\n\nfragment LikeButtonFragment on Movie {\n  id\n  liked\n}\n\nfragment MovieDetailFragment on Movie {\n  title\n  criticScore\n  audienceScore\n  criticsConsensus\n  imgUrl\n  ...LikeButtonFragment\n}\n\nfragment MovieReviewFragment on Review {\n  quote\n  fresh\n  criticName\n  criticSource\n}\n\nfragment MovieReviewsListFragment on Movie {\n  reviews(first: 5) {\n    edges {\n      node {\n        id\n        ...MovieReviewFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
   }
 };
 })();

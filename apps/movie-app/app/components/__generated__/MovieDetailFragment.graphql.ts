@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bc9ade527a781a8689a4f6078fdd7844>>
+ * @generated SignedSource<<7bebb647d3385f22dc7c9f26025503e5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,6 +16,7 @@ export type MovieDetailFragment$data = {
   readonly criticsConsensus: string;
   readonly imgUrl: string;
   readonly title: string;
+  readonly " $fragmentSpreads": FragmentRefs<"LikeButtonFragment">;
   readonly " $fragmentType": "MovieDetailFragment";
 };
 export type MovieDetailFragment$key = {
@@ -63,12 +64,17 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "imgUrl",
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "LikeButtonFragment"
     }
   ],
   "type": "Movie",
   "abstractKey": null
 };
 
-(node as any).hash = "bec1a0a04f88dde70ad167a874a8205c";
+(node as any).hash = "9194e383504ba85f623ebd060f07073a";
 
 export default node;
