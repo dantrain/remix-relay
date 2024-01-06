@@ -1,3 +1,6 @@
+import { DeferredQueryProvider } from "@remix-relay/react";
+import { Spinner } from "@remix-relay/ui";
+import "@remix-relay/ui/dist/index.css";
 import {
   Links,
   LiveReload,
@@ -6,7 +9,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import "@remix-relay/ui/dist/index.css";
+import { Suspense } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
 import { getCurrentEnvironment } from "~/lib/relay-environment";
 import Progress from "./components/Progress";
@@ -23,12 +26,16 @@ export default function App() {
         <Links />
       </head>
       <body className="bg-slate-950 text-white">
-        <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
-          <Progress />
-          <div className="mx-auto max-w-3xl p-4 sm:p-8">
-            <Outlet />
-          </div>
-        </RelayEnvironmentProvider>
+        <DeferredQueryProvider>
+          <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
+            <Progress />
+            <div className="mx-auto max-w-3xl p-4 sm:p-8">
+              <Suspense fallback={<Spinner className="h-36" />}>
+                <Outlet />
+              </Suspense>
+            </div>
+          </RelayEnvironmentProvider>
+        </DeferredQueryProvider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
