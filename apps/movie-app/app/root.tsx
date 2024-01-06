@@ -6,11 +6,10 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import { Progress } from "@repo/ui";
+import "@repo/ui/dist/index.css";
 import { RelayEnvironmentProvider } from "react-relay";
 import { getCurrentEnvironment } from "~/lib/relay-environment";
-
-import "@repo/ui/dist/index.css";
+import Progress from "./components/Progress";
 import "./tailwind.css";
 
 export default function App() {
@@ -25,7 +24,7 @@ export default function App() {
       </head>
       <body className="bg-slate-950 text-white">
         <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
-          <Progress isLoading={false} />
+          <Progress />
           <div className="mx-auto max-w-3xl p-4 sm:p-8">
             <Outlet />
           </div>
