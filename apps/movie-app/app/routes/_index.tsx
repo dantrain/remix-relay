@@ -2,7 +2,7 @@ import { useLoaderQuery } from "@remix-relay/react";
 import type { MetaFunction } from "@remix-run/node";
 import { graphql } from "react-relay";
 import MovieLink from "~/components/MovieLink";
-import { loaderQuery } from "~/lib/loaderQuery.server";
+import { loaderQuery } from "~/lib/loader-query.server";
 import indexQueryNode, { IndexQuery } from "./__generated__/IndexQuery.graphql";
 
 const query = graphql`
