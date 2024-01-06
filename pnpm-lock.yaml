@@ -87,6 +87,9 @@ importers:
       '@remix-run/serve':
         specifier: ^2.4.1
         version: 2.4.1(typescript@5.2.2)
+      '@repo/remix-relay':
+        specifier: workspace:*
+        version: link:../../packages/remix-relay
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
