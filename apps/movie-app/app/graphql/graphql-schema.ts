@@ -9,8 +9,8 @@ import {
   specifiedDirectives,
 } from "graphql";
 import invariant from "tiny-invariant";
-import type { Objects } from "../db/data.js";
-import { movies } from "../db/data.js";
+import type { Objects } from "../data/movie-data.js";
+import { movies } from "../data/movie-data.js";
 import wait from "../lib/wait.js";
 
 const builder = new SchemaBuilder<{
