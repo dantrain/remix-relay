@@ -28,7 +28,7 @@ export default function MovieDetail({ className, dataRef }: MovieDetailProps) {
       <div className="flex flex-none justify-center">
         <img src={imgUrl} width={206} height={305} alt={`${title} poster`} />
       </div>
-      <div className="py-2">
+      <div className="flex-grow py-2">
         <div className="mb-4 flex items-start justify-between gap-4">
           <h1 className="text-2xl font-bold">{title}</h1>
           <LikeButton dataRef={movie} />
