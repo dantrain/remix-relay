@@ -5,7 +5,7 @@
   "files": [
     "library.js",
     "remix.js",
-    "react-internal.js"
+    "react-library.js"
   ],
   "devDependencies": {
     "@vercel/style-guide": "^5.1.0",

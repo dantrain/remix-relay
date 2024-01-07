@@ -1,5 +1,5 @@
-import { NavLink } from "@remix-run/react";
 import { Button, Spinner } from "@remix-relay/ui";
+import { NavLink } from "@remix-run/react";
 import { cx } from "class-variance-authority";
 import { graphql, useFragment } from "react-relay";
 import type { MovieLinkFragment$key } from "./__generated__/MovieLinkFragment.graphql";
@@ -26,12 +26,12 @@ export default function MovieLink({ dataRef }: MovieLinkProps) {
   return (
     <Button asChild>
       <NavLink
-        to={`/movie/${slug}`}
         className={cx(
           "group flex items-center gap-4 px-4 py-3",
           "[&.pending]:border-slate-600 [&.pending]:bg-slate-800",
           "[&.pending]:scale-[.99]",
         )}
+        to={`/movie/${slug}`}
       >
         {({ isPending }) => (
           <>

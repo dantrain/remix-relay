@@ -26,7 +26,7 @@ export default function MovieDetail({ className, dataRef }: MovieDetailProps) {
   return (
     <div className={cx(className, "flex flex-col gap-8 sm:flex-row")}>
       <div className="flex flex-none justify-center">
-        <img src={imgUrl} width={206} height={305} alt={`${title} poster`} />
+        <img alt={`${title} poster`} height={305} src={imgUrl} width={206} />
       </div>
       <div className="flex-grow py-2">
         <div className="mb-4 flex items-start justify-between gap-4">

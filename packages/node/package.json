@@ -17,6 +17,7 @@
   "peerDependencies": {
     "@apollo/server": "^4.9.5",
     "@remix-run/node": "^2.4.1",
+    "graphql": "17.0.0-alpha.2",
     "relay-runtime": "^16.1.0"
   },
   "dependencies": {

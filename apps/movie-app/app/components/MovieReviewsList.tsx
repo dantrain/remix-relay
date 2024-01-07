@@ -38,7 +38,7 @@ export default function MovieReviewsList({ dataRef }: MovieReviewsListProps) {
     <>
       <ul className="mb-8">
         {reviews.edges.map(({ node }) => (
-          <li key={node.id} className="mb-4">
+          <li className="mb-4" key={node.id}>
             <MovieReview dataRef={node} />
           </li>
         ))}

@@ -20,8 +20,8 @@ export default function App() {
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Remix + Relay, what a combo" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="Remix + Relay, what a combo" name="description" />
         <Meta />
         <Links />
       </head>

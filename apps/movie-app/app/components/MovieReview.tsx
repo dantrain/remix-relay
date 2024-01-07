@@ -14,7 +14,7 @@ type MovieReviewProps = {
   dataRef: MovieReviewFragment$key;
 };
 
-export const MovieReview = ({ dataRef }: MovieReviewProps) => {
+export function MovieReview({ dataRef }: MovieReviewProps) {
   const { fresh, quote, criticName, criticSource } = useFragment(
     fragment,
     dataRef,
@@ -31,4 +31,4 @@ export const MovieReview = ({ dataRef }: MovieReviewProps) => {
       </blockquote>
     </div>
   );
-};
+}

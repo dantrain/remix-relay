@@ -110,9 +110,7 @@ export function useLoaderQuery<TQuery extends OperationType>(
 
   const [queryRef, loadQuery, disposeQuery] = useQueryLoader<TQuery>(query);
 
-  useMemo(() => {
-    if (queryRef) ref = queryRef;
-  }, [queryRef]);
+  if (queryRef) ref = queryRef;
 
   const reloadQuery: typeof loadQuery = (
     variables,

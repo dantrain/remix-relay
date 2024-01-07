@@ -11,9 +11,9 @@ export default function BackLink() {
           "[&.pending]:border-slate-600 [&.pending]:bg-slate-800",
           "[&.pending]:scale-[.99]",
         )}
-        to="../.."
         relative="path"
         title="Home"
+        to="../.."
       >
         {({ isPending }) =>
           isPending ? (

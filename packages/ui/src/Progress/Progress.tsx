@@ -53,7 +53,7 @@ export function Progress({ isLoading }: { isLoading: boolean }) {
             boxShadow: "0 0 10px rgb(255 255 255), 0 0 5px rgb(255 255 255)",
           }}
         />
-        <div className="relative z-10 h-full w-full bg-white"></div>
+        <div className="relative z-10 h-full w-full bg-white" />
       </div>
     </div>
   );
