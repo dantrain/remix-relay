@@ -6,6 +6,13 @@ import type {
   VariablesOf,
 } from "relay-runtime";
 
+export function getClientLoaderQuery(environment: Environment) {
+  return async <TQuery extends OperationType>(
+    query: GraphQLTaggedNode,
+    variables: VariablesOf<TQuery>,
+  ) => clientLoaderQuery(environment, query, variables);
+}
+
 export async function clientLoaderQuery<TQuery extends OperationType>(
   environment: Environment,
   query: GraphQLTaggedNode,

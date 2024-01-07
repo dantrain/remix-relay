@@ -1,7 +1,7 @@
 import { ApolloServer } from "@apollo/server";
 import { schema } from "~/graphql/graphql-schema";
 
-const server = new ApolloServer({
+export const server = new ApolloServer({
   schema,
 });
 

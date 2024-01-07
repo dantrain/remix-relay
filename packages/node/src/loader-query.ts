@@ -24,6 +24,21 @@ export type SerializablePreloadedQuery<
   response: TResponse;
 };
 
+export function getLoaderQuery(server: ApolloServer<BaseContext>) {
+  return async <TQuery extends OperationType>(
+    node: ConcreteRequest,
+    variables: VariablesOf<TQuery>,
+  ) => {
+    try {
+      server.assertStarted("Server not started");
+    } catch (e) {
+      await server.start();
+    }
+
+    return loaderQuery(server, node, variables);
+  };
+}
+
 export async function loaderQuery<TQuery extends OperationType>(
   server: ApolloServer<BaseContext>,
   node: ConcreteRequest,

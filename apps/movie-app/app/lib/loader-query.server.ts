@@ -1,13 +1,4 @@
-import { loaderQuery as remixRelayLoaderQuery } from "@remix-relay/node";
-import { OperationType } from "relay-runtime";
-import { getServer } from "./apollo-server";
+import { getLoaderQuery } from "@remix-relay/node";
+import { server } from "./apollo-server";
 
-type Tail<T extends unknown[]> = T extends [unknown, ...infer TailType]
-  ? TailType
-  : never;
-
-export async function loaderQuery<TQuery extends OperationType>(
-  ...args: Tail<Parameters<typeof remixRelayLoaderQuery>>
-) {
-  return remixRelayLoaderQuery<TQuery>(await getServer(), ...args);
-}
+export const loaderQuery = getLoaderQuery(server);
