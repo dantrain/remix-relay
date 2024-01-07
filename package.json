@@ -1,5 +1,5 @@
 {
-  "name": "remix-relay-turbo",
+  "name": "remix-relay",
   "private": true,
   "scripts": {
     "build": "turbo build",
@@ -20,8 +20,10 @@
     "node": ">=18"
   },
   "pnpm": {
-    "overrides": {
-      "graphql": "17.0.0-alpha.2"
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "graphql": "17.0.0-alpha.2"
+      }
     }
   }
 }
