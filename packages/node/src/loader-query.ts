@@ -2,22 +2,26 @@ import type {
   ApolloServer,
   BaseContext,
   GraphQLExperimentalFormattedInitialIncrementalExecutionResult,
+  GraphQLExperimentalFormattedSubsequentIncrementalExecutionResult,
 } from "@apollo/server";
 import { TypedDeferredData, TypedResponse, defer, json } from "@remix-run/node";
 import { FormattedExecutionResult } from "graphql";
 import type {
   ConcreteRequest,
-  GraphQLResponse,
   OperationType,
   RequestParameters,
   VariablesOf,
 } from "relay-runtime";
+import { PayloadExtensions } from "relay-runtime/lib/network/RelayNetworkTypes";
 import invariant from "tiny-invariant";
 
-export type SerializablePreloadedQuery<TQuery extends OperationType> = {
-  params: ConcreteRequest["params"];
+export type SerializablePreloadedQuery<
+  TQuery extends OperationType,
+  TResponse,
+> = {
+  params: RequestParameters;
   variables: VariablesOf<TQuery>;
-  response: GraphQLResponse;
+  response: TResponse;
 };
 
 export async function loaderQuery<TQuery extends OperationType>(
@@ -26,26 +30,29 @@ export async function loaderQuery<TQuery extends OperationType>(
   variables: VariablesOf<TQuery>,
 ): Promise<
   | TypedResponse<{
-      preloadedQuery: {
-        params: RequestParameters;
-        variables: VariablesOf<TQuery>;
-        response: FormattedExecutionResult<
-          Record<string, unknown>,
-          { [key: string]: unknown }
-        >;
-      };
+      preloadedQuery: SerializablePreloadedQuery<
+        TQuery,
+        FormattedExecutionResult<TQuery["response"], PayloadExtensions>
+      >;
       deferredQueries: null;
     }>
   | TypedDeferredData<{
-      preloadedQuery: {
-        params: RequestParameters;
-        variables: VariablesOf<TQuery>;
-        response: GraphQLExperimentalFormattedInitialIncrementalExecutionResult<
-          { [key: string]: unknown },
-          { [key: string]: unknown }
-        >;
-      };
-      deferredQueries: Promise<unknown>;
+      preloadedQuery: SerializablePreloadedQuery<
+        TQuery,
+        GraphQLExperimentalFormattedInitialIncrementalExecutionResult<
+          TQuery["response"],
+          PayloadExtensions
+        >
+      >;
+      deferredQueries: Promise<
+        SerializablePreloadedQuery<
+          TQuery,
+          GraphQLExperimentalFormattedSubsequentIncrementalExecutionResult<
+            TQuery["response"],
+            PayloadExtensions
+          >
+        >[]
+      >;
     }>
 > {
   const result = await server.executeOperation(
