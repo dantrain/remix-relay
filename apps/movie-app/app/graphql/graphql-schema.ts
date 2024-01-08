@@ -11,7 +11,10 @@ import {
 import invariant from "tiny-invariant";
 import type { Objects } from "../data/movie-data.js";
 import { movies } from "../data/movie-data.js";
-import wait from "../lib/wait.js";
+
+const wait = (ms?: number) => {
+  if (ms) return new Promise((resolve) => setTimeout(resolve, ms));
+};
 
 const builder = new SchemaBuilder<{
   Objects: Objects;
