@@ -6,7 +6,7 @@ export const SetDeferredQueryContext = createContext<
   Dispatch<SetStateAction<Promise<any> | null>>
 >(() => {});
 
-export function DeferredQueryProvider({ children }: PropsWithChildren) {
+export function RemixRelayProvider({ children }: PropsWithChildren) {
   const [deferredQueries, setDeferredQueries] = useState<Promise<any> | null>(
     null,
   );
