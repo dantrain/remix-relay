@@ -1,7 +1,19 @@
 {
   "name": "@remix-relay/server",
-  "version": "0.0.0",
-  "private": true,
+  "description": "Provides Relay integration with Remix",
+  "version": "0.1.0",
+  "author": "Dan Train",
+  "keywords": [
+    "Remix",
+    "Relay",
+    "React"
+  ],
+  "homepage": "https://github.com/dantrain/remix-relay#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dantraim/remix-relay.git"
+  },
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
