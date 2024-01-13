@@ -10,7 +10,7 @@
     "start": "remix-serve ./build/server/index.js",
     "lint": "eslint . --max-warnings 0 --ignore-path ../../.gitignore",
     "typecheck": "tsc --noEmit",
-    "write-graphql-schema": "node --import 'data:text/javascript,import { register } from \"node:module\"; import { pathToFileURL } from \"node:url\"; register(\"ts-node/esm\", pathToFileURL(\"./\"));' ./scripts/write-graphql-schema.ts"
+    "write-graphql-schema": "tsm ./scripts/write-graphql-schema.ts"
   },
   "dependencies": {
     "@apollo/server": "^4.10.0",
@@ -49,7 +49,7 @@
     "@types/relay-runtime": "^14.1.21",
     "eslint": "^8.53.0",
     "tailwindcss": "^3.4.0",
-    "ts-node": "^10.9.2",
+    "tsm": "^2.3.0",
     "typescript": "^5.2.2",
     "vite": "^4.5.0",
     "vite-plugin-relay": "^2.0.0",
