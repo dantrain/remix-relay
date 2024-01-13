@@ -4,5 +4,5 @@
       "mode": "auto"
     }
   ],
-  "relay.rootDirectory": "apps/movie-app"
+  "relay.rootDirectory": "apps/counter-app"
 }
