@@ -1,5 +1,5 @@
 import { useLoaderQuery } from "@remix-relay/react";
-import type { MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { graphql } from "react-relay";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
@@ -13,7 +13,8 @@ const query = graphql`
 
 export const meta: MetaFunction = () => [{ title: "Counter App" }];
 
-export const loader = async () => loaderQuery<IndexQuery>(indexQueryNode, {});
+export const loader = ({ context }: LoaderFunctionArgs) =>
+  loaderQuery<IndexQuery>(context, indexQueryNode, {});
 
 export const clientLoader = () => clientLoaderQuery<IndexQuery>(query, {});
 
