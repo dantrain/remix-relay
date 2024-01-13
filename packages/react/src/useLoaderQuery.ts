@@ -73,7 +73,7 @@ export function useLoaderQuery<TQuery extends OperationType>(
         }),
       );
     }
-  }, [deferredQueries, preloadedQuery, setDeferredQueries]);
+  }, [deferredQueries, preloadedQuery, setDeferredQueries, setDeferredResult]);
 
   const environment = useRelayEnvironment();
 
