@@ -21,8 +21,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           className,
           "rounded-md border px-2 py-1 text-left",
           "border-slate-700 bg-slate-900",
-          "hover:bg-slate-800 active:bg-slate-800",
-          "hover:border-slate-600 active:border-slate-600",
+          "disabled:cursor-not-allowed disabled:opacity-60",
+          "hover:enabled:bg-slate-800 active:enabled:bg-slate-800",
+          "hover:enabled:border-slate-600 active:enabled:border-slate-600",
         )}
         ref={ref}
         {...rest}
