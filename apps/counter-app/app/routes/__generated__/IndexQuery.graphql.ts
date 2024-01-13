@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1fc85f3cdb692db5769616c5f8eea6fe>>
+ * @generated SignedSource<<82b637ed5398330bca38d1cfdbf2c65b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,10 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 export type IndexQuery$variables = Record<PropertyKey, never>;
 export type IndexQuery$data = {
-  readonly count: number;
+  readonly counter: {
+    readonly count: number;
+    readonly id: string;
+  };
 };
 export type IndexQuery = {
   response: IndexQuery$data;
@@ -23,8 +26,26 @@ var v0 = [
   {
     "alias": null,
     "args": null,
-    "kind": "ScalarField",
-    "name": "count",
+    "concreteType": "Counter",
+    "kind": "LinkedField",
+    "name": "counter",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "id",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "count",
+        "storageKey": null
+      }
+    ],
     "storageKey": null
   }
 ];
@@ -46,16 +67,16 @@ return {
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "48566729e5ddcc46bbf51efab2f79157",
+    "cacheID": "f099c3b3148031e7285cee9461942245",
     "id": null,
     "metadata": {},
     "name": "IndexQuery",
     "operationKind": "query",
-    "text": "query IndexQuery {\n  count\n}\n"
+    "text": "query IndexQuery {\n  counter {\n    id\n    count\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "5bd202c7987e0335b5736becda5892ae";
+(node as any).hash = "e85ed9efeb04a74f111fc79cef7f8068";
 
 export default node;

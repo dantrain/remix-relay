@@ -23,6 +23,21 @@ directive @stream(
   label: String
 ) on FIELD
 
-type Query {
+type Counter implements Node {
   count: Int!
+  id: ID!
+}
+
+type Mutation {
+  setCount(count: Int!): Counter!
+}
+
+interface Node {
+  id: ID!
+}
+
+type Query {
+  counter: Counter!
+  node(id: ID!): Node
+  nodes(ids: [ID!]!): [Node]!
 }

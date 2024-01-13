@@ -7,7 +7,11 @@ import {
 } from "graphql";
 
 const builder = new SchemaBuilder<{
-  // Objects: Objects;
+  Objects: {
+    Counter: {
+      count: number;
+    };
+  };
   DefaultEdgesNullability: false;
 }>({
   plugins: [RelayPlugin],
@@ -18,12 +22,35 @@ const builder = new SchemaBuilder<{
   },
 });
 
-const count = 0;
+let count = 0;
+
+const Counter = builder.node("Counter", {
+  id: { resolve: () => "id" },
+  fields: (t) => ({
+    count: t.exposeInt("count"),
+  }),
+});
 
 builder.queryType({
   fields: (t) => ({
-    count: t.int({
-      resolve: () => count,
+    counter: t.field({
+      type: Counter,
+      resolve: () => ({ count }),
+    }),
+  }),
+});
+
+builder.mutationType({
+  fields: (t) => ({
+    setCount: t.field({
+      type: Counter,
+      args: {
+        count: t.arg.int({ required: true }),
+      },
+      resolve: (_parent, args) => {
+        count = Math.max(0, args.count);
+        return { count };
+      },
     }),
   }),
 });
