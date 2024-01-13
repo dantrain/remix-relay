@@ -13,6 +13,6 @@ process.on("uncaughtException", () => {
   process.exit(0);
 });
 
-$`pnpm exec vite dev`;
+$`NODE_ENV=development pnpm exec tsx ./server.ts`;
 $`watchman-make -p 'app/graphql/**/*.ts' --run 'pnpm write-graphql-schema'`;
 $`relay-compiler --watch`;
