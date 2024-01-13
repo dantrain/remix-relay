@@ -1,11 +1,17 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import { createRequestHandler } from "@remix-run/express";
 import { installGlobals } from "@remix-run/node";
 import cors from "cors";
 import express from "express";
 import "express-async-errors";
+import { useServer } from "graphql-ws/lib/use/ws";
+import { createServer } from "http";
 import path from "path";
-import { getServer } from "../app/lib/apollo-server";
+import { WebSocketServer } from "ws";
+import { schema } from "../app/graphql/graphql-schema";
 
 const mode = process.env.NODE_ENV as "development" | "production";
 
@@ -21,6 +27,7 @@ const viteDevServer =
       );
 
 const app = express();
+const httpServer = createServer(app);
 
 if (viteDevServer) {
   app.use(viteDevServer.middlewares);
@@ -40,7 +47,30 @@ app.use(
   }),
 );
 
-const apolloServer = await getServer();
+const wsServer = new WebSocketServer({
+  server: httpServer,
+  path: "/subscriptions",
+});
+
+const serverCleanup = useServer({ schema }, wsServer);
+
+const apolloServer = new ApolloServer({
+  schema,
+  plugins: [
+    ApolloServerPluginDrainHttpServer({ httpServer }),
+    {
+      async serverWillStart() {
+        return {
+          async drainServer() {
+            await serverCleanup.dispose();
+          },
+        };
+      },
+    },
+  ],
+});
+
+await apolloServer.start();
 
 app.use(
   "/graphql",
@@ -64,6 +94,6 @@ app.all(
   }),
 );
 
-const port = 3000;
+const PORT = 3000;
 
-app.listen(port, () => console.log("http://localhost:" + port));
+httpServer.listen(PORT, () => console.log("http://localhost:" + PORT));
