@@ -4,6 +4,7 @@ import { installGlobals } from "@remix-run/node";
 import cors from "cors";
 import express from "express";
 import "express-async-errors";
+import path from "path";
 import { getServer } from "../app/lib/apollo-server";
 
 const mode = process.env.NODE_ENV as "development" | "production";
@@ -26,14 +27,18 @@ if (viteDevServer) {
 } else {
   app.use(
     "/assets",
-    express.static("../build/client/assets", {
+    express.static(path.join(import.meta.dirname!, "../build/client/assets"), {
       immutable: true,
       maxAge: "1y",
     }),
   );
 }
 
-app.use(express.static("../build/client", { maxAge: "1h" }));
+app.use(
+  express.static(path.join(import.meta.dirname!, "../build/client"), {
+    maxAge: "1h",
+  }),
+);
 
 const apolloServer = await getServer();
 
@@ -49,8 +54,10 @@ app.all(
   createRequestHandler({
     build: viteDevServer
       ? () => viteDevServer.ssrLoadModule("virtual:remix/server-build")
-      : // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ((await import("../build/server/remix.js")) as any),
+      : ((await import(
+          path.join(import.meta.dirname!, "../build/server/remix.js")
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        )) as any),
     getLoadContext() {
       return { apolloServer };
     },
