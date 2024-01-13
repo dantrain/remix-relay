@@ -74,6 +74,9 @@ importers:
       graphql:
         specifier: 17.0.0-alpha.2
         version: 17.0.0-alpha.2
+      graphql-ws:
+        specifier: ^5.14.3
+        version: 5.14.3(graphql@17.0.0-alpha.2)
       isbot:
         specifier: ^3.6.8
         version: 3.7.1
@@ -5351,6 +5354,15 @@ packages:
   /graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
+
+  /graphql-ws@5.14.3(graphql@17.0.0-alpha.2):
+    resolution: {integrity: sha512-F/i2xNIVbaEF2xWggID0X/UZQa2V8kqKDPO8hwmu53bVOcTL7uNkxnexeEgSCVxYBQUTUNEI8+e4LO1FOhKPKQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      graphql: '>=0.11 <=16 || 17.0.0-alpha.2'
+    dependencies:
+      graphql: 17.0.0-alpha.2
+    dev: false
 
   /graphql@15.3.0:
     resolution: {integrity: sha512-GTCJtzJmkFLWRfFJuoo9RWWa/FfamUHgiFosxi/X1Ani4AVWbeyBenZTNX6dM+7WSbbFfTo/25eh0LLkwHMw2w==}
