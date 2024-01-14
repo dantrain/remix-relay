@@ -1,10 +1,14 @@
 import SchemaBuilder from "@pothos/core";
 import RelayPlugin from "@pothos/plugin-relay";
+import SmartSubscriptionsPlugin, {
+  subscribeOptionsFromIterator,
+} from "@pothos/plugin-smart-subscriptions";
 import {
   GraphQLDeferDirective,
   GraphQLStreamDirective,
   specifiedDirectives,
 } from "graphql";
+import type { PubSub } from "graphql-subscriptions";
 
 const builder = new SchemaBuilder<{
   Objects: {
@@ -12,13 +16,19 @@ const builder = new SchemaBuilder<{
       count: number;
     };
   };
+  Context: { pubsub: PubSub };
   DefaultEdgesNullability: false;
 }>({
-  plugins: [RelayPlugin],
+  plugins: [RelayPlugin, SmartSubscriptionsPlugin],
   relayOptions: {
     clientMutationId: "omit",
     cursorType: "String",
     edgesFieldOptions: { nullable: false },
+  },
+  smartSubscriptions: {
+    ...subscribeOptionsFromIterator((name, { pubsub }) =>
+      pubsub.asyncIterator(name),
+    ),
   },
 });
 
@@ -35,10 +45,14 @@ builder.queryType({
   fields: (t) => ({
     counter: t.field({
       type: Counter,
+      smartSubscription: true,
+      subscribe: (subscriptions) => subscriptions.register("countSet"),
       resolve: () => ({ count }),
     }),
   }),
 });
+
+builder.subscriptionType();
 
 builder.mutationType({
   fields: (t) => ({
@@ -47,8 +61,9 @@ builder.mutationType({
       args: {
         count: t.arg.int({ required: true }),
       },
-      resolve: (_parent, args) => {
-        count = Math.max(0, args.count);
+      resolve: (_parent, args, { pubsub }) => {
+        count = args.count;
+        pubsub.publish("countSet", { count });
         return { count };
       },
     }),

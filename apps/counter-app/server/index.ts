@@ -7,6 +7,7 @@ import { installGlobals } from "@remix-run/node";
 import cors from "cors";
 import express from "express";
 import "express-async-errors";
+import { PubSub } from "graphql-subscriptions";
 import { useServer } from "graphql-ws/lib/use/ws";
 import { createServer } from "http";
 import path from "path";
@@ -49,12 +50,17 @@ app.use(
 
 const wsServer = new WebSocketServer({
   server: httpServer,
-  path: "/subscriptions",
+  path: "/graphql",
 });
 
-const serverCleanup = useServer({ schema }, wsServer);
+const pubsub = new PubSub();
 
-const apolloServer = new ApolloServer({
+const serverCleanup = useServer(
+  { schema, context: () => ({ pubsub }) },
+  wsServer,
+);
+
+const apolloServer = new ApolloServer<{ pubsub: PubSub }>({
   schema,
   plugins: [
     ApolloServerPluginDrainHttpServer({ httpServer }),
@@ -76,7 +82,7 @@ app.use(
   "/graphql",
   cors<cors.CorsRequest>(),
   express.json(),
-  expressMiddleware(apolloServer),
+  expressMiddleware(apolloServer, { context: async () => ({ pubsub }) }),
 );
 
 app.all(
@@ -96,4 +102,10 @@ app.all(
 
 const PORT = 3000;
 
-httpServer.listen(PORT, () => console.log("http://localhost:" + PORT));
+httpServer.listen(PORT, () => {
+  console.log(`🚀 App running at http://localhost:${PORT}`);
+  console.log(`🚀 Query endpoint ready at http://localhost:${PORT}/graphql`);
+  console.log(
+    `🚀 Subscription endpoint ready at ws://localhost:${PORT}/graphql`,
+  );
+});
