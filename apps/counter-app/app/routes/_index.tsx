@@ -1,3 +1,4 @@
+import { encodeGlobalID } from "@pothos/plugin-relay";
 import { useLoaderQuery } from "@remix-relay/react";
 import { Button } from "@remix-relay/ui";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
@@ -112,12 +113,12 @@ export default function Index() {
 
             commitCreateOneCounter({
               variables: { id, connections: [counterConnection.__id] },
-              // optimisticResponse: {
-              //   createOneCounter: {
-              //     id: encodeGlobalID("Counter", id),
-              //     count: 0,
-              //   },
-              // },
+              optimisticResponse: {
+                createOneCounter: {
+                  id: encodeGlobalID("Counter", id),
+                  count: 0,
+                },
+              },
             });
           }}
         >

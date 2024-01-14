@@ -16,6 +16,10 @@ import type { PubSub } from "graphql-subscriptions";
 import invariant from "tiny-invariant";
 import { v4 as uuidv4 } from "uuid";
 
+const wait = (ms?: number) => {
+  if (ms) return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
 type Counter = {
   id: string;
   count: number;
@@ -72,10 +76,16 @@ builder.queryType({
       },
       smartSubscription: true,
       subscribe: (subscriptions) => void subscriptions.register("countSet"),
-      resolve: (_parent, args) => {
+      resolve: async (_parent, args) => {
         const id = decodeGlobalID(args.id.toString()).id;
 
-        const counter = data.find((_) => _.id === id);
+        let counter = data.find((_) => _.id === id);
+
+        if (!counter) {
+          await wait(500);
+          counter = data.find((_) => _.id === id);
+        }
+
         invariant(counter, "Counter not found");
 
         return counter;
