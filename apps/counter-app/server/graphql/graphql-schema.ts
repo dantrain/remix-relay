@@ -6,6 +6,7 @@ import RelayPlugin, {
 import SmartSubscriptionsPlugin, {
   subscribeOptionsFromIterator,
 } from "@pothos/plugin-smart-subscriptions";
+import ValidationPlugin from "@pothos/plugin-validation";
 import {
   GraphQLDeferDirective,
   GraphQLStreamDirective,
@@ -27,7 +28,7 @@ const builder = new SchemaBuilder<{
   Context: { pubsub: PubSub };
   DefaultEdgesNullability: false;
 }>({
-  plugins: [RelayPlugin, SmartSubscriptionsPlugin],
+  plugins: [RelayPlugin, SmartSubscriptionsPlugin, ValidationPlugin],
   relayOptions: {
     clientMutationId: "omit",
     cursorType: "String",
@@ -126,7 +127,7 @@ builder.mutationType({
     }),
     createOneCounter: t.field({
       type: Counter,
-      args: { id: t.arg.id({ required: true }) },
+      args: { id: t.arg.id({ required: true, validate: { uuid: true } }) },
       resolve: (_parent, args, { pubsub }) => {
         const counter = { id: args.id.toString(), count: 0 };
         data.push(counter);

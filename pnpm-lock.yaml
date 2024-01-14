@@ -38,6 +38,9 @@ importers:
       '@pothos/plugin-smart-subscriptions':
         specifier: ^3.7.1
         version: 3.7.1(@pothos/core@3.41.0)(graphql@17.0.0-alpha.2)
+      '@pothos/plugin-validation':
+        specifier: ^3.10.1
+        version: 3.10.1(@pothos/core@3.41.0)(graphql@17.0.0-alpha.2)(zod@3.22.4)
       '@remix-relay/react':
         specifier: workspace:*
         version: link:../../packages/react
@@ -116,6 +119,9 @@ importers:
       ws:
         specifier: ^8.16.0
         version: 8.16.0
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
     devDependencies:
       '@remix-relay/eslint-config':
         specifier: workspace:*
@@ -1978,6 +1984,18 @@ packages:
     dependencies:
       '@pothos/core': 3.41.0(graphql@17.0.0-alpha.2)
       graphql: 17.0.0-alpha.2
+    dev: false
+
+  /@pothos/plugin-validation@3.10.1(@pothos/core@3.41.0)(graphql@17.0.0-alpha.2)(zod@3.22.4):
+    resolution: {integrity: sha512-FdYHzVSbrHZ4cDPOW/RB8Zsyx7qNuybAbC5DO3zVSsPPgY/FWLNWtQ6CaE+tkg5Je1RxpmO5od7Ig1Wt+akqnA==}
+    peerDependencies:
+      '@pothos/core': '*'
+      graphql: '>=15.1.0 || 17.0.0-alpha.2'
+      zod: '*'
+    dependencies:
+      '@pothos/core': 3.41.0(graphql@17.0.0-alpha.2)
+      graphql: 17.0.0-alpha.2
+      zod: 3.22.4
     dev: false
 
   /@protobufjs/aspromise@1.1.2:
@@ -9668,6 +9686,10 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod@3.22.4:
+    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+    dev: false
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
