@@ -15,12 +15,14 @@ import type { PubSub } from "graphql-subscriptions";
 import invariant from "tiny-invariant";
 import { v4 as uuidv4 } from "uuid";
 
+type Counter = {
+  id: string;
+  count: number;
+};
+
 const builder = new SchemaBuilder<{
   Objects: {
-    Counter: {
-      id: string;
-      count: number;
-    };
+    Counter: Counter;
   };
   Context: { pubsub: PubSub };
   DefaultEdgesNullability: false;
@@ -68,7 +70,7 @@ builder.queryType({
         id: t.arg.id({ required: true }),
       },
       smartSubscription: true,
-      subscribe: (subscriptions) => subscriptions.register("countSet"),
+      subscribe: (subscriptions) => void subscriptions.register("countSet"),
       resolve: (_parent, args) => {
         const id = decodeGlobalID(args.id.toString()).id;
 
@@ -81,7 +83,26 @@ builder.queryType({
   }),
 });
 
-builder.subscriptionType();
+builder.subscriptionType({
+  fields: (t) => ({
+    counterCreated: t.field({
+      type: Counter,
+      subscribe: (_parent, _args, { pubsub }) =>
+        pubsub.asyncIterator(
+          "counterCreated",
+        ) as unknown as AsyncIterable<Counter>,
+      resolve: (counter) => counter,
+    }),
+    counterDeleted: t.field({
+      type: Counter,
+      subscribe: (_parent, _args, { pubsub }) =>
+        pubsub.asyncIterator(
+          "counterDeleted",
+        ) as unknown as AsyncIterable<Counter>,
+      resolve: (counter) => counter,
+    }),
+  }),
+});
 
 builder.mutationType({
   fields: (t) => ({
@@ -106,16 +127,17 @@ builder.mutationType({
     createOneCounter: t.field({
       type: Counter,
       args: { id: t.arg.id({ required: true }) },
-      resolve: (_parent, args) => {
+      resolve: (_parent, args, { pubsub }) => {
         const counter = { id: args.id.toString(), count: 0 };
         data.push(counter);
+        pubsub.publish("counterCreated", counter);
         return counter;
       },
     }),
     deleteOneCounter: t.field({
       type: Counter,
       args: { id: t.arg.id({ required: true }) },
-      resolve: (_parent, args) => {
+      resolve: (_parent, args, { pubsub }) => {
         const id = decodeGlobalID(args.id.toString()).id;
 
         const counter = data.find((_) => _.id === id);
@@ -123,6 +145,7 @@ builder.mutationType({
 
         data = data.filter((_) => _.id !== id);
 
+        pubsub.publish("counterDeleted", counter);
         return counter;
       },
     }),

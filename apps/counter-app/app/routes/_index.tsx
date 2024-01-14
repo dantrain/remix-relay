@@ -1,7 +1,8 @@
 import { useLoaderQuery } from "@remix-relay/react";
 import { Button } from "@remix-relay/ui";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { graphql, useMutation } from "react-relay";
+import { useMemo } from "react";
+import { graphql, useMutation, useSubscription } from "react-relay";
 import { v4 as uuidv4 } from "uuid";
 import Counter from "~/components/Counter";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
@@ -19,6 +20,27 @@ const query = graphql`
           ...CounterFragment
         }
       }
+    }
+  }
+`;
+
+const counterCreatedSubscription = graphql`
+  subscription IndexCounterCreatedSubscription($connections: [ID!]!) {
+    counterCreated
+      @appendNode(
+        connections: $connections
+        edgeTypeName: "CounterConnectionEdge"
+      ) {
+      id
+      ...CounterFragment
+    }
+  }
+`;
+
+const counterDeletedSubscription = graphql`
+  subscription IndexCounterDeletedSubscription($connections: [ID!]!) {
+    counterDeleted {
+      id @deleteEdge(connections: $connections)
     }
   }
 `;
@@ -45,6 +67,26 @@ export const clientLoader = () => clientLoaderQuery<IndexQuery>(query, {});
 
 export default function Index() {
   const [{ counterConnection }] = useLoaderQuery<IndexQuery>(query);
+
+  useSubscription(
+    useMemo(
+      () => ({
+        subscription: counterCreatedSubscription,
+        variables: { connections: [counterConnection.__id] },
+      }),
+      [counterConnection.__id],
+    ),
+  );
+
+  useSubscription(
+    useMemo(
+      () => ({
+        subscription: counterDeletedSubscription,
+        variables: { connections: [counterConnection.__id] },
+      }),
+      [counterConnection.__id],
+    ),
+  );
 
   const [commitCreateOneCounter] =
     useMutation<IndexCreateOneCounterMutation>(mutation);

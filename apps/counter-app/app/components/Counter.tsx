@@ -101,6 +101,7 @@ export default function Counter({ dataRef, connectionId }: CounterProps) {
         onClick={() =>
           commitDeleteOneCounter({
             variables: { id, connections: [connectionId] },
+            optimisticResponse: { deleteOneCounter: { id } },
           })
         }
       >

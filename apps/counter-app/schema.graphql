@@ -64,4 +64,6 @@ type QueryCounterConnectionEdge {
 
 type Subscription {
   counter(id: ID!): Counter!
+  counterCreated: Counter!
+  counterDeleted: Counter!
 }
