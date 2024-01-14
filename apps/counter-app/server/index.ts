@@ -12,7 +12,7 @@ import { useServer } from "graphql-ws/lib/use/ws";
 import { createServer } from "http";
 import path from "path";
 import { WebSocketServer } from "ws";
-import { schema } from "../app/graphql/graphql-schema";
+import { schema } from "./graphql/graphql-schema";
 
 const mode = process.env.NODE_ENV as "development" | "production";
 
