@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { graphql, useMutation, useSubscription } from "react-relay";
 import { v4 as uuidv4 } from "uuid";
 import Counter from "~/components/Counter";
+import useWindowVisible from "~/hooks/useWindowVisible";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
 import { IndexCreateOneCounterMutation } from "./__generated__/IndexCreateOneCounterMutation.graphql";
@@ -66,7 +67,9 @@ export const loader = ({ context }: LoaderFunctionArgs) =>
 export const clientLoader = () => clientLoaderQuery<IndexQuery>(query, {});
 
 export default function Index() {
-  const [{ counterConnection }] = useLoaderQuery<IndexQuery>(query);
+  const [{ counterConnection }, reload] = useLoaderQuery<IndexQuery>(query);
+
+  useWindowVisible(() => reload({}));
 
   useSubscription(
     useMemo(
