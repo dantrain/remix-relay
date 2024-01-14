@@ -1,3 +1,4 @@
+import { createId } from "@paralleldrive/cuid2";
 import SchemaBuilder from "@pothos/core";
 import RelayPlugin, {
   decodeGlobalID,
@@ -14,7 +15,7 @@ import {
 } from "graphql";
 import type { PubSub } from "graphql-subscriptions";
 import invariant from "tiny-invariant";
-import { v4 as uuidv4 } from "uuid";
+import z from "zod";
 
 const wait = (ms?: number) => {
   if (ms) return new Promise((resolve) => setTimeout(resolve, ms));
@@ -47,11 +48,11 @@ const builder = new SchemaBuilder<{
 
 let data = [
   {
-    id: uuidv4(),
+    id: createId(),
     count: 0,
   },
   {
-    id: uuidv4(),
+    id: createId(),
     count: 0,
   },
 ];
@@ -137,7 +138,12 @@ builder.mutationType({
     }),
     createOneCounter: t.field({
       type: Counter,
-      args: { id: t.arg.id({ required: true, validate: { uuid: true } }) },
+      args: {
+        id: t.arg.id({
+          required: true,
+          validate: { schema: z.string().cuid2() },
+        }),
+      },
       resolve: (_parent, args, { pubsub }) => {
         const counter = { id: args.id.toString(), count: 0 };
         data.push(counter);

@@ -1,10 +1,10 @@
+import { createId } from "@paralleldrive/cuid2";
 import { useLoaderQuery } from "@remix-relay/react";
 import { Button } from "@remix-relay/ui";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { toGlobalId } from "graphql-relay";
 import { useMemo } from "react";
 import { graphql, useMutation, useSubscription } from "react-relay";
-import { v4 as uuidv4 } from "uuid";
 import Counter from "~/components/Counter";
 import useWindowVisible from "~/hooks/useWindowVisible";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
@@ -109,7 +109,7 @@ export default function Index() {
         <Button
           className="pb-2 text-center text-3xl"
           onClick={() => {
-            const id = uuidv4();
+            const id = createId();
 
             commitCreateOneCounter({
               variables: { id, connections: [counterConnection.__id] },
