@@ -1,7 +1,7 @@
-import { encodeGlobalID } from "@pothos/plugin-relay";
 import { useLoaderQuery } from "@remix-relay/react";
 import { Button } from "@remix-relay/ui";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import { toGlobalId } from "graphql-relay";
 import { useMemo } from "react";
 import { graphql, useMutation, useSubscription } from "react-relay";
 import { v4 as uuidv4 } from "uuid";
@@ -115,7 +115,7 @@ export default function Index() {
               variables: { id, connections: [counterConnection.__id] },
               optimisticResponse: {
                 createOneCounter: {
-                  id: encodeGlobalID("Counter", id),
+                  id: toGlobalId("Counter", id),
                   count: 0,
                 },
               },

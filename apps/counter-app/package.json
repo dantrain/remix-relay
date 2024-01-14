@@ -30,6 +30,7 @@
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
     "graphql": "17.0.0-alpha.2",
+    "graphql-relay": "^0.10.0",
     "graphql-subscriptions": "^2.0.0",
     "graphql-ws": "^5.14.3",
     "isbot": "^3.6.8",

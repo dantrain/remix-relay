@@ -77,6 +77,9 @@ importers:
       graphql:
         specifier: 17.0.0-alpha.2
         version: 17.0.0-alpha.2
+      graphql-relay:
+        specifier: ^0.10.0
+        version: 0.10.0(graphql@17.0.0-alpha.2)
       graphql-subscriptions:
         specifier: ^2.0.0
         version: 2.0.0(graphql@17.0.0-alpha.2)
@@ -5407,6 +5410,15 @@ packages:
   /graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
+
+  /graphql-relay@0.10.0(graphql@17.0.0-alpha.2):
+    resolution: {integrity: sha512-44yBuw2/DLNEiMypbNZBt1yMDbBmyVPVesPywnteGGALiBmdyy1JP8jSg8ClLePg8ZZxk0O4BLhd1a6U/1jDOQ==}
+    engines: {node: ^12.20.0 || ^14.15.0 || >= 15.9.0}
+    peerDependencies:
+      graphql: ^16.2.0 || 17.0.0-alpha.2
+    dependencies:
+      graphql: 17.0.0-alpha.2
+    dev: false
 
   /graphql-subscriptions@2.0.0(graphql@17.0.0-alpha.2):
     resolution: {integrity: sha512-s6k2b8mmt9gF9pEfkxsaO1lTxaySfKoEJzEfmwguBbQ//Oq23hIXCfR1hm4kdh5hnR20RdwB+s3BCb+0duHSZA==}
