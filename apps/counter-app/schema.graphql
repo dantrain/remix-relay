@@ -29,7 +29,7 @@ type Counter implements Node {
 }
 
 type Mutation {
-  setCount(count: Int!): Counter!
+  setCount(count: Int!, id: ID!): Counter!
 }
 
 interface Node {
@@ -37,11 +37,12 @@ interface Node {
 }
 
 type Query {
-  counter: Counter!
+  counter(id: ID!): Counter!
+  counters: [Counter!]!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
 }
 
 type Subscription {
-  counter: Counter!
+  counter(id: ID!): Counter!
 }
