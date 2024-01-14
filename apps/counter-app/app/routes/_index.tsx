@@ -1,7 +1,8 @@
 import { useLoaderQuery } from "@remix-relay/react";
 import { Button } from "@remix-relay/ui";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { graphql, useMutation } from "react-relay";
+import { useMemo } from "react";
+import { graphql, useMutation, useSubscription } from "react-relay";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
 import indexQueryNode, { IndexQuery } from "./__generated__/IndexQuery.graphql";
@@ -11,6 +12,14 @@ const query = graphql`
   query IndexQuery {
     counter {
       id
+      count
+    }
+  }
+`;
+
+const subscription = graphql`
+  subscription IndexSubscription {
+    counter {
       count
     }
   }
@@ -38,6 +47,16 @@ export default function Index() {
       counter: { id, count },
     },
   ] = useLoaderQuery<IndexQuery>(query);
+
+  useSubscription(
+    useMemo(
+      () => ({
+        subscription,
+        variables: {},
+      }),
+      [],
+    ),
+  );
 
   const [commit] = useMutation<IndexSetCountMutation>(mutation);
 

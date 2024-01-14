@@ -69,7 +69,9 @@ const fetchFn: FetchFunction = (
 const wsClient: Client | null = isServer
   ? null
   : createClient({
-      url: "ws://localhost:3000",
+      url: `${window.location.protocol === "https:" ? "wss:" : "ws:"}//${
+        window.location.host
+      }/graphql`,
     });
 
 const subscribeFn: SubscribeFunction = (operation, variables) => {
