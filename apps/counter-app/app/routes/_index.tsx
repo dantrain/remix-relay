@@ -8,9 +8,13 @@ import indexQueryNode, { IndexQuery } from "./__generated__/IndexQuery.graphql";
 
 const query = graphql`
   query IndexQuery {
-    counters {
-      id
-      ...CounterFragment
+    counterConnection {
+      edges {
+        node {
+          id
+          ...CounterFragment
+        }
+      }
     }
   }
 `;
@@ -23,15 +27,15 @@ export const loader = ({ context }: LoaderFunctionArgs) =>
 export const clientLoader = () => clientLoaderQuery<IndexQuery>(query, {});
 
 export default function Index() {
-  const [{ counters }] = useLoaderQuery<IndexQuery>(query);
+  const [{ counterConnection }] = useLoaderQuery<IndexQuery>(query);
 
   return (
     <main>
       <h1 className="mb-8 mt-2 text-2xl font-bold">Counter App</h1>
       <ul className="flex flex-col gap-5">
-        {counters.map((counter) => (
-          <li className="flex items-center gap-4" key={counter.id}>
-            <Counter dataRef={counter} />
+        {counterConnection.edges.map(({ node }) => (
+          <li key={node.id}>
+            <Counter dataRef={node} />
           </li>
         ))}
       </ul>

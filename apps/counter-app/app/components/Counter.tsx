@@ -52,7 +52,7 @@ export default function Counter({ dataRef }: CounterProps) {
   const [commit] = useMutation<CounterSetCountMutation>(mutation);
 
   return (
-    <>
+    <div className="flex items-center gap-4">
       <Button
         className="px-4 pb-2 text-3xl"
         disabled={!count}
@@ -81,6 +81,6 @@ export default function Counter({ dataRef }: CounterProps) {
       >
         +
       </Button>
-    </>
+    </div>
   );
 }

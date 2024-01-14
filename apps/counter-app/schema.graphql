@@ -36,11 +36,28 @@ interface Node {
   id: ID!
 }
 
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
 type Query {
   counter(id: ID!): Counter!
-  counters: [Counter!]!
+  counterConnection(after: String, before: String, first: Int, last: Int): QueryCounterConnection!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
+}
+
+type QueryCounterConnection {
+  edges: [QueryCounterConnectionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type QueryCounterConnectionEdge {
+  cursor: String!
+  node: Counter!
 }
 
 type Subscription {

@@ -1,5 +1,8 @@
 import SchemaBuilder from "@pothos/core";
-import RelayPlugin, { decodeGlobalID } from "@pothos/plugin-relay";
+import RelayPlugin, {
+  decodeGlobalID,
+  resolveArrayConnection,
+} from "@pothos/plugin-relay";
 import SmartSubscriptionsPlugin, {
   subscribeOptionsFromIterator,
 } from "@pothos/plugin-smart-subscriptions";
@@ -54,9 +57,9 @@ const Counter = builder.node("Counter", {
 
 builder.queryType({
   fields: (t) => ({
-    counters: t.field({
-      type: [Counter],
-      resolve: () => data,
+    counterConnection: t.connection({
+      type: Counter,
+      resolve: (_parent, args) => resolveArrayConnection({ args }, data),
     }),
     counter: t.field({
       type: Counter,

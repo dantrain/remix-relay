@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ed573d5caa82bfa2df16fb8e4fbd6e20>>
+ * @generated SignedSource<<7e2b498df7a703a8a83eaf8337c0572f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,10 +12,14 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type IndexQuery$variables = Record<PropertyKey, never>;
 export type IndexQuery$data = {
-  readonly counters: ReadonlyArray<{
-    readonly id: string;
-    readonly " $fragmentSpreads": FragmentRefs<"CounterFragment">;
-  }>;
+  readonly counterConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly id: string;
+        readonly " $fragmentSpreads": FragmentRefs<"CounterFragment">;
+      };
+    }>;
+  };
 };
 export type IndexQuery = {
   response: IndexQuery$data;
@@ -40,16 +44,38 @@ return {
       {
         "alias": null,
         "args": null,
-        "concreteType": "Counter",
+        "concreteType": "QueryCounterConnection",
         "kind": "LinkedField",
-        "name": "counters",
-        "plural": true,
+        "name": "counterConnection",
+        "plural": false,
         "selections": [
-          (v0/*: any*/),
           {
+            "alias": null,
             "args": null,
-            "kind": "FragmentSpread",
-            "name": "CounterFragment"
+            "concreteType": "QueryCounterConnectionEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Counter",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v0/*: any*/),
+                  {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "CounterFragment"
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -67,17 +93,39 @@ return {
       {
         "alias": null,
         "args": null,
-        "concreteType": "Counter",
+        "concreteType": "QueryCounterConnection",
         "kind": "LinkedField",
-        "name": "counters",
-        "plural": true,
+        "name": "counterConnection",
+        "plural": false,
         "selections": [
-          (v0/*: any*/),
           {
             "alias": null,
             "args": null,
-            "kind": "ScalarField",
-            "name": "count",
+            "concreteType": "QueryCounterConnectionEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Counter",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v0/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "count",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
             "storageKey": null
           }
         ],
@@ -86,16 +134,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "aaa7b6cadbea50e8000015e4e9cbf326",
+    "cacheID": "4eb2890501ab80ed3c8a78699cd088e5",
     "id": null,
     "metadata": {},
     "name": "IndexQuery",
     "operationKind": "query",
-    "text": "query IndexQuery {\n  counters {\n    id\n    ...CounterFragment\n  }\n}\n\nfragment CounterFragment on Counter {\n  id\n  count\n}\n"
+    "text": "query IndexQuery {\n  counterConnection {\n    edges {\n      node {\n        id\n        ...CounterFragment\n      }\n    }\n  }\n}\n\nfragment CounterFragment on Counter {\n  id\n  count\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9615a96ba0bbb2b07e79c829a7a63d74";
+(node as any).hash = "fd591a942800db55fed3c17f598478e0";
 
 export default node;
