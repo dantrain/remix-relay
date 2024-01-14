@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7e2b498df7a703a8a83eaf8337c0572f>>
+ * @generated SignedSource<<b38a7291765bae702f7e988904d9f124>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type IndexQuery$variables = Record<PropertyKey, never>;
 export type IndexQuery$data = {
   readonly counterConnection: {
+    readonly __id: string;
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
@@ -33,6 +34,18 @@ var v0 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
+},
+v1 = {
+  "kind": "ClientExtension",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "__id",
+      "storageKey": null
+    }
+  ]
 };
 return {
   "fragment": {
@@ -76,7 +89,8 @@ return {
               }
             ],
             "storageKey": null
-          }
+          },
+          (v1/*: any*/)
         ],
         "storageKey": null
       }
@@ -127,7 +141,8 @@ return {
               }
             ],
             "storageKey": null
-          }
+          },
+          (v1/*: any*/)
         ],
         "storageKey": null
       }
@@ -144,6 +159,6 @@ return {
 };
 })();
 
-(node as any).hash = "fd591a942800db55fed3c17f598478e0";
+(node as any).hash = "1516f474a01b869e2c75600a55887ff9";
 
 export default node;

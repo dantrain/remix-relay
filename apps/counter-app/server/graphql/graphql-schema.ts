@@ -13,6 +13,7 @@ import {
 } from "graphql";
 import type { PubSub } from "graphql-subscriptions";
 import invariant from "tiny-invariant";
+import { v4 as uuidv4 } from "uuid";
 
 const builder = new SchemaBuilder<{
   Objects: {
@@ -39,11 +40,11 @@ const builder = new SchemaBuilder<{
 
 const data = [
   {
-    id: "1",
+    id: uuidv4(),
     count: 0,
   },
   {
-    id: "2",
+    id: uuidv4(),
     count: 0,
   },
 ];
@@ -99,6 +100,15 @@ builder.mutationType({
 
         counter.count = count;
         pubsub.publish("countSet", { id, count });
+        return counter;
+      },
+    }),
+    createOneCounter: t.field({
+      type: Counter,
+      args: { id: t.arg.id({ required: true }) },
+      resolve: (_parent, args) => {
+        const counter = { id: args.id.toString(), count: 0 };
+        data.push(counter);
         return counter;
       },
     }),
