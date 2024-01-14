@@ -38,7 +38,7 @@ const builder = new SchemaBuilder<{
   },
 });
 
-const data = [
+let data = [
   {
     id: uuidv4(),
     count: 0,
@@ -109,6 +109,20 @@ builder.mutationType({
       resolve: (_parent, args) => {
         const counter = { id: args.id.toString(), count: 0 };
         data.push(counter);
+        return counter;
+      },
+    }),
+    deleteOneCounter: t.field({
+      type: Counter,
+      args: { id: t.arg.id({ required: true }) },
+      resolve: (_parent, args) => {
+        const id = decodeGlobalID(args.id.toString()).id;
+
+        const counter = data.find((_) => _.id === id);
+        invariant(counter, "Counter not found");
+
+        data = data.filter((_) => _.id !== id);
+
         return counter;
       },
     }),

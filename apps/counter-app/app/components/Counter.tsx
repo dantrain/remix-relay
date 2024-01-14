@@ -6,6 +6,7 @@ import {
   useMutation,
   useSubscription,
 } from "react-relay";
+import { CounterDeleteOneCounterMutation } from "./__generated__/CounterDeleteOneCounterMutation.graphql";
 import { CounterFragment$key } from "./__generated__/CounterFragment.graphql";
 import { CounterSetCountMutation } from "./__generated__/CounterSetCountMutation.graphql";
 
@@ -24,7 +25,7 @@ const subscription = graphql`
   }
 `;
 
-const mutation = graphql`
+const setCountMutation = graphql`
   mutation CounterSetCountMutation($id: ID!, $count: Int!) {
     setCount(id: $id, count: $count) {
       ...CounterFragment
@@ -32,11 +33,20 @@ const mutation = graphql`
   }
 `;
 
+const deleteOneCounterMutation = graphql`
+  mutation CounterDeleteOneCounterMutation($id: ID!, $connections: [ID!]!) {
+    deleteOneCounter(id: $id) {
+      id @deleteEdge(connections: $connections)
+    }
+  }
+`;
+
 type CounterProps = {
   dataRef: CounterFragment$key;
+  connectionId: string;
 };
 
-export default function Counter({ dataRef }: CounterProps) {
+export default function Counter({ dataRef, connectionId }: CounterProps) {
   const { id, count } = useFragment(fragment, dataRef);
 
   useSubscription(
@@ -49,7 +59,12 @@ export default function Counter({ dataRef }: CounterProps) {
     ),
   );
 
-  const [commit] = useMutation<CounterSetCountMutation>(mutation);
+  const [commitSetCount] =
+    useMutation<CounterSetCountMutation>(setCountMutation);
+
+  const [commitDeleteOneCounter] = useMutation<CounterDeleteOneCounterMutation>(
+    deleteOneCounterMutation,
+  );
 
   return (
     <div className="flex items-center gap-4">
@@ -57,7 +72,7 @@ export default function Counter({ dataRef }: CounterProps) {
         className="px-4 pb-2 text-3xl"
         disabled={!count}
         onClick={() =>
-          commit({
+          commitSetCount({
             variables: { id, count: Math.max(0, count - 1) },
             optimisticResponse: {
               setCount: { id, count: Math.max(0, count - 1) },
@@ -71,7 +86,7 @@ export default function Counter({ dataRef }: CounterProps) {
       <Button
         className="px-4 pb-2 text-3xl"
         onClick={() =>
-          commit({
+          commitSetCount({
             variables: { id, count: count + 1 },
             optimisticResponse: {
               setCount: { id, count: count + 1 },
@@ -80,6 +95,16 @@ export default function Counter({ dataRef }: CounterProps) {
         }
       >
         +
+      </Button>
+      <Button
+        className="px-4 pb-2 text-3xl"
+        onClick={() =>
+          commitDeleteOneCounter({
+            variables: { id, connections: [connectionId] },
+          })
+        }
+      >
+        &times;
       </Button>
     </div>
   );

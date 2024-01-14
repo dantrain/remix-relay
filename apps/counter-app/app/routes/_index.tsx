@@ -46,7 +46,8 @@ export const clientLoader = () => clientLoaderQuery<IndexQuery>(query, {});
 export default function Index() {
   const [{ counterConnection }] = useLoaderQuery<IndexQuery>(query);
 
-  const [commit] = useMutation<IndexCreateOneCounterMutation>(mutation);
+  const [commitCreateOneCounter] =
+    useMutation<IndexCreateOneCounterMutation>(mutation);
 
   return (
     <main>
@@ -55,7 +56,7 @@ export default function Index() {
         <ul className="inline-flex flex-col gap-5">
           {counterConnection.edges.map(({ node }) => (
             <li key={node.id}>
-              <Counter dataRef={node} />
+              <Counter connectionId={counterConnection.__id} dataRef={node} />
             </li>
           ))}
         </ul>
@@ -64,7 +65,7 @@ export default function Index() {
           onClick={() => {
             const id = uuidv4();
 
-            commit({
+            commitCreateOneCounter({
               variables: { id, connections: [counterConnection.__id] },
               // optimisticResponse: {
               //   createOneCounter: {
