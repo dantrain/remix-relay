@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e4558e3bab6f0f2dc675b8080ef41079>>
+ * @generated SignedSource<<d0e1e92effa5253380a1ce88d34a0fc9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,42 +8,31 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest, GraphQLSubscription } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type IndexCreateOneCounterMutation$variables = {
+export type CounterListCounterCreatedSubscription$variables = {
   connections: ReadonlyArray<string>;
-  id: string;
 };
-export type IndexCreateOneCounterMutation$data = {
-  readonly createOneCounter: {
+export type CounterListCounterCreatedSubscription$data = {
+  readonly counterCreated: {
     readonly id: string;
     readonly " $fragmentSpreads": FragmentRefs<"CounterFragment">;
   };
 };
-export type IndexCreateOneCounterMutation = {
-  response: IndexCreateOneCounterMutation$data;
-  variables: IndexCreateOneCounterMutation$variables;
+export type CounterListCounterCreatedSubscription = {
+  response: CounterListCounterCreatedSubscription$data;
+  variables: CounterListCounterCreatedSubscription$variables;
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "connections"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "id"
-},
-v2 = [
+var v0 = [
   {
-    "kind": "Variable",
-    "name": "id",
-    "variableName": "id"
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "connections"
   }
 ],
-v3 = {
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -52,23 +41,20 @@ v3 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "IndexCreateOneCounterMutation",
+    "name": "CounterListCounterCreatedSubscription",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": null,
         "concreteType": "Counter",
         "kind": "LinkedField",
-        "name": "createOneCounter",
+        "name": "counterCreated",
         "plural": false,
         "selections": [
-          (v3/*: any*/),
+          (v1/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -78,27 +64,24 @@ return {
         "storageKey": null
       }
     ],
-    "type": "Mutation",
+    "type": "Subscription",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v1/*: any*/),
-      (v0/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "IndexCreateOneCounterMutation",
+    "name": "CounterListCounterCreatedSubscription",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": null,
         "concreteType": "Counter",
         "kind": "LinkedField",
-        "name": "createOneCounter",
+        "name": "counterCreated",
         "plural": false,
         "selections": [
-          (v3/*: any*/),
+          (v1/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -111,12 +94,12 @@ return {
       },
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": null,
         "filters": null,
         "handle": "appendNode",
         "key": "",
         "kind": "LinkedHandle",
-        "name": "createOneCounter",
+        "name": "counterCreated",
         "handleArgs": [
           {
             "kind": "Variable",
@@ -133,16 +116,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5d42d005c090c1ab0a12fe2636009e12",
+    "cacheID": "808f968c325f4eecaec92c19573d104c",
     "id": null,
     "metadata": {},
-    "name": "IndexCreateOneCounterMutation",
-    "operationKind": "mutation",
-    "text": "mutation IndexCreateOneCounterMutation(\n  $id: ID!\n) {\n  createOneCounter(id: $id) {\n    id\n    ...CounterFragment\n  }\n}\n\nfragment CounterFragment on Counter {\n  id\n  count\n}\n"
+    "name": "CounterListCounterCreatedSubscription",
+    "operationKind": "subscription",
+    "text": "subscription CounterListCounterCreatedSubscription {\n  counterCreated {\n    id\n    ...CounterFragment\n  }\n}\n\nfragment CounterFragment on Counter {\n  id\n  count\n}\n"
   }
 };
 })();
 
-(node as any).hash = "f8075a28624ee00e80601f6928efba24";
+(node as any).hash = "ac3f494208ba88d2e50d2bb8337d851b";
 
 export default node;

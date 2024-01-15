@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5e77cd2f255faa9e660721ca95d2eb4b>>
+ * @generated SignedSource<<827ac38c59b244ebeb7c074918652ccb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,17 +9,17 @@
 // @ts-nocheck
 
 import { ConcreteRequest, GraphQLSubscription } from 'relay-runtime';
-export type IndexCounterDeletedSubscription$variables = {
+export type CounterListCounterDeletedSubscription$variables = {
   connections: ReadonlyArray<string>;
 };
-export type IndexCounterDeletedSubscription$data = {
+export type CounterListCounterDeletedSubscription$data = {
   readonly counterDeleted: {
     readonly id: string;
   };
 };
-export type IndexCounterDeletedSubscription = {
-  response: IndexCounterDeletedSubscription$data;
-  variables: IndexCounterDeletedSubscription$variables;
+export type CounterListCounterDeletedSubscription = {
+  response: CounterListCounterDeletedSubscription$data;
+  variables: CounterListCounterDeletedSubscription$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -42,7 +42,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "IndexCounterDeletedSubscription",
+    "name": "CounterListCounterDeletedSubscription",
     "selections": [
       {
         "alias": null,
@@ -64,7 +64,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "IndexCounterDeletedSubscription",
+    "name": "CounterListCounterDeletedSubscription",
     "selections": [
       {
         "alias": null,
@@ -97,16 +97,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b37a93f3bb8fab4256d1617e65411580",
+    "cacheID": "036139a05d283135f4853ead7652e0f0",
     "id": null,
     "metadata": {},
-    "name": "IndexCounterDeletedSubscription",
+    "name": "CounterListCounterDeletedSubscription",
     "operationKind": "subscription",
-    "text": "subscription IndexCounterDeletedSubscription {\n  counterDeleted {\n    id\n  }\n}\n"
+    "text": "subscription CounterListCounterDeletedSubscription {\n  counterDeleted {\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9d9aa7eb6f4a07f1f28cc1f0d94481c0";
+(node as any).hash = "71468d9556ec578f3e75e70e3eb8179e";
 
 export default node;

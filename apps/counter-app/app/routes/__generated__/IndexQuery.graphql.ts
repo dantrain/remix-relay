@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b38a7291765bae702f7e988904d9f124>>
+ * @generated SignedSource<<8d3960d707e7169bd40a7c8e1c8e8fe2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,42 +12,14 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type IndexQuery$variables = Record<PropertyKey, never>;
 export type IndexQuery$data = {
-  readonly counterConnection: {
-    readonly __id: string;
-    readonly edges: ReadonlyArray<{
-      readonly node: {
-        readonly id: string;
-        readonly " $fragmentSpreads": FragmentRefs<"CounterFragment">;
-      };
-    }>;
-  };
+  readonly " $fragmentSpreads": FragmentRefs<"CounterListFragment">;
 };
 export type IndexQuery = {
   response: IndexQuery$data;
   variables: IndexQuery$variables;
 };
 
-const node: ConcreteRequest = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v1 = {
-  "kind": "ClientExtension",
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "__id",
-      "storageKey": null
-    }
-  ]
-};
-return {
+const node: ConcreteRequest = {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
@@ -55,44 +27,9 @@ return {
     "name": "IndexQuery",
     "selections": [
       {
-        "alias": null,
         "args": null,
-        "concreteType": "QueryCounterConnection",
-        "kind": "LinkedField",
-        "name": "counterConnection",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "QueryCounterConnectionEdge",
-            "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Counter",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  (v0/*: any*/),
-                  {
-                    "args": null,
-                    "kind": "FragmentSpread",
-                    "name": "CounterFragment"
-                  }
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          (v1/*: any*/)
-        ],
-        "storageKey": null
+        "kind": "FragmentSpread",
+        "name": "CounterListFragment"
       }
     ],
     "type": "Query",
@@ -128,7 +65,13 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v0/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "id",
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -142,23 +85,33 @@ return {
             ],
             "storageKey": null
           },
-          (v1/*: any*/)
+          {
+            "kind": "ClientExtension",
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "__id",
+                "storageKey": null
+              }
+            ]
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "4eb2890501ab80ed3c8a78699cd088e5",
+    "cacheID": "cbf8bd68a6ac88fd66fe1079b53db208",
     "id": null,
     "metadata": {},
     "name": "IndexQuery",
     "operationKind": "query",
-    "text": "query IndexQuery {\n  counterConnection {\n    edges {\n      node {\n        id\n        ...CounterFragment\n      }\n    }\n  }\n}\n\nfragment CounterFragment on Counter {\n  id\n  count\n}\n"
+    "text": "query IndexQuery {\n  ...CounterListFragment\n}\n\nfragment CounterFragment on Counter {\n  id\n  count\n}\n\nfragment CounterListFragment on Query {\n  counterConnection {\n    edges {\n      node {\n        id\n        ...CounterFragment\n      }\n    }\n  }\n}\n"
   }
 };
-})();
 
-(node as any).hash = "1516f474a01b869e2c75600a55887ff9";
+(node as any).hash = "831811ae6d0bf3e6782bb095599b6fae";
 
 export default node;
