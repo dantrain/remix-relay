@@ -48,6 +48,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@ast-grep/napi": "^0.17.1",
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/tailwind-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
