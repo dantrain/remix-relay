@@ -90,6 +90,20 @@ export default function CounterList({ dataRef }: CounterListProps) {
   const [commitCreateOneCounter] =
     useMutation<CounterListCreateOneCounterMutation>(mutation);
 
+  const createCounter = () => {
+    const id = createId();
+
+    commitCreateOneCounter({
+      variables: { id, connections: [counterConnection.__id] },
+      optimisticResponse: {
+        createOneCounter: {
+          id: toGlobalId("Counter", id),
+          count: 0,
+        },
+      },
+    });
+  };
+
   return (
     <div className="inline-flex flex-col gap-5">
       <ul className="inline-flex flex-col gap-5">
@@ -99,22 +113,7 @@ export default function CounterList({ dataRef }: CounterListProps) {
           </li>
         ))}
       </ul>
-      <Button
-        className="pb-2 text-center text-3xl"
-        onClick={() => {
-          const id = createId();
-
-          commitCreateOneCounter({
-            variables: { id, connections: [counterConnection.__id] },
-            optimisticResponse: {
-              createOneCounter: {
-                id: toGlobalId("Counter", id),
-                count: 0,
-              },
-            },
-          });
-        }}
-      >
+      <Button className="pb-2 text-center text-3xl" onClick={createCounter}>
         +
       </Button>
     </div>

@@ -66,45 +66,42 @@ export default function Counter({ dataRef, connectionId }: CounterProps) {
     deleteOneCounterMutation,
   );
 
+  const incrementCounter = () =>
+    commitSetCount({
+      variables: { id, count: Math.max(0, count - 1) },
+      optimisticResponse: {
+        setCount: { id, count: Math.max(0, count - 1) },
+      },
+    });
+
+  const decrementCounter = () =>
+    commitSetCount({
+      variables: { id, count: count + 1 },
+      optimisticResponse: {
+        setCount: { id, count: count + 1 },
+      },
+    });
+
+  const deleteCounter = () =>
+    commitDeleteOneCounter({
+      variables: { id, connections: [connectionId] },
+      optimisticResponse: { deleteOneCounter: { id } },
+    });
+
   return (
     <div className="flex items-center gap-4">
       <Button
         className="px-4 pb-2 text-3xl"
         disabled={!count}
-        onClick={() =>
-          commitSetCount({
-            variables: { id, count: Math.max(0, count - 1) },
-            optimisticResponse: {
-              setCount: { id, count: Math.max(0, count - 1) },
-            },
-          })
-        }
+        onClick={incrementCounter}
       >
         -
       </Button>
       <pre className="min-w-[2ch] text-center text-5xl">{count}</pre>
-      <Button
-        className="px-4 pb-2 text-3xl"
-        onClick={() =>
-          commitSetCount({
-            variables: { id, count: count + 1 },
-            optimisticResponse: {
-              setCount: { id, count: count + 1 },
-            },
-          })
-        }
-      >
+      <Button className="px-4 pb-2 text-3xl" onClick={decrementCounter}>
         +
       </Button>
-      <Button
-        className="px-4 pb-2 text-3xl"
-        onClick={() =>
-          commitDeleteOneCounter({
-            variables: { id, connections: [connectionId] },
-            optimisticResponse: { deleteOneCounter: { id } },
-          })
-        }
-      >
+      <Button className="px-4 pb-2 text-3xl" onClick={deleteCounter}>
         &times;
       </Button>
     </div>
