@@ -91,7 +91,7 @@ app.all(
     build: viteDevServer
       ? () => viteDevServer.ssrLoadModule("virtual:remix/server-build")
       : ((await import(
-          path.join(import.meta.dirname!, "../build/server/remix.js")
+          path.join(import.meta.dirname!, "../build/server/index.js")
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         )) as any),
     getLoadContext() {

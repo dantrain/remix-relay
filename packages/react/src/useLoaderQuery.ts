@@ -51,7 +51,11 @@ export function useLoaderQuery<TQuery extends OperationType>(
       : null;
 
   const deferredQueries =
-    "deferredQueries" in loaderData ? loaderData.deferredQueries : null;
+    "deferredQueries" in loaderData
+      ? (loaderData.deferredQueries as Promise<
+          SerializablePreloadedQuery<TQuery>[]
+        >)
+      : null;
 
   const [deferredResult, setDeferredResult] = useState(preloadedQuery);
 

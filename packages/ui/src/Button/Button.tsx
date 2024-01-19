@@ -19,7 +19,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={cx(
           className,
-          "rounded-md border px-2 py-1 text-left",
+          "select-none rounded-md border px-2 py-1 text-left",
           "border-slate-700 bg-slate-900",
           "disabled:cursor-not-allowed disabled:opacity-60",
           "hover:enabled:bg-slate-800 active:enabled:bg-slate-800",

@@ -11,7 +11,6 @@ export default defineConfig(({ command }) => ({
   plugins: [
     remix({
       ignoredRouteFiles: ["**/.*"],
-      serverBuildPath: "build/server/remix.js",
     }),
     tsconfigPaths(),
     relay,

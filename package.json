@@ -11,9 +11,9 @@
   "devDependencies": {
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
-    "prettier": "^3.1.0",
-    "prettier-plugin-tailwindcss": "^0.5.10",
-    "turbo": "latest"
+    "prettier": "^3.2.4",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "turbo": "^1.11.3"
   },
   "packageManager": "pnpm@8.9.0",
   "engines": {
