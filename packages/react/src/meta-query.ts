@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
-import type { MetaFunction } from "@remix-run/node";
+import type { ServerRuntimeMetaFunction } from "@remix-run/server-runtime";
 import type { OperationType } from "relay-runtime";
 
 export function metaQuery<TQuery extends OperationType>(
   metaFunction: (
-    args: Parameters<MetaFunction>[0] & { data: TQuery["response"] },
-  ) => ReturnType<MetaFunction>,
-): MetaFunction<
+    args: Parameters<ServerRuntimeMetaFunction>[0] & {
+      data: TQuery["response"];
+    },
+  ) => ReturnType<ServerRuntimeMetaFunction>,
+): ServerRuntimeMetaFunction<
   () =>
     | { preloadedQuery: { response: { data: TQuery["response"] } } }
     | { data: TQuery["response"] }

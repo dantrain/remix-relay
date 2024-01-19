@@ -366,6 +366,10 @@ importers:
         version: 5.3.3
 
   packages/react:
+    dependencies:
+      '@remix-run/server-runtime':
+        specifier: ^2.5.1
+        version: 2.5.1(typescript@5.3.3)
     devDependencies:
       '@remix-relay/eslint-config':
         specifier: workspace:*

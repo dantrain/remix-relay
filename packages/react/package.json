@@ -33,6 +33,9 @@
     "react-relay": "^16.1.0",
     "relay-runtime": "^16.1.0"
   },
+  "dependencies": {
+    "@remix-run/server-runtime": "^2.5.1"
+  },
   "devDependencies": {
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
