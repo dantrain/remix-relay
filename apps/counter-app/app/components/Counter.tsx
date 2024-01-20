@@ -1,5 +1,11 @@
 import { Button } from "@remix-relay/ui";
-import { graphql, useFragment, useMutation } from "react-relay";
+import { useMemo } from "react";
+import {
+  graphql,
+  useFragment,
+  useMutation,
+  useSubscription,
+} from "react-relay";
 import { CounterDeleteOneCounterMutation } from "./__generated__/CounterDeleteOneCounterMutation.graphql";
 import { CounterFragment$key } from "./__generated__/CounterFragment.graphql";
 import { CounterSetCountMutation } from "./__generated__/CounterSetCountMutation.graphql";
@@ -11,13 +17,13 @@ const fragment = graphql`
   }
 `;
 
-// const subscription = graphql`
-//   subscription CounterSubscription($id: ID!) {
-//     counter(id: $id) {
-//       ...CounterFragment
-//     }
-//   }
-// `;
+const subscription = graphql`
+  subscription CounterSubscription($id: ID!) {
+    counter(id: $id) {
+      ...CounterFragment
+    }
+  }
+`;
 
 const setCountMutation = graphql`
   mutation CounterSetCountMutation($id: ID!, $count: Int!) {
@@ -43,15 +49,15 @@ type CounterProps = {
 export default function Counter({ dataRef, connectionId }: CounterProps) {
   const { id, count } = useFragment(fragment, dataRef);
 
-  // useSubscription(
-  //   useMemo(
-  //     () => ({
-  //       subscription,
-  //       variables: { id },
-  //     }),
-  //     [id],
-  //   ),
-  // );
+  useSubscription(
+    useMemo(
+      () => ({
+        subscription,
+        variables: { id },
+      }),
+      [id],
+    ),
+  );
 
   const [commitSetCount] =
     useMutation<CounterSetCountMutation>(setCountMutation);

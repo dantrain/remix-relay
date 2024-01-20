@@ -29,6 +29,11 @@ export class PubSub implements PubSubEngine {
             this.ee.emit("counterCreated", omit(payload.new, ["createdAt"]));
           } else if (payload.eventType === "DELETE") {
             this.ee.emit("counterDeleted", payload.old);
+          } else if (payload.eventType === "UPDATE") {
+            this.ee.emit(
+              `countSet/${payload.new.id}`,
+              omit(payload.new, ["createdAt"]),
+            );
           }
         },
       )

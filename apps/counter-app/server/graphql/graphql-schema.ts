@@ -73,7 +73,10 @@ builder.queryType({
         id: t.arg.id({ required: true }),
       },
       smartSubscription: true,
-      subscribe: (subscriptions) => void subscriptions.register("countSet"),
+      subscribe: (subscriptions, _parent, args) =>
+        void subscriptions.register(
+          `countSet/${decodeGlobalID(args.id.toString()).id}`,
+        ),
       resolve: async (_parent, args) => {
         const id = decodeGlobalID(args.id.toString()).id;
 
@@ -133,7 +136,7 @@ builder.mutationType({
         id: t.arg.id({ required: true }),
         count: t.arg.int({ required: true }),
       },
-      resolve: async (_parent, args, { pubsub }) => {
+      resolve: async (_parent, args) => {
         const id = decodeGlobalID(args.id.toString()).id;
         const count = args.count;
 
@@ -148,7 +151,6 @@ builder.mutationType({
         invariant(counter, "Counter not found");
 
         counter.count = count;
-        pubsub.publish("countSet", { id, count });
         return counter;
       },
     }),
@@ -166,7 +168,6 @@ builder.mutationType({
         const { status } = await supabase.from("counters").insert(counter);
         invariant(status === 201);
 
-        // pubsub.publish("counterCreated", counter);
         return counter;
       },
     }),
@@ -187,7 +188,6 @@ builder.mutationType({
 
         await supabase.from("counters").delete().eq("id", id);
 
-        // pubsub.publish("counterDeleted", counter);
         return counter;
       },
     }),
