@@ -16,15 +16,15 @@ import { schema } from "./graphql/graphql-schema";
 import { PubSub } from "./pubsub";
 
 installGlobals();
+const isProd = env.NODE_ENV === "production";
 
-const viteDevServer =
-  env.NODE_ENV === "production"
-    ? null
-    : await import("vite").then((vite) =>
-        vite.createServer({
-          server: { middlewareMode: true },
-        }),
-      );
+const viteDevServer = isProd
+  ? null
+  : await import("vite").then((vite) =>
+      vite.createServer({
+        server: { middlewareMode: true },
+      }),
+    );
 
 const app = express();
 const httpServer = createServer(app);
@@ -34,17 +34,27 @@ if (viteDevServer) {
 } else {
   app.use(
     "/assets",
-    express.static(path.join(import.meta.dirname!, "../build/client/assets"), {
-      immutable: true,
-      maxAge: "1y",
-    }),
+    express.static(
+      path.join(
+        import.meta.dirname!,
+        isProd ? "../" : "../build",
+        "client/assets",
+      ),
+      {
+        immutable: true,
+        maxAge: "1y",
+      },
+    ),
   );
 }
 
 app.use(
-  express.static(path.join(import.meta.dirname!, "../build/client"), {
-    maxAge: "1h",
-  }),
+  express.static(
+    path.join(import.meta.dirname!, isProd ? "../" : "../build", "client"),
+    {
+      maxAge: "1h",
+    },
+  ),
 );
 
 const wsServer = new WebSocketServer({

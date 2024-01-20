@@ -40,6 +40,7 @@
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
     "@remix-run/react": "^2.5.1",
+    "@remix-run/node": "^2.5.1",
     "@types/eslint": "^8.56.2",
     "@types/node": "^20.11.5",
     "@types/react": "^18.2.48",

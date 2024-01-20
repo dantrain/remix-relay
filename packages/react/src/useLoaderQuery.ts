@@ -52,7 +52,7 @@ export function useLoaderQuery<TQuery extends OperationType>(
 
   const deferredQueries =
     "deferredQueries" in loaderData
-      ? (loaderData.deferredQueries as Promise<
+      ? (loaderData.deferredQueries as unknown as Promise<
           SerializablePreloadedQuery<TQuery>[]
         >)
       : null;
