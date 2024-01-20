@@ -1,4 +1,3 @@
-import { createId } from "@paralleldrive/cuid2";
 import SchemaBuilder from "@pothos/core";
 import RelayPlugin, {
   decodeGlobalID,
@@ -16,6 +15,7 @@ import {
 import type { PubSub } from "graphql-subscriptions";
 import invariant from "tiny-invariant";
 import z from "zod";
+import { supabase } from "../supabase-client";
 
 const wait = (ms?: number) => {
   if (ms) return new Promise((resolve) => setTimeout(resolve, ms));
@@ -46,17 +46,6 @@ const builder = new SchemaBuilder<{
   },
 });
 
-let data = [
-  {
-    id: createId(),
-    count: 0,
-  },
-  {
-    id: createId(),
-    count: 0,
-  },
-];
-
 const Counter = builder.node("Counter", {
   id: { resolve: (_) => _.id },
   fields: (t) => ({
@@ -68,7 +57,14 @@ builder.queryType({
   fields: (t) => ({
     counterConnection: t.connection({
       type: Counter,
-      resolve: (_parent, args) => resolveArrayConnection({ args }, data),
+      resolve: async (_parent, args) => {
+        const { data } = await supabase
+          .from("counters")
+          .select("id, count")
+          .order("createdAt");
+        invariant(data);
+        return resolveArrayConnection({ args }, data);
+      },
     }),
     counter: t.field({
       type: Counter,
@@ -80,11 +76,23 @@ builder.queryType({
       resolve: async (_parent, args) => {
         const id = decodeGlobalID(args.id.toString()).id;
 
-        let counter = data.find((_) => _.id === id);
+        const { data } = await supabase
+          .from("counters")
+          .select("id, count")
+          .eq("id", id);
+
+        invariant(data);
+        let counter = data[0];
 
         if (!counter) {
           await wait(500);
-          counter = data.find((_) => _.id === id);
+          const { data } = await supabase
+            .from("counters")
+            .select("id, count")
+            .eq("id", id);
+
+          invariant(data);
+          counter = data[0];
         }
 
         invariant(counter, "Counter not found");
@@ -124,11 +132,18 @@ builder.mutationType({
         id: t.arg.id({ required: true }),
         count: t.arg.int({ required: true }),
       },
-      resolve: (_parent, args, { pubsub }) => {
+      resolve: async (_parent, args, { pubsub }) => {
         const id = decodeGlobalID(args.id.toString()).id;
         const count = args.count;
 
-        const counter = data.find((_) => _.id === id);
+        const { data } = await supabase
+          .from("counters")
+          .update({ count })
+          .eq("id", id)
+          .select("id, count");
+
+        invariant(data);
+        const counter = data[0];
         invariant(counter, "Counter not found");
 
         counter.count = count;
@@ -144,9 +159,12 @@ builder.mutationType({
           validate: { schema: z.string().cuid2() },
         }),
       },
-      resolve: (_parent, args, { pubsub }) => {
+      resolve: async (_parent, args, { pubsub }) => {
         const counter = { id: args.id.toString(), count: 0 };
-        data.push(counter);
+
+        const { status } = await supabase.from("counters").insert(counter);
+        invariant(status === 201);
+
         pubsub.publish("counterCreated", counter);
         return counter;
       },
@@ -154,13 +172,19 @@ builder.mutationType({
     deleteOneCounter: t.field({
       type: Counter,
       args: { id: t.arg.id({ required: true }) },
-      resolve: (_parent, args, { pubsub }) => {
+      resolve: async (_parent, args, { pubsub }) => {
         const id = decodeGlobalID(args.id.toString()).id;
 
-        const counter = data.find((_) => _.id === id);
+        const { data } = await supabase
+          .from("counters")
+          .select("id, count")
+          .eq("id", id);
+
+        invariant(data);
+        const counter = data[0];
         invariant(counter, "Counter not found");
 
-        data = data.filter((_) => _.id !== id);
+        await supabase.from("counters").delete().eq("id", id);
 
         pubsub.publish("counterDeleted", counter);
         return counter;

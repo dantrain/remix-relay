@@ -12,14 +12,13 @@ import { useServer } from "graphql-ws/lib/use/ws";
 import { createServer } from "http";
 import path from "path";
 import { WebSocketServer } from "ws";
+import { env } from "./env";
 import { schema } from "./graphql/graphql-schema";
-
-const mode = process.env.NODE_ENV as "development" | "production";
 
 installGlobals();
 
 const viteDevServer =
-  mode === "production"
+  env.NODE_ENV === "production"
     ? null
     : await import("vite").then((vite) =>
         vite.createServer({
@@ -100,12 +99,12 @@ app.all(
   }),
 );
 
-const PORT = 3000;
-
-httpServer.listen(PORT, () => {
-  console.log(`🚀 App running at http://localhost:${PORT}`);
-  console.log(`🚀 Query endpoint ready at http://localhost:${PORT}/graphql`);
+httpServer.listen(env.PORT, () => {
+  console.log(`🚀 App running at http://localhost:${env.PORT}`);
   console.log(
-    `🚀 Subscription endpoint ready at ws://localhost:${PORT}/graphql`,
+    `🚀 Query endpoint ready at http://localhost:${env.PORT}/graphql`,
+  );
+  console.log(
+    `🚀 Subscription endpoint ready at ws://localhost:${env.PORT}/graphql`,
   );
 });
