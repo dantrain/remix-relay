@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "zx ./scripts/dev.mjs",
-    "build": "remix vite:build",
-    "start": "NODE_ENV=production tsx ./server/index.ts",
+    "build": "zx ./scripts/build.mjs",
+    "start": "NODE_ENV=production node ./build/server/index.js",
     "lint": "eslint . --max-warnings 0 --ignore-path ../../.gitignore",
     "typecheck": "tsc --noEmit",
     "write-graphql-schema": "tsx ./scripts/write-graphql-schema.ts"
@@ -69,6 +69,7 @@
     "eslint": "^8.56.0",
     "supabase": "^1.131.5",
     "tailwindcss": "^3.4.1",
+    "tsup": "^8.0.1",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
