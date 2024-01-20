@@ -160,20 +160,20 @@ builder.mutationType({
           validate: { schema: z.string().cuid2() },
         }),
       },
-      resolve: async (_parent, args, { pubsub }) => {
+      resolve: async (_parent, args) => {
         const counter = { id: args.id.toString(), count: 0 };
 
         const { status } = await supabase.from("counters").insert(counter);
         invariant(status === 201);
 
-        pubsub.publish("counterCreated", counter);
+        // pubsub.publish("counterCreated", counter);
         return counter;
       },
     }),
     deleteOneCounter: t.field({
       type: Counter,
       args: { id: t.arg.id({ required: true }) },
-      resolve: async (_parent, args, { pubsub }) => {
+      resolve: async (_parent, args) => {
         const id = decodeGlobalID(args.id.toString()).id;
 
         const { data } = await supabase
@@ -187,7 +187,7 @@ builder.mutationType({
 
         await supabase.from("counters").delete().eq("id", id);
 
-        pubsub.publish("counterDeleted", counter);
+        // pubsub.publish("counterDeleted", counter);
         return counter;
       },
     }),

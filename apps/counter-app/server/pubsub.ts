@@ -3,7 +3,9 @@
 import { EventEmitter } from "events";
 import { PubSubEngine } from "graphql-subscriptions";
 import { $$asyncIterator } from "iterall";
+import { omit } from "lodash-es";
 import invariant from "tiny-invariant";
+import { supabase } from "./supabase-client";
 
 export class PubSub implements PubSubEngine {
   protected ee: EventEmitter;
@@ -14,6 +16,23 @@ export class PubSub implements PubSubEngine {
     this.ee = new EventEmitter();
     this.subscriptions = {};
     this.subIdCounter = 0;
+
+    supabase
+      .channel("counters")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "counters" },
+        (payload) => {
+          console.log("payload", payload);
+
+          if (payload.eventType === "INSERT") {
+            this.ee.emit("counterCreated", omit(payload.new, ["createdAt"]));
+          } else if (payload.eventType === "DELETE") {
+            this.ee.emit("counterDeleted", payload.old);
+          }
+        },
+      )
+      .subscribe();
   }
 
   async publish(triggerName: string, payload: any): Promise<void> {
@@ -49,7 +68,7 @@ export class PubSub implements PubSubEngine {
   asyncIterator<T>(
     triggers: string | string[],
   ): AsyncIterator<T, any, undefined> {
-    console.log("asyncIterator", { triggers });
+    console.log("get asyncIterator", { triggers });
 
     return new PubSubAsyncIterator<T>(this, triggers);
   }
@@ -95,6 +114,8 @@ class PubSubAsyncIterator<T> implements AsyncIterator<T> {
   }
 
   private async pushValue(event: T) {
+    console.log("pushValue", event);
+
     await this.allSubscribed;
     if (this.pullQueue.length !== 0) {
       this.pullQueue.shift()?.(
@@ -108,6 +129,8 @@ class PubSubAsyncIterator<T> implements AsyncIterator<T> {
   }
 
   private pullValue(): Promise<IteratorResult<T>> {
+    console.log("pullValue");
+
     return new Promise((resolve) => {
       if (this.pushQueue.length !== 0) {
         resolve(
