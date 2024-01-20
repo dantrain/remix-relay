@@ -11,4 +11,12 @@ const envSchema = z.object({
   SUPABASE_ANON_KEY: z.string().min(1),
 });
 
-export const env = envSchema.parse(process.env);
+const result = envSchema.safeParse(process.env);
+
+if (!result.success) {
+  console.error(result.error.issues);
+
+  throw new Error("There is an error with the server environment variables");
+}
+
+export const env = result.data;
