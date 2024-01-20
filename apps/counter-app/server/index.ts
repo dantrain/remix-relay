@@ -7,13 +7,13 @@ import { installGlobals } from "@remix-run/node";
 import cors from "cors";
 import express from "express";
 import "express-async-errors";
-import { PubSub } from "graphql-subscriptions";
 import { useServer } from "graphql-ws/lib/use/ws";
 import { createServer } from "http";
 import path from "path";
 import { WebSocketServer } from "ws";
 import { env } from "./env";
 import { schema } from "./graphql/graphql-schema";
+import { PubSub } from "./pubsub";
 
 installGlobals();
 

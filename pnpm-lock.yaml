@@ -98,6 +98,9 @@ importers:
       isbot:
         specifier: ^4.4.0
         version: 4.4.0
+      iterall:
+        specifier: ^1.3.0
+        version: 1.3.0
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
