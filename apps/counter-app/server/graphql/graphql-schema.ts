@@ -13,6 +13,7 @@ import {
   specifiedDirectives,
 } from "graphql";
 import type { PubSub } from "graphql-subscriptions";
+import { Database } from "server/__generated__/database.types";
 import invariant from "tiny-invariant";
 import z from "zod";
 import { supabase } from "../supabase-client";
@@ -21,10 +22,10 @@ const wait = (ms?: number) => {
   if (ms) return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-type Counter = {
-  id: string;
-  count: number;
-};
+type Counter = Omit<
+  Database["public"]["Tables"]["counters"]["Row"],
+  "createdAt"
+>;
 
 const builder = new SchemaBuilder<{
   Objects: {
