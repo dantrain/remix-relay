@@ -12,7 +12,7 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
-import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr";
 import { Suspense, useState } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
 import { getCurrentEnvironment } from "~/lib/relay-environment";
@@ -31,7 +31,7 @@ export default function App() {
 
   // eslint-disable-next-line react/hook-use-state
   const [supabase] = useState(() =>
-    createClient(SUPABASE_URL, SUPABASE_ANON_KEY),
+    createBrowserClient(SUPABASE_URL, SUPABASE_ANON_KEY),
   );
 
   const signUp = async () => {

@@ -4,6 +4,9 @@ import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import { createRequestHandler } from "@remix-run/express";
 import { installGlobals } from "@remix-run/node";
+import { createServerClient } from "@supabase/ssr";
+import { SupabaseClient, User } from "@supabase/supabase-js";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import "express-async-errors";
@@ -14,6 +17,15 @@ import { WebSocketServer } from "ws";
 import { env } from "./env";
 import { schema } from "./graphql/graphql-schema";
 import { PubSub } from "./pubsub";
+
+export type RequestContext = {
+  supabase: SupabaseClient;
+  user: User | null;
+};
+
+export type ApolloContext = RequestContext & {
+  pubsub: PubSub;
+};
 
 installGlobals();
 
@@ -29,6 +41,8 @@ const viteDevServer = isProd
 
 const app = express();
 const httpServer = createServer(app);
+
+app.use(cookieParser());
 
 if (viteDevServer) {
   app.use(viteDevServer.middlewares);
@@ -70,7 +84,7 @@ const serverCleanup = useServer(
   wsServer,
 );
 
-const apolloServer = new ApolloServer<{ pubsub: PubSub }>({
+const apolloServer = new ApolloServer<ApolloContext>({
   schema,
   plugins: [
     ApolloServerPluginDrainHttpServer({ httpServer }),
@@ -88,11 +102,45 @@ const apolloServer = new ApolloServer<{ pubsub: PubSub }>({
 
 await apolloServer.start();
 
+app.use(async (req, res, next) => {
+  const supabase = createServerClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
+    cookies: {
+      get: (key) => {
+        const cookie = req.cookies[key] ?? "";
+        return decodeURIComponent(cookie);
+      },
+      set: (key, value, options) => {
+        if (!res) return;
+        res.cookie(key, encodeURIComponent(value), {
+          ...options,
+          sameSite: "lax",
+          httpOnly: true,
+        });
+      },
+      remove: (key, options) => {
+        if (!res) return;
+        res.cookie(key, "", { ...options, httpOnly: true });
+      },
+    },
+  });
+
+  const { data } = await supabase.auth.getUser();
+
+  req.context = req.context || {};
+
+  req.context.supabase = supabase;
+  req.context.user = data.user;
+
+  next();
+});
+
 app.use(
   "/graphql",
   cors<cors.CorsRequest>(),
   express.json(),
-  expressMiddleware(apolloServer, { context: async () => ({ pubsub }) }),
+  expressMiddleware(apolloServer, {
+    context: async ({ req }) => ({ pubsub, ...req.context }),
+  }),
 );
 
 app.all(
@@ -104,8 +152,8 @@ app.all(
           path.join(import.meta.dirname!, "remix.js")
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         )) as any),
-    getLoadContext() {
-      return { env, apolloServer };
+    getLoadContext(req) {
+      return { env, apolloServer, apolloContext: { pubsub, ...req.context } };
     },
   }),
 );

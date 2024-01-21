@@ -13,12 +13,6 @@ const envSchema = z.object({
 
 export type Env = z.infer<typeof envSchema>;
 
-declare module "@remix-run/server-runtime" {
-  export interface AppLoadContext {
-    env: Env;
-  }
-}
-
 const result = envSchema.safeParse(process.env);
 
 if (!result.success) {

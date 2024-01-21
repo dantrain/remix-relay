@@ -12,11 +12,11 @@ import {
   GraphQLStreamDirective,
   specifiedDirectives,
 } from "graphql";
-import type { PubSub } from "graphql-subscriptions";
+import { ApolloContext } from "server";
 import { Database } from "server/__generated__/database.types";
+import { supabase as globalSupabase } from "server/supabase-client";
 import invariant from "tiny-invariant";
 import z from "zod";
-import { supabase } from "../supabase-client";
 
 const wait = (ms?: number) => {
   if (ms) return new Promise((resolve) => setTimeout(resolve, ms));
@@ -31,7 +31,7 @@ const builder = new SchemaBuilder<{
   Objects: {
     Counter: Counter;
   };
-  Context: { pubsub: PubSub };
+  Context: ApolloContext;
   DefaultEdgesNullability: false;
 }>({
   plugins: [RelayPlugin, SmartSubscriptionsPlugin, ValidationPlugin],
@@ -58,11 +58,12 @@ builder.queryType({
   fields: (t) => ({
     counterConnection: t.connection({
       type: Counter,
-      resolve: async (_parent, args) => {
+      resolve: async (_parent, args, { supabase }) => {
         const { data } = await supabase
           .from("counters")
           .select("id, count")
           .order("createdAt");
+
         invariant(data);
         return resolveArrayConnection({ args }, data);
       },
@@ -81,7 +82,7 @@ builder.queryType({
         const id = decodeGlobalID(args.id.toString()).id;
 
         const getCounter = async (id: string) => {
-          const { data } = await supabase
+          const { data } = await globalSupabase
             .from("counters")
             .select("id, count")
             .eq("id", id);
@@ -134,7 +135,7 @@ builder.mutationType({
         id: t.arg.id({ required: true }),
         count: t.arg.int({ required: true }),
       },
-      resolve: async (_parent, args) => {
+      resolve: async (_parent, args, { supabase }) => {
         const id = decodeGlobalID(args.id.toString()).id;
         const count = args.count;
 
@@ -160,7 +161,7 @@ builder.mutationType({
           validate: { schema: z.string().cuid2() },
         }),
       },
-      resolve: async (_parent, args) => {
+      resolve: async (_parent, args, { supabase }) => {
         const counter = { id: args.id.toString(), count: 0 };
 
         const { status } = await supabase.from("counters").insert(counter);
@@ -172,7 +173,7 @@ builder.mutationType({
     deleteOneCounter: t.field({
       type: Counter,
       args: { id: t.arg.id({ required: true }) },
-      resolve: async (_parent, args) => {
+      resolve: async (_parent, args, { supabase }) => {
         const id = decodeGlobalID(args.id.toString()).id;
 
         const { data } = await supabase

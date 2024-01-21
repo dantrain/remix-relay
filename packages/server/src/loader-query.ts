@@ -24,7 +24,10 @@ export type SerializablePreloadedQuery<
   response: TResponse;
 };
 
-export function getLoaderQuery(server: ApolloServer<BaseContext>) {
+export function getLoaderQuery(
+  server: ApolloServer<BaseContext>,
+  context: BaseContext = {},
+) {
   return async <TQuery extends OperationType>(
     node: ConcreteRequest,
     variables: VariablesOf<TQuery>,
@@ -35,7 +38,7 @@ export function getLoaderQuery(server: ApolloServer<BaseContext>) {
       await server.start();
     }
 
-    return loaderQuery(server, node, variables);
+    return loaderQuery(server, node, variables, context);
   };
 }
 
@@ -43,6 +46,7 @@ export async function loaderQuery<TQuery extends OperationType>(
   server: ApolloServer<BaseContext>,
   node: ConcreteRequest,
   variables: VariablesOf<TQuery>,
+  context: BaseContext = {},
 ): Promise<
   | TypedResponse<{
       preloadedQuery: SerializablePreloadedQuery<
@@ -75,7 +79,7 @@ export async function loaderQuery<TQuery extends OperationType>(
       query: node.params.text!,
       variables,
     },
-    { contextValue: {} },
+    { contextValue: context },
   );
 
   if (result.body.kind === "single") {
