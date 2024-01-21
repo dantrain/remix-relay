@@ -105,7 +105,7 @@ app.all(
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         )) as any),
     getLoadContext() {
-      return { apolloServer };
+      return { env, apolloServer };
     },
   }),
 );

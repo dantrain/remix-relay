@@ -11,6 +11,14 @@ const envSchema = z.object({
   SUPABASE_ANON_KEY: z.string().min(1),
 });
 
+export type Env = z.infer<typeof envSchema>;
+
+declare module "@remix-run/server-runtime" {
+  export interface AppLoadContext {
+    env: Env;
+  }
+}
+
 const result = envSchema.safeParse(process.env);
 
 if (!result.success) {
