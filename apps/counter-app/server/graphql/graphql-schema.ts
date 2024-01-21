@@ -80,23 +80,21 @@ builder.queryType({
       resolve: async (_parent, args) => {
         const id = decodeGlobalID(args.id.toString()).id;
 
-        const { data } = await supabase
-          .from("counters")
-          .select("id, count")
-          .eq("id", id);
-
-        invariant(data);
-        let counter = data[0];
-
-        if (!counter) {
-          await wait(500);
+        const getCounter = async (id: string) => {
           const { data } = await supabase
             .from("counters")
             .select("id, count")
             .eq("id", id);
 
           invariant(data);
-          counter = data[0];
+          return data[0];
+        };
+
+        let counter = await getCounter(id);
+
+        if (!counter) {
+          await wait(500);
+          counter = await getCounter(id);
         }
 
         invariant(counter, "Counter not found");

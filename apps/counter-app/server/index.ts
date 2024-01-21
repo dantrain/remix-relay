@@ -16,6 +16,7 @@ import { schema } from "./graphql/graphql-schema";
 import { PubSub } from "./pubsub";
 
 installGlobals();
+
 const isProd = env.NODE_ENV === "production";
 
 const viteDevServer = isProd
