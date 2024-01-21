@@ -1,5 +1,5 @@
 import { RemixRelayProvider } from "@remix-relay/react";
-import { Button, Spinner } from "@remix-relay/ui";
+import { Spinner } from "@remix-relay/ui";
 import "@remix-relay/ui/dist/index.css";
 import type { AppLoadContext } from "@remix-run/node";
 import { json } from "@remix-run/node";
@@ -13,7 +13,8 @@ import {
   useLoaderData,
 } from "@remix-run/react";
 import { createBrowserClient } from "@supabase/ssr";
-import { Suspense, useState } from "react";
+import { SupabaseClient } from "@supabase/supabase-js";
+import { Suspense, createContext, useState } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
 import { getCurrentEnvironment } from "~/lib/relay-environment";
 import Progress from "./components/Progress";
@@ -26,6 +27,8 @@ export const loader = ({ context }: { context: AppLoadContext }) => {
   });
 };
 
+export const SupabaseContext = createContext<SupabaseClient | null>(null);
+
 export default function App() {
   const { SUPABASE_URL, SUPABASE_ANON_KEY } = useLoaderData<typeof loader>();
 
@@ -33,30 +36,6 @@ export default function App() {
   const [supabase] = useState(() =>
     createBrowserClient(SUPABASE_URL, SUPABASE_ANON_KEY),
   );
-
-  const signUp = async () => {
-    const res = await supabase.auth.signUp({
-      email: "dantrain@gmail.com",
-      password: "testing123",
-    });
-
-    console.log("signUp res", res);
-  };
-
-  const signIn = async () => {
-    const res = await supabase.auth.signInWithPassword({
-      email: "dantrain@gmail.com",
-      password: "testing123",
-    });
-
-    console.log("signIn res", res);
-  };
-
-  const signOut = async () => {
-    const res = await supabase.auth.signOut();
-
-    console.log("signOut res", res);
-  };
 
   return (
     <html lang="en">
@@ -68,21 +47,18 @@ export default function App() {
         <Links />
       </head>
       <body className="bg-slate-950 text-white">
-        <RemixRelayProvider>
-          <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
-            <Progress />
-            <div className="mx-auto max-w-3xl p-4 sm:p-8">
-              <div className="mb-8 flex gap-4">
-                <Button onClick={signUp}>Sign up</Button>
-                <Button onClick={signIn}>Sign in</Button>
-                <Button onClick={signOut}>Sign out</Button>
+        <SupabaseContext.Provider value={supabase}>
+          <RemixRelayProvider>
+            <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
+              <Progress />
+              <div className="mx-auto max-w-3xl p-4 sm:p-8">
+                <Suspense fallback={<Spinner className="h-36" />}>
+                  <Outlet />
+                </Suspense>
               </div>
-              <Suspense fallback={<Spinner className="h-36" />}>
-                <Outlet />
-              </Suspense>
-            </div>
-          </RelayEnvironmentProvider>
-        </RemixRelayProvider>
+            </RelayEnvironmentProvider>
+          </RemixRelayProvider>
+        </SupabaseContext.Provider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
