@@ -36,7 +36,9 @@ export default function Index() {
           <a href="/auth/signout">Sign out</a>
         </Button>
       </div>
-      <Suspense fallback={<Spinner className="h-16 max-w-[260px]" />}>
+      <Suspense
+        fallback={<Spinner className="animate-fade h-16 max-w-[260px]" />}
+      >
         <CounterList dataRef={data.viewer} />
       </Suspense>
     </main>
