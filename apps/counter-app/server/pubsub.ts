@@ -24,12 +24,29 @@ export class PubSub extends PubSubEngine {
         { event: "*", schema: "public", table: "counters" },
         (payload) => {
           if (payload.eventType === "INSERT") {
-            this.ee.emit("counterCreated", omit(payload.new, ["createdAt"]));
+            this.ee.emit(
+              JSON.stringify({
+                table: "counters",
+                eventType: "INSERT",
+                userId: payload.new.userId,
+              }),
+              omit(payload.new, ["createdAt"]),
+            );
           } else if (payload.eventType === "DELETE") {
-            this.ee.emit("counterDeleted", payload.old);
+            this.ee.emit(
+              JSON.stringify({
+                table: "counters",
+                eventType: "DELETE",
+              }),
+              payload.old,
+            );
           } else if (payload.eventType === "UPDATE") {
             this.ee.emit(
-              `countSet/${payload.new.id}`,
+              JSON.stringify({
+                table: "counters",
+                eventType: "UPDATE",
+                id: payload.new.id,
+              }),
               omit(payload.new, ["createdAt"]),
             );
           }

@@ -15,7 +15,6 @@ import {
 import { pick } from "lodash-es";
 import { ApolloContext } from "server";
 import { Database } from "server/__generated__/database.types";
-import { supabase as globalSupabase } from "server/supabase-client";
 import invariant from "tiny-invariant";
 import z from "zod";
 
@@ -96,13 +95,17 @@ builder.queryType({
       smartSubscription: true,
       subscribe: (subscriptions, _parent, args) =>
         void subscriptions.register(
-          `countSet/${decodeGlobalID(args.id.toString()).id}`,
+          JSON.stringify({
+            table: "counters",
+            eventType: "UPDATE",
+            id: decodeGlobalID(args.id.toString()).id,
+          }),
         ),
-      resolve: async (_parent, args) => {
+      resolve: async (_parent, args, { supabase }) => {
         const id = decodeGlobalID(args.id.toString()).id;
 
         const getCounter = async (id: string) => {
-          const { data } = await globalSupabase
+          const { data } = await supabase
             .from("counters")
             .select("id, count")
             .eq("id", id);
@@ -130,17 +133,27 @@ builder.subscriptionType({
   fields: (t) => ({
     counterCreated: t.field({
       type: Counter,
-      subscribe: (_parent, _args, { pubsub }) =>
-        pubsub.asyncIterator(
-          "counterCreated",
-        ) as unknown as AsyncIterable<Counter>,
+      subscribe: (_parent, _args, { pubsub, user }) => {
+        invariant(user);
+
+        return pubsub.asyncIterator(
+          JSON.stringify({
+            table: "counters",
+            eventType: "INSERT",
+            userId: user.id,
+          }),
+        ) as unknown as AsyncIterable<Counter>;
+      },
       resolve: (counter) => counter,
     }),
     counterDeleted: t.field({
       type: Counter,
       subscribe: (_parent, _args, { pubsub }) =>
         pubsub.asyncIterator(
-          "counterDeleted",
+          JSON.stringify({
+            table: "counters",
+            eventType: "DELETE",
+          }),
         ) as unknown as AsyncIterable<Counter>,
       resolve: (counter) => counter,
     }),

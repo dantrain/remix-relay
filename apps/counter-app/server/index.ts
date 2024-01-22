@@ -4,7 +4,7 @@ import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import { createRequestHandler } from "@remix-run/express";
 import { installGlobals } from "@remix-run/node";
-import { createServerClient } from "@supabase/ssr";
+import { createServerClient, parse } from "@supabase/ssr";
 import { SupabaseClient, User } from "@supabase/supabase-js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -13,6 +13,7 @@ import "express-async-errors";
 import { useServer } from "graphql-ws/lib/use/ws";
 import { createServer } from "http";
 import path from "path";
+import invariant from "tiny-invariant";
 import { WebSocketServer } from "ws";
 import zlib from "zlib";
 import { env } from "./env";
@@ -81,7 +82,37 @@ const wsServer = new WebSocketServer({
 const pubsub = new PubSub();
 
 const serverCleanup = useServer(
-  { schema, context: () => ({ pubsub }) },
+  {
+    schema,
+    context: async (ctx) => {
+      const supabase = createServerClient(
+        env.SUPABASE_URL,
+        env.SUPABASE_ANON_KEY,
+        {
+          cookies: {
+            get: (key) => {
+              const cookie = parse(ctx.extra.request.headers.cookie ?? "")[key];
+
+              if (!cookie) return "";
+              if (key.includes("verifier")) return cookie;
+
+              const uncompressedValue = zlib
+                .gunzipSync(Buffer.from(cookie, "base64url"))
+                .toString("utf-8");
+
+              return uncompressedValue;
+            },
+            set: () => {},
+            remove: () => {},
+          },
+        },
+      );
+
+      const { data } = await supabase.auth.getSession();
+
+      return { pubsub, supabase, user: data.session?.user };
+    },
+  },
   wsServer,
 );
 
@@ -178,7 +209,9 @@ app.use(
   cors<cors.CorsRequest>(),
   express.json(),
   expressMiddleware(apolloServer, {
-    context: async ({ req }) => ({ pubsub, ...req.context }),
+    context: async ({ req }) => {
+      return { pubsub, ...req.context };
+    },
   }),
 );
 
