@@ -44,6 +44,13 @@ const fetchFn: FetchFunction = (
                 variables,
               }),
             })
+              .then((response) => {
+                if (response.status === 401 && !isServer) {
+                  window.location.href = "/signin";
+                }
+
+                return response;
+              })
               .then(meros)
               .then(async (parts) => {
                 if (parts instanceof Response) {

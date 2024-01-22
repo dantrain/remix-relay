@@ -13,7 +13,6 @@ import "express-async-errors";
 import { useServer } from "graphql-ws/lib/use/ws";
 import { createServer } from "http";
 import path from "path";
-import invariant from "tiny-invariant";
 import { WebSocketServer } from "ws";
 import zlib from "zlib";
 import { env } from "./env";
@@ -197,11 +196,17 @@ app.get("/auth/signout", async (req, res) => {
 });
 
 app.use((req, res, next) => {
-  if (!req.context.user && req.path !== "/signin") {
-    return res.redirect(303, "/signin");
+  if (!req.context.user) {
+    if (req.path === "/signin") {
+      return next();
+    } else if (req.path === "/graphql") {
+      return res.status(401).json({ message: "Unauthorized" });
+    } else {
+      return res.redirect(303, "/signin");
+    }
   }
 
-  next();
+  return next();
 });
 
 app.use(
