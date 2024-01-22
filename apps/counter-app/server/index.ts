@@ -138,12 +138,12 @@ app.use(async (req, res, next) => {
     },
   });
 
-  const { data } = await supabase.auth.getUser();
+  const { data } = await supabase.auth.getSession();
 
   req.context = req.context || {};
 
   req.context.supabase = supabase;
-  req.context.user = data.user;
+  req.context.user = data.session?.user ?? null;
 
   next();
 });
