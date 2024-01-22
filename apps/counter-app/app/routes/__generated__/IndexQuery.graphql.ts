@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b8ab04c2a768271b95b3cdd85e0f2332>>
+ * @generated SignedSource<<c4b2e718d3ce971b2757c5008991cc16>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -45,9 +45,14 @@ return {
         "plural": false,
         "selections": [
           {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "CounterListFragment"
+            "kind": "Defer",
+            "selections": [
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "CounterListFragment"
+              }
+            ]
           }
         ],
         "storageKey": null
@@ -71,57 +76,64 @@ return {
         "plural": false,
         "selections": [
           {
-            "alias": null,
-            "args": null,
-            "concreteType": "UserCounterConnection",
-            "kind": "LinkedField",
-            "name": "counterConnection",
-            "plural": false,
+            "if": null,
+            "kind": "Defer",
+            "label": "IndexQuery$defer$CounterListFragment",
             "selections": [
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "UserCounterConnectionEdge",
+                "concreteType": "UserCounterConnection",
                 "kind": "LinkedField",
-                "name": "edges",
-                "plural": true,
+                "name": "counterConnection",
+                "plural": false,
                 "selections": [
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "Counter",
+                    "concreteType": "UserCounterConnectionEdge",
                     "kind": "LinkedField",
-                    "name": "node",
-                    "plural": false,
+                    "name": "edges",
+                    "plural": true,
                     "selections": [
-                      (v0/*: any*/),
                       {
                         "alias": null,
                         "args": null,
-                        "kind": "ScalarField",
-                        "name": "count",
+                        "concreteType": "Counter",
+                        "kind": "LinkedField",
+                        "name": "node",
+                        "plural": false,
+                        "selections": [
+                          (v0/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "count",
+                            "storageKey": null
+                          }
+                        ],
                         "storageKey": null
                       }
                     ],
                     "storageKey": null
+                  },
+                  {
+                    "kind": "ClientExtension",
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "__id",
+                        "storageKey": null
+                      }
+                    ]
                   }
                 ],
                 "storageKey": null
-              },
-              {
-                "kind": "ClientExtension",
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "__id",
-                    "storageKey": null
-                  }
-                ]
               }
-            ],
-            "storageKey": null
+            ]
           },
           (v0/*: any*/)
         ],
@@ -130,16 +142,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7ef008d09371e63bf5ebeab2ff5ca7d9",
+    "cacheID": "47e9947e3019449171c606d3d7b919cf",
     "id": null,
     "metadata": {},
     "name": "IndexQuery",
     "operationKind": "query",
-    "text": "query IndexQuery {\n  viewer {\n    ...CounterListFragment\n    id\n  }\n}\n\nfragment CounterFragment on Counter {\n  id\n  count\n}\n\nfragment CounterListFragment on User {\n  counterConnection {\n    edges {\n      node {\n        id\n        ...CounterFragment\n      }\n    }\n  }\n}\n"
+    "text": "query IndexQuery {\n  viewer {\n    ...CounterListFragment @defer(label: \"IndexQuery$defer$CounterListFragment\")\n    id\n  }\n}\n\nfragment CounterFragment on Counter {\n  id\n  count\n}\n\nfragment CounterListFragment on User {\n  counterConnection {\n    edges {\n      node {\n        id\n        ...CounterFragment\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "773fbbbfe465373ba0562d4f28975d6d";
+(node as any).hash = "a839ddf860def501ba0d4604859da263";
 
 export default node;

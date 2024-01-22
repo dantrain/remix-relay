@@ -1,5 +1,5 @@
-import { useLoaderQuery } from "@remix-relay/react";
-import { Button } from "@remix-relay/ui";
+import { Suspense, useLoaderQuery } from "@remix-relay/react";
+import { Button, Spinner } from "@remix-relay/ui";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { graphql } from "react-relay";
 import CounterList from "~/components/CounterList";
@@ -11,7 +11,7 @@ import indexQueryNode, { IndexQuery } from "./__generated__/IndexQuery.graphql";
 const query = graphql`
   query IndexQuery {
     viewer {
-      ...CounterListFragment
+      ...CounterListFragment @defer
     }
   }
 `;
@@ -36,7 +36,9 @@ export default function Index() {
           <a href="/auth/signout">Sign out</a>
         </Button>
       </div>
-      <CounterList dataRef={data.viewer} />
+      <Suspense fallback={<Spinner className="h-16 max-w-[260px]" />}>
+        <CounterList dataRef={data.viewer} />
+      </Suspense>
     </main>
   );
 }
