@@ -10,7 +10,9 @@ import indexQueryNode, { IndexQuery } from "./__generated__/IndexQuery.graphql";
 
 const query = graphql`
   query IndexQuery {
-    ...CounterListFragment
+    viewer {
+      ...CounterListFragment
+    }
   }
 `;
 
@@ -34,7 +36,7 @@ export default function Index() {
           <a href="/auth/signout">Sign out</a>
         </Button>
       </div>
-      <CounterList dataRef={data} />
+      <CounterList dataRef={data.viewer} />
     </main>
   );
 }

@@ -12,6 +12,7 @@ import {
   GraphQLStreamDirective,
   specifiedDirectives,
 } from "graphql";
+import { pick } from "lodash-es";
 import { ApolloContext } from "server";
 import { Database } from "server/__generated__/database.types";
 import { supabase as globalSupabase } from "server/supabase-client";
@@ -22,6 +23,10 @@ const wait = (ms?: number) => {
   if (ms) return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
+type User = {
+  id: string;
+};
+
 type Counter = Omit<
   Database["public"]["Tables"]["counters"]["Row"],
   "createdAt"
@@ -29,6 +34,7 @@ type Counter = Omit<
 
 const builder = new SchemaBuilder<{
   Objects: {
+    User: User;
     Counter: Counter;
   };
   Context: ApolloContext;
@@ -47,6 +53,25 @@ const builder = new SchemaBuilder<{
   },
 });
 
+const User = builder.node("User", {
+  id: { resolve: (_) => _.id },
+  fields: (t) => ({
+    counterConnection: t.connection({
+      type: Counter,
+      resolve: async ({ id }, args, { supabase }) => {
+        const { data } = await supabase
+          .from("counters")
+          .select("id, count")
+          .eq("userId", id)
+          .order("createdAt");
+
+        invariant(data);
+        return resolveArrayConnection({ args }, data);
+      },
+    }),
+  }),
+});
+
 const Counter = builder.node("Counter", {
   id: { resolve: (_) => _.id },
   fields: (t) => ({
@@ -56,16 +81,11 @@ const Counter = builder.node("Counter", {
 
 builder.queryType({
   fields: (t) => ({
-    counterConnection: t.connection({
-      type: Counter,
-      resolve: async (_parent, args, { supabase }) => {
-        const { data } = await supabase
-          .from("counters")
-          .select("id, count")
-          .order("createdAt");
-
-        invariant(data);
-        return resolveArrayConnection({ args }, data);
+    viewer: t.field({
+      type: User,
+      resolve: (_parent, _args, { user }) => {
+        invariant(user);
+        return pick(user, "id");
       },
     }),
     counter: t.field({

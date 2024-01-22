@@ -47,23 +47,28 @@ type PageInfo {
 
 type Query {
   counter(id: ID!): Counter!
-  counterConnection(after: String, before: String, first: Int, last: Int): QueryCounterConnection!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
-}
-
-type QueryCounterConnection {
-  edges: [QueryCounterConnectionEdge!]!
-  pageInfo: PageInfo!
-}
-
-type QueryCounterConnectionEdge {
-  cursor: String!
-  node: Counter!
+  viewer: User!
 }
 
 type Subscription {
   counter(id: ID!): Counter!
   counterCreated: Counter!
   counterDeleted: Counter!
+}
+
+type User implements Node {
+  counterConnection(after: String, before: String, first: Int, last: Int): UserCounterConnection!
+  id: ID!
+}
+
+type UserCounterConnection {
+  edges: [UserCounterConnectionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type UserCounterConnectionEdge {
+  cursor: String!
+  node: Counter!
 }

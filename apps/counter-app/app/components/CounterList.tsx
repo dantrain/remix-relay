@@ -13,7 +13,7 @@ import { CounterListCreateOneCounterMutation } from "./__generated__/CounterList
 import { CounterListFragment$key } from "./__generated__/CounterListFragment.graphql";
 
 const fragment = graphql`
-  fragment CounterListFragment on Query {
+  fragment CounterListFragment on User {
     counterConnection {
       __id
       edges {

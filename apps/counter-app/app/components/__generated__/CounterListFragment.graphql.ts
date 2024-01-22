@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<85d065ba0c1e16e37d7b746b47fb3500>>
+ * @generated SignedSource<<fadcc94f72625fa845a4ed591bc48f24>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -36,7 +36,7 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "QueryCounterConnection",
+      "concreteType": "UserCounterConnection",
       "kind": "LinkedField",
       "name": "counterConnection",
       "plural": false,
@@ -44,7 +44,7 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
-          "concreteType": "QueryCounterConnectionEdge",
+          "concreteType": "UserCounterConnectionEdge",
           "kind": "LinkedField",
           "name": "edges",
           "plural": true,
@@ -91,10 +91,10 @@ const node: ReaderFragment = {
       "storageKey": null
     }
   ],
-  "type": "Query",
+  "type": "User",
   "abstractKey": null
 };
 
-(node as any).hash = "243e562af7554f69f65fb7d129bab4e5";
+(node as any).hash = "b6ebcb52e23c96ac7f651150db889dd5";
 
 export default node;
