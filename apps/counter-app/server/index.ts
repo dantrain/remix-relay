@@ -90,16 +90,15 @@ const serverCleanup = useServer(
         {
           cookies: {
             get: (key) => {
-              const cookie = parse(ctx.extra.request.headers.cookie ?? "")[key];
+              const value = parse(ctx.extra.request.headers.cookie ?? "")[key];
 
-              if (!cookie) return "";
-              if (key.includes("verifier")) return cookie;
+              if (!value) return "";
 
-              const uncompressedValue = zlib
-                .gunzipSync(Buffer.from(cookie, "base64url"))
-                .toString("utf-8");
-
-              return uncompressedValue;
+              return key.includes("auth-token") && !key.includes("verifier")
+                ? zlib
+                    .gunzipSync(Buffer.from(value, "base64url"))
+                    .toString("utf-8")
+                : decodeURIComponent(value);
             },
             set: () => {},
             remove: () => {},
@@ -137,25 +136,23 @@ app.use(async (req, res, next) => {
   const supabase = createServerClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
     cookies: {
       get: (key) => {
-        const cookie = req.cookies[key];
+        const value = req.cookies[key];
 
-        if (!cookie) return "";
-        if (key.includes("verifier")) return cookie;
+        if (!value) return "";
 
-        const uncompressedValue = zlib
-          .gunzipSync(Buffer.from(cookie, "base64url"))
-          .toString("utf-8");
-
-        return uncompressedValue;
+        return key.includes("auth-token") && !key.includes("verifier")
+          ? zlib.gunzipSync(Buffer.from(value, "base64url")).toString("utf-8")
+          : decodeURIComponent(value);
       },
       set: (key, value, options) => {
         if (!res) return;
 
-        const compressedValue = zlib
-          .gzipSync(Buffer.from(value, "utf-8"))
-          .toString("base64url");
+        const encodedValue =
+          key.includes("auth-token") && !key.includes("verifier")
+            ? zlib.gzipSync(Buffer.from(value, "utf-8")).toString("base64url")
+            : encodeURIComponent(value);
 
-        res.cookie(key, compressedValue, {
+        res.cookie(key, encodedValue, {
           ...options,
           sameSite: "lax",
           httpOnly: true,
