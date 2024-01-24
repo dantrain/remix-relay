@@ -145,13 +145,17 @@ app.use(async (req, res, next) => {
           : decodeURIComponent(value);
       },
       set: (key, value, options) => {
-        if (!res) return;
+        if (!res || res.headersSent) {
+          console.error("Failed to set cookie", key, value, req.path);
+          return;
+        }
 
         const encodedValue =
           key.includes("auth-token") && !key.includes("verifier")
             ? zlib.gzipSync(Buffer.from(value, "utf-8")).toString("base64url")
             : encodeURIComponent(value);
 
+        // breaks here with ERR_HTTP_HEADERS_SENT and "Error: Server timeout."
         res.cookie(key, encodedValue, {
           ...options,
           sameSite: "lax",
@@ -159,13 +163,19 @@ app.use(async (req, res, next) => {
         });
       },
       remove: (key, options) => {
-        if (!res) return;
+        if (!res || res.headersSent) {
+          console.error("Failed to remove cookie", key, req.path);
+          return;
+        }
+
         res.cookie(key, "", { ...options, httpOnly: true });
       },
     },
   });
 
   const { data } = await supabase.auth.getSession();
+
+  console.log("Refresh token", data.session?.refresh_token);
 
   req.context = req.context || {};
 
