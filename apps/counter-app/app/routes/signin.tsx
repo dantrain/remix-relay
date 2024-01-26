@@ -4,7 +4,7 @@ import { useLoaderData } from "@remix-run/react";
 import { createBrowserClient } from "@supabase/ssr";
 import type { Provider } from "@supabase/supabase-js";
 import { useState } from "react";
-import { GitHubIcon, GoogleIcon } from "~/components/Icons";
+import { GitHubIcon, GoogleIcon, MicrosoftIcon } from "~/components/Icons";
 
 export const meta: MetaFunction = () => [{ title: "Sign in · Counter App" }];
 
@@ -50,23 +50,33 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex min-h-[30dvh] flex-col items-center justify-center gap-4">
-      <Button
-        className="flex items-center gap-3 px-6 py-2"
-        disabled={signingIn}
-        onClick={() => signIn("google")}
-      >
-        <GoogleIcon />
-        Sign in with Google
-      </Button>
-      <Button
-        className="flex items-center gap-3 px-6 py-2"
-        disabled={signingIn}
-        onClick={() => signIn("github")}
-      >
-        <GitHubIcon />
-        Sign in with GitHub
-      </Button>
+    <div className="flex min-h-[30dvh] flex-col items-center justify-center">
+      <div className="flex flex-col items-stretch gap-4">
+        <Button
+          className="flex items-center justify-center gap-3 px-6 py-2"
+          disabled={signingIn}
+          onClick={() => signIn("google")}
+        >
+          <GoogleIcon />
+          Sign in with Google
+        </Button>
+        <Button
+          className="flex items-center justify-center gap-3 px-6 py-2"
+          disabled={signingIn}
+          onClick={() => signIn("github")}
+        >
+          <GitHubIcon />
+          Sign in with GitHub
+        </Button>
+        <Button
+          className="flex items-center justify-center gap-3 px-6 py-2"
+          disabled={signingIn}
+          onClick={() => signIn("azure")}
+        >
+          <MicrosoftIcon />
+          Sign in with Microsoft
+        </Button>
+      </div>
     </div>
   );
 }

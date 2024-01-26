@@ -2,7 +2,6 @@
   "name": "counter-app",
   "version": "1.0.0",
   "private": true,
-  "sideEffects": false,
   "type": "module",
   "scripts": {
     "dev": "zx ./scripts/dev.mjs",
