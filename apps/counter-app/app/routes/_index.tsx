@@ -3,6 +3,7 @@ import { Button, Spinner } from "@remix-relay/ui";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { graphql } from "react-relay";
 import CounterList from "~/components/CounterList";
+import { SignOutIcon } from "~/components/Icons";
 import useWindowVisible from "~/hooks/useWindowVisible";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
@@ -33,7 +34,10 @@ export default function Index() {
       <div className="mb-8 mt-2 flex items-start justify-between">
         <h1 className="text-2xl font-bold">Counter App</h1>
         <Button asChild className="px-4">
-          <a href="/auth/signout">Sign out</a>
+          <a className="flex items-center gap-2" href="/auth/signout">
+            <SignOutIcon />
+            Sign out
+          </a>
         </Button>
       </div>
       <Suspense
