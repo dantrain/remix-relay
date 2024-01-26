@@ -28,7 +28,7 @@ type User = {
 
 type Counter = Omit<
   Database["public"]["Tables"]["counters"]["Row"],
-  "createdAt"
+  "createdAt" | "userId"
 >;
 
 const builder = new SchemaBuilder<{
