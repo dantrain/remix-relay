@@ -1,10 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { createClient } from "@supabase/supabase-js";
 import { EventEmitter } from "events";
 import { PubSubEngine } from "graphql-subscriptions";
 import { omit } from "lodash-es";
 import invariant from "tiny-invariant";
-import { supabase } from "./supabase-client";
+import { Database } from "./__generated__/database.types";
+import { env } from "./env";
 
+const supabase = createClient<Database>(
+  env.SUPABASE_URL,
+  env.SUPABASE_ANON_KEY,
+);
 export class PubSub extends PubSubEngine {
   protected ee: EventEmitter;
   private subscriptions: { [key: string]: [string, (...args: any[]) => void] };

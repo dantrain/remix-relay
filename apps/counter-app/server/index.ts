@@ -4,7 +4,6 @@ import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import { createRequestHandler } from "@remix-run/express";
 import { installGlobals } from "@remix-run/node";
-import { createServerClient, parse } from "@supabase/ssr";
 import { SupabaseClient, User } from "@supabase/supabase-js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -14,7 +13,7 @@ import { useServer } from "graphql-ws/lib/use/ws";
 import { createServer } from "http";
 import path from "path";
 import { WebSocketServer } from "ws";
-import zlib from "zlib";
+import { createSupabaseClient } from "./create-supabase-client";
 import { env } from "./env";
 import { schema } from "./graphql/graphql-schema";
 import { PubSub } from "./pubsub";
@@ -88,30 +87,9 @@ const serverCleanup = useServer(
   {
     schema,
     context: async (ctx) => {
-      const supabase = createServerClient(
-        env.SUPABASE_URL,
-        env.SUPABASE_ANON_KEY,
-        {
-          cookies: {
-            get: (key) => {
-              const value = parse(ctx.extra.request.headers.cookie ?? "")[key];
-
-              if (!value) return "";
-
-              const decodedValue =
-                key.includes("auth-token") && !key.includes("verifier")
-                  ? zlib
-                      .gunzipSync(Buffer.from(value, "base64url"))
-                      .toString("utf-8")
-                  : decodeURIComponent(value);
-
-              return decodedValue;
-            },
-            set: () => {},
-            remove: () => {},
-          },
-        },
-      );
+      const supabase = createSupabaseClient(ctx.extra.request, null, {
+        writeCookies: false,
+      });
 
       const { data } = await supabase.auth.getSession();
 
@@ -140,72 +118,9 @@ const apolloServer = new ApolloServer<ApolloContext>({
 await apolloServer.start();
 
 app.use(async (req, res, next) => {
-  const cookiesSetThisRequest: Record<string, string> = {};
-
-  const supabase = createServerClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
-    cookies: {
-      get: (key) => {
-        const value = cookiesSetThisRequest[key] ?? req.cookies[key];
-
-        if (!value) return "";
-
-        const decodedValue =
-          key.includes("auth-token") && !key.includes("verifier")
-            ? zlib.gunzipSync(Buffer.from(value, "base64url")).toString("utf-8")
-            : decodeURIComponent(value);
-
-        // console.log(
-        //   "Reading cookie",
-        //   key,
-        //   decodedValue.match(/"refresh_token":"[^"]+"/)?.[0],
-        // );
-
-        return decodedValue;
-      },
-      set: (key, value, options) => {
-        if (!res || res.headersSent) {
-          console.error("Failed to set cookie", key, req.path, {
-            headersSent: res.headersSent,
-          });
-          return;
-        }
-
-        // console.log("Setting cookie", key, value);
-
-        const encodedValue =
-          key.includes("auth-token") && !key.includes("verifier")
-            ? zlib.gzipSync(Buffer.from(value, "utf-8")).toString("base64url")
-            : encodeURIComponent(value);
-
-        // breaks here with ERR_HTTP_HEADERS_SENT and "Error: Server timeout."
-        res.cookie(key, encodedValue, {
-          ...options,
-          sameSite: "lax",
-          httpOnly: true,
-        });
-
-        cookiesSetThisRequest[key] = encodedValue;
-      },
-      remove: (key, options) => {
-        if (!res || res.headersSent) {
-          console.error("Failed to remove cookie", key, req.path, {
-            headersSent: res.headersSent,
-          });
-          return;
-        }
-
-        // console.log("Removing cookie", key);
-
-        res.cookie(key, "", { ...options, httpOnly: true });
-      },
-    },
-  });
-
-  // console.log("Get session");
+  const supabase = createSupabaseClient(req, res);
 
   const { data } = await supabase.auth.getSession();
-
-  // console.log("Refresh token", data.session?.refresh_token);
 
   req.context = req.context || {};
 

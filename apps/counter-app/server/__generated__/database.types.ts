@@ -14,18 +14,29 @@ export interface Database {
           count: number
           createdAt: string
           id: string
+          userId: string
         }
         Insert: {
           count?: number
           createdAt?: string
           id: string
+          userId?: string
         }
         Update: {
           count?: number
           createdAt?: string
           id?: string
+          userId?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "counters_userId_fkey"
+            columns: ["userId"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
     }
     Views: {

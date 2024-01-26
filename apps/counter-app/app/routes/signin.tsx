@@ -2,7 +2,7 @@ import { Button } from "@remix-relay/ui";
 import { AppLoadContext, MetaFunction, json, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { createBrowserClient } from "@supabase/ssr";
-import { Provider } from "@supabase/supabase-js";
+import type { Provider } from "@supabase/supabase-js";
 import { useState } from "react";
 import { GitHubIcon, GoogleIcon } from "~/components/Icons";
 
