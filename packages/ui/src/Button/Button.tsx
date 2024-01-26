@@ -22,8 +22,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           "select-none rounded-md border px-2 py-1 text-left",
           "border-slate-700 bg-slate-900",
           "disabled:cursor-not-allowed disabled:opacity-60",
-          "active:enabled:bg-slate-800 sm:hover:enabled:bg-slate-800",
-          "active:enabled:border-slate-600 sm:hover:enabled:border-slate-600",
+          "active:bg-slate-800 sm:hover:bg-slate-800",
+          "active:disabled:bg-slate-900 sm:hover:disabled:bg-slate-900",
+          "active:border-slate-600 sm:hover:border-slate-600",
+          "active:disabled:border-slate-700 sm:hover:disabled:border-slate-700",
         )}
         ref={ref}
         {...rest}

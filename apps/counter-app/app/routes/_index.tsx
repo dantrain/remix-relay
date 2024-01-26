@@ -32,7 +32,7 @@ export default function Index() {
     <main>
       <div className="mb-8 mt-2 flex items-start justify-between">
         <h1 className="text-2xl font-bold">Counter App</h1>
-        <Button className="px-4">
+        <Button asChild className="px-4">
           <a href="/auth/signout">Sign out</a>
         </Button>
       </div>
