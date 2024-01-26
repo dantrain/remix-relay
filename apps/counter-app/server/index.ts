@@ -73,6 +73,10 @@ app.use(
   ),
 );
 
+app.get("/health", (_req, res) => {
+  res.status(200).send("OK");
+});
+
 const wsServer = new WebSocketServer({
   server: httpServer,
   path: "/graphql",
@@ -94,11 +98,14 @@ const serverCleanup = useServer(
 
               if (!value) return "";
 
-              return key.includes("auth-token") && !key.includes("verifier")
-                ? zlib
-                    .gunzipSync(Buffer.from(value, "base64url"))
-                    .toString("utf-8")
-                : decodeURIComponent(value);
+              const decodedValue =
+                key.includes("auth-token") && !key.includes("verifier")
+                  ? zlib
+                      .gunzipSync(Buffer.from(value, "base64url"))
+                      .toString("utf-8")
+                  : decodeURIComponent(value);
+
+              return decodedValue;
             },
             set: () => {},
             remove: () => {},
@@ -133,22 +140,37 @@ const apolloServer = new ApolloServer<ApolloContext>({
 await apolloServer.start();
 
 app.use(async (req, res, next) => {
+  const cookiesSetThisRequest: Record<string, string> = {};
+
   const supabase = createServerClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
     cookies: {
       get: (key) => {
-        const value = req.cookies[key];
+        const value = cookiesSetThisRequest[key] ?? req.cookies[key];
 
         if (!value) return "";
 
-        return key.includes("auth-token") && !key.includes("verifier")
-          ? zlib.gunzipSync(Buffer.from(value, "base64url")).toString("utf-8")
-          : decodeURIComponent(value);
+        const decodedValue =
+          key.includes("auth-token") && !key.includes("verifier")
+            ? zlib.gunzipSync(Buffer.from(value, "base64url")).toString("utf-8")
+            : decodeURIComponent(value);
+
+        // console.log(
+        //   "Reading cookie",
+        //   key,
+        //   decodedValue.match(/"refresh_token":"[^"]+"/)?.[0],
+        // );
+
+        return decodedValue;
       },
       set: (key, value, options) => {
         if (!res || res.headersSent) {
-          console.error("Failed to set cookie", key, value, req.path);
+          console.error("Failed to set cookie", key, req.path, {
+            headersSent: res.headersSent,
+          });
           return;
         }
+
+        // console.log("Setting cookie", key, value);
 
         const encodedValue =
           key.includes("auth-token") && !key.includes("verifier")
@@ -161,21 +183,29 @@ app.use(async (req, res, next) => {
           sameSite: "lax",
           httpOnly: true,
         });
+
+        cookiesSetThisRequest[key] = encodedValue;
       },
       remove: (key, options) => {
         if (!res || res.headersSent) {
-          console.error("Failed to remove cookie", key, req.path);
+          console.error("Failed to remove cookie", key, req.path, {
+            headersSent: res.headersSent,
+          });
           return;
         }
+
+        // console.log("Removing cookie", key);
 
         res.cookie(key, "", { ...options, httpOnly: true });
       },
     },
   });
 
+  // console.log("Get session");
+
   const { data } = await supabase.auth.getSession();
 
-  console.log("Refresh token", data.session?.refresh_token);
+  // console.log("Refresh token", data.session?.refresh_token);
 
   req.context = req.context || {};
 
