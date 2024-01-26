@@ -33,7 +33,7 @@ export default function Index() {
     <main>
       <div className="mb-8 mt-2 flex items-start justify-between">
         <h1 className="text-2xl font-bold">Counter App</h1>
-        <Button asChild className="px-4">
+        <Button asChild className="px-3">
           <a className="flex items-center gap-2" href="/auth/signout">
             <SignOutIcon />
             Sign out

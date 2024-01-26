@@ -1,11 +1,11 @@
-import { cx } from "class-variance-authority";
+import { twMerge } from "tailwind-merge";
 
 export function Spinner({ className }: { className?: string }) {
   return (
     <div
-      className={cx(
-        className,
+      className={twMerge(
         "flex cursor-default items-center justify-center",
+        className,
       )}
     >
       <div className="flex-none animate-spin text-2xl">🌀</div>

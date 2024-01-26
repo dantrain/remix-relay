@@ -19,7 +19,8 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
     "@tanem/react-nprogress": "^5.0.51",
-    "class-variance-authority": "^0.7.0"
+    "class-variance-authority": "^0.7.0",
+    "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
     "@remix-relay/eslint-config": "workspace:*",

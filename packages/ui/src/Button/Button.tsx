@@ -2,6 +2,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cx } from "class-variance-authority";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { forwardRef } from "react";
+import { twMerge } from "tailwind-merge";
 
 type ButtonProps = {
   className?: string;
@@ -17,15 +18,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <Comp
-        className={cx(
+        className={twMerge(
+          cx(
+            "select-none rounded-md border px-2 py-1 text-left",
+            "border-slate-700 bg-slate-900",
+            "disabled:cursor-not-allowed disabled:opacity-60",
+            "active:bg-slate-800 sm:hover:bg-slate-800",
+            "active:disabled:bg-slate-900 sm:hover:disabled:bg-slate-900",
+            "active:border-slate-600 sm:hover:border-slate-600",
+            "active:disabled:border-slate-700 sm:hover:disabled:border-slate-700",
+          ),
           className,
-          "select-none rounded-md border px-2 py-1 text-left",
-          "border-slate-700 bg-slate-900",
-          "disabled:cursor-not-allowed disabled:opacity-60",
-          "active:bg-slate-800 sm:hover:bg-slate-800",
-          "active:disabled:bg-slate-900 sm:hover:disabled:bg-slate-900",
-          "active:border-slate-600 sm:hover:border-slate-600",
-          "active:disabled:border-slate-700 sm:hover:disabled:border-slate-700",
         )}
         ref={ref}
         {...rest}
