@@ -15,7 +15,7 @@ import path from "path";
 import { WebSocketServer } from "ws";
 import { createSupabaseClient } from "./create-supabase-client";
 import { env } from "./env";
-import { schema } from "./graphql/graphql-schema";
+import { schema } from "./graphql/schema";
 import { PubSub } from "./pubsub";
 
 export type RequestContext = {
