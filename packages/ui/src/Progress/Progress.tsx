@@ -18,7 +18,7 @@ export function Progress({ isLoading }: { isLoading: boolean }) {
       timeout = setTimeout(() => {
         setIsAnimating(true);
         setIsVisible(true);
-      }, 400);
+      }, 500);
     } else {
       setIsAnimating(false);
 

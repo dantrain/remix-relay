@@ -2,6 +2,7 @@ import { Button } from "@remix-relay/ui";
 import { AppLoadContext, MetaFunction, json, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { createBrowserClient } from "@supabase/ssr";
+import { Provider } from "@supabase/supabase-js";
 import { useState } from "react";
 
 export const meta: MetaFunction = () => [{ title: "Sign in · Counter App" }];
@@ -32,11 +33,11 @@ export default function SignIn() {
 
   const [signingIn, setSigningIn] = useState(false);
 
-  const signIn = async () => {
+  const signIn = async (provider: Provider) => {
     setSigningIn(true);
 
     const res = await supabase.auth.signInWithOAuth({
-      provider: "google",
+      provider,
       options: {
         redirectTo: `${window.location.origin}/auth/callback`,
       },
@@ -48,9 +49,20 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex min-h-[30dvh] items-center justify-center">
-      <Button className="px-6 py-2" disabled={signingIn} onClick={signIn}>
+    <div className="flex min-h-[30dvh] flex-col items-center justify-center gap-4">
+      <Button
+        className="px-6 py-2"
+        disabled={signingIn}
+        onClick={() => signIn("google")}
+      >
         Sign in with Google
+      </Button>
+      <Button
+        className="px-6 py-2"
+        disabled={signingIn}
+        onClick={() => signIn("github")}
+      >
+        Sign in with GitHub
       </Button>
     </div>
   );
