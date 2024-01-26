@@ -1,8 +1,8 @@
 import { Button } from "@remix-relay/ui";
-import { AppLoadContext, MetaFunction, redirect } from "@remix-run/node";
-import { useContext, useState } from "react";
-import invariant from "tiny-invariant";
-import { SupabaseContext } from "~/root";
+import { AppLoadContext, MetaFunction, json, redirect } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { createBrowserClient } from "@supabase/ssr";
+import { useState } from "react";
 
 export const meta: MetaFunction = () => [{ title: "Sign in · Counter App" }];
 
@@ -16,17 +16,24 @@ export const loader = ({ context }: { context: AppLoadContext }) => {
     });
   }
 
-  return null;
+  return json({
+    SUPABASE_URL: context.env.SUPABASE_URL,
+    SUPABASE_ANON_KEY: context.env.SUPABASE_ANON_KEY,
+  });
 };
 
 export default function SignIn() {
-  const supabase = useContext(SupabaseContext);
+  const { SUPABASE_URL, SUPABASE_ANON_KEY } = useLoaderData<typeof loader>();
+
+  // eslint-disable-next-line react/hook-use-state
+  const [supabase] = useState(() =>
+    createBrowserClient(SUPABASE_URL, SUPABASE_ANON_KEY),
+  );
 
   const [signingIn, setSigningIn] = useState(false);
 
   const signIn = async () => {
     setSigningIn(true);
-    invariant(supabase);
 
     const res = await supabase.auth.signInWithOAuth({
       provider: "google",

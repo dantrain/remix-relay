@@ -5,4 +5,6 @@ import { OperationType } from "relay-runtime";
 export const loaderQuery = <TQuery extends OperationType>(
   { apolloServer, apolloContext }: AppLoadContext,
   ...rest: Parameters<ReturnType<typeof getLoaderQuery>>
-) => getLoaderQuery(apolloServer, apolloContext)<TQuery>(...rest);
+) => {
+  return getLoaderQuery(apolloServer, apolloContext)<TQuery>(...rest);
+};
