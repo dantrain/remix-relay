@@ -30,45 +30,41 @@ const fetchFn: FetchFunction = (
   return (
     getCachedResponse(params, variables, cacheConfig) ??
     Observable.create((sink) => {
-      setTimeout(
-        () =>
-          trackPromise(
-            fetch("/graphql", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Accept: "multipart/mixed; deferSpec=20220824, application/json",
-              },
-              body: JSON.stringify({
-                query: params.text,
-                variables,
-              }),
-            })
-              .then((response) => {
-                if (response.status === 401 && !isServer) {
-                  window.location.href = "/signin";
-                }
+      const fetchGraphQL = async () => {
+        const response = await fetch("/graphql", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "multipart/mixed; deferSpec=20220824, application/json",
+          },
+          body: JSON.stringify({
+            query: params.text,
+            variables,
+          }),
+        });
 
-                return response;
-              })
-              .then(meros)
-              .then(async (parts) => {
-                if (parts instanceof Response) {
-                  sink.next(await parts.json());
-                } else {
-                  for await (const part of parts) {
-                    sink.next({
-                      ...part.body,
-                      ...part.body?.incremental?.[0],
-                    });
-                  }
-                }
+        if (response.status === 401 && !isServer) {
+          window.location.href = "/signin";
+          return;
+        }
 
-                sink.complete();
-              }),
-          ),
-        0,
-      );
+        const parts = await meros(response);
+
+        if (parts instanceof Response) {
+          sink.next(await parts.json());
+        } else {
+          for await (const part of parts) {
+            sink.next({
+              ...part.body,
+              ...part.body?.incremental?.[0],
+            });
+          }
+        }
+
+        sink.complete();
+      };
+
+      setTimeout(() => trackPromise(fetchGraphQL()), 0);
     })
   );
 };
