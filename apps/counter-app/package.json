@@ -10,7 +10,8 @@
     "lint": "eslint . --max-warnings 0 --ignore-path ../../.gitignore",
     "typecheck": "tsc --noEmit",
     "write-graphql-schema": "tsx ./scripts/write-graphql-schema.ts",
-    "generate-types": "supabase gen types typescript --project-id sircazunpagzuyjbvzov > server/__generated__/database.types.ts"
+    "generate-types": "supabase gen types typescript --project-id sircazunpagzuyjbvzov > server/__generated__/database.types.ts",
+    "deploy": "fly deploy"
   },
   "dependencies": {
     "@apollo/server": "^4.10.0",
