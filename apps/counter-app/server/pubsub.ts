@@ -10,6 +10,7 @@ type Registration = {
   id?: string;
   userId: string;
   supabase: SupabaseClient<Database>;
+  tabId?: string;
 };
 
 export class PubSub {
@@ -48,11 +49,14 @@ export class PubSub {
 
           const userId = row.id.split(":")[0];
 
-          if (userId !== registration.userId) {
+          if (
+            userId !== registration.userId ||
+            (row.updatedBy && row.updatedBy === registration.tabId)
+          ) {
             return;
           }
 
-          onMessage(omit(row, ["createdAt"]));
+          onMessage(omit(row, ["createdAt", "updatedBy"]));
         },
       )
       .subscribe();

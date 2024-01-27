@@ -25,6 +25,7 @@ export type RequestContext = {
 
 export type ApolloContext = RequestContext & {
   pubsub: PubSub;
+  tabId?: string;
 };
 
 installGlobals();
@@ -86,14 +87,19 @@ const pubsub = new PubSub();
 const serverCleanup = useServer(
   {
     schema,
-    context: async (ctx) => {
+    context: async (ctx, { payload }) => {
       const supabase = createSupabaseClient(ctx.extra.request, null, {
         writeCookies: false,
       });
 
       const { data } = await supabase.auth.getSession();
 
-      return { pubsub, supabase, user: data.session?.user };
+      return {
+        pubsub,
+        supabase,
+        user: data.session?.user,
+        tabId: payload.extensions?.tabId,
+      };
     },
   },
   wsServer,
@@ -167,7 +173,7 @@ app.use(
   express.json(),
   expressMiddleware(apolloServer, {
     context: async ({ req }) => {
-      return { pubsub, ...req.context };
+      return { pubsub, ...req.context, tabId: req.body.extensions.tabId };
     },
   }),
 );
@@ -182,7 +188,14 @@ app.all(
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         )) as any),
     getLoadContext(req) {
-      return { env, apolloServer, apolloContext: { pubsub, ...req.context } };
+      return {
+        env,
+        apolloServer,
+        apolloContext: {
+          pubsub,
+          ...req.context,
+        },
+      };
     },
   }),
 );

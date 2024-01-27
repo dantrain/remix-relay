@@ -8,7 +8,7 @@ const fromGlobalId = (id: string | number) => decodeGlobalID(id.toString()).id;
 
 export type Counter = Omit<
   Database["public"]["Tables"]["counters"]["Row"],
-  "createdAt" | "userId"
+  "createdAt" | "userId" | "updatedBy"
 >;
 
 export const Counter = builder.node("Counter", {
@@ -49,7 +49,7 @@ builder.subscriptionFields((t) => ({
     args: {
       id: t.arg.id({ required: true }),
     },
-    subscribe: (_parent, { id }, { pubsub, user, supabase }) => {
+    subscribe: (_parent, { id }, { pubsub, user, supabase, tabId }) => {
       invariant(user);
 
       return pubsub.asyncIterableIterator<Counter>({
@@ -58,13 +58,14 @@ builder.subscriptionFields((t) => ({
         id: fromGlobalId(id),
         userId: user.id,
         supabase,
+        tabId,
       });
     },
     resolve: (counter) => counter,
   }),
   counterCreated: t.field({
     type: Counter,
-    subscribe: (_parent, _args, { pubsub, user, supabase }) => {
+    subscribe: (_parent, _args, { pubsub, user, supabase, tabId }) => {
       invariant(user);
 
       return pubsub.asyncIterableIterator<Counter>({
@@ -72,13 +73,14 @@ builder.subscriptionFields((t) => ({
         eventType: "INSERT",
         userId: user.id,
         supabase,
+        tabId,
       });
     },
     resolve: (counter) => counter,
   }),
   counterDeleted: t.field({
     type: Counter,
-    subscribe: (_parent, _args, { pubsub, user, supabase }) => {
+    subscribe: (_parent, _args, { pubsub, user, supabase, tabId }) => {
       invariant(user);
 
       return pubsub.asyncIterableIterator<Counter>({
@@ -86,6 +88,7 @@ builder.subscriptionFields((t) => ({
         eventType: "DELETE",
         userId: user.id,
         supabase,
+        tabId,
       });
     },
     resolve: (counter) => counter,
@@ -99,10 +102,10 @@ builder.mutationFields((t) => ({
       id: t.arg.id({ required: true }),
       count: t.arg.int({ required: true }),
     },
-    resolve: async (_parent, { id, count }, { supabase }) => {
+    resolve: async (_parent, { id, count }, { supabase, tabId }) => {
       const { data } = await supabase
         .from("counters")
-        .update({ count })
+        .update({ count, updatedBy: tabId })
         .eq("id", fromGlobalId(id))
         .select("id, count");
 
@@ -129,8 +132,8 @@ builder.mutationFields((t) => ({
         },
       }),
     },
-    resolve: async (_parent, args, { supabase }) => {
-      const counter = { id: args.id.toString(), count: 0 };
+    resolve: async (_parent, args, { supabase, tabId }) => {
+      const counter = { id: args.id.toString(), count: 0, updatedBy: tabId };
 
       const { status } = await supabase.from("counters").insert(counter);
       invariant(status === 201);

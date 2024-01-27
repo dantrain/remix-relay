@@ -1,3 +1,4 @@
+import { createId } from "@paralleldrive/cuid2";
 import { getCachedResponse } from "@remix-relay/react";
 import { Client, ExecutionResult, Sink, createClient } from "graphql-ws";
 import { meros } from "meros/browser";
@@ -21,6 +22,7 @@ import { PayloadExtensions } from "relay-runtime/lib/network/RelayNetworkTypes";
 import invariant from "tiny-invariant";
 
 const isServer = typeof document === "undefined";
+const tabId = isServer ? null : createId();
 
 const fetchFn: FetchFunction = (
   params: RequestParameters,
@@ -40,6 +42,7 @@ const fetchFn: FetchFunction = (
           body: JSON.stringify({
             query: params.text,
             variables,
+            extensions: { tabId },
           }),
         });
 
@@ -86,6 +89,7 @@ const subscribeFn: SubscribeFunction = (operation, variables) => {
         operationName: operation.name,
         query: operation.text,
         variables,
+        extensions: { tabId },
       },
       sink as Sink<ExecutionResult<PayloadData, PayloadExtensions>>,
     );

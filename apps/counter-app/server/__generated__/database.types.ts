@@ -14,18 +14,21 @@ export interface Database {
           count: number
           createdAt: string
           id: string
+          updatedBy: string | null
           userId: string
         }
         Insert: {
           count?: number
           createdAt?: string
           id: string
+          updatedBy?: string | null
           userId?: string
         }
         Update: {
           count?: number
           createdAt?: string
           id?: string
+          updatedBy?: string | null
           userId?: string
         }
         Relationships: [
