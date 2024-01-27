@@ -65,28 +65,28 @@ builder.queryField("counter", (t) =>
 builder.subscriptionFields((t) => ({
   counterCreated: t.field({
     type: Counter,
-    subscribe: (_parent, _args, { pubsub, user }) => {
+    subscribe: (_parent, _args, { pubsub, user, supabase }) => {
       invariant(user);
 
-      return pubsub.asyncIterator(
+      return pubsub.asyncIterableIterator<Counter>(
         JSON.stringify({
           table: "counters",
           eventType: "INSERT",
           userId: user.id,
         }),
-      ) as unknown as AsyncIterable<Counter>;
+      );
     },
     resolve: (counter) => counter,
   }),
   counterDeleted: t.field({
     type: Counter,
     subscribe: (_parent, _args, { pubsub }) =>
-      pubsub.asyncIterator(
+      pubsub.asyncIterableIterator<Counter>(
         JSON.stringify({
           table: "counters",
           eventType: "DELETE",
         }),
-      ) as unknown as AsyncIterable<Counter>,
+      ),
     resolve: (counter) => counter,
   }),
 }));
