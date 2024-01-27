@@ -20,7 +20,7 @@ const builder = new SchemaBuilder<{
   },
   smartSubscriptions: {
     ...subscribeOptionsFromIterator((name, { pubsub }) =>
-      pubsub.asyncIterator(name),
+      pubsub.asyncIterableIterator(name),
     ),
   },
 });

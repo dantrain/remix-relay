@@ -1,64 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  RealtimeChannel,
-  SupabaseClient,
-  createClient,
-} from "@supabase/supabase-js";
+import type { RealtimeChannel, SupabaseClient } from "@supabase/supabase-js";
 import { omit } from "lodash-es";
 import invariant from "tiny-invariant";
-import { Database } from "./__generated__/database.types";
-import { env } from "./env";
+import type { Database } from "./__generated__/database.types";
 
-const supabase = createClient<Database>(
-  env.SUPABASE_URL,
-  env.SUPABASE_ANON_KEY,
-);
 export class PubSub {
-  // protected ee: EventEmitter;
   private subscriptions: { [key: string]: RealtimeChannel };
   private subIdCounter: number;
 
   constructor() {
-    // this.ee = new EventEmitter();
     this.subscriptions = {};
     this.subIdCounter = 0;
-
-    // const channel = supabase
-    //   .channel("counters")
-    //   .on(
-    //     "postgres_changes",
-    //     { event: "*", schema: "public", table: "counters" },
-    //     (payload) => {
-    //       if (payload.eventType === "INSERT") {
-    //         this.ee.emit(
-    //           JSON.stringify({
-    //             table: "counters",
-    //             eventType: "INSERT",
-    //             userId: payload.new.userId,
-    //           }),
-    //           omit(payload.new, ["createdAt"]),
-    //         );
-    //       } else if (payload.eventType === "DELETE") {
-    //         this.ee.emit(
-    //           JSON.stringify({
-    //             table: "counters",
-    //             eventType: "DELETE",
-    //           }),
-    //           payload.old,
-    //         );
-    //       } else if (payload.eventType === "UPDATE") {
-    //         this.ee.emit(
-    //           JSON.stringify({
-    //             table: "counters",
-    //             eventType: "UPDATE",
-    //             id: payload.new.id,
-    //           }),
-    //           omit(payload.new, ["createdAt"]),
-    //         );
-    //       }
-    //     },
-    //   )
-    //   .subscribe();
   }
 
   async publish(): Promise<void> {
@@ -72,8 +24,6 @@ export class PubSub {
   ): Promise<number> {
     this.subIdCounter = this.subIdCounter + 1;
 
-    console.log("registration", omit(registration, ["supabase"]));
-
     const channel = (registration.supabase as SupabaseClient<Database>)
       .channel(this.subIdCounter.toString())
       .on(
@@ -82,7 +32,9 @@ export class PubSub {
           event: registration.eventType,
           schema: "public",
           table: registration.table,
-          filter: `userId=eq.${registration.userId}`,
+          filter: registration.id
+            ? `id=eq.${registration.id}`
+            : `userId=eq.${registration.userId}`,
         },
         (payload) => {
           console.log("payload", payload);

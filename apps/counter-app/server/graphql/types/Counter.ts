@@ -26,15 +26,15 @@ builder.queryField("counter", (t) =>
     args: {
       id: t.arg.id({ required: true }),
     },
-    smartSubscription: true,
-    subscribe: (subscriptions, _parent, args, { user, supabase }) =>
-      void subscriptions.register(
-        JSON.stringify({
-          table: "counters",
-          eventType: "UPDATE",
-          id: decodeGlobalID(args.id.toString()).id,
-        }),
-      ),
+    // smartSubscription: true,
+    // subscribe: (subscriptions, _parent, args, { user, supabase }) =>
+    //   void subscriptions.register(
+    //     JSON.stringify({
+    //       table: "counters",
+    //       eventType: "UPDATE",
+    //       id: decodeGlobalID(args.id.toString()).id,
+    //     }),
+    //   ),
     resolve: async (_parent, args, { supabase }) => {
       const id = decodeGlobalID(args.id.toString()).id;
 
@@ -63,6 +63,24 @@ builder.queryField("counter", (t) =>
 );
 
 builder.subscriptionFields((t) => ({
+  counter: t.field({
+    type: Counter,
+    args: {
+      id: t.arg.id({ required: true }),
+    },
+    subscribe: (_parent, args, { pubsub, user, supabase }) => {
+      invariant(user);
+
+      return pubsub.asyncIterableIterator<Counter>({
+        table: "counters",
+        eventType: "UPDATE",
+        id: decodeGlobalID(args.id.toString()).id,
+        userId: user.id,
+        supabase,
+      });
+    },
+    resolve: (counter) => counter,
+  }),
   counterCreated: t.field({
     type: Counter,
     subscribe: (_parent, _args, { pubsub, user, supabase }) => {
