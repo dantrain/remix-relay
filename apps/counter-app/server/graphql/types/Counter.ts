@@ -119,15 +119,13 @@ builder.mutationFields((t) => ({
     args: {
       id: t.arg.id({
         required: true,
-        validate: {
-          schema: z.string().refine((value) => {
-            const parts = value.split(":");
-            return (
-              parts.length === 2 &&
-              z.string().uuid().parse(parts[0]) &&
-              z.string().cuid2().parse(parts[1])
-            );
-          }),
+        validate: (value) => {
+          const parts = value.toString().split(":");
+          return !!(
+            parts.length === 2 &&
+            z.string().uuid().parse(parts[0]) &&
+            z.string().cuid2().parse(parts[1])
+          );
         },
       }),
     },
