@@ -39,13 +39,13 @@ const counterCreatedSubscription = graphql`
   }
 `;
 
-// const counterDeletedSubscription = graphql`
-//   subscription CounterListCounterDeletedSubscription($connections: [ID!]!) {
-//     counterDeleted {
-//       id @deleteEdge(connections: $connections)
-//     }
-//   }
-// `;
+const counterDeletedSubscription = graphql`
+  subscription CounterListCounterDeletedSubscription($connections: [ID!]!) {
+    counterDeleted {
+      id @deleteEdge(connections: $connections)
+    }
+  }
+`;
 
 const mutation = graphql`
   mutation CounterListCreateOneCounterMutation($id: ID!, $connections: [ID!]!) {
@@ -77,15 +77,15 @@ export default function CounterList({ dataRef }: CounterListProps) {
     ),
   );
 
-  // useSubscription(
-  //   useMemo(
-  //     () => ({
-  //       subscription: counterDeletedSubscription,
-  //       variables: { connections: [counterConnection.__id] },
-  //     }),
-  //     [counterConnection.__id],
-  //   ),
-  // );
+  useSubscription(
+    useMemo(
+      () => ({
+        subscription: counterDeletedSubscription,
+        variables: { connections: [counterConnection.__id] },
+      }),
+      [counterConnection.__id],
+    ),
+  );
 
   const [commitCreateOneCounter] =
     useMutation<CounterListCreateOneCounterMutation>(mutation);

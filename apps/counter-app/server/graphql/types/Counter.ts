@@ -27,7 +27,7 @@ builder.queryField("counter", (t) =>
       id: t.arg.id({ required: true }),
     },
     smartSubscription: true,
-    subscribe: (subscriptions, _parent, args) =>
+    subscribe: (subscriptions, _parent, args, { user, supabase }) =>
       void subscriptions.register(
         JSON.stringify({
           table: "counters",
@@ -68,25 +68,27 @@ builder.subscriptionFields((t) => ({
     subscribe: (_parent, _args, { pubsub, user, supabase }) => {
       invariant(user);
 
-      return pubsub.asyncIterableIterator<Counter>(
-        JSON.stringify({
-          table: "counters",
-          eventType: "INSERT",
-          userId: user.id,
-        }),
-      );
+      return pubsub.asyncIterableIterator<Counter>({
+        table: "counters",
+        eventType: "INSERT",
+        userId: user.id,
+        supabase,
+      });
     },
     resolve: (counter) => counter,
   }),
   counterDeleted: t.field({
     type: Counter,
-    subscribe: (_parent, _args, { pubsub }) =>
-      pubsub.asyncIterableIterator<Counter>(
-        JSON.stringify({
-          table: "counters",
-          eventType: "DELETE",
-        }),
-      ),
+    subscribe: (_parent, _args, { pubsub, user, supabase }) => {
+      invariant(user);
+
+      return pubsub.asyncIterableIterator<Counter>({
+        table: "counters",
+        eventType: "DELETE",
+        userId: user.id,
+        supabase,
+      });
+    },
     resolve: (counter) => counter,
   }),
 }));
