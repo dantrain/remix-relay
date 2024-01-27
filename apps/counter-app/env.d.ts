@@ -5,7 +5,7 @@ declare module "@remix-run/server-runtime" {
   export interface AppLoadContext {
     env: import("./server/env").Env;
     apolloServer: ApolloServer<BaseContext>;
-    apolloContext: import("./server/index").ApolloContext;
+    apolloContext: Partial<import("./server/index").ApolloContext>;
   }
 }
 

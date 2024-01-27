@@ -12,6 +12,7 @@ import "express-async-errors";
 import { useServer } from "graphql-ws/lib/use/ws";
 import { createServer } from "http";
 import path from "path";
+import invariant from "tiny-invariant";
 import { WebSocketServer } from "ws";
 import { createSupabaseClient } from "./create-supabase-client";
 import { env } from "./env";
@@ -20,11 +21,13 @@ import { PubSub } from "./pubsub";
 
 export type RequestContext = {
   supabase: SupabaseClient;
-  user: User | null;
+  user?: User;
 };
 
-export type ApolloContext = RequestContext & {
+export type ApolloContext = {
   pubsub: PubSub;
+  supabase: SupabaseClient;
+  user: User;
   tabId?: string;
 };
 
@@ -131,7 +134,7 @@ app.use(async (req, res, next) => {
   req.context = req.context || {};
 
   req.context.supabase = supabase;
-  req.context.user = data.session?.user ?? null;
+  req.context.user = data.session?.user;
 
   next();
 });
@@ -173,7 +176,10 @@ app.use(
   express.json(),
   expressMiddleware(apolloServer, {
     context: async ({ req }) => {
-      return { pubsub, ...req.context, tabId: req.body.extensions.tabId };
+      const { user, supabase } = req.context;
+      invariant(user);
+
+      return { pubsub, user, supabase, tabId: req.body.extensions.tabId };
     },
   }),
 );
@@ -188,12 +194,15 @@ app.all(
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         )) as any),
     getLoadContext(req) {
+      const { user, supabase } = req.context;
+
       return {
         env,
         apolloServer,
         apolloContext: {
           pubsub,
-          ...req.context,
+          user,
+          supabase,
         },
       };
     },
