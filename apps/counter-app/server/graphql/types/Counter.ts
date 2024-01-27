@@ -4,6 +4,8 @@ import invariant from "tiny-invariant";
 import { z } from "zod";
 import { builder } from "../builder";
 
+const fromGlobalId = (id: string | number) => decodeGlobalID(id.toString()).id;
+
 export type Counter = Omit<
   Database["public"]["Tables"]["counters"]["Row"],
   "createdAt" | "userId"
@@ -23,8 +25,6 @@ builder.queryField("counter", (t) =>
       id: t.arg.id({ required: true }),
     },
     resolve: async (_parent, args, { supabase }) => {
-      const id = decodeGlobalID(args.id.toString()).id;
-
       const getCounter = async (id: string) => {
         const { data } = await supabase
           .from("counters")
@@ -35,7 +35,7 @@ builder.queryField("counter", (t) =>
         return data[0];
       };
 
-      const counter = await getCounter(id);
+      const counter = await getCounter(fromGlobalId(args.id));
       invariant(counter, "Counter not found");
 
       return counter;
@@ -49,13 +49,13 @@ builder.subscriptionFields((t) => ({
     args: {
       id: t.arg.id({ required: true }),
     },
-    subscribe: (_parent, args, { pubsub, user, supabase }) => {
+    subscribe: (_parent, { id }, { pubsub, user, supabase }) => {
       invariant(user);
 
       return pubsub.asyncIterableIterator<Counter>({
         table: "counters",
         eventType: "UPDATE",
-        id: decodeGlobalID(args.id.toString()).id,
+        id: fromGlobalId(id),
         userId: user.id,
         supabase,
       });
@@ -99,14 +99,11 @@ builder.mutationFields((t) => ({
       id: t.arg.id({ required: true }),
       count: t.arg.int({ required: true }),
     },
-    resolve: async (_parent, args, { supabase }) => {
-      const id = decodeGlobalID(args.id.toString()).id;
-      const count = args.count;
-
+    resolve: async (_parent, { id, count }, { supabase }) => {
       const { data } = await supabase
         .from("counters")
         .update({ count })
-        .eq("id", id)
+        .eq("id", fromGlobalId(id))
         .select("id, count");
 
       invariant(data);
@@ -122,7 +119,16 @@ builder.mutationFields((t) => ({
     args: {
       id: t.arg.id({
         required: true,
-        validate: { schema: z.string().cuid2() },
+        validate: {
+          schema: z.string().refine((value) => {
+            const parts = value.split(":");
+            return (
+              parts.length === 2 &&
+              z.string().uuid().parse(parts[0]) &&
+              z.string().cuid2().parse(parts[1])
+            );
+          }),
+        },
       }),
     },
     resolve: async (_parent, args, { supabase }) => {
@@ -138,7 +144,7 @@ builder.mutationFields((t) => ({
     type: Counter,
     args: { id: t.arg.id({ required: true }) },
     resolve: async (_parent, args, { supabase }) => {
-      const id = decodeGlobalID(args.id.toString()).id;
+      const id = fromGlobalId(args.id);
 
       const { data } = await supabase
         .from("counters")

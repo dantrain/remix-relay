@@ -1,6 +1,6 @@
 import { createId } from "@paralleldrive/cuid2";
 import { Button } from "@remix-relay/ui";
-import { toGlobalId } from "graphql-relay";
+import { fromGlobalId, toGlobalId } from "graphql-relay";
 import { useMemo } from "react";
 import {
   graphql,
@@ -13,13 +13,16 @@ import { CounterListCreateOneCounterMutation } from "./__generated__/CounterList
 import { CounterListFragment$key } from "./__generated__/CounterListFragment.graphql";
 
 const fragment = graphql`
-  fragment CounterListFragment on User {
-    counterConnection {
-      __id
-      edges {
-        node {
-          id
-          ...CounterFragment
+  fragment CounterListFragment on Query {
+    viewer {
+      id
+      counterConnection {
+        __id
+        edges {
+          node {
+            id
+            ...CounterFragment
+          }
         }
       }
     }
@@ -65,7 +68,9 @@ type CounterListProps = {
 };
 
 export default function CounterList({ dataRef }: CounterListProps) {
-  const { counterConnection } = useFragment(fragment, dataRef);
+  const {
+    viewer: { counterConnection, id: userId },
+  } = useFragment(fragment, dataRef);
 
   useSubscription(
     useMemo(
@@ -91,7 +96,7 @@ export default function CounterList({ dataRef }: CounterListProps) {
     useMutation<CounterListCreateOneCounterMutation>(mutation);
 
   const createCounter = () => {
-    const id = createId();
+    const id = `${fromGlobalId(userId).id}:${createId()}`;
 
     commitCreateOneCounter({
       variables: { id, connections: [counterConnection.__id] },

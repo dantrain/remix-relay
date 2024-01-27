@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fadcc94f72625fa845a4ed591bc48f24>>
+ * @generated SignedSource<<a85acb00073e7b45985ee899cb9d9c9e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,14 +11,17 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CounterListFragment$data = {
-  readonly counterConnection: {
-    readonly __id: string;
-    readonly edges: ReadonlyArray<{
-      readonly node: {
-        readonly id: string;
-        readonly " $fragmentSpreads": FragmentRefs<"CounterFragment">;
-      };
-    }>;
+  readonly viewer: {
+    readonly counterConnection: {
+      readonly __id: string;
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly id: string;
+          readonly " $fragmentSpreads": FragmentRefs<"CounterFragment">;
+        };
+      }>;
+    };
+    readonly id: string;
   };
   readonly " $fragmentType": "CounterListFragment";
 };
@@ -27,7 +30,15 @@ export type CounterListFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"CounterListFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -36,65 +47,72 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "UserCounterConnection",
+      "concreteType": "User",
       "kind": "LinkedField",
-      "name": "counterConnection",
+      "name": "viewer",
       "plural": false,
       "selections": [
+        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
-          "concreteType": "UserCounterConnectionEdge",
+          "concreteType": "UserCounterConnection",
           "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
+          "name": "counterConnection",
+          "plural": false,
           "selections": [
             {
               "alias": null,
               "args": null,
-              "concreteType": "Counter",
+              "concreteType": "UserCounterConnectionEdge",
               "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
+              "name": "edges",
+              "plural": true,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "Counter",
+                  "kind": "LinkedField",
+                  "name": "node",
+                  "plural": false,
+                  "selections": [
+                    (v0/*: any*/),
+                    {
+                      "args": null,
+                      "kind": "FragmentSpread",
+                      "name": "CounterFragment"
+                    }
+                  ],
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            },
+            {
+              "kind": "ClientExtension",
               "selections": [
                 {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
-                  "name": "id",
+                  "name": "__id",
                   "storageKey": null
-                },
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "CounterFragment"
                 }
-              ],
-              "storageKey": null
+              ]
             }
           ],
           "storageKey": null
-        },
-        {
-          "kind": "ClientExtension",
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "__id",
-              "storageKey": null
-            }
-          ]
         }
       ],
       "storageKey": null
     }
   ],
-  "type": "User",
+  "type": "Query",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "b6ebcb52e23c96ac7f651150db889dd5";
+(node as any).hash = "c6eb279736a93aa98758e9da540d815c";
 
 export default node;

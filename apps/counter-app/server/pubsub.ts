@@ -43,11 +43,16 @@ export class PubSub {
           filter: registration.id ? `id=eq.${registration.id}` : undefined,
         },
         (payload) => {
-          onMessage(
-            omit(payload.eventType === "DELETE" ? payload.old : payload.new, [
-              "createdAt",
-            ]),
-          );
+          const row =
+            payload.eventType === "DELETE" ? payload.old : payload.new;
+
+          const userId = row.id.split(":")[0];
+
+          if (userId !== registration.userId) {
+            return;
+          }
+
+          onMessage(omit(row, ["createdAt"]));
         },
       )
       .subscribe();

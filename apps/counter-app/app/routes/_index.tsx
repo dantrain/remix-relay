@@ -11,9 +11,7 @@ import indexQueryNode, { IndexQuery } from "./__generated__/IndexQuery.graphql";
 
 const query = graphql`
   query IndexQuery {
-    viewer {
-      ...CounterListFragment @defer
-    }
+    ...CounterListFragment @defer
   }
 `;
 
@@ -43,7 +41,7 @@ export default function Index() {
       <Suspense
         fallback={<Spinner className="animate-fade h-16 max-w-[260px]" />}
       >
-        <CounterList dataRef={data.viewer} />
+        <CounterList dataRef={data} />
       </Suspense>
     </main>
   );
