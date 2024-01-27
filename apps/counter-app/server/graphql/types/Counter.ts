@@ -26,15 +26,6 @@ builder.queryField("counter", (t) =>
     args: {
       id: t.arg.id({ required: true }),
     },
-    // smartSubscription: true,
-    // subscribe: (subscriptions, _parent, args, { user, supabase }) =>
-    //   void subscriptions.register(
-    //     JSON.stringify({
-    //       table: "counters",
-    //       eventType: "UPDATE",
-    //       id: decodeGlobalID(args.id.toString()).id,
-    //     }),
-    //   ),
     resolve: async (_parent, args, { supabase }) => {
       const id = decodeGlobalID(args.id.toString()).id;
 

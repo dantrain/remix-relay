@@ -37,17 +37,11 @@ export class PubSub {
             : `userId=eq.${registration.userId}`,
         },
         (payload) => {
-          console.log("payload", payload);
-
-          switch (payload.eventType) {
-            case "INSERT":
-            case "UPDATE":
-              return onMessage(omit(payload.new, ["createdAt"]));
-            case "DELETE":
-              return onMessage(payload.old);
-            default:
-              throw new Error("Unknown eventType");
-          }
+          onMessage(
+            omit(payload.eventType === "DELETE" ? payload.old : payload.new, [
+              "createdAt",
+            ]),
+          );
         },
       )
       .subscribe();

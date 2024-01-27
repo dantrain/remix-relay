@@ -38,9 +38,6 @@ importers:
       '@pothos/plugin-relay':
         specifier: ^3.45.1
         version: 3.45.1(@pothos/core@3.41.0)(graphql@17.0.0-alpha.2)
-      '@pothos/plugin-smart-subscriptions':
-        specifier: ^3.7.1
-        version: 3.7.1(@pothos/core@3.41.0)(graphql@17.0.0-alpha.2)
       '@pothos/plugin-validation':
         specifier: ^3.10.1
         version: 3.10.1(@pothos/core@3.41.0)(graphql@17.0.0-alpha.2)(zod@3.22.4)
@@ -2034,16 +2031,6 @@ packages:
 
   /@pothos/plugin-relay@3.45.1(@pothos/core@3.41.0)(graphql@17.0.0-alpha.2):
     resolution: {integrity: sha512-rumqbqd69wAP49XffhcI+ZdXLzu18IVrN4CWSX9mFqHQEwivnltUl9aCfdSTd63oVqPi8p5pTi63Dm+YkWpK4w==}
-    peerDependencies:
-      '@pothos/core': '*'
-      graphql: '>=15.1.0 || 17.0.0-alpha.2'
-    dependencies:
-      '@pothos/core': 3.41.0(graphql@17.0.0-alpha.2)
-      graphql: 17.0.0-alpha.2
-    dev: false
-
-  /@pothos/plugin-smart-subscriptions@3.7.1(@pothos/core@3.41.0)(graphql@17.0.0-alpha.2):
-    resolution: {integrity: sha512-B1r6Rvx3DeoG3Vs5NLzMKo7tKtIUV+jqGJWyulYciuT6bdGxbXDWzd74c2+ugM8riQMj7FuQ9PaCAw8Kn5ORQA==}
     peerDependencies:
       '@pothos/core': '*'
       graphql: '>=15.1.0 || 17.0.0-alpha.2'
