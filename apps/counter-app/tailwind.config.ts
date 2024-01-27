@@ -6,7 +6,7 @@ export default {
   theme: {
     extend: {
       animation: {
-        fade: "fade 150ms ease-in 50ms both",
+        fade: "fade 400ms ease-in 50ms both",
       },
       keyframes: {
         fade: {

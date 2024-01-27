@@ -4,6 +4,14 @@ import { omit } from "lodash-es";
 import invariant from "tiny-invariant";
 import type { Database } from "./__generated__/database.types";
 
+type Registration = {
+  table: keyof Database["public"]["Tables"];
+  eventType: "INSERT" | "UPDATE" | "DELETE";
+  id?: string;
+  userId: string;
+  supabase: SupabaseClient<Database>;
+};
+
 export class PubSub {
   private subscriptions: { [key: string]: RealtimeChannel };
   private subIdCounter: number;
@@ -19,22 +27,20 @@ export class PubSub {
   }
 
   async subscribe(
-    registration: any,
+    registration: Registration,
     onMessage: (...args: any[]) => void,
   ): Promise<number> {
     this.subIdCounter = this.subIdCounter + 1;
 
-    const channel = (registration.supabase as SupabaseClient<Database>)
+    const channel = registration.supabase
       .channel(this.subIdCounter.toString())
       .on(
         "postgres_changes",
         {
-          event: registration.eventType,
+          event: registration.eventType as any,
           schema: "public",
           table: registration.table,
-          filter: registration.id
-            ? `id=eq.${registration.id}`
-            : `userId=eq.${registration.userId}`,
+          filter: registration.id ? `id=eq.${registration.id}` : undefined,
         },
         (payload) => {
           onMessage(
@@ -58,7 +64,9 @@ export class PubSub {
     delete this.subscriptions[subId];
   }
 
-  public asyncIterableIterator<T>(registration: any): AsyncIterableIterator<T> {
+  public asyncIterableIterator<T>(
+    registration: Registration,
+  ): AsyncIterableIterator<T> {
     return new PubSubAsyncIterator<T>(this, registration);
   }
 }
@@ -66,23 +74,26 @@ export class PubSub {
 export class PubSubAsyncIterator<T> implements AsyncIterator<T> {
   private pullQueue: ((value: IteratorResult<T>) => void)[];
   private pushQueue: T[];
-  private registration: any;
-  private allSubscribed: Promise<number> | null;
+  private registration: Registration;
+  private subscriptionIdPromise: Promise<number> | null;
   private running: boolean;
   private pubsub: PubSub;
 
-  constructor(pubsub: PubSub, registration: any) {
+  constructor(pubsub: PubSub, registration: Registration) {
     this.pubsub = pubsub;
     this.pullQueue = [];
     this.pushQueue = [];
     this.running = true;
-    this.allSubscribed = null;
+    this.subscriptionIdPromise = null;
     this.registration = registration;
   }
 
   public async next(): Promise<IteratorResult<T>> {
-    if (!this.allSubscribed) {
-      await (this.allSubscribed = this.subscribeAll());
+    if (!this.subscriptionIdPromise) {
+      await (this.subscriptionIdPromise = this.pubsub.subscribe(
+        this.registration,
+        this.pushValue.bind(this),
+      ));
     }
     return this.pullValue();
   }
@@ -102,7 +113,7 @@ export class PubSubAsyncIterator<T> implements AsyncIterator<T> {
   }
 
   private async pushValue(event: T) {
-    await this.allSubscribed;
+    await this.subscriptionIdPromise;
     if (this.pullQueue.length !== 0) {
       this.pullQueue.shift()?.(
         this.running
@@ -136,18 +147,10 @@ export class PubSubAsyncIterator<T> implements AsyncIterator<T> {
       );
       this.pullQueue.length = 0;
       this.pushQueue.length = 0;
-      const subscriptionIds = await this.allSubscribed;
-      if (subscriptionIds) {
-        this.unsubscribeAll(subscriptionIds);
+      const subscriptionId = await this.subscriptionIdPromise;
+      if (subscriptionId) {
+        this.pubsub.unsubscribe(subscriptionId);
       }
     }
-  }
-
-  private subscribeAll() {
-    return this.pubsub.subscribe(this.registration, this.pushValue.bind(this));
-  }
-
-  private unsubscribeAll(subscriptionId: number) {
-    this.pubsub.unsubscribe(subscriptionId);
   }
 }

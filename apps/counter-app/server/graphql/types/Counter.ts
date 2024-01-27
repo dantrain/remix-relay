@@ -4,10 +4,6 @@ import invariant from "tiny-invariant";
 import { z } from "zod";
 import { builder } from "../builder";
 
-const wait = (ms?: number) => {
-  if (ms) return new Promise((resolve) => setTimeout(resolve, ms));
-};
-
 export type Counter = Omit<
   Database["public"]["Tables"]["counters"]["Row"],
   "createdAt" | "userId"
@@ -39,13 +35,7 @@ builder.queryField("counter", (t) =>
         return data[0];
       };
 
-      let counter = await getCounter(id);
-
-      if (!counter) {
-        await wait(500);
-        counter = await getCounter(id);
-      }
-
+      const counter = await getCounter(id);
       invariant(counter, "Counter not found");
 
       return counter;
