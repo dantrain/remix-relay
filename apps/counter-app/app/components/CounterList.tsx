@@ -13,16 +13,14 @@ import { CounterListCreateOneCounterMutation } from "./__generated__/CounterList
 import { CounterListFragment$key } from "./__generated__/CounterListFragment.graphql";
 
 const fragment = graphql`
-  fragment CounterListFragment on Query {
-    viewer {
-      id
-      counterConnection {
-        __id
-        edges {
-          node {
-            id
-            ...CounterFragment
-          }
+  fragment CounterListFragment on User {
+    id
+    counterConnection {
+      __id
+      edges {
+        node {
+          id
+          ...CounterFragment
         }
       }
     }
@@ -68,9 +66,7 @@ type CounterListProps = {
 };
 
 export default function CounterList({ dataRef }: CounterListProps) {
-  const {
-    viewer: { counterConnection, id: userId },
-  } = useFragment(fragment, dataRef);
+  const { counterConnection, id: userId } = useFragment(fragment, dataRef);
 
   useSubscription(
     useMemo(

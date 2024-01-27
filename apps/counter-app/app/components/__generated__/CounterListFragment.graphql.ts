@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a85acb00073e7b45985ee899cb9d9c9e>>
+ * @generated SignedSource<<039ea5f0f37a33f4f52212225d7b2029>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,18 +11,16 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CounterListFragment$data = {
-  readonly viewer: {
-    readonly counterConnection: {
-      readonly __id: string;
-      readonly edges: ReadonlyArray<{
-        readonly node: {
-          readonly id: string;
-          readonly " $fragmentSpreads": FragmentRefs<"CounterFragment">;
-        };
-      }>;
-    };
-    readonly id: string;
+  readonly counterConnection: {
+    readonly __id: string;
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly id: string;
+        readonly " $fragmentSpreads": FragmentRefs<"CounterFragment">;
+      };
+    }>;
   };
+  readonly id: string;
   readonly " $fragmentType": "CounterListFragment";
 };
 export type CounterListFragment$key = {
@@ -44,75 +42,64 @@ return {
   "metadata": null,
   "name": "CounterListFragment",
   "selections": [
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
-      "concreteType": "User",
+      "concreteType": "UserCounterConnection",
       "kind": "LinkedField",
-      "name": "viewer",
+      "name": "counterConnection",
       "plural": false,
       "selections": [
-        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
-          "concreteType": "UserCounterConnection",
+          "concreteType": "UserCounterConnectionEdge",
           "kind": "LinkedField",
-          "name": "counterConnection",
-          "plural": false,
+          "name": "edges",
+          "plural": true,
           "selections": [
             {
               "alias": null,
               "args": null,
-              "concreteType": "UserCounterConnectionEdge",
+              "concreteType": "Counter",
               "kind": "LinkedField",
-              "name": "edges",
-              "plural": true,
+              "name": "node",
+              "plural": false,
               "selections": [
+                (v0/*: any*/),
                 {
-                  "alias": null,
                   "args": null,
-                  "concreteType": "Counter",
-                  "kind": "LinkedField",
-                  "name": "node",
-                  "plural": false,
-                  "selections": [
-                    (v0/*: any*/),
-                    {
-                      "args": null,
-                      "kind": "FragmentSpread",
-                      "name": "CounterFragment"
-                    }
-                  ],
-                  "storageKey": null
+                  "kind": "FragmentSpread",
+                  "name": "CounterFragment"
                 }
               ],
               "storageKey": null
-            },
-            {
-              "kind": "ClientExtension",
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "__id",
-                  "storageKey": null
-                }
-              ]
             }
           ],
           "storageKey": null
+        },
+        {
+          "kind": "ClientExtension",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "__id",
+              "storageKey": null
+            }
+          ]
         }
       ],
       "storageKey": null
     }
   ],
-  "type": "Query",
+  "type": "User",
   "abstractKey": null
 };
 })();
 
-(node as any).hash = "c6eb279736a93aa98758e9da540d815c";
+(node as any).hash = "044729aa3971566b8004fe2aebbca1aa";
 
 export default node;

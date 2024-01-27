@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b8a02ea6f305d389a904cdda317de8aa>>
+ * @generated SignedSource<<145d057b1b6b5842711de4c7aca34ce4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,9 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type IndexQuery$variables = Record<PropertyKey, never>;
 export type IndexQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"CounterListFragment">;
+  readonly viewer: {
+    readonly " $fragmentSpreads": FragmentRefs<"CounterListFragment">;
+  };
 };
 export type IndexQuery = {
   response: IndexQuery$data;
@@ -35,14 +37,25 @@ return {
     "name": "IndexQuery",
     "selections": [
       {
-        "kind": "Defer",
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "viewer",
+        "plural": false,
         "selections": [
           {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "CounterListFragment"
+            "kind": "Defer",
+            "selections": [
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "CounterListFragment"
+              }
+            ]
           }
-        ]
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -55,17 +68,17 @@ return {
     "name": "IndexQuery",
     "selections": [
       {
-        "if": null,
-        "kind": "Defer",
-        "label": "IndexQuery$defer$CounterListFragment",
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "viewer",
+        "plural": false,
         "selections": [
           {
-            "alias": null,
-            "args": null,
-            "concreteType": "User",
-            "kind": "LinkedField",
-            "name": "viewer",
-            "plural": false,
+            "if": null,
+            "kind": "Defer",
+            "label": "IndexQuery$defer$CounterListFragment",
             "selections": [
               (v0/*: any*/),
               {
@@ -121,24 +134,25 @@ return {
                 ],
                 "storageKey": null
               }
-            ],
-            "storageKey": null
-          }
-        ]
+            ]
+          },
+          (v0/*: any*/)
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "c57339fb429be4d3b49915a65b7615f0",
+    "cacheID": "837bcd24e3d4f0c85b864c25cf223129",
     "id": null,
     "metadata": {},
     "name": "IndexQuery",
     "operationKind": "query",
-    "text": "query IndexQuery {\n  ...CounterListFragment @defer(label: \"IndexQuery$defer$CounterListFragment\")\n}\n\nfragment CounterFragment on Counter {\n  id\n  count\n}\n\nfragment CounterListFragment on Query {\n  viewer {\n    id\n    counterConnection {\n      edges {\n        node {\n          id\n          ...CounterFragment\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query IndexQuery {\n  viewer {\n    ...CounterListFragment @defer(label: \"IndexQuery$defer$CounterListFragment\")\n    id\n  }\n}\n\nfragment CounterFragment on Counter {\n  id\n  count\n}\n\nfragment CounterListFragment on User {\n  id\n  counterConnection {\n    edges {\n      node {\n        id\n        ...CounterFragment\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "887dbd52a6358ee41fbf45aa73b70ffb";
+(node as any).hash = "a839ddf860def501ba0d4604859da263";
 
 export default node;
