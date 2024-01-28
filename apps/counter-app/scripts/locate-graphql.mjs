@@ -5,12 +5,31 @@ import { ts } from "@ast-grep/napi";
 
 const [type, field] = argv._[0].split(".");
 
-const builderCallMatcher = ["Query", "Mutation", "Subscription"].includes(type)
-  ? {
-      kind: "call_expression",
-      has: {
-        kind: "arguments",
-        follows: {
+let rule;
+
+// builder.queryType etc.
+if (!field && ["Query", "Mutation", "Subscription"].includes(type)) {
+  rule = {
+    kind: "property_identifier",
+    regex: `^(${type.toLowerCase()})Type$`,
+    follows: {
+      kind: "identifier",
+      regex: "^builder$",
+      stopBy: "end",
+    },
+  };
+}
+
+// builder.node("Type" etc.
+if (!field && !["Query", "Mutation", "Subscription"].includes(type)) {
+  rule = {
+    kind: "string",
+    regex: `^["']${type}["']$`,
+    inside: {
+      kind: "arguments",
+      inside: {
+        kind: "call_expression",
+        has: {
           kind: "member_expression",
           all: [
             {
@@ -22,96 +41,193 @@ const builderCallMatcher = ["Query", "Mutation", "Subscription"].includes(type)
             {
               has: {
                 kind: "property_identifier",
-                regex: `^${type.toLowerCase()}Type$`,
+                regex: "^node$",
               },
             },
           ],
         },
       },
-    }
-  : {
-      kind: "call_expression",
-      has: {
-        kind: "arguments",
-        has: {
+    },
+  };
+}
+
+// builder.node("Type", { id: { resolve: etc.
+if (
+  field &&
+  field === "id" &&
+  !["Query", "Mutation", "Subscription"].includes(type)
+) {
+  rule = {
+    kind: "property_identifier",
+    regex: `^["']?id["']?$`,
+    inside: {
+      kind: "pair",
+      inside: {
+        kind: "object",
+        follows: {
           kind: "string",
           regex: `^["']${type}["']$`,
-        },
-        follows: {
-          kind: "member_expression",
-          has: {
-            kind: "identifier",
-            regex: "^builder$",
-          },
+          stopBy: "end",
         },
       },
-    };
+    },
+  };
+}
 
-const matcher =
-  field === "id"
-    ? {
-        rule: {
-          kind: "pair",
-          has: {
-            field: "key",
-            regex: `^["']?id["']?$`,
+// builder.node("Type", { fields: (t) => ({ field: t.field( etc.
+if (
+  field &&
+  field !== "id" &&
+  !["Query", "Mutation", "Subscription"].includes(type)
+) {
+  rule = {
+    kind: "property_identifier",
+    regex: `^["']?${field}["']?$`,
+    inside: {
+      kind: "pair",
+      has: {
+        kind: "property_identifier",
+        regex: "^[\"']?fields[\"']?$",
+      },
+      stopBy: "end",
+      inside: {
+        kind: "call_expression",
+        all: [
+          {
+            has: {
+              kind: "member_expression",
+              all: [
+                {
+                  has: {
+                    kind: "identifier",
+                    regex: "^builder$",
+                  },
+                },
+                {
+                  has: {
+                    kind: "property_identifier",
+                    regex: "^node$",
+                  },
+                },
+              ],
+            },
           },
-          inside: {
-            kind: "call_expression",
+          {
             has: {
               kind: "arguments",
               has: {
                 kind: "string",
                 regex: `^["']${type}["']$`,
               },
-              follows: {
-                kind: "member_expression",
-                all: [
-                  {
-                    has: {
-                      kind: "identifier",
-                      regex: "^builder$",
-                    },
+            },
+          },
+        ],
+        stopBy: "end",
+      },
+    },
+  };
+}
+
+// builder.queryField("field" etc.
+// builder.queryFields((t) => ({ field: t.field( etc.
+// builder.queryType({ fields: (t) => ({ field: t.field( etc.
+if (field && ["Query", "Mutation", "Subscription"].includes(type)) {
+  rule = {
+    any: [
+      {
+        kind: "string",
+        regex: `^["']${field}["']$`,
+        inside: {
+          kind: "arguments",
+          inside: {
+            kind: "call_expression",
+            has: {
+              kind: "member_expression",
+              all: [
+                {
+                  has: {
+                    kind: "identifier",
+                    regex: "^builder$",
                   },
-                  {
-                    has: {
-                      kind: "property_identifier",
-                      regex: `^node$`,
-                    },
+                },
+                {
+                  has: {
+                    kind: "property_identifier",
+                    regex: `^${type.toLowerCase()}Field$`,
                   },
-                ],
+                },
+              ],
+            },
+          },
+        },
+      },
+      {
+        kind: "property_identifier",
+        regex: `^["']?${field}["']?$`,
+        inside: {
+          kind: "call_expression",
+          has: {
+            kind: "member_expression",
+            all: [
+              {
+                has: {
+                  kind: "identifier",
+                  regex: "^builder$",
+                },
               },
+              {
+                has: {
+                  kind: "property_identifier",
+                  regex: `^${type.toLowerCase()}Fields?$`,
+                },
+              },
+            ],
+          },
+          stopBy: "end",
+        },
+      },
+      {
+        kind: "property_identifier",
+        regex: `^["']?${field}["']?$`,
+        inside: {
+          kind: "pair",
+          has: {
+            kind: "property_identifier",
+            regex: `^["']?fields["']?$`,
+          },
+          stopBy: "end",
+          inside: {
+            kind: "call_expression",
+            has: {
+              kind: "member_expression",
+              all: [
+                {
+                  has: {
+                    kind: "identifier",
+                    regex: "^builder$",
+                  },
+                },
+                {
+                  has: {
+                    kind: "property_identifier",
+                    regex: `^${type.toLowerCase()}Type$`,
+                  },
+                },
+              ],
             },
             stopBy: "end",
           },
         },
-      }
-    : field
-      ? {
-          rule: {
-            kind: "property_identifier",
-            regex: `^["']?${field}["']?$`,
-            inside: {
-              kind: "pair",
-              has: {
-                field: "key",
-                regex: `^["']?fields["']?$`,
-              },
-              inside: {
-                ...builderCallMatcher,
-                stopBy: "end",
-              },
-              stopBy: "end",
-            },
-          },
-        }
-      : { rule: builderCallMatcher };
+      },
+    ],
+  };
+}
 
 const data = await new Promise((resolve, reject) => {
   ts.findInFiles(
     {
       paths: ["./server/graphql"],
-      matcher,
+      matcher: { rule },
     },
     (err, result) => {
       if (err) reject(err);
