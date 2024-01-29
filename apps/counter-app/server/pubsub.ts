@@ -1,23 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { RealtimeChannel, SupabaseClient } from "@supabase/supabase-js";
+import { createClient, type RealtimeChannel } from "@supabase/supabase-js";
 import { omit } from "lodash-es";
+import { EventEmitter } from "node:events";
 import invariant from "tiny-invariant";
 import type { Database } from "./__generated__/database.types";
+import { env } from "./env";
 
 type Registration = {
   table: keyof Database["public"]["Tables"];
   eventType: "INSERT" | "UPDATE" | "DELETE";
   id?: string;
   userId: string;
-  supabase: SupabaseClient<Database>;
   tabId?: string;
 };
 
+const globalSupabase = createClient<Database>(
+  env.SUPABASE_URL,
+  env.SUPABASE_SERVICE_ROLE,
+);
+
 export class PubSub {
-  private subscriptions: { [key: string]: RealtimeChannel };
+  private ee: EventEmitter;
+  private channels: { [key: string]: RealtimeChannel };
+  private subscriptions: {
+    [key: string]: [{ [key: string]: any }, (...args: any[]) => void];
+  };
   private subIdCounter: number;
 
   constructor() {
+    this.ee = new EventEmitter();
+    this.channels = {};
     this.subscriptions = {};
     this.subIdCounter = 0;
   }
@@ -28,49 +40,68 @@ export class PubSub {
   }
 
   async subscribe(
-    registration: Registration,
+    { table, eventType, userId, id, tabId }: Registration,
     onMessage: (...args: any[]) => void,
   ): Promise<number> {
-    this.subIdCounter = this.subIdCounter + 1;
-
-    const channel = registration.supabase
-      .channel(this.subIdCounter.toString())
+    this.channels[table] ??= globalSupabase
+      .channel(table)
       .on(
         "postgres_changes",
-        {
-          event: registration.eventType as any,
-          schema: "public",
-          table: registration.table,
-          filter: registration.id ? `id=eq.${registration.id}` : undefined,
-        },
+        { event: "*", schema: "public", table },
         (payload) => {
           const row =
             payload.eventType === "DELETE" ? payload.old : payload.new;
 
-          const userId = row.id.split(":")[0];
-
-          if (
-            userId !== registration.userId ||
-            (row.updatedBy && row.updatedBy === registration.tabId)
-          ) {
-            return;
-          }
-
-          onMessage(omit(row, ["createdAt", "updatedBy"]));
+          this.ee.emit(
+            JSON.stringify({
+              table,
+              eventType: payload.eventType,
+              userId: row.id.split(":")[0],
+              id: payload.eventType === "UPDATE" ? row.id : null,
+            }),
+            row,
+          );
         },
       )
-      .subscribe();
+      .subscribe((status, err) => {
+        console.log({ table, status });
 
-    this.subscriptions[this.subIdCounter] = channel;
+        if (err) {
+          console.error(err);
+        }
+      });
+
+    const trigger = { table, eventType, userId, id: id ?? null };
+
+    const listener = (row: { [key: string]: any }) => {
+      if (row?.updatedBy !== tabId) {
+        onMessage(omit(row, ["createdAt", "updatedBy"]));
+      }
+    };
+
+    this.ee.addListener(JSON.stringify(trigger), listener);
+    this.subIdCounter = this.subIdCounter + 1;
+    this.subscriptions[this.subIdCounter] = [trigger, listener];
 
     return Promise.resolve(this.subIdCounter);
   }
 
   async unsubscribe(subId: number) {
-    const channel = this.subscriptions[subId];
-    invariant(channel);
-    channel.unsubscribe();
+    const subscription = this.subscriptions[subId];
+    invariant(subscription);
+    const [trigger, listener] = subscription;
     delete this.subscriptions[subId];
+
+    if (
+      !Object.values(this.subscriptions).find(
+        ([{ table }]) => table === trigger.table,
+      )
+    ) {
+      this.channels[trigger.table]?.unsubscribe();
+      delete this.channels[trigger.table];
+    }
+
+    this.ee.removeListener(JSON.stringify(trigger), listener);
   }
 
   public asyncIterableIterator<T>(

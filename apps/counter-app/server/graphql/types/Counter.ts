@@ -49,37 +49,34 @@ builder.subscriptionFields((t) => ({
     args: {
       id: t.arg.id({ required: true }),
     },
-    subscribe: (_parent, { id }, { pubsub, user, supabase, tabId }) =>
+    subscribe: (_parent, { id }, { pubsub, user, tabId }) =>
       pubsub.asyncIterableIterator<Counter>({
         table: "counters",
         eventType: "UPDATE",
         id: fromGlobalId(id),
         userId: user.id,
-        supabase,
         tabId,
       }),
     resolve: (counter) => counter,
   }),
   counterCreated: t.field({
     type: Counter,
-    subscribe: (_parent, _args, { pubsub, user, supabase, tabId }) =>
+    subscribe: (_parent, _args, { pubsub, user, tabId }) =>
       pubsub.asyncIterableIterator<Counter>({
         table: "counters",
         eventType: "INSERT",
         userId: user.id,
-        supabase,
         tabId,
       }),
     resolve: (counter) => counter,
   }),
   counterDeleted: t.field({
     type: Counter,
-    subscribe: (_parent, _args, { pubsub, user, supabase, tabId }) =>
+    subscribe: (_parent, _args, { pubsub, user, tabId }) =>
       pubsub.asyncIterableIterator<Counter>({
         table: "counters",
         eventType: "DELETE",
         userId: user.id,
-        supabase,
         tabId,
       }),
     resolve: (counter) => counter,
