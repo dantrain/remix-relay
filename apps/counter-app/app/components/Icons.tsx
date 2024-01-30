@@ -1,22 +1,7 @@
-import { type SVGProps } from "react";
+import { SVGIcon } from "@remix-relay/ui";
+import { ComponentProps } from "react";
 
-type IconProps = SVGProps<SVGSVGElement>;
-
-function SVGIcon(props: IconProps) {
-  return (
-    <svg
-      aria-hidden="true"
-      fill="currentColor"
-      focusable="false"
-      height="16"
-      viewBox="0 0 24 24"
-      width="16"
-      {...props}
-    />
-  );
-}
-
-export function SignOutIcon(props: IconProps) {
+export function SignOutIcon(props: ComponentProps<typeof SVGIcon>) {
   return (
     <SVGIcon {...props} fill="none">
       <path
@@ -30,7 +15,7 @@ export function SignOutIcon(props: IconProps) {
   );
 }
 
-export function GoogleIcon(props: IconProps) {
+export function GoogleIcon(props: ComponentProps<typeof SVGIcon>) {
   return (
     <SVGIcon {...props} viewBox="0 0 256 262">
       <path
@@ -53,7 +38,7 @@ export function GoogleIcon(props: IconProps) {
   );
 }
 
-export function GitHubIcon(props: IconProps) {
+export function GitHubIcon(props: ComponentProps<typeof SVGIcon>) {
   return (
     <SVGIcon {...props} viewBox="0 0 32.58 31.77">
       <path
@@ -64,7 +49,7 @@ export function GitHubIcon(props: IconProps) {
   );
 }
 
-export function MicrosoftIcon(props: IconProps) {
+export function MicrosoftIcon(props: ComponentProps<typeof SVGIcon>) {
   return (
     <SVGIcon {...props} viewBox="0 0 23 23">
       <path d="M1 1h10v10H1z" fill="#f35325" />
