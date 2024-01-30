@@ -13,6 +13,7 @@ import { Suspense } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
 import { getCurrentEnvironment } from "~/lib/relay-environment";
 import Progress from "./components/Progress";
+import { ResubscribeProvider } from "./hooks/useSubscribe";
 import "./tailwind.css";
 
 export default function App() {
@@ -28,12 +29,14 @@ export default function App() {
       <body className="bg-slate-950 text-white">
         <RemixRelayProvider>
           <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
-            <Progress />
-            <div className="mx-auto max-w-3xl p-4 sm:p-8">
-              <Suspense fallback={<Spinner className="h-36" />}>
-                <Outlet />
-              </Suspense>
-            </div>
+            <ResubscribeProvider>
+              <Progress />
+              <div className="mx-auto max-w-3xl p-4 sm:p-8">
+                <Suspense fallback={<Spinner className="h-36" />}>
+                  <Outlet />
+                </Suspense>
+              </div>
+            </ResubscribeProvider>
           </RelayEnvironmentProvider>
         </RemixRelayProvider>
         <ScrollRestoration />

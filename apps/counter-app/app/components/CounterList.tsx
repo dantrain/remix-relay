@@ -1,13 +1,8 @@
 import { createId } from "@paralleldrive/cuid2";
 import { Button } from "@remix-relay/ui";
 import { fromGlobalId, toGlobalId } from "graphql-relay";
-import { useMemo } from "react";
-import {
-  graphql,
-  useFragment,
-  useMutation,
-  useSubscription,
-} from "react-relay";
+import { graphql, useFragment, useMutation } from "react-relay";
+import { useSubscribe } from "~/hooks/useSubscribe";
 import Counter from "./Counter";
 import { CounterListCreateOneCounterMutation } from "./__generated__/CounterListCreateOneCounterMutation.graphql";
 import { CounterListFragment$key } from "./__generated__/CounterListFragment.graphql";
@@ -68,25 +63,15 @@ type CounterListProps = {
 export default function CounterList({ dataRef }: CounterListProps) {
   const { counterConnection, id: userId } = useFragment(fragment, dataRef);
 
-  useSubscription(
-    useMemo(
-      () => ({
-        subscription: counterCreatedSubscription,
-        variables: { connections: [counterConnection.__id] },
-      }),
-      [counterConnection.__id],
-    ),
-  );
+  useSubscribe({
+    subscription: counterCreatedSubscription,
+    variables: { connections: [counterConnection.__id] },
+  });
 
-  useSubscription(
-    useMemo(
-      () => ({
-        subscription: counterDeletedSubscription,
-        variables: { connections: [counterConnection.__id] },
-      }),
-      [counterConnection.__id],
-    ),
-  );
+  useSubscribe({
+    subscription: counterDeletedSubscription,
+    variables: { connections: [counterConnection.__id] },
+  });
 
   const [commitCreateOneCounter] =
     useMutation<CounterListCreateOneCounterMutation>(mutation);
