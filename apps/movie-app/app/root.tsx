@@ -1,5 +1,5 @@
 import { RemixRelayProvider } from "@remix-relay/react";
-import { Spinner } from "@remix-relay/ui";
+import { Spinner, Toaster } from "@remix-relay/ui";
 import "@remix-relay/ui/dist/index.css";
 import {
   Links,
@@ -34,6 +34,7 @@ export default function App() {
                 <Outlet />
               </Suspense>
             </div>
+            <Toaster />
           </RelayEnvironmentProvider>
         </RemixRelayProvider>
         <ScrollRestoration />

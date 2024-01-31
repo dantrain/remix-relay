@@ -14,6 +14,9 @@ import {
   RecordSource,
   Store,
 } from "relay-runtime";
+import { toast } from "sonner";
+
+const isServer = typeof document === "undefined";
 
 const fetchFn: FetchFunction = (
   params: RequestParameters,
@@ -24,32 +27,42 @@ const fetchFn: FetchFunction = (
     getCachedResponse(params, variables, cacheConfig) ??
     Observable.create((sink) => {
       const fetchGraphQL = async () => {
-        const response = await fetch("/graphql", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "multipart/mixed; deferSpec=20220824, application/json",
-          },
-          body: JSON.stringify({
-            query: params.text,
-            variables,
-          }),
-        });
+        try {
+          const response = await fetch("/graphql", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "multipart/mixed; deferSpec=20220824, application/json",
+            },
+            body: JSON.stringify({
+              query: params.text,
+              variables,
+            }),
+          });
 
-        const parts = await meros(response);
+          const parts = await meros(response);
 
-        if (parts instanceof Response) {
-          sink.next(await parts.json());
-        } else {
-          for await (const part of parts) {
-            sink.next({
-              ...part.body,
-              ...part.body?.incremental?.[0],
-            });
+          if (parts instanceof Response) {
+            sink.next(await parts.json());
+          } else {
+            for await (const part of parts) {
+              sink.next({
+                ...part.body,
+                ...part.body?.incremental?.[0],
+              });
+            }
           }
-        }
+        } catch (err) {
+          if (!isServer) {
+            toast.error(
+              err instanceof Error ? err.message : "Something went wrong",
+            );
+          }
 
-        sink.complete();
+          throw err;
+        } finally {
+          sink.complete();
+        }
       };
 
       setTimeout(() => trackPromise(fetchGraphQL()), 0);

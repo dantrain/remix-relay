@@ -19,6 +19,7 @@ import {
   Store,
 } from "relay-runtime";
 import { PayloadExtensions } from "relay-runtime/lib/network/RelayNetworkTypes";
+import { toast } from "sonner";
 import invariant from "tiny-invariant";
 
 const isServer = typeof document === "undefined";
@@ -33,38 +34,57 @@ const fetchFn: FetchFunction = (
     getCachedResponse(params, variables, cacheConfig) ??
     Observable.create((sink) => {
       const fetchGraphQL = async () => {
-        const response = await fetch("/graphql", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "multipart/mixed; deferSpec=20220824, application/json",
-          },
-          body: JSON.stringify({
-            query: params.text,
-            variables,
-            extensions: { tabId },
-          }),
-        });
+        try {
+          const response = await fetch("/graphql", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "multipart/mixed; deferSpec=20220824, application/json",
+            },
+            body: JSON.stringify({
+              query: params.text,
+              variables,
+              extensions: { tabId },
+            }),
+          });
 
-        if (response.status === 401 && !isServer) {
-          window.location.href = "/signin";
-          return;
-        }
-
-        const parts = await meros(response);
-
-        if (parts instanceof Response) {
-          sink.next(await parts.json());
-        } else {
-          for await (const part of parts) {
-            sink.next({
-              ...part.body,
-              ...part.body?.incremental?.[0],
-            });
+          if (response.status === 401 && !isServer) {
+            window.location.href = "/signin";
+            return;
           }
-        }
 
-        sink.complete();
+          const parts = await meros(response);
+
+          if (parts instanceof Response) {
+            const result = await parts.json();
+            if (result.errors) {
+              throw new Error(result.errors?.[0]?.message);
+            }
+
+            sink.next(result);
+          } else {
+            for await (const part of parts) {
+              if (part.body.errors) {
+                throw new Error(part.body.errors?.[0]?.message);
+              }
+
+              sink.next({
+                ...part.body,
+                ...part.body?.incremental?.[0],
+              });
+            }
+          }
+        } catch (err) {
+          if (!isServer) {
+            toast.error(
+              err instanceof Error ? err.message : "Something went wrong",
+            );
+          }
+
+          throw err;
+        } finally {
+          sink.complete();
+        }
       };
 
       setTimeout(() => trackPromise(fetchGraphQL()), 0);
