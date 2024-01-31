@@ -9,6 +9,8 @@ export default function useWindowVisible(handleWindowVisible: () => void) {
     };
 
     if (typeof window !== "undefined" && typeof document !== "undefined") {
+      window.addEventListener("online", visibilitychangeListener, false);
+
       document.addEventListener(
         "visibilitychange",
         visibilitychangeListener,
@@ -17,6 +19,8 @@ export default function useWindowVisible(handleWindowVisible: () => void) {
     }
 
     return () => {
+      window.removeEventListener("online", visibilitychangeListener);
+
       document.removeEventListener(
         "visibilitychange",
         visibilitychangeListener,
