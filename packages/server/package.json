@@ -58,13 +58,13 @@
     "@apollo/server": "^4.9.5",
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
-    "@remix-run/node": "^2.5.1",
+    "@remix-run/node": "^2.6.0",
     "@types/eslint": "^8.56.2",
-    "@types/node": "^20.11.5",
+    "@types/node": "^20.11.16",
     "@types/relay-runtime": "^14.1.22",
     "eslint": "^8.56.0",
     "graphql": "17.0.0-alpha.2",
-    "relay-runtime": "^16.1.0",
+    "relay-runtime": "^16.2.0",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
   }

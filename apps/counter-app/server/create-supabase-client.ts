@@ -1,7 +1,6 @@
 import { createServerClient, parse } from "@supabase/ssr";
 import type { Request, Response } from "express";
 import { IncomingMessage } from "http";
-import zlib from "zlib";
 import { env } from "./env";
 
 export function createSupabaseClient(
@@ -14,19 +13,12 @@ export function createSupabaseClient(
   const supabase = createServerClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
     cookies: {
       get: (key) => {
-        const value =
+        return (
           cookiesSetThisRequest[key] ??
           (req as Request)?.cookies?.[key] ??
-          parse(req.headers.cookie ?? "")?.[key];
-
-        if (!value) return "";
-
-        const decodedValue =
-          key.includes("auth-token") && !key.includes("verifier")
-            ? zlib.gunzipSync(Buffer.from(value, "base64url")).toString("utf-8")
-            : decodeURIComponent(value);
-
-        return decodedValue;
+          parse(req.headers.cookie ?? "")?.[key] ??
+          ""
+        );
       },
       set: writeCookies
         ? (key, value, options) => {
@@ -37,20 +29,13 @@ export function createSupabaseClient(
               return;
             }
 
-            const encodedValue =
-              key.includes("auth-token") && !key.includes("verifier")
-                ? zlib
-                    .gzipSync(Buffer.from(value, "utf-8"))
-                    .toString("base64url")
-                : encodeURIComponent(value);
-
-            res.cookie(key, encodedValue, {
+            res.cookie(key, value, {
               ...options,
               sameSite: "lax",
               httpOnly: true,
             });
 
-            cookiesSetThisRequest[key] = encodedValue;
+            cookiesSetThisRequest[key] = value;
           }
         : () => {},
       remove: writeCookies

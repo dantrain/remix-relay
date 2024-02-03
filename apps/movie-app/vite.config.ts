@@ -9,13 +9,13 @@ installGlobals();
 
 export default defineConfig(({ command }) => ({
   plugins: [
-    remix({
-      ignoredRouteFiles: ["**/.*"],
-    }),
     tsconfigPaths(),
-    relay,
     cjsInterop({
       dependencies: ["react-relay"],
+    }),
+    relay,
+    remix({
+      ignoredRouteFiles: ["**/.*"],
     }),
   ],
   ssr: command === "build" ? { noExternal: /(relay)/ } : {},

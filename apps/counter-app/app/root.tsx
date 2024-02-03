@@ -3,7 +3,6 @@ import { Spinner, Toaster } from "@remix-relay/ui";
 import "@remix-relay/ui/dist/index.css";
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -42,7 +41,6 @@ export default function App() {
         </RemixRelayProvider>
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   );
