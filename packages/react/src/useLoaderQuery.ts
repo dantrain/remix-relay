@@ -2,14 +2,12 @@ import type { TypedDeferredData } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { flushSync } from "react-dom";
-import {
-  usePreloadedQuery,
-  useQueryLoader,
-  useRelayEnvironment,
-  type GraphQLTaggedNode,
-  type PreloadFetchPolicy,
-  type PreloadedQuery,
+import type {
+  GraphQLTaggedNode,
+  PreloadFetchPolicy,
+  PreloadedQuery,
 } from "react-relay";
+import relay from "react-relay";
 import type { useQueryLoaderHookType } from "react-relay/relay-hooks/useQueryLoader";
 import type {
   ConcreteRequest,
@@ -20,6 +18,8 @@ import type {
 import invariant from "tiny-invariant";
 import { SetDeferredQueryContext } from "./deferred-query-context";
 import { responseCache } from "./get-cached-response";
+
+const { usePreloadedQuery, useQueryLoader, useRelayEnvironment } = relay;
 
 export type SerializablePreloadedQuery<TQuery extends OperationType> = {
   params: ConcreteRequest["params"];

@@ -1,10 +1,12 @@
-import { fetchQuery, loadQuery } from "react-relay";
+import relay from "react-relay";
 import type {
   Environment,
   GraphQLTaggedNode,
   OperationType,
   VariablesOf,
 } from "relay-runtime";
+
+const { fetchQuery, loadQuery } = relay;
 
 export function getClientLoaderQuery(environment: Environment) {
   return async <TQuery extends OperationType>(

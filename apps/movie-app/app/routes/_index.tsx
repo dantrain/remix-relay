@@ -17,7 +17,7 @@ const query = graphql`
 
 export const meta: MetaFunction = () => [{ title: "Movie App" }];
 
-export const loader = async () => loaderQuery<IndexQuery>(indexQueryNode, {});
+export const loader = () => loaderQuery<IndexQuery>(indexQueryNode, {});
 
 export const clientLoader = () => clientLoaderQuery<IndexQuery>(query, {});
 
