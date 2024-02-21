@@ -53,26 +53,26 @@
     "relay-runtime": "^16.1.0"
   },
   "dependencies": {
-    "@remix-run/server-runtime": "^2.6.0"
+    "@remix-run/server-runtime": "^2.7.1"
   },
   "devDependencies": {
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
-    "@remix-run/node": "^2.6.0",
-    "@remix-run/react": "^2.6.0",
+    "@remix-run/node": "^2.7.1",
+    "@remix-run/react": "^2.7.1",
     "@types/eslint": "^8.56.2",
-    "@types/node": "^20.11.16",
-    "@types/react": "^18.2.52",
-    "@types/react-dom": "^18.2.18",
+    "@types/node": "^20.11.19",
+    "@types/react": "^18.2.57",
+    "@types/react-dom": "^18.2.19",
     "@types/react-relay": "^16.0.6",
-    "@types/relay-runtime": "^14.1.22",
+    "@types/relay-runtime": "^14.1.23",
     "eslint": "^8.56.0",
     "graphql": "17.0.0-alpha.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-relay": "^16.2.0",
     "relay-runtime": "^16.2.0",
-    "tsup": "^8.0.1",
+    "tsup": "^8.0.2",
     "typescript": "^5.3.3"
   }
 }
