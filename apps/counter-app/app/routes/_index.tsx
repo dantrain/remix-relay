@@ -7,7 +7,7 @@ import { SignOutIcon } from "~/components/Icons";
 import useWindowVisible from "~/hooks/useWindowVisible";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
-import indexQueryNode, { IndexQuery } from "./__generated__/IndexQuery.graphql";
+import { IndexQuery } from "./__generated__/IndexQuery.graphql";
 
 const query = graphql`
   query IndexQuery {
@@ -20,7 +20,7 @@ const query = graphql`
 export const meta: MetaFunction = () => [{ title: "Counter App" }];
 
 export const loader = ({ context }: LoaderFunctionArgs) =>
-  loaderQuery<IndexQuery>(context, indexQueryNode, {});
+  loaderQuery<IndexQuery>(context, query, {});
 
 export const clientLoader = () => clientLoaderQuery<IndexQuery>(query, {});
 

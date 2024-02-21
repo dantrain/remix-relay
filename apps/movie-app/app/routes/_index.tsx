@@ -4,7 +4,7 @@ import { graphql } from "react-relay";
 import MovieLink from "~/components/MovieLink";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
-import indexQueryNode, { IndexQuery } from "./__generated__/IndexQuery.graphql";
+import { IndexQuery } from "./__generated__/IndexQuery.graphql";
 
 const query = graphql`
   query IndexQuery {
@@ -17,7 +17,7 @@ const query = graphql`
 
 export const meta: MetaFunction = () => [{ title: "Movie App" }];
 
-export const loader = () => loaderQuery<IndexQuery>(indexQueryNode, {});
+export const loader = () => loaderQuery<IndexQuery>(query, {});
 
 export const clientLoader = () => clientLoaderQuery<IndexQuery>(query, {});
 

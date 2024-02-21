@@ -8,12 +8,17 @@ import { TypedDeferredData, TypedResponse, defer, json } from "@remix-run/node";
 import { FormattedExecutionResult } from "graphql";
 import type {
   ConcreteRequest,
+  GraphQLTaggedNode,
   OperationType,
   RequestParameters,
   VariablesOf,
 } from "relay-runtime";
 import { PayloadExtensions } from "relay-runtime/lib/network/RelayNetworkTypes";
 import invariant from "tiny-invariant";
+
+function isConcreteRequest(node: GraphQLTaggedNode): node is ConcreteRequest {
+  return (node as ConcreteRequest).params !== undefined;
+}
 
 export type SerializablePreloadedQuery<
   TQuery extends OperationType,
@@ -29,7 +34,7 @@ export function getLoaderQuery(
   context: BaseContext = {},
 ) {
   return async <TQuery extends OperationType>(
-    node: ConcreteRequest,
+    node: GraphQLTaggedNode,
     variables: VariablesOf<TQuery>,
   ) => {
     try {
@@ -44,7 +49,7 @@ export function getLoaderQuery(
 
 export async function loaderQuery<TQuery extends OperationType>(
   server: ApolloServer<BaseContext>,
-  node: ConcreteRequest,
+  node: GraphQLTaggedNode,
   variables: VariablesOf<TQuery>,
   context: BaseContext = {},
 ): Promise<
@@ -74,6 +79,8 @@ export async function loaderQuery<TQuery extends OperationType>(
       >;
     }>
 > {
+  invariant(isConcreteRequest(node), "Expected a ConcreteRequest");
+
   const result = await server.executeOperation(
     {
       query: node.params.text!,
