@@ -20,14 +20,14 @@ const query = graphql`
 export const meta: MetaFunction = () => [{ title: "Counter App" }];
 
 export const loader = ({ context }: LoaderFunctionArgs) =>
-  loaderQuery<IndexQuery>(context, query, {});
+  loaderQuery(context, query, {});
 
-export const clientLoader = () => clientLoaderQuery<IndexQuery>(query, {});
+export const clientLoader = () => clientLoaderQuery(query, {});
 
 export default function Index() {
-  const [data, reload] = useLoaderQuery<IndexQuery>(query);
+  const [data, refetch] = useLoaderQuery<IndexQuery>(query);
 
-  useWindowVisible(() => reload({}));
+  useWindowVisible(() => refetch({}));
 
   return (
     <main>
