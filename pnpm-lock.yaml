@@ -113,9 +113,6 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      react-promise-tracker:
-        specifier: ^2.1.1
-        version: 2.1.1(react@18.2.0)
       react-relay:
         specifier: ^16.2.0
         version: 16.2.0(react@18.2.0)
@@ -273,9 +270,6 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      react-promise-tracker:
-        specifier: ^2.1.1
-        version: 2.1.1(react@18.2.0)
       react-relay:
         specifier: ^16.2.0
         version: 16.2.0(react@18.2.0)
@@ -8401,14 +8395,6 @@ packages:
 
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
-
-  /react-promise-tracker@2.1.1(react@18.2.0):
-    resolution: {integrity: sha512-NM7FrJ4y5aRN3FIeVtmeF8leIDQIdYni9pleHTvuX6Kz5zsIHMYSNERmvzTxvPuzei0iNiNiudsXySP63TXA8A==}
-    peerDependencies:
-      react: '>=16.8.0'
-    dependencies:
-      react: 18.2.0
-    dev: false
 
   /react-refresh@0.14.0:
     resolution: {integrity: sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==}

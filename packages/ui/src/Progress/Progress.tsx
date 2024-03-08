@@ -71,7 +71,9 @@ export function Progress({ isLoading }: { isLoading: boolean }) {
           key={bar.key}
           mountOnEnter
           nodeRef={bar.nodeRef}
-          timeout={500}
+          timeout={{
+            exit: 500,
+          }}
           unmountOnExit
         >
           {(state) => <Bar ref={bar.nodeRef} state={state} />}

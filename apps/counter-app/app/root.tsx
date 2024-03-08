@@ -1,6 +1,5 @@
 import { RemixRelayProvider } from "@remix-relay/react";
 import { Spinner, Toaster } from "@remix-relay/ui";
-import "@remix-relay/ui/dist/index.css";
 import {
   Links,
   Meta,

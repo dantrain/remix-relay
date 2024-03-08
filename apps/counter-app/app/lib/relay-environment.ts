@@ -2,7 +2,6 @@ import { createId } from "@paralleldrive/cuid2";
 import { getCachedResponse } from "@remix-relay/react";
 import { Client, ExecutionResult, Sink, createClient } from "graphql-ws";
 import { meros } from "meros/browser";
-import { trackPromise } from "react-promise-tracker";
 import type {
   CacheConfig,
   FetchFunction,
@@ -21,6 +20,7 @@ import {
 import { PayloadExtensions } from "relay-runtime/lib/network/RelayNetworkTypes";
 import { toast } from "sonner";
 import invariant from "tiny-invariant";
+import { trackPromise } from "~/components/Progress";
 
 const isServer = typeof document === "undefined";
 const tabId = isServer ? null : createId();
