@@ -19,6 +19,9 @@
     },
     "typecheck": {
       "dependsOn": ["topo"]
+    },
+    "deploy": {
+      "cache": false
     }
   }
 }
