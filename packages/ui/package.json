@@ -30,18 +30,18 @@
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/tailwind-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
-    "@turbo/gen": "^1.12.4",
-    "@types/eslint": "^8.56.2",
-    "@types/node": "^20.11.19",
-    "@types/react": "^18.2.57",
-    "@types/react-dom": "^18.2.19",
+    "@turbo/gen": "^1.12.5",
+    "@types/eslint": "^8.56.5",
+    "@types/node": "^20.11.25",
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
     "@types/react-transition-group": "^4.4.10",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "postcss": "^8.4.35",
     "react": "^18.2.0",
-    "sonner": "^1.4.0",
+    "sonner": "^1.4.3",
     "tailwindcss": "^3.4.1",
     "tsup": "^8.0.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.2"
   }
 }
