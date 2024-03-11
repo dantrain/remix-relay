@@ -20,7 +20,7 @@
     "@pothos/plugin-relay": "^3.46.0",
     "@pothos/plugin-validation": "^3.10.1",
     "@remix-relay/react": "workspace:*",
-    "@remix-relay/server": "workspace:*",
+    "@remix-relay/node": "workspace:*",
     "@remix-relay/ui": "workspace:*",
     "@remix-run/express": "^2.8.1",
     "@remix-run/node": "^2.8.1",

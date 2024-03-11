@@ -1,4 +1,4 @@
-import { getLoaderQuery } from "@remix-relay/server";
+import { getLoaderQuery } from "@remix-relay/node";
 import type { AppLoadContext } from "@remix-run/node";
 import { OperationType } from "relay-runtime";
 import invariant from "tiny-invariant";
