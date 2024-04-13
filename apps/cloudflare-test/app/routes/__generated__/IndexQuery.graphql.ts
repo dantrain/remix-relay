@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<80b165a4104ed2e5c2106cf47d780f6a>>
+ * @generated SignedSource<<9900cb586bba151c08b64f6e5bae194a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -37,9 +37,14 @@ return {
     "selections": [
       (v0/*: any*/),
       {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "DeferTestFragment"
+        "kind": "Defer",
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "DeferTestFragment"
+          }
+        ]
       }
     ],
     "type": "Query",
@@ -53,25 +58,32 @@ return {
     "selections": [
       (v0/*: any*/),
       {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "slow",
-        "storageKey": null
+        "if": null,
+        "kind": "Defer",
+        "label": "IndexQuery$defer$DeferTestFragment",
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "slow",
+            "storageKey": null
+          }
+        ]
       }
     ]
   },
   "params": {
-    "cacheID": "53ed5445910b20b3204e5855d5675345",
+    "cacheID": "5d3198efd879b36f0a1564166cca9122",
     "id": null,
     "metadata": {},
     "name": "IndexQuery",
     "operationKind": "query",
-    "text": "query IndexQuery {\n  hello\n  ...DeferTestFragment\n}\n\nfragment DeferTestFragment on Query {\n  slow\n}\n"
+    "text": "query IndexQuery {\n  hello\n  ...DeferTestFragment @defer(label: \"IndexQuery$defer$DeferTestFragment\")\n}\n\nfragment DeferTestFragment on Query {\n  slow\n}\n"
   }
 };
 })();
 
-(node as any).hash = "0a7ba293dda13535781a70c87942dea0";
+(node as any).hash = "1f46ba4e802454621c6d2107c29fc3fb";
 
 export default node;

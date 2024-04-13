@@ -1,4 +1,9 @@
 import SchemaBuilder from "@pothos/core";
+import {
+  GraphQLDeferDirective,
+  GraphQLStreamDirective,
+  specifiedDirectives,
+} from "graphql";
 
 const builder = new SchemaBuilder({});
 
@@ -9,11 +14,17 @@ builder.queryType({
     }),
     slow: t.string({
       resolve: async () => {
-        // await new Promise((res) => void setTimeout(res, 1000));
+        await new Promise((res) => void setTimeout(res, 1000));
         return "Slow ride, take it easy";
       },
     }),
   }),
 });
 
-export const schema = builder.toSchema();
+export const schema = builder.toSchema({
+  directives: [
+    ...specifiedDirectives,
+    GraphQLDeferDirective,
+    GraphQLStreamDirective,
+  ],
+});

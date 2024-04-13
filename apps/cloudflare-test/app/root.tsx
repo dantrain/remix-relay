@@ -8,6 +8,7 @@ import {
 import { RelayEnvironmentProvider } from "react-relay";
 import { getCurrentEnvironment } from "./lib/relay-environment";
 import { RemixRelayProvider } from "@remix-relay/react";
+import { Suspense } from "react";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -21,7 +22,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <RemixRelayProvider>
           <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
-            {children}
+            <Suspense>{children}</Suspense>
           </RelayEnvironmentProvider>
         </RemixRelayProvider>
         <ScrollRestoration />

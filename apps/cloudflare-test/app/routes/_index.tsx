@@ -1,4 +1,4 @@
-import { useLoaderQuery } from "@remix-relay/react";
+import { Suspense, useLoaderQuery } from "@remix-relay/react";
 import type { MetaFunction } from "@remix-run/cloudflare";
 import { graphql } from "react-relay";
 import { loaderQuery } from "~/lib/loader-query.server";
@@ -8,7 +8,7 @@ import { DeferTest } from "~/components/DeferTest";
 const query = graphql`
   query IndexQuery {
     hello
-    ...DeferTestFragment
+    ...DeferTestFragment @defer
   }
 `;
 
@@ -41,7 +41,9 @@ export default function Index() {
         </li>
       </ul>
       <pre>{JSON.stringify(data.hello, null, 4)}</pre>
-      <DeferTest dataRef={data} />
+      <Suspense fallback="Am load...">
+        <DeferTest dataRef={data} />
+      </Suspense>
     </div>
   );
 }

@@ -29,6 +29,9 @@ importers:
       '@graphql-tools/executor-http':
         specifier: ^1.0.9
         version: 1.0.9(graphql@17.0.0-alpha.2)
+      '@graphql-yoga/plugin-defer-stream':
+        specifier: ^3.3.0
+        version: 3.3.0(graphql-yoga@5.3.0)(graphql@17.0.0-alpha.2)
       '@pothos/core':
         specifier: ^3.41.0
         version: 3.41.0(graphql@17.0.0-alpha.2)
@@ -2478,6 +2481,18 @@ packages:
     engines: {node: '>=18.0.0'}
     dependencies:
       tslib: 2.6.2
+    dev: false
+
+  /@graphql-yoga/plugin-defer-stream@3.3.0(graphql-yoga@5.3.0)(graphql@17.0.0-alpha.2):
+    resolution: {integrity: sha512-R6pvnTV/m+CJApquqOV9fVMigTCmRNC55UP7XMRwBwM/flZs3dT18V9vh43fUhWw+tR2AfEr46I3dvy0hhtB3w==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      graphql: ^15.2.0 || ^16.0.0 || 17.0.0-alpha.2
+      graphql-yoga: ^5.3.0
+    dependencies:
+      '@graphql-tools/utils': 10.1.2(graphql@17.0.0-alpha.2)
+      graphql: 17.0.0-alpha.2
+      graphql-yoga: 5.3.0(graphql@17.0.0-alpha.2)
     dev: false
 
   /@graphql-yoga/subscription@5.0.0:

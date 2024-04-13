@@ -1,5 +1,10 @@
 import { buildHTTPExecutor } from "@graphql-tools/executor-http";
-import { TypedResponse, json } from "@remix-run/cloudflare";
+import {
+  TypedDeferredData,
+  TypedResponse,
+  defer,
+  json,
+} from "@remix-run/cloudflare";
 import { FormattedExecutionResult, parse } from "graphql";
 import type { YogaServerInstance } from "graphql-yoga";
 import {
@@ -23,14 +28,6 @@ function isConcreteRequest(node: GraphQLTaggedNode): node is ConcreteRequest {
   return (node as ConcreteRequest).params !== undefined;
 }
 
-function assertSingleValue<TValue extends object>(
-  value: TValue | AsyncIterable<TValue>,
-): asserts value is TValue {
-  if (Symbol.asyncIterator in value) {
-    throw new Error("Expected single value");
-  }
-}
-
 function getLoaderQuery<
   TServerContext extends Record<string, unknown>,
   TUserContext extends Record<string, unknown>,
@@ -46,36 +43,77 @@ function getLoaderQuery<
     node: GraphQLTaggedNode,
     variables: VariablesOf<TQuery>,
   ): Promise<
-    TypedResponse<{
-      preloadedQuery: SerializablePreloadedQuery<
-        TQuery,
-        FormattedExecutionResult<TQuery["response"], PayloadExtensions>
-      >;
-      deferredQueries: null;
-    }>
+    | TypedResponse<{
+        preloadedQuery: SerializablePreloadedQuery<
+          TQuery,
+          FormattedExecutionResult<TQuery["response"], PayloadExtensions>
+        >;
+        deferredQueries: null;
+      }>
+    | TypedDeferredData<{
+        preloadedQuery: SerializablePreloadedQuery<TQuery, any>;
+        deferredQueries: Promise<SerializablePreloadedQuery<TQuery, any>[]>;
+      }>
   > => {
     invariant(isConcreteRequest(node), "Expected a ConcreteRequest");
+
+    console.log("node", node);
 
     const document = parse(node.params.text!);
 
     const result = await executor({ document, variables, context });
 
-    assertSingleValue(result);
+    if (!(Symbol.asyncIterator in result)) {
+      if (result.errors?.length) {
+        throw new Response(null, {
+          status: 404,
+          statusText: "Not Found",
+        });
+      }
 
-    if (result.errors?.length) {
-      throw new Response(null, {
-        status: 404,
-        statusText: "Not Found",
-      });
+      const preloadedQuery = {
+        params: node.params,
+        variables,
+        response: result,
+      };
+
+      return json({ preloadedQuery, deferredQueries: null });
     }
+
+    const initialResult = await result[Symbol.asyncIterator]().next();
+
+    console.log("initialResult", initialResult);
 
     const preloadedQuery = {
       params: node.params,
       variables,
-      response: result,
+      response: initialResult.value,
     };
 
-    return json({ preloadedQuery, deferredQueries: null });
+    const deferredQueries = (async () => {
+      const chunks = [];
+
+      for await (const chunk of result) {
+        console.log("chunk", chunk);
+        chunks.push(chunk);
+      }
+
+      return chunks.map((chunk, index) => ({
+        params: {
+          ...node.params,
+          cacheID: `${node.params.id ?? node.params.cacheID}-${index}`,
+        },
+        variables,
+        response: {
+          hasNext: false,
+          data: { slow: "Ride" },
+          path: [""],
+          label: "IndexQuery$defer$DeferTestFragment",
+        },
+      }));
+    })();
+
+    return defer({ preloadedQuery, deferredQueries });
   };
 }
 
