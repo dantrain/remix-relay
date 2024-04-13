@@ -1,7 +1,9 @@
-import type { MetaFunction } from "@remix-run/cloudflare";
+import type { LoaderFunction, MetaFunction } from "@remix-run/cloudflare";
+import { json } from "@remix-run/cloudflare";
 import { Suspense } from "~/components/Suspense";
 import { graphql, useLazyLoadQuery } from "react-relay";
 import { IndexQuery } from "./__generated__/IndexQuery.graphql";
+import { useLoaderData } from "@remix-run/react";
 
 const query = graphql`
   query IndexQuery {
@@ -13,7 +15,15 @@ export const meta: MetaFunction = () => {
   return [{ title: "Cloudflare Test" }];
 };
 
+export const loader: LoaderFunction = () => {
+  console.log("Loader");
+
+  return json({ foo: "bar" });
+};
+
 export default function Index() {
+  const data = useLoaderData<typeof loader>();
+
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <h1>Welcome to Remix (with Vite and Cloudflare)</h1>
@@ -33,6 +43,7 @@ export default function Index() {
           </a>
         </li>
       </ul>
+      <pre>{JSON.stringify(data, null, 4)}</pre>
       <Suspense fallback="Am load...">
         <LazyLoadTest />
       </Suspense>
