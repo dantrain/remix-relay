@@ -1,18 +1,6 @@
 import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/cloudflare";
-import { createSchema, createYoga } from "graphql-yoga";
-
-export const schema = createSchema({
-  typeDefs: /* GraphQL */ `
-    type Query {
-      hello: String
-    }
-  `,
-  resolvers: {
-    Query: {
-      hello: () => "world",
-    },
-  },
-});
+import { createYoga } from "graphql-yoga";
+import { schema } from "~/graphql/graphql-schema";
 
 const yoga = createYoga({ schema });
 
