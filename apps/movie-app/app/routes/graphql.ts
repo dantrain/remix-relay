@@ -33,9 +33,9 @@ export async function action({ request }: ActionFunctionArgs) {
     return new Response(result.body.string, { headers: responseHeaders });
   }
 
-  // @ts-expect-error Because
   const stream = ReadableStream.from(result.body.asyncIterator);
 
+  // @ts-expect-error Because
   return new Response(stream, {
     headers: responseHeaders,
   });

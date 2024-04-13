@@ -61,10 +61,10 @@
     "@remix-run/node": "^2.8.1",
     "@remix-run/react": "^2.8.1",
     "@remix-run/server-runtime": "^2.8.1",
-    "@types/eslint": "^8.56.5",
-    "@types/node": "^20.11.25",
-    "@types/react": "^18.2.64",
-    "@types/react-dom": "^18.2.21",
+    "@types/eslint": "^8.56.9",
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.2.78",
+    "@types/react-dom": "^18.2.25",
     "@types/react-relay": "^16.0.6",
     "@types/relay-runtime": "^14.1.23",
     "eslint": "^8.57.0",
@@ -74,6 +74,6 @@
     "react-relay": "^16.2.0",
     "relay-runtime": "^16.2.0",
     "tsup": "^8.0.2",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.5"
   }
 }

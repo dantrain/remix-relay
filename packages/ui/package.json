@@ -24,24 +24,24 @@
     "@tanem/react-nprogress": "^5.0.51",
     "class-variance-authority": "^0.7.0",
     "react-transition-group": "^4.4.5",
-    "tailwind-merge": "^2.2.1"
+    "tailwind-merge": "^2.2.2"
   },
   "devDependencies": {
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/tailwind-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
-    "@turbo/gen": "^1.12.5",
-    "@types/eslint": "^8.56.5",
-    "@types/node": "^20.11.25",
-    "@types/react": "^18.2.64",
-    "@types/react-dom": "^18.2.21",
+    "@turbo/gen": "^1.13.2",
+    "@types/eslint": "^8.56.9",
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.2.78",
+    "@types/react-dom": "^18.2.25",
     "@types/react-transition-group": "^4.4.10",
     "eslint": "^8.57.0",
-    "postcss": "^8.4.35",
+    "postcss": "^8.4.38",
     "react": "^18.2.0",
-    "sonner": "^1.4.3",
-    "tailwindcss": "^3.4.1",
+    "sonner": "^1.4.41",
+    "tailwindcss": "^3.4.3",
     "tsup": "^8.0.2",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.5"
   }
 }
