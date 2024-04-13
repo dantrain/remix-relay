@@ -1,28 +1,14 @@
 import { useLoaderQuery } from "@remix-relay/react";
-import type { LoaderFunction, MetaFunction } from "@remix-run/cloudflare";
-import { json } from "@remix-run/cloudflare";
-import { parse } from "graphql";
-import { GraphQLTaggedNode, graphql } from "react-relay";
-import { ConcreteRequest } from "relay-runtime";
-import invariant from "tiny-invariant";
-import { executor } from "~/lib/yoga";
+import type { MetaFunction } from "@remix-run/cloudflare";
+import { graphql } from "react-relay";
+import { loaderQuery } from "~/lib/loader-query.server";
 import { IndexQuery } from "./__generated__/IndexQuery.graphql";
-
-function isConcreteRequest(node: GraphQLTaggedNode): node is ConcreteRequest {
-  return (node as ConcreteRequest).params !== undefined;
-}
-
-function assertSingleValue<TValue extends object>(
-  value: TValue | AsyncIterable<TValue>,
-): asserts value is TValue {
-  if (Symbol.asyncIterator in value) {
-    throw new Error("Expected single value");
-  }
-}
+import { DeferTest } from "~/components/DeferTest";
 
 const query = graphql`
   query IndexQuery {
     hello
+    ...DeferTestFragment
   }
 `;
 
@@ -30,26 +16,7 @@ export const meta: MetaFunction = () => {
   return [{ title: "Cloudflare Test" }];
 };
 
-export const loader: LoaderFunction = async () => {
-  const node = query;
-  const variables = {};
-
-  invariant(isConcreteRequest(node), "Expected a ConcreteRequest");
-
-  const document = parse(node.params.text!);
-
-  const result = await executor({ document });
-
-  assertSingleValue(result);
-
-  const preloadedQuery = {
-    params: node.params,
-    variables,
-    response: result,
-  };
-
-  return json({ preloadedQuery, deferredQueries: null });
-};
+export const loader = () => loaderQuery(query, {});
 
 export default function Index() {
   const [data] = useLoaderQuery<IndexQuery>(query);
@@ -73,7 +40,8 @@ export default function Index() {
           </a>
         </li>
       </ul>
-      <pre>{JSON.stringify(data, null, 4)}</pre>
+      <pre>{JSON.stringify(data.hello, null, 4)}</pre>
+      <DeferTest dataRef={data} />
     </div>
   );
 }
