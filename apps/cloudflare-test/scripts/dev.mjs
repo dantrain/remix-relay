@@ -16,6 +16,6 @@ process.on("uncaughtException", () => {
   process.exit(0);
 });
 
-$`remix vite:dev --port 4000`.pipe(process.stdout);
+$`remix vite:dev --port 4000 --strictPort`.pipe(process.stdout);
 $`watchman-make -p 'app/graphql/**/*.ts' --run 'pnpm write-graphql-schema'`;
 $`relay-compiler --watch`;

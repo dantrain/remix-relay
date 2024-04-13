@@ -15,7 +15,9 @@
     "write-graphql-schema": "tsx ./scripts/write-graphql-schema.ts"
   },
   "dependencies": {
+    "@graphql-tools/executor-http": "^1.0.9",
     "@pothos/core": "^3.41.0",
+    "@remix-relay/react": "workspace:*",
     "@remix-run/cloudflare": "^2.8.1",
     "@remix-run/cloudflare-pages": "^2.8.1",
     "@remix-run/react": "^2.8.1",

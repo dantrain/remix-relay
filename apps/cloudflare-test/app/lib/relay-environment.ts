@@ -1,5 +1,7 @@
+import { getCachedResponse } from "@remix-relay/react";
 import { meros } from "meros/browser";
 import type {
+  CacheConfig,
   FetchFunction,
   RequestParameters,
   Variables,
@@ -17,9 +19,10 @@ const isServer = typeof document === "undefined";
 const fetchFn: FetchFunction = (
   params: RequestParameters,
   variables: Variables,
+  cacheConfig: CacheConfig,
 ) => {
   return (
-    // getCachedResponse(params, variables, cacheConfig) ??
+    getCachedResponse(params, variables, cacheConfig) ??
     Observable.create((sink) => {
       const fetchGraphQL = async () => {
         try {

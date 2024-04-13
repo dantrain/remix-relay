@@ -1,9 +1,24 @@
+import { useLoaderQuery } from "@remix-relay/react";
 import type { LoaderFunction, MetaFunction } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
-import { Suspense } from "~/components/Suspense";
-import { graphql, useLazyLoadQuery } from "react-relay";
+import { parse } from "graphql";
+import { GraphQLTaggedNode, graphql } from "react-relay";
+import { ConcreteRequest } from "relay-runtime";
+import invariant from "tiny-invariant";
+import { executor } from "~/lib/yoga";
 import { IndexQuery } from "./__generated__/IndexQuery.graphql";
-import { useLoaderData } from "@remix-run/react";
+
+function isConcreteRequest(node: GraphQLTaggedNode): node is ConcreteRequest {
+  return (node as ConcreteRequest).params !== undefined;
+}
+
+function assertSingleValue<TValue extends object>(
+  value: TValue | AsyncIterable<TValue>,
+): asserts value is TValue {
+  if (Symbol.asyncIterator in value) {
+    throw new Error("Expected single value");
+  }
+}
 
 const query = graphql`
   query IndexQuery {
@@ -15,14 +30,29 @@ export const meta: MetaFunction = () => {
   return [{ title: "Cloudflare Test" }];
 };
 
-export const loader: LoaderFunction = () => {
-  console.log("Loader");
+export const loader: LoaderFunction = async () => {
+  const node = query;
+  const variables = {};
 
-  return json({ foo: "bar" });
+  invariant(isConcreteRequest(node), "Expected a ConcreteRequest");
+
+  const document = parse(node.params.text!);
+
+  const result = await executor({ document });
+
+  assertSingleValue(result);
+
+  const preloadedQuery = {
+    params: node.params,
+    variables,
+    response: result,
+  };
+
+  return json({ preloadedQuery, deferredQueries: null });
 };
 
 export default function Index() {
-  const data = useLoaderData<typeof loader>();
+  const [data] = useLoaderQuery<IndexQuery>(query);
 
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
@@ -44,15 +74,6 @@ export default function Index() {
         </li>
       </ul>
       <pre>{JSON.stringify(data, null, 4)}</pre>
-      <Suspense fallback="Am load...">
-        <LazyLoadTest />
-      </Suspense>
     </div>
   );
-}
-
-function LazyLoadTest() {
-  const data = useLazyLoadQuery<IndexQuery>(query, {});
-
-  return <pre>{JSON.stringify(data, null, 4)}</pre>;
 }

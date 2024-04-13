@@ -7,6 +7,7 @@ import {
 } from "@remix-run/react";
 import { RelayEnvironmentProvider } from "react-relay";
 import { getCurrentEnvironment } from "./lib/relay-environment";
+import { RemixRelayProvider } from "@remix-relay/react";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -18,9 +19,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
-          {children}
-        </RelayEnvironmentProvider>
+        <RemixRelayProvider>
+          <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
+            {children}
+          </RelayEnvironmentProvider>
+        </RemixRelayProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
