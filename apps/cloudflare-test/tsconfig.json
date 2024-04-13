@@ -1,0 +1,10 @@
+{
+  "extends": "@remix-relay/typescript-config/remix.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./app/*"]
+    }
+  },
+  "include": ["env.d.ts", "**/*.ts", "**/*.tsx"]
+}

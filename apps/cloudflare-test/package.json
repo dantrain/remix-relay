@@ -1,0 +1,42 @@
+{
+  "name": "cloudflare-test",
+  "version": "1.0.0",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+    "build": "remix vite:build",
+    "deploy": "wrangler pages deploy ./build/client",
+    "dev": "remix vite:dev --port 4000",
+    "lint": "eslint . --max-warnings 0 --ignore-path ../../.gitignore",
+    "start": "wrangler pages dev ./build/client",
+    "typecheck": "tsc --noEmit",
+    "typegen": "wrangler types"
+  },
+  "dependencies": {
+    "@remix-run/cloudflare": "^2.8.1",
+    "@remix-run/cloudflare-pages": "^2.8.1",
+    "@remix-run/react": "^2.8.1",
+    "isbot": "^4.1.0",
+    "miniflare": "^3.20231030.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@remix-relay/eslint-config": "workspace:*",
+    "@remix-relay/typescript-config": "workspace:*",
+    "@cloudflare/workers-types": "^4.20230518.0",
+    "@remix-run/dev": "^2.8.1",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "eslint": "^8.57.0",
+    "node-fetch": "^3.3.2",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.8",
+    "vite-tsconfig-paths": "^4.3.1",
+    "wrangler": "^3.24.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

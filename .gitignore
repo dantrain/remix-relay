@@ -41,3 +41,6 @@ yarn-error.log*
 
 # Vite
 vite.config.ts.*
+
+# Cloudflare
+.wrangler
