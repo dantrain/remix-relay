@@ -1,4 +1,13 @@
 import type { MetaFunction } from "@remix-run/cloudflare";
+import { Suspense } from "~/components/Suspense";
+import { graphql, useLazyLoadQuery } from "react-relay";
+import { IndexQuery } from "./__generated__/IndexQuery.graphql";
+
+const query = graphql`
+  query IndexQuery {
+    hello
+  }
+`;
 
 export const meta: MetaFunction = () => {
   return [{ title: "Cloudflare Test" }];
@@ -24,6 +33,15 @@ export default function Index() {
           </a>
         </li>
       </ul>
+      <Suspense fallback="Am load...">
+        <LazyLoadTest />
+      </Suspense>
     </div>
   );
+}
+
+function LazyLoadTest() {
+  const data = useLazyLoadQuery<IndexQuery>(query, {});
+
+  return <pre>{JSON.stringify(data, null, 4)}</pre>;
 }

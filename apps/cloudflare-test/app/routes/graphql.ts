@@ -1,8 +1,5 @@
 import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/cloudflare";
-import { createYoga } from "graphql-yoga";
-import { schema } from "~/graphql/graphql-schema";
-
-const yoga = createYoga({ schema });
+import { yoga } from "~/lib/yoga";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   return yoga.handleRequest(request, {});
