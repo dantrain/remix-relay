@@ -1,12 +1,17 @@
-import { buildHTTPExecutor } from "@graphql-tools/executor-http";
+import { execute } from "@graphql-tools/executor";
 import {
   TypedDeferredData,
   TypedResponse,
   defer,
   json,
 } from "@remix-run/cloudflare";
-import { FormattedExecutionResult, parse } from "graphql";
-import type { YogaServerInstance } from "graphql-yoga";
+import {
+  FormattedExecutionResult,
+  GraphQLSchema,
+  InitialIncrementalExecutionResult,
+  SubsequentIncrementalExecutionResult,
+  parse,
+} from "graphql";
 import {
   ConcreteRequest,
   GraphQLTaggedNode,
@@ -16,7 +21,7 @@ import {
 } from "relay-runtime";
 import { PayloadExtensions } from "relay-runtime/lib/network/RelayNetworkTypes";
 import invariant from "tiny-invariant";
-import { yoga } from "./yoga";
+import { schema } from "~/graphql/graphql-schema";
 
 type SerializablePreloadedQuery<TQuery extends OperationType, TResponse> = {
   params: RequestParameters;
@@ -28,17 +33,10 @@ function isConcreteRequest(node: GraphQLTaggedNode): node is ConcreteRequest {
   return (node as ConcreteRequest).params !== undefined;
 }
 
-function getLoaderQuery<
-  TServerContext extends Record<string, unknown>,
-  TUserContext extends Record<string, unknown>,
->(
-  server: YogaServerInstance<TServerContext, TUserContext>,
-  context?: TServerContext,
+function getLoaderQuery<TContext extends Record<string, unknown>>(
+  schema: GraphQLSchema,
+  context?: TContext,
 ) {
-  const executor = buildHTTPExecutor({
-    fetch: server.fetch,
-  });
-
   return async <TQuery extends OperationType>(
     node: GraphQLTaggedNode,
     variables: VariablesOf<TQuery>,
@@ -51,19 +49,35 @@ function getLoaderQuery<
         deferredQueries: null;
       }>
     | TypedDeferredData<{
-        preloadedQuery: SerializablePreloadedQuery<TQuery, any>;
-        deferredQueries: Promise<SerializablePreloadedQuery<TQuery, any>[]>;
+        preloadedQuery: SerializablePreloadedQuery<
+          TQuery,
+          InitialIncrementalExecutionResult<
+            TQuery["response"],
+            PayloadExtensions
+          >
+        >;
+        deferredQueries: Promise<
+          SerializablePreloadedQuery<
+            TQuery,
+            SubsequentIncrementalExecutionResult<
+              TQuery["response"],
+              PayloadExtensions
+            >
+          >[]
+        >;
       }>
   > => {
     invariant(isConcreteRequest(node), "Expected a ConcreteRequest");
 
-    console.log("node", node);
-
     const document = parse(node.params.text!);
 
-    const result = await executor({ document, variables, context });
+    const result = await execute<TQuery["response"], PayloadExtensions>({
+      document,
+      schema,
+      contextValue: context,
+    });
 
-    if (!(Symbol.asyncIterator in result)) {
+    if (!("initialResult" in result)) {
       if (result.errors?.length) {
         throw new Response(null, {
           status: 404,
@@ -80,36 +94,26 @@ function getLoaderQuery<
       return json({ preloadedQuery, deferredQueries: null });
     }
 
-    const initialResult = await result[Symbol.asyncIterator]().next();
-
-    console.log("initialResult", initialResult);
-
     const preloadedQuery = {
       params: node.params,
       variables,
-      response: initialResult.value,
+      response: result.initialResult,
     };
 
     const deferredQueries = (async () => {
       const chunks = [];
 
-      for await (const chunk of result) {
-        console.log("chunk", chunk);
+      for await (const chunk of result.subsequentResults) {
         chunks.push(chunk);
       }
 
-      return chunks.map((chunk, index) => ({
+      return chunks.map(({ incremental, ...rest }, index) => ({
         params: {
           ...node.params,
           cacheID: `${node.params.id ?? node.params.cacheID}-${index}`,
         },
         variables,
-        response: {
-          hasNext: false,
-          data: { slow: "Ride" },
-          path: [""],
-          label: "IndexQuery$defer$DeferTestFragment",
-        },
+        response: { ...rest, ...incremental?.[0] },
       }));
     })();
 
@@ -117,4 +121,4 @@ function getLoaderQuery<
   };
 }
 
-export const loaderQuery = getLoaderQuery(yoga);
+export const loaderQuery = getLoaderQuery(schema);

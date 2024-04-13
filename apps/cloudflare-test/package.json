@@ -15,7 +15,7 @@
     "write-graphql-schema": "tsx ./scripts/write-graphql-schema.ts"
   },
   "dependencies": {
-    "@graphql-tools/executor-http": "^1.0.9",
+    "@graphql-tools/executor": "^1.2.6",
     "@graphql-yoga/plugin-defer-stream": "^3.3.0",
     "@pothos/core": "^3.41.0",
     "@remix-relay/react": "workspace:*",
