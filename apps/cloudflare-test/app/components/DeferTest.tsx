@@ -21,5 +21,13 @@ type DeferTestProps = {
 export function DeferTest({ dataRef }: DeferTestProps) {
   const data = useFragment(fragment, dataRef);
 
-  return <pre>{JSON.stringify(data, null, 4)}</pre>;
+  return (
+    <pre>
+      {JSON.stringify(
+        data.movies.edges.map(({ node }) => node.title),
+        null,
+        4,
+      )}
+    </pre>
+  );
 }

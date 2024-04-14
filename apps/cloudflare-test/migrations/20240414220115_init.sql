@@ -10,8 +10,9 @@ CREATE TABLE `movies` (
 );
 --> statement-breakpoint
 CREATE TABLE `reviews` (
-	`id` integer NOT NULL,
+	`id` text PRIMARY KEY NOT NULL,
 	`quote` text NOT NULL,
+	`fresh` integer NOT NULL,
 	`critic_name` text NOT NULL,
 	`critic_source` text NOT NULL,
 	`movie_id` text NOT NULL,

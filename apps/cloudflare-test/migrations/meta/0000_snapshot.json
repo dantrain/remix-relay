@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "156b8954-9c12-4810-a0f6-e68ecf80b8c0",
+  "id": "f7a39ccf-3ee0-48ac-b44c-826d92d4004e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "movies": {
@@ -82,14 +82,21 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
-          "primaryKey": false,
+          "type": "text",
+          "primaryKey": true,
           "notNull": true,
           "autoincrement": false
         },
         "quote": {
           "name": "quote",
           "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "fresh": {
+          "name": "fresh",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false

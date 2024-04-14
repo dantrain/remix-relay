@@ -1,49 +1,55 @@
+import { createId } from "@paralleldrive/cuid2";
 import Database from "better-sqlite3";
+import { Query } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/better-sqlite3";
-import * as schema from "../app/schema/db-schema";
-import { movies } from "../app/schema/types/Movie";
+import { omit } from "lodash-es";
 import { $ } from "zx";
+import * as schema from "../app/schema/db-schema";
+import data from "../data/seed-data.json";
 
-const sqlite = new Database();
-const db = drizzle(sqlite, { schema });
+function combineQueryAndParams(query: Query) {
+  return query.params
+    .reduce((acc: string, param) => {
+      return acc.replace(
+        /(?<!\\)\?/,
+        typeof param === "string"
+          ? `'${param.replaceAll("'", "''").replaceAll("?", "\\?")}'`
+          : `${param}`,
+      );
+    }, query.sql)
+    .replaceAll("\\?", "?");
+}
 
-const query = db
-  .insert(movies)
-  .values([
-    {
-      id: "1",
-      slug: "lady_bird",
-      title: "Lady Bird",
-      criticScore: 99,
-      audienceScore: 79,
-      criticsConsensus:
-        "Lady Bird delivers fresh insights about the turmoil of adolescence — and reveals writer-director Greta Gerwig as a fully formed filmmaking talent.",
-      boxOffice: "$48.9M",
-      imgUrl:
-        "https://resizing.flixster.com/RldEI9TKeGI7afFzLTtitjj3zvY=/206x305/v2/https://resizing.flixster.com/LOtla2hZ_dEZ8mLjLKYYUX5NLyo=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzI4MjU0NjdiLTMwYTQtNDVmNy1hYjdjLWYwNTk5NTc0MGQ3MC53ZWJw",
-    },
-    {
-      id: "2",
-      slug: "downsizing",
-      title: "Downsizing",
-      criticScore: 47,
-      audienceScore: 25,
-      criticsConsensus:
-        "Downsizing assembles a talented cast in pursuit of some truly interesting ideas — which may be enough for some audiences to forgive the final product's frustrating shortcomings.",
-      boxOffice: "$24.4M",
-      imgUrl:
-        "https://resizing.flixster.com/Z1VFiOCKmtTnpaF1xpjv770Yhe4=/206x305/v2/https://resizing.flixster.com/M2oJAZpNF55WTowKCUlfRgUAdlw=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzMxOGQyOThiLTExYjItNDQ3Zi05MzEwLWUyZjdlYjQ1Y2FjOS53ZWJw",
-    },
-  ])
-  .toSQL();
+const dataWithIds = data.map((movie) => ({
+  id: createId(),
+  ...movie,
+  reviews: movie.reviews.map((review) => ({ id: createId(), ...review })),
+}));
 
-const sql = query.params.reduce((acc: string, param) => {
-  return acc.replace(
-    "?",
-    typeof param === "string" ? `'${param.replace("'", "")}'` : `${param}`,
-  );
-}, query.sql);
+const db = drizzle(new Database(), { schema });
 
-console.log(sql);
+const moviesSql = combineQueryAndParams(
+  db
+    .insert(schema.movies)
+    .values(dataWithIds.map((movie) => omit(movie, ["reviews"])))
+    .toSQL(),
+);
 
-await $`wrangler d1 execute DB --local --command ${sql}`;
+const reviewsSql = combineQueryAndParams(
+  db
+    .insert(schema.reviews)
+    .values(
+      dataWithIds
+        .map((movie) =>
+          movie.reviews.map((review) => ({ ...review, movieId: movie.id })),
+        )
+        .flat(),
+    )
+    .toSQL(),
+);
+
+console.log(moviesSql);
+await $`wrangler d1 execute DB --local --command ${moviesSql}`;
+
+console.log(reviewsSql);
+await $`wrangler d1 execute DB --local --command ${reviewsSql}`;

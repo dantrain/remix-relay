@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
+    "@paralleldrive/cuid2": "^2.2.2",
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
     "@remix-run/dev": "^2.8.1",

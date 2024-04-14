@@ -8,7 +8,7 @@ export const reviews = sqliteTable(
   {
     id: text("id").primaryKey(),
     quote: text("quote").notNull(),
-    fresh: integer("id", { mode: "boolean" }).notNull(),
+    fresh: integer("fresh", { mode: "boolean" }).notNull(),
     criticName: text("critic_name").notNull(),
     criticSource: text("critic_source").notNull(),
     movieId: text("movie_id")
