@@ -6,6 +6,7 @@ import {
   defer,
   json,
 } from "@remix-run/cloudflare";
+import { drizzle } from "drizzle-orm/d1";
 import {
   FormattedExecutionResult,
   GraphQLSchema,
@@ -22,7 +23,9 @@ import {
 } from "relay-runtime";
 import { PayloadExtensions } from "relay-runtime/lib/network/RelayNetworkTypes";
 import invariant from "tiny-invariant";
+import { PothosContext } from "~/schema/builder";
 import { schema } from "~/schema/graphql-schema";
+import * as dbSchema from "~/schema/db-schema";
 
 type SerializablePreloadedQuery<TQuery extends OperationType, TResponse> = {
   params: RequestParameters;
@@ -124,7 +127,8 @@ export const loaderQuery = <TQuery extends OperationType>(
   ...rest: Parameters<ReturnType<typeof getLoaderQuery>>
 ) => {
   const env = context.cloudflare.env as Env;
-  const loaderQuery = getLoaderQuery<Env>(schema, env);
+  const db = drizzle(env.DB, { schema: dbSchema });
+  const loaderQuery = getLoaderQuery<PothosContext>(schema, { db });
 
   return loaderQuery<TQuery>(...rest);
 };

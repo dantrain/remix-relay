@@ -1,9 +1,8 @@
+import { resolveArrayConnection } from "@pothos/plugin-relay";
+import { relations } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { builder } from "../builder";
-import { relations } from "drizzle-orm";
 import { reviews } from "./Review";
-import { drizzle } from "drizzle-orm/d1";
-import { resolveArrayConnection } from "@pothos/plugin-relay";
 
 export const movies = sqliteTable("movies", {
   id: text("id").primaryKey(),
@@ -38,8 +37,7 @@ export const Movie = builder.node("Movie", {
 builder.queryField("movies", (t) =>
   t.connection({
     type: Movie,
-    resolve: async (_parent, args, ctx) => {
-      const db = drizzle(ctx.DB);
+    resolve: async (_parent, args, { db }) => {
       const result = await db.select().from(movies).all();
 
       return resolveArrayConnection({ args }, result);
