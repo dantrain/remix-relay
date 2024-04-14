@@ -30,8 +30,19 @@ type Movie implements Node {
   criticsConsensus: String!
   id: ID!
   imgUrl: String!
+  reviews(after: String, before: String, first: Int, last: Int): MovieReviewsConnection!
   slug: String!
   title: String!
+}
+
+type MovieReviewsConnection {
+  edges: [MovieReviewsConnectionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type MovieReviewsConnectionEdge {
+  cursor: String!
+  node: Review!
 }
 
 interface Node {

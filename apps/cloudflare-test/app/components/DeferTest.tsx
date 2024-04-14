@@ -24,7 +24,7 @@ export function DeferTest({ dataRef }: DeferTestProps) {
   return (
     <pre>
       {JSON.stringify(
-        data.movies.edges.map(({ node }) => node.title),
+        data.movies.edges.map(({ node }) => node),
         null,
         4,
       )}
