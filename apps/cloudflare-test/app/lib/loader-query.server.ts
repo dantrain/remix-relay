@@ -22,7 +22,7 @@ import {
 } from "relay-runtime";
 import { PayloadExtensions } from "relay-runtime/lib/network/RelayNetworkTypes";
 import invariant from "tiny-invariant";
-import { schema } from "~/graphql/graphql-schema";
+import { schema } from "~/schema/graphql-schema";
 
 type SerializablePreloadedQuery<TQuery extends OperationType, TResponse> = {
   params: RequestParameters;

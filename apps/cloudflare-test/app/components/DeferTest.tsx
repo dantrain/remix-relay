@@ -3,7 +3,9 @@ import { DeferTestFragment$key } from "./__generated__/DeferTestFragment.graphql
 
 const fragment = graphql`
   fragment DeferTestFragment on Query {
-    slow
+    test {
+      title
+    }
   }
 `;
 
@@ -14,5 +16,5 @@ type DeferTestProps = {
 export function DeferTest({ dataRef }: DeferTestProps) {
   const data = useFragment(fragment, dataRef);
 
-  return <pre>{JSON.stringify(data.slow, null, 4)}</pre>;
+  return <pre>{JSON.stringify(data.test?.title, null, 4)}</pre>;
 }

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9900cb586bba151c08b64f6e5bae194a>>
+ * @generated SignedSource<<b9c524b63cd33ae154d1b06bcc692828>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -65,8 +65,26 @@ return {
           {
             "alias": null,
             "args": null,
-            "kind": "ScalarField",
-            "name": "slow",
+            "concreteType": "Test",
+            "kind": "LinkedField",
+            "name": "test",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "title",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "id",
+                "storageKey": null
+              }
+            ],
             "storageKey": null
           }
         ]
@@ -74,12 +92,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5d3198efd879b36f0a1564166cca9122",
+    "cacheID": "d34058d31da03e4c5ebe7ae3bfa67541",
     "id": null,
     "metadata": {},
     "name": "IndexQuery",
     "operationKind": "query",
-    "text": "query IndexQuery {\n  hello\n  ...DeferTestFragment @defer(label: \"IndexQuery$defer$DeferTestFragment\")\n}\n\nfragment DeferTestFragment on Query {\n  slow\n}\n"
+    "text": "query IndexQuery {\n  hello\n  ...DeferTestFragment @defer(label: \"IndexQuery$defer$DeferTestFragment\")\n}\n\nfragment DeferTestFragment on Query {\n  test {\n    title\n    id\n  }\n}\n"
   }
 };
 })();

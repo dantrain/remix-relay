@@ -23,7 +23,18 @@ directive @stream(
   label: String
 ) on FIELD
 
+interface Node {
+  id: ID!
+}
+
 type Query {
   hello: String!
-  slow: String!
+  node(id: ID!): Node
+  nodes(ids: [ID!]!): [Node]!
+  test: Test
+}
+
+type Test implements Node {
+  id: ID!
+  title: String!
 }
