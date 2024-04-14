@@ -23,18 +23,49 @@ directive @stream(
   label: String
 ) on FIELD
 
+type Movie implements Node {
+  audienceScore: Int!
+  boxOffice: String!
+  criticScore: Int!
+  criticsConsensus: String!
+  id: ID!
+  imgUrl: String!
+  slug: String!
+  title: String!
+}
+
 interface Node {
   id: ID!
 }
 
-type Query {
-  hello: String!
-  node(id: ID!): Node
-  nodes(ids: [ID!]!): [Node]!
-  test: Test
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
 }
 
-type Test implements Node {
+type Query {
+  hello: String!
+  movies(after: String, before: String, first: Int, last: Int): QueryMoviesConnection!
+  node(id: ID!): Node
+  nodes(ids: [ID!]!): [Node]!
+}
+
+type QueryMoviesConnection {
+  edges: [QueryMoviesConnectionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type QueryMoviesConnectionEdge {
+  cursor: String!
+  node: Movie!
+}
+
+type Review implements Node {
+  criticName: String!
+  criticSource: String!
+  fresh: Boolean!
   id: ID!
-  title: String!
+  quote: String!
 }

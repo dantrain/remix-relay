@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b9c524b63cd33ae154d1b06bcc692828>>
+ * @generated SignedSource<<f450abb64c795b78a1be6c96dcdc31e9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -65,23 +65,45 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "Test",
+            "concreteType": "QueryMoviesConnection",
             "kind": "LinkedField",
-            "name": "test",
+            "name": "movies",
             "plural": false,
             "selections": [
               {
                 "alias": null,
                 "args": null,
-                "kind": "ScalarField",
-                "name": "title",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "id",
+                "concreteType": "QueryMoviesConnectionEdge",
+                "kind": "LinkedField",
+                "name": "edges",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Movie",
+                    "kind": "LinkedField",
+                    "name": "node",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "id",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "title",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
                 "storageKey": null
               }
             ],
@@ -92,12 +114,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d34058d31da03e4c5ebe7ae3bfa67541",
+    "cacheID": "d065a9a5d8b36d2f5296593b8395ce3f",
     "id": null,
     "metadata": {},
     "name": "IndexQuery",
     "operationKind": "query",
-    "text": "query IndexQuery {\n  hello\n  ...DeferTestFragment @defer(label: \"IndexQuery$defer$DeferTestFragment\")\n}\n\nfragment DeferTestFragment on Query {\n  test {\n    title\n    id\n  }\n}\n"
+    "text": "query IndexQuery {\n  hello\n  ...DeferTestFragment @defer(label: \"IndexQuery$defer$DeferTestFragment\")\n}\n\nfragment DeferTestFragment on Query {\n  movies {\n    edges {\n      node {\n        id\n        title\n      }\n    }\n  }\n}\n"
   }
 };
 })();
