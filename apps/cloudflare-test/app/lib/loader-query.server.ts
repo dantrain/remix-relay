@@ -1,5 +1,6 @@
 import { execute } from "@graphql-tools/executor";
 import {
+  AppLoadContext,
   TypedDeferredData,
   TypedResponse,
   defer,
@@ -33,10 +34,7 @@ function isConcreteRequest(node: GraphQLTaggedNode): node is ConcreteRequest {
   return (node as ConcreteRequest).params !== undefined;
 }
 
-function getLoaderQuery<TContext extends Record<string, unknown>>(
-  schema: GraphQLSchema,
-  context?: TContext,
-) {
+function getLoaderQuery<TContext>(schema: GraphQLSchema, context?: TContext) {
   return async <TQuery extends OperationType>(
     node: GraphQLTaggedNode,
     variables: VariablesOf<TQuery>,
@@ -121,4 +119,12 @@ function getLoaderQuery<TContext extends Record<string, unknown>>(
   };
 }
 
-export const loaderQuery = getLoaderQuery(schema);
+export const loaderQuery = <TQuery extends OperationType>(
+  context: AppLoadContext,
+  ...rest: Parameters<ReturnType<typeof getLoaderQuery>>
+) => {
+  const env = context.cloudflare.env as Env;
+  const loaderQuery = getLoaderQuery<Env>(schema, env);
+
+  return loaderQuery<TQuery>(...rest);
+};

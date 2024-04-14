@@ -5,7 +5,7 @@ import {
   specifiedDirectives,
 } from "graphql";
 
-const builder = new SchemaBuilder({});
+const builder = new SchemaBuilder<{ Context: Env }>({});
 
 builder.queryType({
   fields: (t) => ({
@@ -13,9 +13,10 @@ builder.queryType({
       resolve: () => "Hello, world!",
     }),
     slow: t.string({
-      resolve: async () => {
-        await new Promise((res) => void setTimeout(res, 1000));
-        return "Slow ride, take it easy";
+      resolve: async (_parent, _args, ctx) => {
+        // await new Promise((res) => void setTimeout(res, 1000));
+        const result = await ctx.DB.prepare("SELECT * FROM test").first();
+        return result?.title as string;
       },
     }),
   }),
