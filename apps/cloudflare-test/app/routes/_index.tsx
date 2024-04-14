@@ -1,5 +1,5 @@
 import { Suspense, useLoaderQuery } from "@remix-relay/react";
-import type { MetaFunction } from "@remix-run/cloudflare";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { graphql } from "react-relay";
 import { loaderQuery } from "~/lib/loader-query.server";
 import { IndexQuery } from "./__generated__/IndexQuery.graphql";
@@ -16,7 +16,15 @@ export const meta: MetaFunction = () => {
   return [{ title: "Cloudflare Test" }];
 };
 
-export const loader = () => loaderQuery(query, {});
+export const loader = async ({ context }: LoaderFunctionArgs) => {
+  const env = context.cloudflare.env as Env;
+
+  const { results } = await env.DB.prepare("SELECT * FROM test").all();
+
+  console.log("results", results);
+
+  return loaderQuery(query, {});
+};
 
 export default function Index() {
   const [data] = useLoaderQuery<IndexQuery>(query);
