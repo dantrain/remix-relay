@@ -1,11 +1,7 @@
 {
   "name": "@remix-relay/server",
-  "description": "Provides Relay integration with Remix",
   "version": "1.0.0",
-  "author": {
-    "name": "Dan Train",
-    "url": "https://github.com/dantrain"
-  },
+  "description": "Provides Relay integration with Remix",
   "keywords": [
     "Remix",
     "Relay",
@@ -17,10 +13,11 @@
     "url": "https://github.com/dantrain/remix-relay.git"
   },
   "license": "MIT",
+  "author": {
+    "name": "Dan Train",
+    "url": "https://github.com/dantrain"
+  },
   "type": "commonjs",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "module": "./dist/index.mjs",
@@ -36,6 +33,9 @@
     },
     "./package.json": "./package.json"
   },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist/**"
   ],
@@ -44,10 +44,6 @@
     "dev": "tsup --watch",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc --noEmit"
-  },
-  "peerDependencies": {
-    "graphql": "17.0.0-alpha.2",
-    "relay-runtime": "^16.1.0"
   },
   "dependencies": {
     "@graphql-tools/executor": "^1.2.6",
@@ -66,5 +62,9 @@
     "relay-runtime": "^16.2.0",
     "tsup": "^8.0.2",
     "typescript": "^5.4.5"
+  },
+  "peerDependencies": {
+    "graphql": "17.0.0-alpha.2",
+    "relay-runtime": "^16.1.0"
   }
 }

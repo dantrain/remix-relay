@@ -31,7 +31,8 @@ const Bar = forwardRef<HTMLDivElement, { state: TransitionStatus }>(
         }}
       >
         <div
-          className="absolute right-0 h-full w-28 translate-x-[1px] translate-y-[-4px] rotate-3 bg-white"
+          className="absolute right-0 h-full w-28 translate-x-[1px]
+            translate-y-[-4px] rotate-3 bg-white"
           style={{
             boxShadow: "0 0 10px rgb(255 255 255), 0 0 5px rgb(255 255 255)",
           }}
@@ -65,7 +66,9 @@ export function Progress({ isLoading }: { isLoading: boolean }) {
   }, [isLoading]);
 
   return (
-    <TransitionGroup className="pointer-events-none fixed inset-x-0 top-0 h-1 overflow-hidden">
+    <TransitionGroup
+      className="pointer-events-none fixed inset-x-0 top-0 h-1 overflow-hidden"
+    >
       {bar ? (
         <Transition
           key={bar.key}

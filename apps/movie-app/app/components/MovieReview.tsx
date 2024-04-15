@@ -21,7 +21,10 @@ export function MovieReview({ dataRef }: MovieReviewProps) {
   );
 
   return (
-    <div className="flex break-inside-avoid-column gap-4 rounded-md bg-slate-900 px-5 py-4">
+    <div
+      className="flex break-inside-avoid-column gap-4 rounded-md bg-slate-900
+        px-5 py-4"
+    >
       <div className="text-2xl">{fresh ? "🍅" : "🤢"}</div>
       <blockquote className="break-words">
         <p className="mb-2">{quote}</p>

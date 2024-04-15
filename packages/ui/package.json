@@ -12,12 +12,9 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "generate:component": "turbo gen react-component",
     "lint": "eslint . --max-warnings 0",
-    "typecheck": "tsc --noEmit",
-    "generate:component": "turbo gen react-component"
-  },
-  "peerDependencies": {
-    "sonner": "^1.4.0"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
@@ -43,5 +40,8 @@
     "tailwindcss": "^3.4.3",
     "tsup": "^8.0.2",
     "typescript": "^5.4.5"
+  },
+  "peerDependencies": {
+    "sonner": "^1.4.0"
   }
 }
