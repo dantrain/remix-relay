@@ -24,7 +24,7 @@ export type RequestContext = {
   user?: User;
 };
 
-export type ApolloContext = {
+export type PothosContext = {
   pubsub: PubSub;
   supabase: SupabaseClient;
   user: User;
@@ -108,7 +108,7 @@ const serverCleanup = useServer(
   wsServer,
 );
 
-const apolloServer = new ApolloServer<ApolloContext>({
+const apolloServer = new ApolloServer<PothosContext>({
   schema,
   plugins: [
     ApolloServerPluginDrainHttpServer({ httpServer }),
@@ -198,8 +198,7 @@ app.all(
 
       return {
         env,
-        apolloServer,
-        apolloContext: {
+        pothosContext: {
           pubsub,
           user,
           supabase,

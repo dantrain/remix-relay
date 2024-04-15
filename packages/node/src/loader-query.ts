@@ -1,11 +1,16 @@
+import { execute } from "@graphql-tools/executor";
+import type { TypedDeferredData, TypedResponse } from "@remix-run/node";
 import type {
-  ApolloServer,
-  BaseContext,
-  GraphQLExperimentalFormattedInitialIncrementalExecutionResult,
-  GraphQLExperimentalFormattedSubsequentIncrementalExecutionResult,
-} from "@apollo/server";
-import { TypedDeferredData, TypedResponse, defer, json } from "@remix-run/node";
-import { FormattedExecutionResult } from "graphql";
+  DeferFunction,
+  JsonFunction,
+} from "@remix-run/server-runtime/dist/responses";
+import {
+  FormattedExecutionResult,
+  GraphQLSchema,
+  InitialIncrementalExecutionResult,
+  SubsequentIncrementalExecutionResult,
+  parse,
+} from "graphql";
 import type {
   ConcreteRequest,
   GraphQLTaggedNode,
@@ -29,107 +34,93 @@ export type SerializablePreloadedQuery<
   response: TResponse;
 };
 
-export function getLoaderQuery(
-  server: ApolloServer<BaseContext>,
-  context: BaseContext = {},
+export function getLoaderQuery<TContext>(
+  schema: GraphQLSchema,
+  json: JsonFunction,
+  defer: DeferFunction,
+  context?: TContext,
 ) {
   return async <TQuery extends OperationType>(
     node: GraphQLTaggedNode,
     variables: VariablesOf<TQuery>,
-  ) => {
-    try {
-      server.assertStarted("Server not started");
-    } catch (e) {
-      await server.start();
-    }
-
-    return loaderQuery(server, node, variables, context);
-  };
-}
-
-export async function loaderQuery<TQuery extends OperationType>(
-  server: ApolloServer<BaseContext>,
-  node: GraphQLTaggedNode,
-  variables: VariablesOf<TQuery>,
-  context: BaseContext = {},
-): Promise<
-  | TypedResponse<{
-      preloadedQuery: SerializablePreloadedQuery<
-        TQuery,
-        FormattedExecutionResult<TQuery["response"], PayloadExtensions>
-      >;
-      deferredQueries: null;
-    }>
-  | TypedDeferredData<{
-      preloadedQuery: SerializablePreloadedQuery<
-        TQuery,
-        GraphQLExperimentalFormattedInitialIncrementalExecutionResult<
-          TQuery["response"],
-          PayloadExtensions
-        >
-      >;
-      deferredQueries: Promise<
-        SerializablePreloadedQuery<
+  ): Promise<
+    | TypedResponse<{
+        preloadedQuery: SerializablePreloadedQuery<
           TQuery,
-          GraphQLExperimentalFormattedSubsequentIncrementalExecutionResult<
+          FormattedExecutionResult<TQuery["response"], PayloadExtensions>
+        >;
+        deferredQueries: null;
+      }>
+    | TypedDeferredData<{
+        preloadedQuery: SerializablePreloadedQuery<
+          TQuery,
+          InitialIncrementalExecutionResult<
             TQuery["response"],
             PayloadExtensions
           >
-        >[]
-      >;
-    }>
-> {
-  invariant(isConcreteRequest(node), "Expected a ConcreteRequest");
+        >;
+        deferredQueries: Promise<
+          SerializablePreloadedQuery<
+            TQuery,
+            SubsequentIncrementalExecutionResult<
+              TQuery["response"],
+              PayloadExtensions
+            >
+          >[]
+        >;
+      }>
+  > => {
+    invariant(isConcreteRequest(node), "Expected a ConcreteRequest");
 
-  const result = await server.executeOperation(
-    {
-      query: node.params.text!,
-      variables,
-    },
-    { contextValue: context },
-  );
+    const document = parse(node.params.text!);
 
-  if (result.body.kind === "single") {
-    if (result.body.singleResult.errors?.length) {
-      throw new Response(null, {
-        status: 404,
-        statusText: "Not Found",
-      });
+    const result = await execute<TQuery["response"], PayloadExtensions>({
+      schema,
+      document,
+      variableValues: variables,
+      contextValue: context,
+    });
+
+    if (!("initialResult" in result)) {
+      if (result.errors?.length) {
+        throw new Response(null, {
+          status: 404,
+          statusText: "Not Found",
+        });
+      }
+
+      const preloadedQuery = {
+        params: node.params,
+        variables,
+        response: result,
+      };
+
+      return json({ preloadedQuery, deferredQueries: null });
     }
 
     const preloadedQuery = {
       params: node.params,
       variables,
-      response: result.body.singleResult,
+      response: result.initialResult,
     };
 
-    return json({ preloadedQuery, deferredQueries: null });
-  }
+    const deferredQueries = (async () => {
+      const chunks = [];
 
-  const preloadedQuery = {
-    params: node.params,
-    variables,
-    response: result.body.initialResult,
+      for await (const chunk of result.subsequentResults) {
+        chunks.push(chunk);
+      }
+
+      return chunks.map(({ incremental, ...rest }, index) => ({
+        params: {
+          ...node.params,
+          cacheID: `${node.params.id ?? node.params.cacheID}-${index}`,
+        },
+        variables,
+        response: { ...rest, ...incremental?.[0] },
+      }));
+    })();
+
+    return defer({ preloadedQuery, deferredQueries });
   };
-
-  const deferredQueries = (async () => {
-    invariant(result.body.kind === "incremental");
-
-    const chunks = [];
-
-    for await (const chunk of result.body.subsequentResults) {
-      chunks.push(chunk);
-    }
-
-    return chunks.map(({ incremental, ...rest }, index) => ({
-      params: {
-        ...node.params,
-        cacheID: `${node.params.id ?? node.params.cacheID}-${index}`,
-      },
-      variables,
-      response: { ...rest, ...incremental?.[0] },
-    }));
-  })();
-
-  return defer({ preloadedQuery, deferredQueries });
 }

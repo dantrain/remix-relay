@@ -1,12 +1,12 @@
 import SchemaBuilder from "@pothos/core";
 import RelayPlugin from "@pothos/plugin-relay";
 import ValidationPlugin from "@pothos/plugin-validation";
-import { ApolloContext } from "server";
+import { PothosContext } from "server";
 import type { Objects } from "./types";
 
 const builder = new SchemaBuilder<{
   Objects: Objects;
-  Context: ApolloContext;
+  Context: PothosContext;
   DefaultEdgesNullability: false;
 }>({
   plugins: [RelayPlugin, ValidationPlugin],

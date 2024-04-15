@@ -11,7 +11,7 @@ export const meta: MetaFunction = () => [{ title: "Sign in · Counter App" }];
 export const headers = () => ({ "Cache-Control": "no-store" });
 
 export const loader = ({ context }: { context: AppLoadContext }) => {
-  if (context.apolloContext.user) {
+  if (context.pothosContext.user) {
     return redirect("/", {
       status: 303,
       headers: { "Cache-Control": "no-store" },
