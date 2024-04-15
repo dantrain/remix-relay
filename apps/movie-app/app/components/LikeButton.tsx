@@ -1,6 +1,6 @@
-import { Button } from "@remix-relay/ui";
 import { cx } from "class-variance-authority";
 import { graphql, useFragment, useMutation } from "react-relay";
+import { Button } from "@remix-relay/ui";
 import type { LikeButtonFragment$key } from "./__generated__/LikeButtonFragment.graphql";
 import type { LikeButtonMutation } from "./__generated__/LikeButtonMutation.graphql";
 

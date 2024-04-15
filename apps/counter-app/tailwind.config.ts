@@ -1,5 +1,5 @@
-import sharedConfig from "@remix-relay/tailwind-config";
 import type { Config } from "tailwindcss";
+import sharedConfig from "@remix-relay/tailwind-config";
 
 export default {
   content: [

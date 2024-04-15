@@ -1,10 +1,10 @@
-import { useLoaderQuery } from "@remix-relay/react";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { graphql } from "react-relay";
+import { useLoaderQuery } from "@remix-relay/react";
 import MovieLink from "~/components/MovieLink";
+import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
 import { IndexQuery } from "./__generated__/IndexQuery.graphql";
-import { clientLoaderQuery } from "~/lib/client-loader-query";
 
 const query = graphql`
   query IndexQuery {

@@ -1,7 +1,7 @@
-import { Suspense, useLoaderQuery } from "@remix-relay/react";
-import { Button, Spinner } from "@remix-relay/ui";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { graphql } from "react-relay";
+import { Suspense, useLoaderQuery } from "@remix-relay/react";
+import { Button, Spinner } from "@remix-relay/ui";
 import CounterList from "~/components/CounterList";
 import { SignOutIcon } from "~/components/Icons";
 import useWindowVisible from "~/hooks/useWindowVisible";

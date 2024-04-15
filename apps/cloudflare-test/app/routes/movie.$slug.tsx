@@ -1,14 +1,14 @@
-import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
+import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import type { ClientLoaderFunctionArgs, Params } from "@remix-run/react";
 import { graphql } from "react-relay";
-import type { movieQuery } from "./__generated__/movieQuery.graphql";
-import { loaderQuery } from "~/lib/loader-query.server";
-import { clientLoaderQuery } from "~/lib/client-loader-query";
-import { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
+import { Spinner } from "@remix-relay/ui";
 import BackLink from "~/components/BackLink";
 import MovieDetail from "~/components/MovieDetail";
-import { Spinner } from "@remix-relay/ui";
 import MovieReviewsList from "~/components/MovieReviewsList";
+import { clientLoaderQuery } from "~/lib/client-loader-query";
+import { loaderQuery } from "~/lib/loader-query.server";
+import type { movieQuery } from "./__generated__/movieQuery.graphql";
 
 const query = graphql`
   query movieQuery($slug: String!) {

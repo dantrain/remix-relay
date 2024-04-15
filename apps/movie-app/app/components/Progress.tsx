@@ -1,5 +1,5 @@
-import { Progress as UiProgress } from "@remix-relay/ui";
 import { useEffect, useState } from "react";
+import { Progress as UiProgress } from "@remix-relay/ui";
 
 class Target extends EventTarget {}
 const target = new Target();

@@ -1,8 +1,8 @@
-import { getLoaderQuery } from "@remix-relay/server";
 import type { AppLoadContext } from "@remix-run/cloudflare";
 import { defer, json } from "@remix-run/cloudflare";
 import { drizzle } from "drizzle-orm/d1";
 import { OperationType } from "relay-runtime";
+import { getLoaderQuery } from "@remix-relay/server";
 import { PothosContext } from "~/schema/builder";
 import * as dbSchema from "~/schema/db-schema";
 import { schema } from "~/schema/graphql-schema";

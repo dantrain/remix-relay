@@ -1,8 +1,8 @@
 import SchemaBuilder from "@pothos/core";
 import RelayPlugin from "@pothos/plugin-relay";
-import { Objects } from "./types";
 import { DrizzleD1Database } from "drizzle-orm/d1";
 import * as dbSchema from "./db-schema";
+import { Objects } from "./types";
 
 export type PothosContext = {
   db: DrizzleD1Database<typeof dbSchema>;

@@ -1,5 +1,5 @@
-import { cx } from "class-variance-authority";
 import { graphql, useFragment } from "react-relay";
+import { twMerge } from "tailwind-merge";
 import LikeButton from "./LikeButton";
 import type { MovieDetailFragment$key } from "./__generated__/MovieDetailFragment.graphql";
 
@@ -24,7 +24,7 @@ export default function MovieDetail({ className, dataRef }: MovieDetailProps) {
   const { title, criticScore, audienceScore, criticsConsensus, imgUrl } = movie;
 
   return (
-    <div className={cx(className, "flex flex-col gap-8 sm:flex-row")}>
+    <div className={twMerge("flex flex-col gap-8 sm:flex-row", className)}>
       <div className="flex flex-none justify-center">
         <img alt={`${title} poster`} height={305} src={imgUrl} width={206} />
       </div>

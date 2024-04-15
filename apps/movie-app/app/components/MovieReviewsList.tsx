@@ -1,5 +1,5 @@
-import { Button, Spinner } from "@remix-relay/ui";
 import { graphql, usePaginationFragment } from "react-relay";
+import { Button, Spinner } from "@remix-relay/ui";
 import { MovieReview } from "./MovieReview";
 import type { MovieReviewsListFragment$key } from "./__generated__/MovieReviewsListFragment.graphql";
 

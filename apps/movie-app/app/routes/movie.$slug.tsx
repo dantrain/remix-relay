@@ -1,8 +1,8 @@
-import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
-import { Spinner } from "@remix-relay/ui";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import type { ClientLoaderFunctionArgs, Params } from "@remix-run/react";
 import { graphql } from "react-relay";
+import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
+import { Spinner } from "@remix-relay/ui";
 import BackLink from "~/components/BackLink";
 import MovieDetail from "~/components/MovieDetail";
 import MovieReviewsList from "~/components/MovieReviewsList";

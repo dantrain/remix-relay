@@ -1,7 +1,7 @@
+import { relations } from "drizzle-orm";
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { builder } from "../builder";
 import { movies } from "./Movie";
-import { relations } from "drizzle-orm";
 
 export const reviews = sqliteTable(
   "reviews",

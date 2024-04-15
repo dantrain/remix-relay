@@ -1,9 +1,9 @@
 import { resolveArrayConnection } from "@pothos/plugin-relay";
 import { eq, relations } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import invariant from "tiny-invariant";
 import { builder } from "../builder";
 import { Review, reviews } from "./Review";
-import invariant from "tiny-invariant";
 
 export const movies = sqliteTable("movies", {
   id: text("id").primaryKey(),

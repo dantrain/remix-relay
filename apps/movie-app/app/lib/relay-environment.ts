@@ -1,4 +1,3 @@
-import { getCachedResponse } from "@remix-relay/react";
 import { meros } from "meros/browser";
 import type {
   CacheConfig,
@@ -14,6 +13,7 @@ import {
   Store,
 } from "relay-runtime";
 import { toast } from "sonner";
+import { getCachedResponse } from "@remix-relay/react";
 import { trackPromise } from "~/components/Progress";
 
 const isServer = typeof document === "undefined";

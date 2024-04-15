@@ -1,5 +1,5 @@
-import { SVGIcon } from "@remix-relay/ui";
 import { ComponentProps } from "react";
+import { SVGIcon } from "@remix-relay/ui";
 
 export function SignOutIcon(props: ComponentProps<typeof SVGIcon>) {
   return (

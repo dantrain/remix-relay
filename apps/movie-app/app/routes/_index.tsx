@@ -1,6 +1,6 @@
-import { useLoaderQuery } from "@remix-relay/react";
 import type { MetaFunction } from "@remix-run/node";
 import { graphql } from "react-relay";
+import { useLoaderQuery } from "@remix-relay/react";
 import MovieLink from "~/components/MovieLink";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";

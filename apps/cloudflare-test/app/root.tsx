@@ -1,5 +1,3 @@
-import { RemixRelayProvider } from "@remix-relay/react";
-import { Spinner } from "@remix-relay/ui";
 import {
   Links,
   Meta,
@@ -9,6 +7,8 @@ import {
 } from "@remix-run/react";
 import { Suspense } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
+import { RemixRelayProvider } from "@remix-relay/react";
+import { Spinner } from "@remix-relay/ui";
 import { getCurrentEnvironment } from "./lib/relay-environment";
 import "./tailwind.css";
 

@@ -4,8 +4,8 @@ import { ActionFunctionArgs } from "@remix-run/cloudflare";
 import { drizzle } from "drizzle-orm/d1";
 import { createYoga } from "graphql-yoga";
 import { PothosContext } from "~/schema/builder";
-import { schema } from "~/schema/graphql-schema";
 import * as dbSchema from "~/schema/db-schema";
+import { schema } from "~/schema/graphql-schema";
 
 const yoga = createYoga<PothosContext>({ schema, plugins: [useDeferStream()] });
 
