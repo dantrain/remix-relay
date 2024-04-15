@@ -34,7 +34,7 @@ export default function App() {
   return (
     <RemixRelayProvider>
       <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
-        <div className="mx-auto max-w-3xl p-4 sm:p-8">
+        <div className="mx-auto max-w-3xl p-4 pb-8 sm:p-8">
           <Suspense fallback={<Spinner className="h-36" />}>
             <Outlet />
           </Suspense>

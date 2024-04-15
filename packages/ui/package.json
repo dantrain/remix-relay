@@ -18,8 +18,10 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
+    "@react-aria/utils": "^3.23.2",
     "@tanem/react-nprogress": "^5.0.51",
     "class-variance-authority": "^0.7.0",
+    "react-aria": "^3.32.1",
     "react-transition-group": "^4.4.5",
     "tailwind-merge": "^2.2.2"
   },

@@ -51,7 +51,7 @@ export default function MovieLink({ dataRef }: MovieLinkProps) {
             {isPending ? (
               <Spinner />
             ) : (
-              <div className="hidden text-2xl group-hover:block">👉</div>
+              <div className="hidden text-2xl sm:group-hover:block">👉</div>
             )}
           </>
         )}
