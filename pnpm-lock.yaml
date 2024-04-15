@@ -53,6 +53,9 @@ importers:
       '@remix-run/react':
         specifier: ^2.8.1
         version: 2.8.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.5)
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.0
       drizzle-orm:
         specifier: ^0.30.8
         version: 0.30.8(@cloudflare/workers-types@4.20240405.0)(@types/better-sqlite3@7.6.9)(@types/react@18.2.78)(better-sqlite3@9.5.0)(react@18.2.0)
@@ -89,6 +92,9 @@ importers:
       relay-runtime:
         specifier: ^16.2.0
         version: 16.2.0
+      tailwind-merge:
+        specifier: ^2.2.2
+        version: 2.2.2
       tiny-invariant:
         specifier: ^1.3.3
         version: 1.3.3

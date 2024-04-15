@@ -1,3 +1,5 @@
+import { RemixRelayProvider } from "@remix-relay/react";
+import { Spinner } from "@remix-relay/ui";
 import {
   Links,
   Meta,
@@ -5,10 +7,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { Suspense } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
 import { getCurrentEnvironment } from "./lib/relay-environment";
-import { RemixRelayProvider } from "@remix-relay/react";
-import { Suspense } from "react";
 import "./tailwind.css";
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -20,12 +21,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        <RemixRelayProvider>
-          <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
-            <Suspense>{children}</Suspense>
-          </RelayEnvironmentProvider>
-        </RemixRelayProvider>
+      <body className="bg-slate-950 text-white">
+        {children}
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -34,5 +31,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <RemixRelayProvider>
+      <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
+        <div className="mx-auto max-w-3xl p-4 sm:p-8">
+          <Suspense fallback={<Spinner className="h-36" />}>
+            <Outlet />
+          </Suspense>
+        </div>
+      </RelayEnvironmentProvider>
+    </RemixRelayProvider>
+  );
 }

@@ -1,21 +1,24 @@
-import { Suspense, useLoaderQuery } from "@remix-relay/react";
-import { Spinner } from "@remix-relay/ui";
+import { useLoaderQuery } from "@remix-relay/react";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { graphql } from "react-relay";
-import { DeferTest } from "~/components/DeferTest";
+import MovieLink from "~/components/MovieLink";
 import { loaderQuery } from "~/lib/loader-query.server";
 import { IndexQuery } from "./__generated__/IndexQuery.graphql";
 
 const query = graphql`
   query IndexQuery {
-    hello
-    ...DeferTestFragment @defer
+    movies {
+      edges {
+        node {
+          id
+          ...MovieLinkFragment
+        }
+      }
+    }
   }
 `;
 
-export const meta: MetaFunction = () => {
-  return [{ title: "Cloudflare Test" }];
-};
+export const meta: MetaFunction = () => [{ title: "Movie App" }];
 
 export const loader = async ({ context }: LoaderFunctionArgs) =>
   loaderQuery(context, query, {});
@@ -24,14 +27,15 @@ export default function Index() {
   const [data] = useLoaderQuery<IndexQuery>(query);
 
   return (
-    <div className="mx-10 my-8">
-      <h1 className="mb-6 text-2xl font-bold">
-        Welcome to Remix with Relay, Vite and Cloudflare
-      </h1>
-      <pre className="mb-4">{JSON.stringify(data.hello, null, 4)}</pre>
-      <Suspense fallback={<Spinner className="max-w-80" />}>
-        <DeferTest dataRef={data} />
-      </Suspense>
-    </div>
+    <main>
+      <h1 className="mb-8 mt-2 text-2xl font-bold">Top Box Office 🍿</h1>
+      <ul className="grid gap-4">
+        {data.movies.edges.map(({ node }) => (
+          <li key={node.id}>
+            <MovieLink dataRef={node} />
+          </li>
+        ))}
+      </ul>
+    </main>
   );
 }
