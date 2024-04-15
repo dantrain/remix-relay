@@ -16,7 +16,7 @@
     "@apollo/server": "^4.10.2",
     "@pothos/core": "^3.41.0",
     "@pothos/plugin-relay": "^3.46.0",
-    "@remix-relay/node": "workspace:*",
+    "@remix-relay/server": "workspace:*",
     "@remix-relay/react": "workspace:*",
     "@remix-relay/ui": "workspace:*",
     "@remix-run/node": "^2.8.1",

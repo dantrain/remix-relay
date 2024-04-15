@@ -1,5 +1,5 @@
 {
-  "name": "@remix-relay/node",
+  "name": "@remix-relay/server",
   "description": "Provides Relay integration with Remix",
   "version": "1.0.0",
   "author": {

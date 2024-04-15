@@ -38,12 +38,12 @@ importers:
       '@pothos/plugin-relay':
         specifier: ^3.46.0
         version: 3.46.0(@pothos/core@3.41.0)(graphql@17.0.0-alpha.2)
-      '@remix-relay/node':
-        specifier: workspace:*
-        version: link:../../packages/node
       '@remix-relay/react':
         specifier: workspace:*
         version: link:../../packages/react
+      '@remix-relay/server':
+        specifier: workspace:*
+        version: link:../../packages/server
       '@remix-relay/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -198,12 +198,12 @@ importers:
       '@pothos/plugin-validation':
         specifier: ^3.10.1
         version: 3.10.1(@pothos/core@3.41.0)(graphql@17.0.0-alpha.2)(zod@3.22.4)
-      '@remix-relay/node':
-        specifier: workspace:*
-        version: link:../../packages/node
       '@remix-relay/react':
         specifier: workspace:*
         version: link:../../packages/react
+      '@remix-relay/server':
+        specifier: workspace:*
+        version: link:../../packages/server
       '@remix-relay/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -388,12 +388,12 @@ importers:
       '@pothos/plugin-relay':
         specifier: ^3.46.0
         version: 3.46.0(@pothos/core@3.41.0)(graphql@17.0.0-alpha.2)
-      '@remix-relay/node':
-        specifier: workspace:*
-        version: link:../../packages/node
       '@remix-relay/react':
         specifier: workspace:*
         version: link:../../packages/react
+      '@remix-relay/server':
+        specifier: workspace:*
+        version: link:../../packages/server
       '@remix-relay/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -540,52 +540,6 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
 
-  packages/node:
-    dependencies:
-      '@graphql-tools/executor':
-        specifier: ^1.2.6
-        version: 1.2.6(graphql@17.0.0-alpha.2)
-      tiny-invariant:
-        specifier: ^1.3.3
-        version: 1.3.3
-    devDependencies:
-      '@remix-relay/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@remix-relay/typescript-config':
-        specifier: workspace:*
-        version: link:../typescript-config
-      '@remix-run/node':
-        specifier: ^2.8.1
-        version: 2.8.1(typescript@5.4.5)
-      '@remix-run/server-runtime':
-        specifier: ^2.8.1
-        version: 2.8.1(typescript@5.4.5)
-      '@types/eslint':
-        specifier: ^8.56.9
-        version: 8.56.9
-      '@types/node':
-        specifier: ^20.12.7
-        version: 20.12.7
-      '@types/relay-runtime':
-        specifier: ^14.1.23
-        version: 14.1.23
-      eslint:
-        specifier: ^8.57.0
-        version: 8.57.0
-      graphql:
-        specifier: 17.0.0-alpha.2
-        version: 17.0.0-alpha.2
-      relay-runtime:
-        specifier: ^16.2.0
-        version: 16.2.0
-      tsup:
-        specifier: ^8.0.2
-        version: 8.0.2(typescript@5.4.5)
-      typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
-
   packages/react:
     dependencies:
       tiny-invariant:
@@ -640,6 +594,52 @@ importers:
       react-relay:
         specifier: ^16.2.0
         version: 16.2.0(react@18.2.0)
+      relay-runtime:
+        specifier: ^16.2.0
+        version: 16.2.0
+      tsup:
+        specifier: ^8.0.2
+        version: 8.0.2(typescript@5.4.5)
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+
+  packages/server:
+    dependencies:
+      '@graphql-tools/executor':
+        specifier: ^1.2.6
+        version: 1.2.6(graphql@17.0.0-alpha.2)
+      tiny-invariant:
+        specifier: ^1.3.3
+        version: 1.3.3
+    devDependencies:
+      '@remix-relay/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@remix-relay/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@remix-run/node':
+        specifier: ^2.8.1
+        version: 2.8.1(typescript@5.4.5)
+      '@remix-run/server-runtime':
+        specifier: ^2.8.1
+        version: 2.8.1(typescript@5.4.5)
+      '@types/eslint':
+        specifier: ^8.56.9
+        version: 8.56.9
+      '@types/node':
+        specifier: ^20.12.7
+        version: 20.12.7
+      '@types/relay-runtime':
+        specifier: ^14.1.23
+        version: 14.1.23
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      graphql:
+        specifier: 17.0.0-alpha.2
+        version: 17.0.0-alpha.2
       relay-runtime:
         specifier: ^16.2.0
         version: 16.2.0
@@ -1402,12 +1402,6 @@ packages:
     dependencies:
       regenerator-runtime: 0.14.1
     dev: false
-
-  /@babel/runtime@7.24.0:
-    resolution: {integrity: sha512-Chk32uHMg6TnQdvw2e9IlqPpFX/6NLuK0Ys2PqLb7/gL5uFn9mXvK715FGLlOLQrcO4qIkNHkvPGktzzXexsFw==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      regenerator-runtime: 0.14.1
 
   /@babel/runtime@7.24.4:
     resolution: {integrity: sha512-dkxf7+hn8mFBwKjs9bvBlArzLVxVbS8usaPUDd5p2a9JCL9tB8OaOVN1isD4+Xyk4ns89/xeOmbQvgdK7IIVdA==}
@@ -10442,7 +10436,7 @@ packages:
   /relay-runtime@16.2.0:
     resolution: {integrity: sha512-SrIyYItH1EZUj37NI8nZALasuq7mNyFrrSNgMefhgxNZxTVnr1KCp43LaxUfZqhsWbw4Y00JSGDRQXlcv4STHQ==}
     dependencies:
-      '@babel/runtime': 7.24.0
+      '@babel/runtime': 7.24.4
       fbjs: 3.0.5
       invariant: 2.2.4
     transitivePeerDependencies:

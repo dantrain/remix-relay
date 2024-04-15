@@ -1,4 +1,4 @@
-import { getLoaderQuery } from "@remix-relay/node";
+import { getLoaderQuery } from "@remix-relay/server";
 import { defer, json, type AppLoadContext } from "@remix-run/node";
 import { OperationType } from "relay-runtime";
 import { schema } from "server/graphql/schema";

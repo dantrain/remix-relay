@@ -1,4 +1,4 @@
-import { getLoaderQuery } from "@remix-relay/node";
+import { getLoaderQuery } from "@remix-relay/server";
 import type { AppLoadContext } from "@remix-run/cloudflare";
 import { defer, json } from "@remix-run/cloudflare";
 import { drizzle } from "drizzle-orm/d1";
