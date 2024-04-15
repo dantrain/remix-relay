@@ -23,7 +23,16 @@ export const moviesRelations = relations(movies, ({ many }) => ({
 export type Movie = typeof movies.$inferSelect;
 
 export const Movie = builder.node("Movie", {
+  isTypeOf: () => true,
   id: { resolve: (_) => _.id },
+  loadOne: async (id, { db }) => {
+    const result = await db.query.movies.findFirst({
+      where: eq(movies.id, id),
+    });
+
+    invariant(result, "Movie not found");
+    return result;
+  },
   fields: (t) => ({
     slug: t.exposeString("slug"),
     title: t.exposeString("title"),
@@ -52,8 +61,6 @@ builder.queryField("movie", (t) =>
       slug: t.arg.string({ required: true }),
     },
     resolve: async (_parent, { slug }, { db }) => {
-      console.log("yoyo");
-
       const result = await db.query.movies.findFirst({
         where: eq(movies.slug, slug),
       });

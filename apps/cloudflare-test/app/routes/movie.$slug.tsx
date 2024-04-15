@@ -1,4 +1,4 @@
-import { metaQuery, useLoaderQuery } from "@remix-relay/react";
+import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
 import type { ClientLoaderFunctionArgs, Params } from "@remix-run/react";
 import { graphql } from "react-relay";
 import type { movieQuery } from "./__generated__/movieQuery.graphql";
@@ -7,12 +7,15 @@ import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import BackLink from "~/components/BackLink";
 import MovieDetail from "~/components/MovieDetail";
+import { Spinner } from "@remix-relay/ui";
+import MovieReviewsList from "~/components/MovieReviewsList";
 
 const query = graphql`
   query movieQuery($slug: String!) {
     movie(slug: $slug) {
       title
       ...MovieDetailFragment
+      ...MovieReviewsListFragment @defer
     }
   }
 `;
@@ -39,6 +42,9 @@ export default function Movie() {
       </nav>
       <main>
         <MovieDetail className="sm:mb-10" dataRef={data.movie} />
+        <Suspense fallback={<Spinner className="h-28" />}>
+          <MovieReviewsList dataRef={data.movie} />
+        </Suspense>
       </main>
     </>
   );
