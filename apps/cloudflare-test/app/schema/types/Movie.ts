@@ -3,6 +3,7 @@ import { eq, relations } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { builder } from "../builder";
 import { Review, reviews } from "./Review";
+import invariant from "tiny-invariant";
 
 export const movies = sqliteTable("movies", {
   id: text("id").primaryKey(),
@@ -43,6 +44,25 @@ export const Movie = builder.node("Movie", {
     }),
   }),
 });
+
+builder.queryField("movie", (t) =>
+  t.field({
+    type: Movie,
+    args: {
+      slug: t.arg.string({ required: true }),
+    },
+    resolve: async (_parent, { slug }, { db }) => {
+      console.log("yoyo");
+
+      const result = await db.query.movies.findFirst({
+        where: eq(movies.slug, slug),
+      });
+
+      invariant(result, "Movie not found");
+      return result;
+    },
+  }),
+);
 
 builder.queryField("movies", (t) =>
   t.connection({

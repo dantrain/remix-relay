@@ -58,6 +58,7 @@ type PageInfo {
 
 type Query {
   hello: String!
+  movie(slug: String!): Movie!
   movies(after: String, before: String, first: Int, last: Int): QueryMoviesConnection!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!

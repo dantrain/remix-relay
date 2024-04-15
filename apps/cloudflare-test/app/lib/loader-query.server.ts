@@ -73,8 +73,9 @@ function getLoaderQuery<TContext>(schema: GraphQLSchema, context?: TContext) {
     const document = parse(node.params.text!);
 
     const result = await execute<TQuery["response"], PayloadExtensions>({
-      document,
       schema,
+      document,
+      variableValues: variables,
       contextValue: context,
     });
 
