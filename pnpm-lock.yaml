@@ -41,6 +41,9 @@ importers:
       '@remix-relay/react':
         specifier: workspace:*
         version: link:../../packages/react
+      '@remix-relay/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       '@remix-run/cloudflare':
         specifier: ^2.8.1
         version: 2.8.1(@cloudflare/workers-types@4.20240405.0)(typescript@5.4.5)
@@ -99,6 +102,9 @@ importers:
       '@remix-relay/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      '@remix-relay/tailwind-config':
+        specifier: workspace:*
+        version: link:../../packages/tailwind-config
       '@remix-relay/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
@@ -138,6 +144,9 @@ importers:
       node-fetch:
         specifier: ^3.3.2
         version: 3.3.2
+      tailwindcss:
+        specifier: ^3.4.3
+        version: 3.4.3
       tsx:
         specifier: ^4.7.2
         version: 4.7.2

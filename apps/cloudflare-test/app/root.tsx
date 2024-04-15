@@ -9,6 +9,7 @@ import { RelayEnvironmentProvider } from "react-relay";
 import { getCurrentEnvironment } from "./lib/relay-environment";
 import { RemixRelayProvider } from "@remix-relay/react";
 import { Suspense } from "react";
+import "./tailwind.css";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
