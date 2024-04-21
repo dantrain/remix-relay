@@ -1,7 +1,7 @@
 import { resolveArrayConnection } from "@pothos/plugin-relay";
 import { eq, relations } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import invariant from "tiny-invariant";
+import exists from "~/lib/exists";
 import { builder } from "../builder";
 import { Review, reviews } from "./Review";
 
@@ -30,8 +30,7 @@ export const Movie = builder.node("Movie", {
       where: eq(movies.id, id),
     });
 
-    invariant(result, "Movie not found");
-    return result;
+    return exists(result, "Movie not found");
   },
   fields: (t) => ({
     slug: t.exposeString("slug"),
@@ -65,8 +64,7 @@ builder.queryField("movie", (t) =>
         where: eq(movies.slug, slug),
       });
 
-      invariant(result, "Movie not found");
-      return result;
+      return exists(result, "Movie not found");
     },
   }),
 );
