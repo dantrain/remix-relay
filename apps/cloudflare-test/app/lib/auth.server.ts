@@ -6,7 +6,6 @@ import exists from "./exists";
 
 type User = {
   email: string;
-  image?: string;
 };
 
 const sessionStorage = createCookieSessionStorage({
@@ -29,10 +28,7 @@ const gitHubStrategy = new GitHubStrategy(
   async ({ profile }) => {
     // Get the user data from your DB or API using the tokens and profile
     // return User.findOrCreate({ email: profile.emails[0].value });
-    return {
-      email: exists(profile.emails?.[0]?.value, "Missing user email"),
-      image: profile.photos?.[0]?.value,
-    };
+    return { email: exists(profile.emails?.[0]?.value, "Missing user email") };
   },
 );
 

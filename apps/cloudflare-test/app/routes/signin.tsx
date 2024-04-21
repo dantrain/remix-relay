@@ -6,7 +6,7 @@ import { authenticator } from "~/lib/auth.server";
 export const meta: MetaFunction = () => [{ title: "Sign in - Movie App" }];
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  return await authenticator.isAuthenticated(request, { successRedirect: "/" });
+  return authenticator.isAuthenticated(request, { successRedirect: "/" });
 }
 
 export default function SignIn() {
@@ -19,11 +19,11 @@ export default function SignIn() {
       method="post"
     >
       <Button
-        className="px-4 py-2"
+        className="py-3 pl-5 pr-6"
         type="submit"
         disabled={navigation.state !== "idle"}
       >
-        Sign in with GitHub
+        <span className="mr-3">🔑</span>Sign in with GitHub
       </Button>
     </Form>
   );
