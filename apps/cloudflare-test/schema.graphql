@@ -46,6 +46,10 @@ type MovieReviewsConnectionEdge {
   node: Review!
 }
 
+type Mutation {
+  setLikedMovie(id: ID!, liked: Boolean!): Movie!
+}
+
 interface Node {
   id: ID!
 }
@@ -58,7 +62,6 @@ type PageInfo {
 }
 
 type Query {
-  hello: String!
   movie(slug: String!): Movie!
   movies(after: String, before: String, first: Int, last: Int): QueryMoviesConnection!
   node(id: ID!): Node

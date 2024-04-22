@@ -1,5 +1,6 @@
 import { graphql, useFragment } from "react-relay";
 import { twMerge } from "tailwind-merge";
+import LikeButton from "./LikeButton";
 import type { MovieDetailFragment$key } from "./__generated__/MovieDetailFragment.graphql";
 
 const fragment = graphql`
@@ -9,7 +10,7 @@ const fragment = graphql`
     audienceScore
     criticsConsensus
     imgUrl
-    likedByViewer
+    ...LikeButtonFragment
   }
 `;
 
@@ -30,7 +31,7 @@ export default function MovieDetail({ className, dataRef }: MovieDetailProps) {
       <div className="flex-grow py-2">
         <div className="mb-4 flex items-start justify-between gap-4">
           <h1 className="text-2xl font-bold">{title}</h1>
-          <pre>{JSON.stringify(movie.likedByViewer, null, 4)}</pre>
+          <LikeButton dataRef={movie} />
         </div>
         <hr className="mb-4 border-slate-700" />
         <dl className="mb-4">

@@ -1,7 +1,9 @@
 import { resolveArrayConnection } from "@pothos/plugin-relay";
 import { and, eq, relations } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import invariant from "tiny-invariant";
 import exists from "~/lib/exists";
+import { fromGlobalId } from "~/lib/global-id";
 import { builder } from "../builder";
 import { Review, reviews } from "./Review";
 import { usersToMovies } from "./UserToMovie";
@@ -94,6 +96,33 @@ builder.queryField("movies", (t) =>
       const result = await db.query.movies.findMany();
 
       return resolveArrayConnection({ args }, result);
+    },
+  }),
+);
+
+builder.mutationField("setLikedMovie", (t) =>
+  t.field({
+    type: Movie,
+    args: {
+      id: t.arg.id({ required: true }),
+      liked: t.arg.boolean({ required: true }),
+    },
+    resolve: async (_parent, { id, liked }, { db, user }) => {
+      invariant(user, "Must be signed in");
+
+      await db
+        .insert(usersToMovies)
+        .values({ movieId: fromGlobalId(id), userEmail: user.email, liked })
+        .onConflictDoUpdate({
+          target: [usersToMovies.movieId, usersToMovies.userEmail],
+          set: { liked },
+        });
+
+      const result = await db.query.movies.findFirst({
+        where: eq(movies.id, fromGlobalId(id)),
+      });
+
+      return exists(result, "Movie not found");
     },
   }),
 );
