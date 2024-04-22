@@ -3,6 +3,7 @@ name = "cloudflare-test"
 pages_build_output_dir = "build"
 compatibility_date = "2024-04-13"
 
+
 [[d1_databases]]
 database_id = "57c2f9ff-f5ee-4d31-b161-a987b174b146"
 binding = "DB"
@@ -10,6 +11,10 @@ database_name = "DB"
 
 [env.production]
 compatibility_date = "2024-04-13"
+
+[env.production.vars]
+ROOT_URL = "https://cloudflare-test-1c6.pages.dev/"
+GITHUB_CLIENT_ID = "6ebdc16071f2b606e701"
 
 [[env.production.d1_databases]]
 database_id = "57c2f9ff-f5ee-4d31-b161-a987b174b146"
