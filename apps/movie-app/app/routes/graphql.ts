@@ -1,42 +1,20 @@
-import type { HTTPGraphQLRequest } from "@apollo/server";
-import { HeaderMap } from "@apollo/server";
-import { type ActionFunctionArgs } from "@remix-run/node";
-import { ReadableStream } from "node:stream/web";
-import { getServer } from "~/lib/apollo-server";
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useDeferStream } from "@graphql-yoga/plugin-defer-stream";
+import { ActionFunctionArgs } from "@remix-run/cloudflare";
+import { drizzle } from "drizzle-orm/d1";
+import { createYoga } from "graphql-yoga";
+import { getAuthenticator } from "~/lib/auth.server";
+import { PothosContext } from "~/schema/builder";
+import * as dbSchema from "~/schema/db-schema";
+import { schema } from "~/schema/graphql-schema";
 
-export async function action({ request }: ActionFunctionArgs) {
-  const server = await getServer();
+const yoga = createYoga<PothosContext>({ schema, plugins: [useDeferStream()] });
 
-  const headers = new HeaderMap();
+export async function action({ request, context }: ActionFunctionArgs) {
+  const env = context.cloudflare.env as Env;
+  const db = drizzle(env.DB, { schema: dbSchema });
 
-  for (const [key, value] of request.headers.entries()) {
-    if (value !== undefined) {
-      headers.set(key, Array.isArray(value) ? value.join(", ") : value);
-    }
-  }
+  const user = await getAuthenticator(context).isAuthenticated(request);
 
-  const httpGraphQLRequest: HTTPGraphQLRequest = {
-    method: request.method.toUpperCase(),
-    headers,
-    body: await request.json(),
-    search: new URL(request.url).searchParams.toString(),
-  };
-
-  const result = await server.executeHTTPGraphQLRequest({
-    httpGraphQLRequest,
-    context: async () => ({}),
-  });
-
-  const responseHeaders = Object.fromEntries(result.headers.entries());
-
-  if (result.body.kind === "complete") {
-    return new Response(result.body.string, { headers: responseHeaders });
-  }
-
-  const stream = ReadableStream.from(result.body.asyncIterator);
-
-  // @ts-expect-error Because
-  return new Response(stream, {
-    headers: responseHeaders,
-  });
+  return yoga.handleRequest(request, { db, user });
 }

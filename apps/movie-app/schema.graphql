@@ -30,7 +30,7 @@ type Movie implements Node {
   criticsConsensus: String!
   id: ID!
   imgUrl: String!
-  liked: Boolean!
+  likedByViewer: Boolean
   reviews(after: String, before: String, first: Int, last: Int): MovieReviewsConnection!
   slug: String!
   title: String!
@@ -63,18 +63,17 @@ type PageInfo {
 
 type Query {
   movie(slug: String!): Movie!
-  movieConnection(after: String, before: String, first: Int, last: Int): QueryMovieConnection!
-  movies: [Movie!]!
+  movies(after: String, before: String, first: Int, last: Int): QueryMoviesConnection!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
 }
 
-type QueryMovieConnection {
-  edges: [QueryMovieConnectionEdge!]!
+type QueryMoviesConnection {
+  edges: [QueryMoviesConnectionEdge!]!
   pageInfo: PageInfo!
 }
 
-type QueryMovieConnectionEdge {
+type QueryMoviesConnectionEdge {
   cursor: String!
   node: Movie!
 }

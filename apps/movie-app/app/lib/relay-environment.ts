@@ -12,9 +12,7 @@ import {
   RecordSource,
   Store,
 } from "relay-runtime";
-import { toast } from "sonner";
 import { getCachedResponse } from "@remix-relay/react";
-import { trackPromise } from "~/components/Progress";
 
 const isServer = typeof document === "undefined";
 
@@ -54,7 +52,7 @@ const fetchFn: FetchFunction = (
           }
         } catch (err) {
           if (!isServer) {
-            toast.error(
+            console.error(
               err instanceof Error ? err.message : "Something went wrong",
             );
           }
@@ -65,7 +63,7 @@ const fetchFn: FetchFunction = (
         }
       };
 
-      setTimeout(() => trackPromise(fetchGraphQL()), 0);
+      setTimeout(() => fetchGraphQL(), 0);
     })
   );
 };

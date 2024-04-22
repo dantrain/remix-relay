@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<30de9f6ae7c8761e922baebacebd05bb>>
+ * @generated SignedSource<<47a2d2db0302fa247d0d2dc310cc79e1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,7 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type LikeButtonFragment$data = {
   readonly id: string;
-  readonly liked: boolean;
+  readonly likedByViewer: boolean | null | undefined;
   readonly " $fragmentType": "LikeButtonFragment";
 };
 export type LikeButtonFragment$key = {
@@ -37,7 +37,7 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "liked",
+      "name": "likedByViewer",
       "storageKey": null
     }
   ],
@@ -45,6 +45,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "1623b2c79375c5e36b5d55e0b4c983e9";
+(node as any).hash = "652827e3f5cb1e2a87b706951571267d";
 
 export default node;

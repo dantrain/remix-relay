@@ -1,4 +1,4 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import type { ClientLoaderFunctionArgs, Params } from "@remix-run/react";
 import { graphql } from "react-relay";
 import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
@@ -26,11 +26,11 @@ export const meta = metaQuery<movieQuery>(({ data }) => [
 
 const getVars = (params: Params<string>) => ({ slug: params.slug ?? "" });
 
-export const loader = ({ params }: LoaderFunctionArgs) =>
-  loaderQuery<movieQuery>(query, getVars(params));
+export const loader = (args: LoaderFunctionArgs) =>
+  loaderQuery<movieQuery>(args, query, getVars(args.params));
 
-export const clientLoader = ({ params }: ClientLoaderFunctionArgs) =>
-  clientLoaderQuery<movieQuery>(query, getVars(params));
+export const clientLoader = (args: ClientLoaderFunctionArgs) =>
+  clientLoaderQuery<movieQuery>(query, getVars(args.params));
 
 export default function Movie() {
   const [data] = useLoaderQuery<movieQuery>(query);

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1d6ff6e64dc8fcbe844be6e803336ac8>>
+ * @generated SignedSource<<8c85925dc77a8cdaf5c13c4cca94826c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type LikeButtonMutation$variables = {
 export type LikeButtonMutation$data = {
   readonly setLikedMovie: {
     readonly id: string;
-    readonly liked: boolean;
+    readonly likedByViewer: boolean | null | undefined;
   };
 };
 export type LikeButtonMutation = {
@@ -68,7 +68,7 @@ v1 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
-        "name": "liked",
+        "name": "likedByViewer",
         "storageKey": null
       }
     ],
@@ -93,16 +93,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "3a5dd2e8e527e7b033a8228a2f75ad4d",
+    "cacheID": "c96d60584bac1acda979b09546ab816b",
     "id": null,
     "metadata": {},
     "name": "LikeButtonMutation",
     "operationKind": "mutation",
-    "text": "mutation LikeButtonMutation(\n  $id: ID!\n  $liked: Boolean!\n) {\n  setLikedMovie(id: $id, liked: $liked) {\n    id\n    liked\n  }\n}\n"
+    "text": "mutation LikeButtonMutation(\n  $id: ID!\n  $liked: Boolean!\n) {\n  setLikedMovie(id: $id, liked: $liked) {\n    id\n    likedByViewer\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "664e86f0c7d91b82bd7492ee43729d90";
+(node as any).hash = "87490031ee59f5e0b28482dea5db99d0";
 
 export default node;
