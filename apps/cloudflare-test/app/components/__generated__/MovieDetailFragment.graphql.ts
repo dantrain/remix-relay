@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7bebb647d3385f22dc7c9f26025503e5>>
+ * @generated SignedSource<<7d2df11c04f0632997099f61393a2e8a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -66,15 +66,20 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "LikeButtonFragment"
+      "kind": "Defer",
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "LikeButtonFragment"
+        }
+      ]
     }
   ],
   "type": "Movie",
   "abstractKey": null
 };
 
-(node as any).hash = "9194e383504ba85f623ebd060f07073a";
+(node as any).hash = "2a2886dedfd178a678dde2900a177a6b";
 
 export default node;

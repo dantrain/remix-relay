@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f29f8cac7eecf30917a72610ad461ae5>>
+ * @generated SignedSource<<95ba401f8b0209408964e43ac637a110>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -141,13 +141,20 @@ return {
             "name": "imgUrl",
             "storageKey": null
           },
-          (v3/*: any*/),
           {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "likedByViewer",
-            "storageKey": null
+            "if": null,
+            "kind": "Defer",
+            "label": "MovieDetailFragment$defer$LikeButtonFragment",
+            "selections": [
+              (v3/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "likedByViewer",
+                "storageKey": null
+              }
+            ]
           },
           {
             "if": null,
@@ -266,19 +273,20 @@ return {
               },
               (v3/*: any*/)
             ]
-          }
+          },
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "dca520bb39be4f221c02260defb1a977",
+    "cacheID": "df57c3bf0bba8420784e1f21704cb080",
     "id": null,
     "metadata": {},
     "name": "movieQuery",
     "operationKind": "query",
-    "text": "query movieQuery(\n  $slug: String!\n) {\n  movie(slug: $slug) {\n    title\n    ...MovieDetailFragment\n    ...MovieReviewsListFragment @defer(label: \"movieQuery$defer$MovieReviewsListFragment\")\n    id\n  }\n}\n\nfragment LikeButtonFragment on Movie {\n  id\n  likedByViewer\n}\n\nfragment MovieDetailFragment on Movie {\n  title\n  criticScore\n  audienceScore\n  criticsConsensus\n  imgUrl\n  ...LikeButtonFragment\n}\n\nfragment MovieReviewFragment on Review {\n  quote\n  fresh\n  criticName\n  criticSource\n}\n\nfragment MovieReviewsListFragment on Movie {\n  reviews(first: 5) {\n    edges {\n      node {\n        id\n        ...MovieReviewFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
+    "text": "query movieQuery(\n  $slug: String!\n) {\n  movie(slug: $slug) {\n    title\n    ...MovieDetailFragment\n    ...MovieReviewsListFragment @defer(label: \"movieQuery$defer$MovieReviewsListFragment\")\n    id\n  }\n}\n\nfragment LikeButtonFragment on Movie {\n  id\n  likedByViewer\n}\n\nfragment MovieDetailFragment on Movie {\n  title\n  criticScore\n  audienceScore\n  criticsConsensus\n  imgUrl\n  ...LikeButtonFragment @defer(label: \"MovieDetailFragment$defer$LikeButtonFragment\")\n}\n\nfragment MovieReviewFragment on Review {\n  quote\n  fresh\n  criticName\n  criticSource\n}\n\nfragment MovieReviewsListFragment on Movie {\n  reviews(first: 5) {\n    edges {\n      node {\n        id\n        ...MovieReviewFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
   }
 };
 })();
