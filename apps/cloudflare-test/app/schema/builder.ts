@@ -3,9 +3,11 @@ import RelayPlugin from "@pothos/plugin-relay";
 import { DrizzleD1Database } from "drizzle-orm/d1";
 import * as dbSchema from "./db-schema";
 import { Objects } from "./types";
+import { User } from "./types/User";
 
 export type PothosContext = {
   db: DrizzleD1Database<typeof dbSchema>;
+  user: User | null;
 };
 
 const builder = new SchemaBuilder<{
@@ -21,12 +23,6 @@ const builder = new SchemaBuilder<{
   },
 });
 
-builder.queryType({
-  fields: (t) => ({
-    hello: t.string({
-      resolve: () => "Hello, world!",
-    }),
-  }),
-});
+builder.queryType({});
 
 export { builder };

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3caf900d87ae9f6096259c09e2f710d0>>
+ * @generated SignedSource<<8576cc189586cb54eba5b08e147e56f3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -142,6 +142,13 @@ return {
             "storageKey": null
           },
           {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "likedByViewer",
+            "storageKey": null
+          },
+          {
             "if": null,
             "kind": "Defer",
             "label": "movieQuery$defer$MovieReviewsListFragment",
@@ -266,12 +273,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "19bb440e42180f91ad4c0fc69d58cda3",
+    "cacheID": "9d24ef5ac13aee0ad9070e39d1c0736a",
     "id": null,
     "metadata": {},
     "name": "movieQuery",
     "operationKind": "query",
-    "text": "query movieQuery(\n  $slug: String!\n) {\n  movie(slug: $slug) {\n    title\n    ...MovieDetailFragment\n    ...MovieReviewsListFragment @defer(label: \"movieQuery$defer$MovieReviewsListFragment\")\n    id\n  }\n}\n\nfragment MovieDetailFragment on Movie {\n  title\n  criticScore\n  audienceScore\n  criticsConsensus\n  imgUrl\n}\n\nfragment MovieReviewFragment on Review {\n  quote\n  fresh\n  criticName\n  criticSource\n}\n\nfragment MovieReviewsListFragment on Movie {\n  reviews(first: 5) {\n    edges {\n      node {\n        id\n        ...MovieReviewFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
+    "text": "query movieQuery(\n  $slug: String!\n) {\n  movie(slug: $slug) {\n    title\n    ...MovieDetailFragment\n    ...MovieReviewsListFragment @defer(label: \"movieQuery$defer$MovieReviewsListFragment\")\n    id\n  }\n}\n\nfragment MovieDetailFragment on Movie {\n  title\n  criticScore\n  audienceScore\n  criticsConsensus\n  imgUrl\n  likedByViewer\n}\n\nfragment MovieReviewFragment on Review {\n  quote\n  fresh\n  criticName\n  criticSource\n}\n\nfragment MovieReviewsListFragment on Movie {\n  reviews(first: 5) {\n    edges {\n      node {\n        id\n        ...MovieReviewFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
   }
 };
 })();

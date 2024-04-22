@@ -1,12 +1,11 @@
 import { createCookieSessionStorage } from "@remix-run/cloudflare";
+import { drizzle } from "drizzle-orm/d1";
 import { Authenticator } from "remix-auth";
 import { GitHubStrategy } from "remix-auth-github";
+import * as dbSchema from "~/schema/db-schema";
+import { User, users } from "~/schema/types/User";
 import { env } from "./env.server";
 import exists from "./exists";
-
-type User = {
-  email: string;
-};
 
 const sessionStorage = createCookieSessionStorage({
   cookie: {
@@ -25,10 +24,20 @@ const gitHubStrategy = new GitHubStrategy(
     clientSecret: env.GITHUB_CLIENT_SECRET,
     callbackURL: `${env.ROOT_URL}/auth/github/callback`,
   },
-  async ({ profile }) => {
-    // Get the user data from your DB or API using the tokens and profile
-    // return User.findOrCreate({ email: profile.emails[0].value });
-    return { email: exists(profile.emails?.[0]?.value, "Missing user email") };
+  async ({ profile, context }) => {
+    const user = {
+      email: exists(profile.emails?.[0]?.value, "Missing user email"),
+    };
+
+    const env = exists(context?.cloudflare.env) as Env;
+    const db = drizzle(env.DB, { schema: dbSchema });
+
+    await db
+      .insert(users)
+      .values(user)
+      .onConflictDoNothing({ target: users.email });
+
+    return user;
   },
 );
 

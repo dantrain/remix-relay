@@ -1,9 +1,10 @@
 import { resolveArrayConnection } from "@pothos/plugin-relay";
-import { eq, relations } from "drizzle-orm";
+import { and, eq, relations } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import exists from "~/lib/exists";
 import { builder } from "../builder";
 import { Review, reviews } from "./Review";
+import { usersToMovies } from "./UserToMovie";
 
 export const movies = sqliteTable("movies", {
   id: text("id").primaryKey(),
@@ -18,6 +19,7 @@ export const movies = sqliteTable("movies", {
 
 export const moviesRelations = relations(movies, ({ many }) => ({
   reviews: many(reviews),
+  usersToMovies: many(usersToMovies),
 }));
 
 export type Movie = typeof movies.$inferSelect;
@@ -48,6 +50,22 @@ export const Movie = builder.node("Movie", {
         });
 
         return resolveArrayConnection({ args }, result);
+      },
+    }),
+    likedByViewer: t.field({
+      type: "Boolean",
+      nullable: true,
+      resolve: async ({ id }, _args, { db, user }) => {
+        if (!user) return null;
+
+        const result = await db.query.usersToMovies.findFirst({
+          where: and(
+            eq(usersToMovies.userEmail, user.email),
+            eq(usersToMovies.movieId, id),
+          ),
+        });
+
+        return result?.liked;
       },
     }),
   }),

@@ -21,8 +21,8 @@ const query = graphql`
 
 export const meta: MetaFunction = () => [{ title: "Movie App" }];
 
-export const loader = async ({ context }: LoaderFunctionArgs) =>
-  loaderQuery(context, query, {});
+export const loader = async (args: LoaderFunctionArgs) =>
+  loaderQuery(args, query, {});
 
 export const clientLoader = () => clientLoaderQuery(query, {});
 

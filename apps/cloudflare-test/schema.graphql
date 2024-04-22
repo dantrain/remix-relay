@@ -30,6 +30,7 @@ type Movie implements Node {
   criticsConsensus: String!
   id: ID!
   imgUrl: String!
+  likedByViewer: Boolean
   reviews(after: String, before: String, first: Int, last: Int): MovieReviewsConnection!
   slug: String!
   title: String!

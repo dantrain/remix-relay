@@ -26,11 +26,11 @@ export const meta = metaQuery<movieQuery>(({ data }) => [
 
 const getVars = (params: Params<string>) => ({ slug: params.slug ?? "" });
 
-export const loader = ({ context, params }: LoaderFunctionArgs) =>
-  loaderQuery<movieQuery>(context, query, getVars(params));
+export const loader = (args: LoaderFunctionArgs) =>
+  loaderQuery<movieQuery>(args, query, getVars(args.params));
 
-export const clientLoader = ({ params }: ClientLoaderFunctionArgs) =>
-  clientLoaderQuery<movieQuery>(query, getVars(params));
+export const clientLoader = (args: ClientLoaderFunctionArgs) =>
+  clientLoaderQuery<movieQuery>(query, getVars(args.params));
 
 export default function Movie() {
   const [data] = useLoaderQuery<movieQuery>(query);

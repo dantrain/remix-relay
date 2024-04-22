@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bc9ade527a781a8689a4f6078fdd7844>>
+ * @generated SignedSource<<4d7c9fdccea12f251eade530301275c0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type MovieDetailFragment$data = {
   readonly criticScore: number;
   readonly criticsConsensus: string;
   readonly imgUrl: string;
+  readonly likedByViewer: boolean | null | undefined;
   readonly title: string;
   readonly " $fragmentType": "MovieDetailFragment";
 };
@@ -63,12 +64,19 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "imgUrl",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "likedByViewer",
+      "storageKey": null
     }
   ],
   "type": "Movie",
   "abstractKey": null
 };
 
-(node as any).hash = "bec1a0a04f88dde70ad167a874a8205c";
+(node as any).hash = "dee0db011f43f33235bf0a4589b7dad4";
 
 export default node;

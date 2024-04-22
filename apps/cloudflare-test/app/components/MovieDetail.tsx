@@ -9,6 +9,7 @@ const fragment = graphql`
     audienceScore
     criticsConsensus
     imgUrl
+    likedByViewer
   }
 `;
 
@@ -29,6 +30,7 @@ export default function MovieDetail({ className, dataRef }: MovieDetailProps) {
       <div className="flex-grow py-2">
         <div className="mb-4 flex items-start justify-between gap-4">
           <h1 className="text-2xl font-bold">{title}</h1>
+          <pre>{JSON.stringify(movie.likedByViewer, null, 4)}</pre>
         </div>
         <hr className="mb-4 border-slate-700" />
         <dl className="mb-4">
