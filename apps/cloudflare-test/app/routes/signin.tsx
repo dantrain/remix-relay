@@ -1,12 +1,14 @@
 import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Form, MetaFunction, useNavigation } from "@remix-run/react";
 import { Button } from "@remix-relay/ui";
-import { authenticator } from "~/lib/auth.server";
+import { getAuthenticator } from "~/lib/auth.server";
 
 export const meta: MetaFunction = () => [{ title: "Sign in - Movie App" }];
 
-export async function loader({ request }: LoaderFunctionArgs) {
-  return authenticator.isAuthenticated(request, { successRedirect: "/" });
+export async function loader({ request, context }: LoaderFunctionArgs) {
+  return getAuthenticator(context).isAuthenticated(request, {
+    successRedirect: "/",
+  });
 }
 
 export default function SignIn() {

@@ -14,17 +14,17 @@ import { Suspense, createContext } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
 import { RemixRelayProvider } from "@remix-relay/react";
 import { Button, Spinner } from "@remix-relay/ui";
-import { authenticator } from "./lib/auth.server";
+import { getAuthenticator } from "./lib/auth.server";
 import { getCurrentEnvironment } from "./lib/relay-environment";
 import { User } from "./schema/types/User";
 import "./tailwind.css";
 
-export async function loader({ request }: LoaderFunctionArgs) {
-  return authenticator.isAuthenticated(request);
+export async function loader({ request, context }: LoaderFunctionArgs) {
+  return getAuthenticator(context).isAuthenticated(request);
 }
 
-export async function action({ request }: ActionFunctionArgs) {
-  await authenticator.logout(request, { redirectTo: "/signin" });
+export async function action({ request, context }: ActionFunctionArgs) {
+  await getAuthenticator(context).logout(request, { redirectTo: "/signin" });
 }
 
 export const UserContext = createContext<User | null>(null);

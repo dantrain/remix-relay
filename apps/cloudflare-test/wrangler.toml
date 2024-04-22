@@ -13,7 +13,7 @@ database_name = "DB"
 compatibility_date = "2024-04-13"
 
 [env.production.vars]
-ROOT_URL = "https://cloudflare-test-1c6.pages.dev/"
+ROOT_URL = "https://cloudflare-test-1c6.pages.dev"
 GITHUB_CLIENT_ID = "6ebdc16071f2b606e701"
 
 [[env.production.d1_databases]]

@@ -1,48 +1,66 @@
-import { createCookieSessionStorage } from "@remix-run/cloudflare";
+import {
+  AppLoadContext,
+  createCookieSessionStorage,
+} from "@remix-run/cloudflare";
 import { drizzle } from "drizzle-orm/d1";
 import { Authenticator } from "remix-auth";
 import { GitHubStrategy } from "remix-auth-github";
+import { z } from "zod";
 import * as dbSchema from "~/schema/db-schema";
 import { User, users } from "~/schema/types/User";
-import { env } from "./env.server";
 import exists from "./exists";
 
-const sessionStorage = createCookieSessionStorage({
-  cookie: {
-    name: "_session", // use any name you want here
-    sameSite: "lax", // this helps with CSRF
-    path: "/", // remember to add this so the cookie will work in all routes
-    httpOnly: true, // for security reasons, make this cookie http only
-    secrets: env.COOKIE_SECRETS.split(","),
-    secure: process.env.NODE_ENV === "production", // enable this in prod only
-  },
+const envSchema = z.object({
+  ROOT_URL: z.string().url(),
+  COOKIE_SECRETS: z.string().min(1),
+  GITHUB_CLIENT_ID: z.string().min(1),
+  GITHUB_CLIENT_SECRET: z.string().min(1),
 });
 
-const gitHubStrategy = new GitHubStrategy(
-  {
-    clientID: env.GITHUB_CLIENT_ID,
-    clientSecret: env.GITHUB_CLIENT_SECRET,
-    callbackURL: `${env.ROOT_URL}/auth/github/callback`,
-  },
-  async ({ profile, context }) => {
-    const user = {
-      email: exists(profile.emails?.[0]?.value, "Missing user email"),
-    };
+export function getAuthenticator(context: AppLoadContext) {
+  const env = envSchema.parse(
+    process.env.NODE_ENV === "development"
+      ? process.env
+      : context.cloudflare.env,
+  );
 
-    const env = exists(context?.cloudflare.env) as Env;
-    const db = drizzle(env.DB, { schema: dbSchema });
+  const sessionStorage = createCookieSessionStorage({
+    cookie: {
+      name: "_session", // use any name you want here
+      sameSite: "lax", // this helps with CSRF
+      path: "/", // remember to add this so the cookie will work in all routes
+      httpOnly: true, // for security reasons, make this cookie http only
+      secrets: env.COOKIE_SECRETS.split(","),
+      secure: process.env.NODE_ENV === "production", // enable this in prod only
+    },
+  });
 
-    await db
-      .insert(users)
-      .values(user)
-      .onConflictDoNothing({ target: users.email });
+  const gitHubStrategy = new GitHubStrategy(
+    {
+      clientID: env.GITHUB_CLIENT_ID,
+      clientSecret: env.GITHUB_CLIENT_SECRET,
+      callbackURL: `${env.ROOT_URL}/auth/github/callback`,
+    },
+    async ({ profile, context }) => {
+      const user = {
+        email: exists(profile.emails?.[0]?.value, "Missing user email"),
+      };
 
-    return user;
-  },
-);
+      const env = exists(context?.cloudflare.env) as Env;
+      const db = drizzle(env.DB, { schema: dbSchema });
 
-const authenticator = new Authenticator<User>(sessionStorage);
+      await db
+        .insert(users)
+        .values(user)
+        .onConflictDoNothing({ target: users.email });
 
-authenticator.use(gitHubStrategy);
+      return user;
+    },
+  );
 
-export { authenticator };
+  const authenticator = new Authenticator<User>(sessionStorage);
+
+  authenticator.use(gitHubStrategy);
+
+  return authenticator;
+}

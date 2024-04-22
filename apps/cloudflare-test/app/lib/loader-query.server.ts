@@ -6,16 +6,16 @@ import { getLoaderQuery } from "@remix-relay/server";
 import { PothosContext } from "~/schema/builder";
 import * as dbSchema from "~/schema/db-schema";
 import { schema } from "~/schema/graphql-schema";
-import { authenticator } from "./auth.server";
+import { getAuthenticator } from "./auth.server";
 
 export const loaderQuery = async <TQuery extends OperationType>(
-  loaderFunctionArgs: LoaderFunctionArgs,
+  { request, context }: LoaderFunctionArgs,
   ...rest: Parameters<ReturnType<typeof getLoaderQuery>>
 ) => {
-  const env = loaderFunctionArgs.context.cloudflare.env as Env;
+  const env = context.cloudflare.env as Env;
   const db = drizzle(env.DB, { schema: dbSchema });
 
-  const user = await authenticator.isAuthenticated(loaderFunctionArgs.request);
+  const user = await getAuthenticator(context).isAuthenticated(request);
 
   const loaderQuery = getLoaderQuery<PothosContext>(schema, json, defer, {
     db,
