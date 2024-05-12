@@ -17,6 +17,9 @@ export default defineConfig(({ command }) => ({
     remix({
       ignoredRouteFiles: ["**/.*"],
       serverBuildFile: "remix.js",
+      future: {
+        unstable_singleFetch: true,
+      },
     }),
   ],
   ssr: command === "build" ? { noExternal: /(relay)/ } : {},
