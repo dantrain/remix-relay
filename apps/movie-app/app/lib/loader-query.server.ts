@@ -1,5 +1,4 @@
 import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
-import { defer, json } from "@remix-run/cloudflare";
 import { drizzle } from "drizzle-orm/d1";
 import { OperationType } from "relay-runtime";
 import { getLoaderQuery } from "@remix-relay/server";
@@ -17,10 +16,7 @@ export const loaderQuery = async <TQuery extends OperationType>(
 
   const user = await getAuthenticator(context).isAuthenticated(request);
 
-  const loaderQuery = getLoaderQuery<PothosContext>(schema, json, defer, {
-    db,
-    user,
-  });
+  const loaderQuery = getLoaderQuery<PothosContext>(schema, { db, user });
 
   return loaderQuery<TQuery>(...rest);
 };

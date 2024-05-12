@@ -14,7 +14,11 @@ export default defineConfig({
       dependencies: ["react-relay"],
     }),
     relay,
-    remix(),
+    remix({
+      future: {
+        unstable_singleFetch: true,
+      },
+    }),
     tsconfigPaths(),
   ],
 });
