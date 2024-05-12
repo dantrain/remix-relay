@@ -4,6 +4,8 @@ import ValidationPlugin from "@pothos/plugin-validation";
 import { PothosContext } from "server";
 import type { Objects } from "./types";
 
+SchemaBuilder.allowPluginReRegistration = true;
+
 const builder = new SchemaBuilder<{
   Objects: Objects;
   Context: PothosContext;
