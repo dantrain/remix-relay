@@ -44,3 +44,4 @@ vite.config.ts.*
 
 # Cloudflare
 .wrangler
+.dev.vars
