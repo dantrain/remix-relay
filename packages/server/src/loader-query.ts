@@ -1,9 +1,4 @@
 import { execute } from "@graphql-tools/executor";
-import type { TypedDeferredData, TypedResponse } from "@remix-run/node";
-import type {
-  DeferFunction,
-  JsonFunction,
-} from "@remix-run/server-runtime/dist/responses";
 import {
   FormattedExecutionResult,
   GraphQLSchema,
@@ -36,22 +31,20 @@ export type SerializablePreloadedQuery<
 
 export function getLoaderQuery<TContext>(
   schema: GraphQLSchema,
-  json: JsonFunction,
-  defer: DeferFunction,
   context?: TContext,
 ) {
   return async <TQuery extends OperationType>(
     node: GraphQLTaggedNode,
     variables: VariablesOf<TQuery>,
   ): Promise<
-    | TypedResponse<{
+    | {
         preloadedQuery: SerializablePreloadedQuery<
           TQuery,
           FormattedExecutionResult<TQuery["response"], PayloadExtensions>
         >;
         deferredQueries: null;
-      }>
-    | TypedDeferredData<{
+      }
+    | {
         preloadedQuery: SerializablePreloadedQuery<
           TQuery,
           InitialIncrementalExecutionResult<
@@ -68,7 +61,7 @@ export function getLoaderQuery<TContext>(
             >
           >[]
         >;
-      }>
+      }
   > => {
     invariant(isConcreteRequest(node), "Expected a ConcreteRequest");
 
@@ -95,7 +88,7 @@ export function getLoaderQuery<TContext>(
         response: result,
       };
 
-      return json({ preloadedQuery, deferredQueries: null });
+      return { preloadedQuery, deferredQueries: null };
     }
 
     const preloadedQuery = {
@@ -121,6 +114,6 @@ export function getLoaderQuery<TContext>(
       }));
     })();
 
-    return defer({ preloadedQuery, deferredQueries });
+    return { preloadedQuery, deferredQueries };
   };
 }
