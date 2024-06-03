@@ -1,8 +1,6 @@
 {
-  "version": "5",
+  "version": "6",
   "dialect": "sqlite",
-  "id": "52f17a6d-d911-4f34-af7c-16dad9d5026c",
-  "prevId": "f7a39ccf-3ee0-48ac-b44c-826d92d4004e",
   "tables": {
     "movies": {
       "name": "movies",
@@ -136,15 +134,15 @@
         "reviews_movie_id_movies_id_fk": {
           "name": "reviews_movie_id_movies_id_fk",
           "tableFrom": "reviews",
-          "tableTo": "movies",
           "columnsFrom": [
             "movie_id"
           ],
+          "tableTo": "movies",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -196,28 +194,28 @@
         "users_to_movies_user_email_users_email_fk": {
           "name": "users_to_movies_user_email_users_email_fk",
           "tableFrom": "users_to_movies",
-          "tableTo": "users",
           "columnsFrom": [
             "user_email"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "email"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "users_to_movies_movie_id_movies_id_fk": {
           "name": "users_to_movies_movie_id_movies_id_fk",
           "tableFrom": "users_to_movies",
-          "tableTo": "movies",
           "columnsFrom": [
             "movie_id"
           ],
+          "tableTo": "movies",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -234,8 +232,9 @@
   },
   "enums": {},
   "_meta": {
-    "schemas": {},
     "tables": {},
     "columns": {}
-  }
+  },
+  "id": "52f17a6d-d911-4f34-af7c-16dad9d5026c",
+  "prevId": "f7a39ccf-3ee0-48ac-b44c-826d92d4004e"
 }

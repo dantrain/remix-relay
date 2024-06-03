@@ -1,8 +1,6 @@
 {
-  "version": "5",
+  "version": "6",
   "dialect": "sqlite",
-  "id": "f7a39ccf-3ee0-48ac-b44c-826d92d4004e",
-  "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "movies": {
       "name": "movies",
@@ -136,15 +134,15 @@
         "reviews_movie_id_movies_id_fk": {
           "name": "reviews_movie_id_movies_id_fk",
           "tableFrom": "reviews",
-          "tableTo": "movies",
           "columnsFrom": [
             "movie_id"
           ],
+          "tableTo": "movies",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -153,8 +151,9 @@
   },
   "enums": {},
   "_meta": {
-    "schemas": {},
     "tables": {},
     "columns": {}
-  }
+  },
+  "id": "f7a39ccf-3ee0-48ac-b44c-826d92d4004e",
+  "prevId": "00000000-0000-0000-0000-000000000000"
 }

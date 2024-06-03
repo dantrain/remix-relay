@@ -1,16 +1,20 @@
 #!/usr/bin/env zx
+
 /* eslint-disable turbo/no-undeclared-env-vars */
-import { $, question, fs, path } from "zx";
-import { snakeCase } from "lodash-es";
 import { format } from "date-fns";
+import { snakeCase } from "lodash-es";
 import invariant from "tiny-invariant";
+import { $, question, fs, path } from "zx";
 
 process.env.FORCE_COLOR = "1";
 
 const name = snakeCase(await question("Migration name: "));
 const newFilename = `${format(new Date(), "yyyyMMddHHmmss")}_${name}`;
 
-const result = await $`drizzle-kit generate:sqlite`.pipe(process.stdout);
+const result = await $`drizzle-kit generate --name ${name}`.pipe(
+  process.stdout,
+);
+
 const lastLine = result.stdout.split("\n").filter(Boolean).pop();
 
 if (lastLine?.includes("Your SQL migration file")) {
