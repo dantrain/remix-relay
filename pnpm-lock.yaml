@@ -401,6 +401,184 @@ importers:
         specifier: ^8.1.2
         version: 8.1.2
 
+  apps/trellix-relay:
+    dependencies:
+      '@apollo/server':
+        specifier: ^4.10.4
+        version: 4.10.4(graphql@17.0.0-alpha.2)
+      '@paralleldrive/cuid2':
+        specifier: ^2.2.2
+        version: 2.2.2
+      '@pothos/core':
+        specifier: ^3.41.1
+        version: 3.41.1(graphql@17.0.0-alpha.2)
+      '@pothos/plugin-relay':
+        specifier: ^3.46.0
+        version: 3.46.0(@pothos/core@3.41.1(graphql@17.0.0-alpha.2))(graphql@17.0.0-alpha.2)
+      '@pothos/plugin-validation':
+        specifier: ^3.10.1
+        version: 3.10.1(@pothos/core@3.41.1(graphql@17.0.0-alpha.2))(graphql@17.0.0-alpha.2)(zod@3.23.8)
+      '@remix-relay/react':
+        specifier: workspace:*
+        version: link:../../packages/react
+      '@remix-relay/server':
+        specifier: workspace:*
+        version: link:../../packages/server
+      '@remix-relay/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      '@remix-run/express':
+        specifier: ^2.9.2
+        version: 2.9.2(express@4.19.2)(typescript@5.4.5)
+      '@remix-run/node':
+        specifier: ^2.9.2
+        version: 2.9.2(typescript@5.4.5)
+      '@remix-run/react':
+        specifier: ^2.9.2
+        version: 2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5)
+      '@remix-run/serve':
+        specifier: ^2.9.2
+        version: 2.9.2(typescript@5.4.5)
+      '@supabase/ssr':
+        specifier: ^0.3.0
+        version: 0.3.0(@supabase/supabase-js@2.39.7)
+      '@supabase/supabase-js':
+        specifier: 2.39.7
+        version: 2.39.7
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.0
+      cookie-parser:
+        specifier: ^1.4.6
+        version: 1.4.6
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.5
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
+      express:
+        specifier: ^4.19.2
+        version: 4.19.2
+      express-async-errors:
+        specifier: ^3.1.1
+        version: 3.1.1(express@4.19.2)
+      graphql:
+        specifier: 17.0.0-alpha.2
+        version: 17.0.0-alpha.2
+      graphql-relay:
+        specifier: ^0.10.1
+        version: 0.10.1(graphql@17.0.0-alpha.2)
+      isbot:
+        specifier: ^5.1.8
+        version: 5.1.8
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      meros:
+        specifier: ^1.3.0
+        version: 1.3.0(@types/node@20.14.0)
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      react-relay:
+        specifier: ^16.2.0
+        version: 16.2.0(react@18.3.1)
+      relay-compiler:
+        specifier: ^16.2.0
+        version: 16.2.0
+      relay-runtime:
+        specifier: ^16.2.0
+        version: 16.2.0
+      tiny-invariant:
+        specifier: ^1.3.3
+        version: 1.3.3
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+    devDependencies:
+      '@ast-grep/napi':
+        specifier: ^0.22.5
+        version: 0.22.5
+      '@remix-relay/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@remix-relay/tailwind-config':
+        specifier: workspace:*
+        version: link:../../packages/tailwind-config
+      '@remix-relay/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      '@remix-run/dev':
+        specifier: ^2.9.2
+        version: 2.9.2(@remix-run/react@2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5))(@remix-run/serve@2.9.2(typescript@5.4.5))(@types/node@20.14.0)(ts-node@10.9.2(@types/node@20.14.0)(typescript@5.4.5))(typescript@5.4.5)(vite@5.2.12(@types/node@20.14.0))(wrangler@3.58.0(@cloudflare/workers-types@4.20240529.0))
+      '@types/cookie-parser':
+        specifier: ^1.4.7
+        version: 1.4.7
+      '@types/cors':
+        specifier: ^2.8.17
+        version: 2.8.17
+      '@types/eslint':
+        specifier: ^8.56.10
+        version: 8.56.10
+      '@types/express':
+        specifier: ^4.17.21
+        version: 4.17.21
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
+      '@types/node':
+        specifier: ^20.14.0
+        version: 20.14.0
+      '@types/react':
+        specifier: ^18.3.3
+        version: 18.3.3
+      '@types/react-dom':
+        specifier: ^18.3.0
+        version: 18.3.0
+      '@types/react-relay':
+        specifier: ^16.0.6
+        version: 16.0.6
+      '@types/relay-runtime':
+        specifier: ^14.1.24
+        version: 14.1.24
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      supabase:
+        specifier: ^1.172.2
+        version: 1.172.2
+      tailwindcss:
+        specifier: ^3.4.3
+        version: 3.4.3(ts-node@10.9.2(typescript@5.4.5))
+      tsup:
+        specifier: ^8.1.0
+        version: 8.1.0(postcss@8.4.38)(ts-node@10.9.2(@types/node@20.14.0)(typescript@5.4.5))(typescript@5.4.5)
+      tsx:
+        specifier: ^4.11.2
+        version: 4.11.2
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+      vite:
+        specifier: ^5.2.12
+        version: 5.2.12(@types/node@20.14.0)
+      vite-plugin-cjs-interop:
+        specifier: ^2.1.0
+        version: 2.1.0
+      vite-plugin-relay:
+        specifier: ^2.1.0
+        version: 2.1.0(babel-plugin-relay@16.2.0)(vite@5.2.12(@types/node@20.14.0))
+      vite-tsconfig-paths:
+        specifier: ^4.3.2
+        version: 4.3.2(typescript@5.4.5)(vite@5.2.12(@types/node@20.14.0))
+      zx:
+        specifier: ^8.1.2
+        version: 8.1.2
+
   packages/eslint-config:
     devDependencies:
       '@typescript-eslint/eslint-plugin':
@@ -8122,7 +8300,7 @@ snapshots:
       '@babel/helper-split-export-declaration': 7.24.5
       '@babel/parser': 7.24.5
       '@babel/types': 7.24.5
-      debug: 4.3.4
+      debug: 4.3.5
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -13287,7 +13465,7 @@ snapshots:
 
   media-query-parser@2.0.2:
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.24.6
 
   media-typer@0.3.0: {}
 
@@ -14416,7 +14594,7 @@ snapshots:
 
   relay-runtime@16.2.0:
     dependencies:
-      '@babel/runtime': 7.24.4
+      '@babel/runtime': 7.24.6
       fbjs: 3.0.5
       invariant: 2.2.4
     transitivePeerDependencies:
