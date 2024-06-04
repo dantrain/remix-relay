@@ -5,6 +5,8 @@ import "dotenv/config";
 import { throttle } from "lodash-es";
 import { $ } from "zx";
 
+process.env.FORCE_COLOR = "1";
+
 const exit = throttle(() => process.exit(0), 5 * 60 * 1000);
 
 process.on("SIGTERM", exit);

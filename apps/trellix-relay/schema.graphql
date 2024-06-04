@@ -23,6 +23,12 @@ directive @stream(
   label: String
 ) on FIELD
 
+type Board implements Node {
+  createdAt: String!
+  id: ID!
+  name: String!
+}
+
 interface Node {
   id: ID!
 }
