@@ -3,7 +3,7 @@ import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { createRequestHandler } from "@remix-run/express";
 import { installGlobals } from "@remix-run/node";
-import { SupabaseClient, User } from "@supabase/supabase-js";
+import { Session, SupabaseClient, User } from "@supabase/supabase-js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
@@ -12,16 +12,18 @@ import { createServer } from "http";
 import path from "path";
 import invariant from "tiny-invariant";
 import { createSupabaseClient } from "./create-supabase-client";
+import { getDb } from "./drizzle-client";
 import { env } from "./env";
 import { schema } from "./graphql-schema";
 
 export type RequestContext = {
   supabase: SupabaseClient;
-  user?: User;
+  session?: Session;
 };
 
 export type PothosContext = {
   supabase: SupabaseClient;
+  db: ReturnType<typeof getDb>;
   user: User;
   tabId?: string;
 };
@@ -75,9 +77,7 @@ app.get("/health", (_req, res) => {
   res.status(200).send("OK");
 });
 
-const apolloServer = new ApolloServer<PothosContext>({
-  schema,
-});
+const apolloServer = new ApolloServer<PothosContext>({ schema });
 
 await apolloServer.start();
 
@@ -89,7 +89,7 @@ app.use(async (req, res, next) => {
   req.context = req.context || {};
 
   req.context.supabase = supabase;
-  req.context.user = data.session?.user;
+  req.context.session = data.session ?? undefined;
 
   next();
 });
@@ -112,7 +112,7 @@ app.get("/auth/signout", async (req, res) => {
 });
 
 app.use((req, res, next) => {
-  if (!req.context.user) {
+  if (!req.context.session?.user) {
     if (req.path === "/signin") {
       return next();
     } else if (req.path === "/graphql") {
@@ -131,10 +131,15 @@ app.use(
   express.json(),
   expressMiddleware(apolloServer, {
     context: async ({ req }) => {
-      const { user, supabase } = req.context;
-      invariant(user);
+      const { session, supabase } = req.context;
+      invariant(session?.user, "Missing user");
 
-      return { user, supabase, tabId: req.body.extensions.tabId };
+      return {
+        supabase,
+        db: session && getDb(session),
+        user: session.user,
+        tabId: req.body.extensions.tabId,
+      };
     },
   }),
 );
@@ -149,13 +154,14 @@ app.all(
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         )) as any),
     getLoadContext(req) {
-      const { user, supabase } = req.context;
+      const { session, supabase } = req.context;
 
       return {
         env,
         pothosContext: {
-          user,
           supabase,
+          db: session && getDb(session),
+          user: session?.user,
         },
       };
     },

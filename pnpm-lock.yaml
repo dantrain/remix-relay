@@ -164,7 +164,7 @@ importers:
         version: link:../../packages/typescript-config
       '@remix-run/dev':
         specifier: ^2.9.2
-        version: 2.9.2(@remix-run/react@2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5))(@remix-run/serve@2.9.2(typescript@5.4.5))(@types/node@20.14.0)(ts-node@10.9.2(@types/node@20.14.0)(typescript@5.4.5))(typescript@5.4.5)(vite@5.2.12(@types/node@20.14.0))(wrangler@3.58.0(@cloudflare/workers-types@4.20240529.0))
+        version: 2.9.2(@remix-run/react@2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5))(@remix-run/serve@2.9.2(typescript@5.4.5))(@types/node@20.14.0)(ts-node@10.9.2(@types/node@20.14.0)(typescript@5.4.5))(typescript@5.4.5)(vite@5.2.12(@types/node@20.14.0))(wrangler@3.58.0)
       '@types/cookie-parser':
         specifier: ^1.4.7
         version: 1.4.7
@@ -272,7 +272,7 @@ importers:
         version: 0.7.0
       drizzle-orm:
         specifier: ^0.31.0
-        version: 0.31.0(@cloudflare/workers-types@4.20240529.0)(@types/better-sqlite3@7.6.10)(@types/react@18.3.3)(better-sqlite3@11.0.0)(react@18.3.1)
+        version: 0.31.0(@cloudflare/workers-types@4.20240529.0)(@types/better-sqlite3@7.6.10)(@types/react@18.3.3)(better-sqlite3@11.0.0)(postgres@3.4.4)(react@18.3.1)
       graphql:
         specifier: 17.0.0-alpha.2
         version: 17.0.0-alpha.2
@@ -339,7 +339,7 @@ importers:
         version: link:../../packages/typescript-config
       '@remix-run/dev':
         specifier: ^2.9.2
-        version: 2.9.2(@remix-run/react@2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5))(@remix-run/serve@2.9.2(typescript@5.4.5))(@types/node@20.14.0)(ts-node@10.9.2(@types/node@20.14.0)(typescript@5.4.5))(typescript@5.4.5)(vite@5.2.12(@types/node@20.14.0))(wrangler@3.58.0(@cloudflare/workers-types@4.20240529.0))
+        version: 2.9.2(@remix-run/react@2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5))(@remix-run/serve@2.9.2(typescript@5.4.5))(@types/node@20.14.0)(ts-node@10.9.2(@types/node@20.14.0)(typescript@5.4.5))(typescript@5.4.5)(vite@5.2.12(@types/node@20.14.0))(wrangler@3.58.0)
       '@types/better-sqlite3':
         specifier: ^7.6.10
         version: 7.6.10
@@ -454,6 +454,9 @@ importers:
       cors:
         specifier: ^2.8.5
         version: 2.8.5
+      drizzle-orm:
+        specifier: ^0.31.0
+        version: 0.31.0(@cloudflare/workers-types@4.20240529.0)(@types/better-sqlite3@7.6.10)(@types/react@18.3.3)(better-sqlite3@11.0.0)(postgres@3.4.4)(react@18.3.1)
       express:
         specifier: ^4.19.2
         version: 4.19.2
@@ -469,12 +472,18 @@ importers:
       isbot:
         specifier: ^5.1.8
         version: 5.1.8
+      jwt-decode:
+        specifier: ^4.0.0
+        version: 4.0.0
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       meros:
         specifier: ^1.3.0
         version: 1.3.0(@types/node@20.14.0)
+      postgres:
+        specifier: ^3.4.4
+        version: 3.4.4
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -511,7 +520,7 @@ importers:
         version: link:../../packages/typescript-config
       '@remix-run/dev':
         specifier: ^2.9.2
-        version: 2.9.2(@remix-run/react@2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5))(@remix-run/serve@2.9.2(typescript@5.4.5))(@types/node@20.14.0)(ts-node@10.9.2(@types/node@20.14.0)(typescript@5.4.5))(typescript@5.4.5)(vite@5.2.12(@types/node@20.14.0))(wrangler@3.58.0(@cloudflare/workers-types@4.20240529.0))
+        version: 2.9.2(@remix-run/react@2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5))(@remix-run/serve@2.9.2(typescript@5.4.5))(@types/node@20.14.0)(ts-node@10.9.2(@types/node@20.14.0)(typescript@5.4.5))(typescript@5.4.5)(vite@5.2.12(@types/node@20.14.0))(wrangler@3.58.0)
       '@types/cookie-parser':
         specifier: ^1.4.7
         version: 1.4.7
@@ -545,6 +554,9 @@ importers:
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
+      drizzle-kit:
+        specifier: ^0.22.1
+        version: 0.22.1
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -5518,6 +5530,10 @@ packages:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
     engines: {node: '>=4.0'}
 
+  jwt-decode@4.0.0:
+    resolution: {integrity: sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA==}
+    engines: {node: '>=18'}
+
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
@@ -6351,6 +6367,10 @@ packages:
   postcss@8.4.38:
     resolution: {integrity: sha512-Wglpdk03BSfXkHoQa3b/oulrotAkwrlLDRSOb9D0bN86FdRyE9lppSp33aHNPgBa0JKCoB+drFLZkQoRRYae5A==}
     engines: {node: ^10 || ^12 || >=14}
+
+  postgres@3.4.4:
+    resolution: {integrity: sha512-IbyN+9KslkqcXa8AO9fxpk97PA4pzewvpi2B3Dwy9u4zpV32QicaEdgmF3eSQUzdRk7ttDHQejNgAEr4XoeH4A==}
+    engines: {node: '>=12'}
 
   prebuild-install@7.1.2:
     resolution: {integrity: sha512-UnNke3IQb6sgarcZIDU3gbMeTp/9SSU1DAIkil7PrqG1vZlBtY5msYccSKSHDqa3hNg436IXK+SNImReuA1wEQ==}
@@ -10046,7 +10066,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.4.5
 
-  '@remix-run/dev@2.9.2(@remix-run/react@2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5))(@remix-run/serve@2.9.2(typescript@5.4.5))(@types/node@20.14.0)(ts-node@10.9.2(@types/node@20.14.0)(typescript@5.4.5))(typescript@5.4.5)(vite@5.2.12(@types/node@20.14.0))(wrangler@3.58.0(@cloudflare/workers-types@4.20240529.0))':
+  '@remix-run/dev@2.9.2(@remix-run/react@2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5))(@remix-run/serve@2.9.2(typescript@5.4.5))(@types/node@20.14.0)(ts-node@10.9.2(@types/node@20.14.0)(typescript@5.4.5))(typescript@5.4.5)(vite@5.2.12(@types/node@20.14.0))(wrangler@3.58.0)':
     dependencies:
       '@babel/core': 7.24.5
       '@babel/generator': 7.24.5
@@ -11571,12 +11591,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.31.0(@cloudflare/workers-types@4.20240529.0)(@types/better-sqlite3@7.6.10)(@types/react@18.3.3)(better-sqlite3@11.0.0)(react@18.3.1):
+  drizzle-orm@0.31.0(@cloudflare/workers-types@4.20240529.0)(@types/better-sqlite3@7.6.10)(@types/react@18.3.3)(better-sqlite3@11.0.0)(postgres@3.4.4)(react@18.3.1):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20240529.0
       '@types/better-sqlite3': 7.6.10
       '@types/react': 18.3.3
       better-sqlite3: 11.0.0
+      postgres: 3.4.4
       react: 18.3.1
 
   dset@3.1.3: {}
@@ -13251,6 +13272,8 @@ snapshots:
       object.assign: 4.1.4
       object.values: 1.1.7
 
+  jwt-decode@4.0.0: {}
+
   keyv@4.5.4:
     dependencies:
       json-buffer: 3.0.1
@@ -14274,6 +14297,8 @@ snapshots:
       nanoid: 3.3.7
       picocolors: 1.0.0
       source-map-js: 1.2.0
+
+  postgres@3.4.4: {}
 
   prebuild-install@7.1.2:
     dependencies:
