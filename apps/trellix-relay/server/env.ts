@@ -1,4 +1,3 @@
-import "dotenv/config";
 import { z } from "zod";
 
 const envSchema = z.object({
@@ -8,7 +7,7 @@ const envSchema = z.object({
     .default("development"),
   SUPABASE_URL: z.string().url(),
   SUPABASE_ANON_KEY: z.string().min(1),
-  SUPABASE_SERVICE_ROLE: z.string().min(1),
+  SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
 });
 
 export type Env = z.infer<typeof envSchema>;

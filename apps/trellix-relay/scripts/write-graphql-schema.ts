@@ -1,6 +1,6 @@
 import { writeFileSync } from "fs";
 import { lexicographicSortSchema, printSchema } from "graphql";
-import { schema } from "../server/graphql/schema.js";
+import { schema } from "../server/graphql-schema.js";
 
 const schemaAsString = printSchema(lexicographicSortSchema(schema));
 

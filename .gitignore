@@ -29,7 +29,6 @@ dist
 .cache
 public/build
 
-
 # Debug
 npm-debug.log*
 yarn-debug.log*
@@ -45,3 +44,7 @@ vite.config.ts.*
 # Cloudflare
 .wrangler
 .dev.vars
+
+# Supabase
+.branches
+.temp

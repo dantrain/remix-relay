@@ -10,6 +10,7 @@
     "generate-types": "supabase gen types typescript --project-id gusxqhuqpahbwohiioms > server/__generated__/database.types.ts",
     "lint": "eslint . --max-warnings 0 --ignore-path ../../.gitignore",
     "start": "NODE_ENV=production node ./build/server/index.js",
+    "stop": "zx ./scripts/stop.mjs",
     "typecheck": "tsc --noEmit",
     "write-graphql-schema": "tsx ./scripts/write-graphql-schema.ts"
   },
@@ -31,7 +32,6 @@
     "class-variance-authority": "^0.7.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
     "graphql": "17.0.0-alpha.2",
@@ -63,6 +63,7 @@
     "@types/react-dom": "^18.3.0",
     "@types/react-relay": "^16.0.6",
     "@types/relay-runtime": "^14.1.24",
+    "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "supabase": "^1.172.2",
     "tailwindcss": "^3.4.3",

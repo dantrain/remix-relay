@@ -13,7 +13,7 @@ import path from "path";
 import invariant from "tiny-invariant";
 import { createSupabaseClient } from "./create-supabase-client";
 import { env } from "./env";
-import { schema } from "./graphql/schema";
+import { schema } from "./graphql-schema";
 
 export type RequestContext = {
   supabase: SupabaseClient;
