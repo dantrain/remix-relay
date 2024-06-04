@@ -10,6 +10,14 @@ const query = graphql`
   query IndexQuery {
     viewer {
       id
+      boardConnection {
+        edges {
+          node {
+            id
+            name
+          }
+        }
+      }
     }
   }
 `;
@@ -34,7 +42,9 @@ export default function Index() {
           </a>
         </Button>
       </div>
-      <pre>{JSON.stringify(data, null, 4)}</pre>
+      <pre className="rounded-md bg-slate-900 p-4 text-sm text-slate-200">
+        {JSON.stringify(data, null, 2)}
+      </pre>
     </main>
   );
 }

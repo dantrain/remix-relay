@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<72bcb71ffd189479d05cd14364fd100b>>
+ * @generated SignedSource<<e1a8a5fc136130ecd06935907c495385>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,14 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 export type IndexQuery$variables = Record<PropertyKey, never>;
 export type IndexQuery$data = {
   readonly viewer: {
+    readonly boardConnection: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly id: string;
+          readonly name: string;
+        };
+      }>;
+    };
     readonly id: string;
   };
 };
@@ -21,7 +29,14 @@ export type IndexQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v1 = [
   {
     "alias": null,
     "args": null,
@@ -30,11 +45,46 @@ var v0 = [
     "name": "viewer",
     "plural": false,
     "selections": [
+      (v0/*: any*/),
       {
         "alias": null,
         "args": null,
-        "kind": "ScalarField",
-        "name": "id",
+        "concreteType": "UserBoardConnection",
+        "kind": "LinkedField",
+        "name": "boardConnection",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "UserBoardConnectionEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Board",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v0/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "name",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
         "storageKey": null
       }
     ],
@@ -47,7 +97,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "IndexQuery",
-    "selections": (v0/*: any*/),
+    "selections": (v1/*: any*/),
     "type": "Query",
     "abstractKey": null
   },
@@ -56,19 +106,19 @@ return {
     "argumentDefinitions": [],
     "kind": "Operation",
     "name": "IndexQuery",
-    "selections": (v0/*: any*/)
+    "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "bf00324e495d10d8bcd8d9a0f8c0bd0d",
+    "cacheID": "7f6efe5e2cdbcf32b70ceba024f98399",
     "id": null,
     "metadata": {},
     "name": "IndexQuery",
     "operationKind": "query",
-    "text": "query IndexQuery {\n  viewer {\n    id\n  }\n}\n"
+    "text": "query IndexQuery {\n  viewer {\n    id\n    boardConnection {\n      edges {\n        node {\n          id\n          name\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "4ed819ed9af5dd201c399aa24dffaba4";
+(node as any).hash = "3baac20cb1cce463854d9a32b06747c7";
 
 export default node;

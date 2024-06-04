@@ -4,6 +4,6 @@
       "mode": "auto"
     }
   ],
-  "relay.rootDirectory": "apps/counter-app",
+  "relay.rootDirectory": "apps/trellix-relay",
   "relay.pathToLocateCommand": "./scripts/locate-graphql.sh"
 }

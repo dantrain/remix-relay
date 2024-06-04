@@ -1,7 +1,7 @@
 #!/usr/bin/env zx
 
 /* eslint-disable turbo/no-undeclared-env-vars */
-import { format } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 import { snakeCase } from "lodash-es";
 import invariant from "tiny-invariant";
 import { $, question, fs, path } from "zx";
@@ -9,7 +9,7 @@ import { $, question, fs, path } from "zx";
 process.env.FORCE_COLOR = "1";
 
 const name = snakeCase(await question("Migration name: "));
-const newFilename = `${format(new Date(), "yyyyMMddHHmmss")}_${name}`;
+const newFilename = `${formatInTimeZone(new Date(), "UTC", "yyyyMMddHHmmss")}_${name}`;
 
 const result = await $`drizzle-kit generate --name ${name}`.pipe(
   process.stdout,

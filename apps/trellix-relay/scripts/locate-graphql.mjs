@@ -1,7 +1,8 @@
 #!/usr/bin/env zx
+
 /* eslint-disable no-undef */
-import { argv, path } from "zx";
 import { ts } from "@ast-grep/napi";
+import { argv, path } from "zx";
 
 const [type, field] = argv._[0].split(".");
 
@@ -226,7 +227,7 @@ if (field && ["Query", "Mutation", "Subscription"].includes(type)) {
 const data = await new Promise((resolve, reject) => {
   ts.findInFiles(
     {
-      paths: ["./server/graphql"],
+      paths: ["./server/types"],
       matcher: { rule },
     },
     (err, result) => {

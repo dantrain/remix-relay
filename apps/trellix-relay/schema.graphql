@@ -33,6 +33,13 @@ interface Node {
   id: ID!
 }
 
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
 type Query {
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
@@ -40,5 +47,16 @@ type Query {
 }
 
 type User implements Node {
+  boardConnection(after: String, before: String, first: Int, last: Int): UserBoardConnection!
   id: ID!
+}
+
+type UserBoardConnection {
+  edges: [UserBoardConnectionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type UserBoardConnectionEdge {
+  cursor: String!
+  node: Board!
 }
