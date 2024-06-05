@@ -1,5 +1,8 @@
-import { relations } from "drizzle-orm";
+import { and, eq, relations } from "drizzle-orm";
 import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import exists from "server/lib/exists";
+import { fromGlobalId } from "server/lib/global-id";
+import { z } from "zod";
 import { builder } from "../builder";
 import { users } from "./User";
 
@@ -27,3 +30,74 @@ export const Board = builder.node("Board", {
     }),
   }),
 });
+
+builder.mutationFields((t) => ({
+  createOneBoard: t.field({
+    type: Board,
+    args: {
+      id: t.arg.id({
+        required: true,
+        validate: { schema: z.string().cuid2() },
+      }),
+      name: t.arg.string({ required: true }),
+    },
+    resolve: async (_parent, args, { db, user }) => {
+      const [board] = await db((tx) =>
+        tx
+          .insert(boards)
+          .values({
+            id: args.id.toString(),
+            name: args.name,
+            userId: user.id,
+          })
+          .returning(),
+      );
+
+      return exists(board, "Board not found");
+    },
+  }),
+  updateOneBoard: t.field({
+    type: Board,
+    args: {
+      id: t.arg.id({ required: true }),
+      name: t.arg.string({ required: true }),
+    },
+    resolve: async (_parent, args, { db, user }) => {
+      const [board] = await db((tx) =>
+        tx
+          .update(boards)
+          .set({ name: args.name })
+          .where(
+            and(
+              eq(boards.id, fromGlobalId(args.id)),
+              eq(boards.userId, user.id),
+            ),
+          )
+          .returning(),
+      );
+
+      return exists(board, "Board not found");
+    },
+  }),
+  deleteOneBoard: t.field({
+    type: Board,
+    args: {
+      id: t.arg.id({ required: true }),
+    },
+    resolve: async (_parent, args, { db, user }) => {
+      const [board] = await db((tx) =>
+        tx
+          .delete(boards)
+          .where(
+            and(
+              eq(boards.id, fromGlobalId(args.id)),
+              eq(boards.userId, user.id),
+            ),
+          )
+          .returning(),
+      );
+
+      return exists(board, "Board not found");
+    },
+  }),
+}));

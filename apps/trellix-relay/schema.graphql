@@ -29,6 +29,12 @@ type Board implements Node {
   name: String!
 }
 
+type Mutation {
+  createOneBoard(id: ID!, name: String!): Board!
+  deleteOneBoard(id: ID!): Board!
+  updateOneBoard(id: ID!, name: String!): Board!
+}
+
 interface Node {
   id: ID!
 }

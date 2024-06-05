@@ -25,7 +25,6 @@ export type PothosContext = {
   supabase: SupabaseClient;
   db: ReturnType<typeof getDb>;
   user: User;
-  tabId?: string;
 };
 
 installGlobals();
@@ -138,7 +137,6 @@ app.use(
         supabase,
         db: session && getDb(session),
         user: session.user,
-        tabId: req.body.extensions.tabId,
       };
     },
   }),
