@@ -43,6 +43,9 @@ module.exports = {
           version: "detect",
         },
       },
+      rules: {
+        "react/no-unescaped-entities": ["error", { forbid: [">", "}"] }],
+      },
     },
   ],
 };

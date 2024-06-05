@@ -8,6 +8,7 @@ import { twMerge } from "tailwind-merge";
 
 type ButtonProps = {
   className?: string;
+  color?: "slate" | "sky";
   children: ReactNode;
   disabled?: boolean;
   onClick?: () => void;
@@ -15,7 +16,15 @@ type ButtonProps = {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { asChild, className, disabled = false, onClick, children, ...rest },
+    {
+      asChild,
+      className,
+      color = "slate",
+      disabled = false,
+      onClick,
+      children,
+      ...rest
+    },
     forwardedRef,
   ) => {
     const ref = useObjectRef(forwardedRef);
@@ -32,39 +41,63 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={twMerge(
           cva(
-            `inline-block cursor-pointer select-none rounded-md border
-            border-slate-700 bg-slate-900 px-2 py-1 text-left transition-colors
-            focus:outline-none sm:transition-none`,
+            `inline-block cursor-pointer select-none rounded-md px-2 py-1
+            text-left transition-colors focus:outline-none sm:transition-none`,
             {
               variants: {
+                color: {
+                  slate: "border border-slate-700 bg-slate-900 text-white",
+                  sky: "bg-sky-700 text-white",
+                },
                 disabled: {
                   true: "cursor-not-allowed opacity-60",
                 },
                 isPressed: { true: "" },
                 isFocusVisible: {
-                  true: [
-                    `ring-blue-400 ring-offset-4 ring-offset-slate-950
-                    focus:ring-2`,
-                  ],
+                  true: "ring-offset-2 focus:ring-2",
                 },
               },
               compoundVariants: [
                 {
+                  isFocusVisible: true,
+                  color: "slate",
+                  className: "ring-sky-400 ring-offset-slate-950",
+                },
+                {
+                  isFocusVisible: true,
+                  color: "sky",
+                  className: "ring-sky-400 ring-offset-slate-100",
+                },
+                {
                   isPressed: true,
                   disabled: false,
+                  color: "slate",
                   className: [
                     `border-slate-600 bg-slate-800 sm:border-slate-500
                     sm:bg-slate-700`,
                   ],
                 },
                 {
+                  isPressed: true,
+                  disabled: false,
+                  color: "sky",
+                  className: "bg-sky-700 sm:bg-sky-600",
+                },
+                {
                   isPressed: false,
                   disabled: false,
+                  color: "slate",
                   className: "sm:hover:border-slate-600 sm:hover:bg-slate-800",
+                },
+                {
+                  isPressed: false,
+                  disabled: false,
+                  color: "sky",
+                  className: "sm:hover:bg-sky-500",
                 },
               ],
             },
-          )({ disabled, isPressed, isFocusVisible }),
+          )({ color, disabled, isPressed, isFocusVisible }),
           className,
         )}
         type={Comp === "button" ? "button" : undefined}

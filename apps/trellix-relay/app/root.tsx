@@ -23,15 +23,13 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-slate-950 text-white">
+      <body className="bg-slate-200 text-slate-900">
         <RemixRelayProvider>
           <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
             <Progress />
-            <div className="mx-auto max-w-3xl p-4 sm:p-8">
-              <Suspense fallback={<Spinner className="h-36" />}>
-                <Outlet />
-              </Suspense>
-            </div>
+            <Suspense fallback={<Spinner className="h-36" />}>
+              <Outlet />
+            </Suspense>
             <Toaster />
           </RelayEnvironmentProvider>
         </RemixRelayProvider>

@@ -35,7 +35,10 @@ const viteDevServer = isProd
   ? null
   : await import("vite").then((vite) =>
       vite.createServer({
-        server: { middlewareMode: true },
+        server: {
+          middlewareMode: true,
+          hmr: { port: env.PORT + 1 },
+        },
       }),
     );
 

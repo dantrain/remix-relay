@@ -4,6 +4,7 @@ import { createBrowserClient } from "@supabase/ssr";
 import type { Provider } from "@supabase/supabase-js";
 import { useState } from "react";
 import { Button } from "@remix-relay/ui";
+import { GitHubIcon } from "~/components/Icons";
 
 export const meta: MetaFunction = () => [{ title: "Sign in · Trellix Relay" }];
 
@@ -49,16 +50,32 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex min-h-[30dvh] flex-col items-center justify-center">
-      <div className="flex flex-col items-stretch gap-4">
-        <Button
-          className="flex items-center justify-center gap-3 px-6 py-2"
-          disabled={signingIn}
-          onClick={() => signIn("github")}
-        >
-          Sign in with GitHub
-        </Button>
+    <main
+      className="grid min-h-[100dvh] grid-cols-[1fr_minmax(auto,32rem)_1fr]
+        grid-rows-[minmax(100px,1fr)_auto_2fr] bg-slate-950 text-lg
+        text-slate-100"
+    >
+      <div className="col-start-2 row-start-2 p-4">
+        <div className="mb-12 flex flex-col gap-4">
+          <p>This is a demo app to show off the features of remix-relay.</p>
+          <p>
+            It's a recreation of the popular drag and drop interface in{" "}
+            <a href="https://trello.com/">Trello</a> and other similar apps.
+          </p>
+          <p>If you want to play around, click sign in!</p>
+        </div>
+        <div className="flex justify-center">
+          <Button
+            className="flex items-center justify-center gap-3 px-6 py-2"
+            color="slate"
+            disabled={signingIn}
+            onClick={() => signIn("github")}
+          >
+            <GitHubIcon />
+            Sign in with GitHub
+          </Button>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }
