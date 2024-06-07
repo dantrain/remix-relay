@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { graphql, useFragment, useMutation } from "react-relay";
 import { Button } from "@remix-relay/ui";
+import { DeleteIcon } from "./Icons";
 import {
   ResponsiveDialog,
   ResponsiveDialogFooter,
@@ -37,11 +38,14 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
     deleteOneBoardMutation,
   );
 
-  const deleteBoard = () =>
+  const deleteBoard = () => {
     commit({
       variables: { id, connections: [connectionId] },
       optimisticResponse: { deleteOneBoard: { id } },
     });
+
+    setDialogOpen(false);
+  };
 
   return (
     <div
@@ -54,11 +58,11 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
         onOpenChange={setDialogOpen}
         trigger={
           <Button
-            className="pb-1.5 leading-none group-hover:visible sm:invisible"
+            className="py-1.5 leading-none group-hover:visible sm:invisible"
             color="sky"
           >
+            <DeleteIcon className="not-sr-only" />
             <span className="sr-only">Delete</span>
-            <span className="not-sr-only">&times;</span>
           </Button>
         }
         title={`Delete board “${name}”`}

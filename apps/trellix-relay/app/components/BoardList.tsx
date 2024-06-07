@@ -1,4 +1,7 @@
+import { RefObject, createRef, useRef } from "react";
 import { graphql, useFragment } from "react-relay";
+import { Transition, TransitionGroup } from "react-transition-group";
+import { cn } from "~/lib/cn";
 import BoardCard from "./BoardCard";
 import CreateBoard from "./CreateBoard";
 import { BoardListFragment$key } from "./__generated__/BoardListFragment.graphql";
@@ -26,6 +29,11 @@ export default function BoardList({ dataRef }: BoardListProps) {
     boardConnection: { edges, __id },
   } = useFragment(fragment, dataRef);
 
+  const refs = useRef<Record<string, RefObject<HTMLLIElement>>>({});
+
+  const getRef = (id: string) =>
+    (refs.current[id] ??= createRef<HTMLLIElement>());
+
   return (
     <ul className="grid grid-cols-[repeat(auto-fill,minmax(14rem,1fr))] gap-4">
       <li
@@ -34,11 +42,24 @@ export default function BoardList({ dataRef }: BoardListProps) {
       >
         <CreateBoard connectionId={__id} />
       </li>
-      {edges.map(({ node }) => (
-        <li key={node.id}>
-          <BoardCard dataRef={node} connectionId={__id} />
-        </li>
-      ))}
+      <TransitionGroup component={null}>
+        {edges.map(({ node }) => (
+          <Transition
+            key={node.id}
+            nodeRef={getRef(node.id)}
+            timeout={{ exit: 200 }}
+          >
+            {(state) => (
+              <li
+                className={cn({ hidden: state === "exiting" })}
+                ref={getRef(node.id)}
+              >
+                <BoardCard dataRef={node} connectionId={__id} />
+              </li>
+            )}
+          </Transition>
+        ))}
+      </TransitionGroup>
     </ul>
   );
 }

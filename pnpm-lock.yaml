@@ -505,6 +505,9 @@ importers:
       react-relay:
         specifier: ^16.2.0
         version: 16.2.0(react@18.3.1)
+      react-transition-group:
+        specifier: ^4.4.5
+        version: 4.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       relay-compiler:
         specifier: ^16.2.0
         version: 16.2.0
@@ -572,6 +575,9 @@ importers:
       '@types/react-relay':
         specifier: ^16.0.6
         version: 16.0.6
+      '@types/react-transition-group':
+        specifier: ^4.4.10
+        version: 4.4.10
       '@types/relay-runtime':
         specifier: ^14.1.24
         version: 14.1.24
@@ -1225,10 +1231,6 @@ packages:
 
   '@babel/runtime@7.23.2':
     resolution: {integrity: sha512-mM8eg4yl5D6i3lu2QKPuPH4FArvJ8KhTofbE7jwMUv9KX5mBvwPAqnV3MlyBNqdp9RyRKP6Yck8TrfYrPvX3bg==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/runtime@7.23.8':
-    resolution: {integrity: sha512-Y7KbAP984rn1VGMbGqKmBLio9V7y5Je9GvU4rQPCPinCyNfUcToxIXl06d59URp/F3LwinvODxab5N/G6qggkw==}
     engines: {node: '>=6.9.0'}
 
   '@babel/runtime@7.24.4':
@@ -5809,6 +5811,7 @@ packages:
 
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
+    hasBin: true
 
   lower-case-first@1.0.2:
     resolution: {integrity: sha512-UuxaYakO7XeONbKrZf5FEgkantPf5DUqDayzP5VXZrtRPdH86s4kN47I8B3TW10S4QKiE3ziHNf3kRN//okHjA==}
@@ -8492,10 +8495,6 @@ snapshots:
   '@babel/runtime@7.23.2':
     dependencies:
       regenerator-runtime: 0.14.0
-
-  '@babel/runtime@7.23.8':
-    dependencies:
-      regenerator-runtime: 0.14.1
 
   '@babel/runtime@7.24.4':
     dependencies:
@@ -14959,7 +14958,7 @@ snapshots:
 
   react-transition-group@4.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@babel/runtime': 7.23.8
+      '@babel/runtime': 7.24.6
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
