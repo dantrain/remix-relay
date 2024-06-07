@@ -3,6 +3,7 @@ import { Params, ClientLoaderFunctionArgs } from "@remix-run/react";
 import { graphql } from "react-relay";
 import { metaQuery, useLoaderQuery } from "@remix-relay/react";
 import Header from "~/components/Header";
+import { MultipleContainers } from "~/components/MultipleContainers";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
 import { boardQuery } from "./__generated__/boardQuery.graphql";
@@ -36,11 +37,12 @@ export default function Board() {
   ] = useLoaderQuery<boardQuery>(query);
 
   return (
-    <>
+    <div className="flex min-h-[100dvh] flex-col">
       <Header />
-      <main className="p-4 sm:p-8">
+      <main className="flex-1 overflow-x-auto p-4 sm:p-8">
         <h1 className="text-2xl font-medium">{name}</h1>
+        <MultipleContainers />
       </main>
-    </>
+    </div>
   );
 }
