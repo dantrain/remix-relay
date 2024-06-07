@@ -47,11 +47,15 @@ export default function BoardList({ dataRef }: BoardListProps) {
           <Transition
             key={node.id}
             nodeRef={getRef(node.id)}
-            timeout={{ exit: 200 }}
+            timeout={{ enter: 300, exit: 200 }}
           >
             {(state) => (
               <li
-                className={cn({ hidden: state === "exiting" })}
+                className={cn(
+                  state === "entering" &&
+                    "animate-in fade-in zoom-in-90 duration-300",
+                  state === "exiting" && "hidden",
+                )}
                 ref={getRef(node.id)}
               >
                 <BoardCard dataRef={node} connectionId={__id} />

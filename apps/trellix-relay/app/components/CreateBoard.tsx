@@ -92,14 +92,14 @@ export default function CreateBoard({ connectionId }: CreateBoardProps) {
 
           <ResponsiveDialogFooter>
             <Button
-              className="flex-1 px-3 sm:flex-none"
+              className="flex-1 px-3 py-2 sm:flex-none sm:py-1"
               color="sky"
               type="submit"
             >
               Create
             </Button>
             <ResponsiveDialogClose asChild>
-              <Button className="px-3" color="sky">
+              <Button className="px-3 py-2 sm:py-1" color="sky">
                 Cancel
               </Button>
             </ResponsiveDialogClose>
