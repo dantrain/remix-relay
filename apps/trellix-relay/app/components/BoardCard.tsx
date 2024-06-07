@@ -64,8 +64,8 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
         onOpenChange={setDialogOpen}
         trigger={
           <Button
-            className="absolute right-3 top-3 py-1.5 leading-none
-              group-hover:visible sm:invisible"
+            className="absolute right-3 top-3 py-1.5 leading-none sm:opacity-0
+              sm:transition-opacity sm:group-hover:opacity-100"
             color="sky"
           >
             <DeleteIcon className="not-sr-only w-6 sm:w-4" />

@@ -42,7 +42,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={twMerge(
           cva(
             `inline-block cursor-pointer select-none rounded-md px-2 py-1
-            transition-colors focus:outline-none sm:transition-none`,
+            focus:outline-none max-sm:transition-colors`,
             {
               variants: {
                 color: {
