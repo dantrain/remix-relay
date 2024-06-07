@@ -17,16 +17,16 @@ const query = graphql`
 `;
 
 export const meta = metaQuery<boardQuery>(({ data }) => [
-  { title: `${data.board.id} - Trellix Relay` },
+  { title: `${data.board.name} - Trellix Relay` },
 ]);
 
 const getVars = (params: Params<string>) => ({ id: params.id ?? "" });
 
-export const loader = (args: LoaderFunctionArgs) =>
-  loaderQuery<boardQuery>(args, query, getVars(args.params));
+export const loader = ({ context, params }: LoaderFunctionArgs) =>
+  loaderQuery<boardQuery>(context, query, getVars(params));
 
-export const clientLoader = (args: ClientLoaderFunctionArgs) =>
-  clientLoaderQuery<boardQuery>(query, getVars(args.params));
+export const clientLoader = ({ params }: ClientLoaderFunctionArgs) =>
+  clientLoaderQuery<boardQuery>(query, getVars(params));
 
 export default function Board() {
   const [
@@ -39,7 +39,7 @@ export default function Board() {
     <>
       <Header />
       <main className="p-4 sm:p-8">
-        <h1>{name}</h1>
+        <h1 className="text-2xl font-medium">{name}</h1>
       </main>
     </>
   );

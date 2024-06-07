@@ -1,5 +1,6 @@
 import { and, eq, relations } from "drizzle-orm";
 import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import pRetry from "p-retry";
 import exists from "server/lib/exists";
 import { fromGlobalId } from "server/lib/global-id";
 import { z } from "zod";
@@ -41,16 +42,24 @@ builder.queryField("board", (t) =>
       }),
     },
     resolve: async (_parent, args, { db, user }) => {
-      const [board] = await db((tx) =>
-        tx
-          .select()
-          .from(boards)
-          .where(
-            and(eq(boards.userId, user.id), eq(boards.id, args.id.toString())),
-          ),
-      );
+      return pRetry(
+        async () => {
+          const [board] = await db((tx) =>
+            tx
+              .select()
+              .from(boards)
+              .where(
+                and(
+                  eq(boards.userId, user.id),
+                  eq(boards.id, args.id.toString()),
+                ),
+              ),
+          );
 
-      return exists(board, "Board not found");
+          return exists(board, "Board not found");
+        },
+        { retries: 3 },
+      );
     },
   }),
 );
