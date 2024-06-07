@@ -66,7 +66,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 {
                   isFocusVisible: true,
                   color: "sky",
-                  className: "ring-sky-500 ring-offset-slate-100",
+                  className: "ring-sky-500 ring-offset-slate-200",
                 },
                 {
                   isPressed: true,

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a6a7d51e3715830dbd437755d9968307>>
+ * @generated SignedSource<<2bfaf9ade409b714fe2c5114f482ec89>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type boardQuery$variables = {
 export type boardQuery$data = {
   readonly board: {
     readonly id: string;
+    readonly name: string;
   };
 };
 export type boardQuery = {
@@ -51,6 +52,13 @@ v1 = [
         "kind": "ScalarField",
         "name": "id",
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "name",
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -74,16 +82,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "d733f7aad807daa011ec638f02361319",
+    "cacheID": "dc8e80981af4702a0b387fb44fab5bd0",
     "id": null,
     "metadata": {},
     "name": "boardQuery",
     "operationKind": "query",
-    "text": "query boardQuery(\n  $id: ID!\n) {\n  board(id: $id) {\n    id\n  }\n}\n"
+    "text": "query boardQuery(\n  $id: ID!\n) {\n  board(id: $id) {\n    id\n    name\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "46f1e3a1a4d461a1ddeb7cac7cc3f03b";
+(node as any).hash = "a2bfa09ef2d3eaf6908f7bb4c19037b8";
 
 export default node;

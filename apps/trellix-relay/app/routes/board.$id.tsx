@@ -2,6 +2,7 @@ import { LoaderFunctionArgs } from "@remix-run/node";
 import { Params, ClientLoaderFunctionArgs } from "@remix-run/react";
 import { graphql } from "react-relay";
 import { metaQuery, useLoaderQuery } from "@remix-relay/react";
+import Header from "~/components/Header";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
 import { boardQuery } from "./__generated__/boardQuery.graphql";
@@ -10,6 +11,7 @@ const query = graphql`
   query boardQuery($id: ID!) {
     board(id: $id) {
       id
+      name
     }
   }
 `;
@@ -27,7 +29,18 @@ export const clientLoader = (args: ClientLoaderFunctionArgs) =>
   clientLoaderQuery<boardQuery>(query, getVars(args.params));
 
 export default function Board() {
-  const [data] = useLoaderQuery<boardQuery>(query);
+  const [
+    {
+      board: { name },
+    },
+  ] = useLoaderQuery<boardQuery>(query);
 
-  return <pre>{JSON.stringify(data, null, 4)}</pre>;
+  return (
+    <>
+      <Header />
+      <main className="p-4 sm:p-8">
+        <h1>{name}</h1>
+      </main>
+    </>
+  );
 }

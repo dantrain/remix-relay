@@ -53,8 +53,10 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
     <div className="group relative">
       <Link
         to={`/board/${fromGlobalId(id)}`}
-        className="flex aspect-video select-none items-start gap-3 rounded-sm
-          bg-slate-100 p-3 font-bold shadow-sm group-hover:shadow-md"
+        className="ring-offset-3 flex aspect-video select-none items-start gap-3
+          rounded-sm bg-slate-100 p-3 font-bold shadow-sm ring-sky-500
+          ring-offset-2 ring-offset-slate-200 focus:outline-none
+          focus-visible:ring-2 group-hover:shadow-md"
       >
         <div className="flex-1">{name}</div>
         <div className="h-full w-8" />
@@ -65,7 +67,8 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
         trigger={
           <Button
             className="absolute right-3 top-3 py-1.5 leading-none sm:opacity-0
-              sm:transition-opacity sm:group-hover:opacity-100"
+              sm:transition-opacity sm:focus:opacity-100
+              sm:group-hover:opacity-100"
             color="sky"
           >
             <DeleteIcon className="not-sr-only w-6 sm:w-4" />
