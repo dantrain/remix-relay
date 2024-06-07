@@ -31,7 +31,7 @@ type BoardCardProps = {
 
 export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
   const { id, name } = useFragment(fragment, dataRef);
-  const [open, setOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const [commit] = useMutation<BoardCardDeleteOneBoardMutation>(
     deleteOneBoardMutation,
@@ -50,8 +50,8 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
     >
       <div className="flex-1">{name}</div>
       <ResponsiveDialog
-        open={open}
-        onOpenChange={setOpen}
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
         trigger={
           <Button
             className="pb-1.5 leading-none group-hover:visible sm:invisible"
@@ -66,14 +66,16 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
         content={
           <ResponsiveDialogFooter>
             <Button
-              className="flex-1 sm:flex-none"
+              className="flex-1 px-3 sm:flex-none"
               color="sky"
               onPress={deleteBoard}
             >
               Delete
             </Button>
             <ResponsiveDialogClose asChild>
-              <Button color="sky">Cancel</Button>
+              <Button className="px-3" color="sky">
+                Cancel
+              </Button>
             </ResponsiveDialogClose>
           </ResponsiveDialogFooter>
         }

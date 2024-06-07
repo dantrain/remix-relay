@@ -30,6 +30,6 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/forms")],
   presets: [sharedConfig],
 } satisfies Config;

@@ -30,7 +30,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const ref = useObjectRef(forwardedRef);
     const Comp = asChild && !disabled ? Slot : "button";
 
-    const { isFocusVisible } = useFocusVisible();
+    const { isFocusVisible } = useFocusVisible({ isTextInput: true });
 
     const { buttonProps, isPressed } = useButton(
       { onPress: onClick, ...rest, isDisabled: disabled },
