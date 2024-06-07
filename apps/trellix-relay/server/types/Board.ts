@@ -39,7 +39,10 @@ builder.mutationFields((t) => ({
         required: true,
         validate: { schema: z.string().cuid2() },
       }),
-      name: t.arg.string({ required: true }),
+      name: t.arg.string({
+        required: true,
+        validate: { schema: z.string().min(1).max(50) },
+      }),
     },
     resolve: async (_parent, args, { db, user }) => {
       const [board] = await db((tx) =>
@@ -60,7 +63,10 @@ builder.mutationFields((t) => ({
     type: Board,
     args: {
       id: t.arg.id({ required: true }),
-      name: t.arg.string({ required: true }),
+      name: t.arg.string({
+        required: true,
+        validate: { schema: z.string().min(1).max(50) },
+      }),
     },
     resolve: async (_parent, args, { db, user }) => {
       const [board] = await db((tx) =>

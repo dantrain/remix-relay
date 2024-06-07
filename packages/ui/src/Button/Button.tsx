@@ -47,7 +47,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               variants: {
                 color: {
                   slate: "border border-slate-700 bg-slate-900 text-white",
-                  sky: "bg-sky-700 text-white",
+                  sky: "bg-[#0894d8] text-white",
                 },
                 disabled: {
                   true: "cursor-not-allowed opacity-60",
@@ -61,12 +61,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 {
                   isFocusVisible: true,
                   color: "slate",
-                  className: "ring-sky-400 ring-offset-slate-950",
+                  className: "ring-blue-400 ring-offset-slate-950",
                 },
                 {
                   isFocusVisible: true,
                   color: "sky",
-                  className: "ring-sky-400 ring-offset-slate-100",
+                  className: "ring-sky-500 ring-offset-slate-100",
                 },
                 {
                   isPressed: true,

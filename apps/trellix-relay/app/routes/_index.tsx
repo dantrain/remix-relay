@@ -3,6 +3,7 @@ import { Link } from "@remix-run/react";
 import { graphql } from "react-relay";
 import { useLoaderQuery } from "@remix-relay/react";
 import { Button } from "@remix-relay/ui";
+import BoardList from "~/components/BoardList";
 import { SignOutIcon } from "~/components/Icons";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
@@ -11,15 +12,7 @@ import { IndexQuery } from "./__generated__/IndexQuery.graphql";
 const query = graphql`
   query IndexQuery {
     viewer {
-      id
-      boardConnection {
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
+      ...BoardListFragment
     }
   }
 `;
@@ -44,6 +37,7 @@ export default function Index() {
           <h1 className="mb-0.5 text-2xl font-black leading-none">Trellix</h1>
           <p className="leading-none text-slate-500">a remix-relay demo</p>
         </Link>
+
         <Button asChild className="px-3">
           <a className="flex items-center gap-2" href="/auth/signout">
             <SignOutIcon />
@@ -51,13 +45,13 @@ export default function Index() {
           </a>
         </Button>
       </header>
-      <main className="p-4 sm:p-8">
-        <pre
-          className="overflow-x-auto rounded-md bg-white p-3 text-sm
-            text-slate-800 shadow-sm"
-        >
-          {JSON.stringify(data, null, 2)}
-        </pre>
+
+      <main className="mx-auto max-w-7xl p-4 sm:p-8">
+        <h2 className="mb-4 text-lg font-bold uppercase text-slate-500">
+          Your Boards
+        </h2>
+
+        <BoardList dataRef={data.viewer} />
       </main>
     </>
   );
