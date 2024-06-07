@@ -61,7 +61,7 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
             className="py-1.5 leading-none group-hover:visible sm:invisible"
             color="sky"
           >
-            <DeleteIcon className="not-sr-only" />
+            <DeleteIcon className="not-sr-only w-6 sm:w-4" />
             <span className="sr-only">Delete</span>
           </Button>
         }

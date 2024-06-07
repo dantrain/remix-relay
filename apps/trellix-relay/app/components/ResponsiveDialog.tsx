@@ -1,7 +1,7 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import * as React from "react";
 import { type ReactNode } from "react";
-import { useMediaQuery } from "usehooks-ts";
+import { useIsClient, useMediaQuery } from "usehooks-ts";
 import { Drawer as DrawerPrimitive } from "vaul";
 import { cn } from "~/lib/cn";
 
@@ -200,7 +200,12 @@ export function ResponsiveDialog({
   description,
   content,
 }: ResponsiveDialogProps) {
+  const isClient = useIsClient();
   const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  if (!isClient) {
+    return trigger;
+  }
 
   if (isDesktop) {
     return (
