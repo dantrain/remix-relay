@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3b34674f9a0fee478c6e8322325f0efd>>
+ * @generated SignedSource<<6cf7072bae6c8103a955c193442996cf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -107,6 +107,18 @@ return {
                   }
                 ],
                 "storageKey": null
+              },
+              {
+                "kind": "ClientExtension",
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "__id",
+                    "storageKey": null
+                  }
+                ]
               }
             ],
             "storageKey": null
@@ -118,12 +130,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f5292cee703794a8411af1ce1f1d970a",
+    "cacheID": "2bf83dda0827d6551c6bad97f2773562",
     "id": null,
     "metadata": {},
     "name": "IndexQuery",
     "operationKind": "query",
-    "text": "query IndexQuery {\n  viewer {\n    ...BoardListFragment\n    id\n  }\n}\n\nfragment BoardListFragment on User {\n  boardConnection {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n"
+    "text": "query IndexQuery {\n  viewer {\n    ...BoardListFragment\n    id\n  }\n}\n\nfragment BoardCardFragment on Board {\n  id\n  name\n}\n\nfragment BoardListFragment on User {\n  boardConnection {\n    edges {\n      node {\n        id\n        ...BoardCardFragment\n      }\n    }\n  }\n}\n"
   }
 };
 })();

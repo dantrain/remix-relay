@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b8d68329af4dacfb62b650d2b08415bc>>
+ * @generated SignedSource<<f61a16fdafcbeff2fd16af6171c12661>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,10 +12,11 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type BoardListFragment$data = {
   readonly boardConnection: {
+    readonly __id: string;
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
-        readonly name: string;
+        readonly " $fragmentSpreads": FragmentRefs<"BoardCardFragment">;
       };
     }>;
   };
@@ -64,17 +65,27 @@ const node: ReaderFragment = {
                   "storageKey": null
                 },
                 {
-                  "alias": null,
                   "args": null,
-                  "kind": "ScalarField",
-                  "name": "name",
-                  "storageKey": null
+                  "kind": "FragmentSpread",
+                  "name": "BoardCardFragment"
                 }
               ],
               "storageKey": null
             }
           ],
           "storageKey": null
+        },
+        {
+          "kind": "ClientExtension",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "__id",
+              "storageKey": null
+            }
+          ]
         }
       ],
       "storageKey": null
@@ -84,6 +95,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "6e1acefcd5529676b645823e7bb9c304";
+(node as any).hash = "36a148395e9f106573f92b0d1f3a54b9";
 
 export default node;
