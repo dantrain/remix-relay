@@ -47,6 +47,7 @@ type PageInfo {
 }
 
 type Query {
+  board(id: ID!): Board!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
   viewer: User!

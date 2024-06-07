@@ -1,5 +1,7 @@
+import { Link } from "@remix-run/react";
 import { useState } from "react";
 import { graphql, useFragment, useMutation } from "react-relay";
+import { fromGlobalId } from "server/lib/global-id";
 import { Button } from "@remix-relay/ui";
 import { DeleteIcon } from "./Icons";
 import {
@@ -48,17 +50,22 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
   };
 
   return (
-    <div
-      className="group flex aspect-video select-none items-start gap-3
-        rounded-sm bg-slate-100 p-3 font-bold shadow-sm"
-    >
-      <div className="flex-1">{name}</div>
+    <div className="group relative">
+      <Link
+        to={`/board/${fromGlobalId(id)}`}
+        className="flex aspect-video select-none items-start gap-3 rounded-sm
+          bg-slate-100 p-3 font-bold shadow-sm group-hover:shadow-md"
+      >
+        <div className="flex-1">{name}</div>
+        <div className="h-full w-8" />
+      </Link>
       <ResponsiveDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
         trigger={
           <Button
-            className="py-1.5 leading-none group-hover:visible sm:invisible"
+            className="absolute right-3 top-3 py-1.5 leading-none
+              group-hover:visible sm:invisible"
             color="sky"
           >
             <DeleteIcon className="not-sr-only w-6 sm:w-4" />

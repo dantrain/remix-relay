@@ -31,6 +31,30 @@ export const Board = builder.node("Board", {
   }),
 });
 
+builder.queryField("board", (t) =>
+  t.field({
+    type: Board,
+    args: {
+      id: t.arg.id({
+        required: true,
+        validate: { schema: z.string().cuid2() },
+      }),
+    },
+    resolve: async (_parent, args, { db, user }) => {
+      const [board] = await db((tx) =>
+        tx
+          .select()
+          .from(boards)
+          .where(
+            and(eq(boards.userId, user.id), eq(boards.id, args.id.toString())),
+          ),
+      );
+
+      return exists(board, "Board not found");
+    },
+  }),
+);
+
 builder.mutationFields((t) => ({
   createOneBoard: t.field({
     type: Board,
