@@ -17,7 +17,7 @@ const mutation = graphql`
     $connections: [ID!]!
   ) {
     createOneBoard(id: $id, name: $name)
-      @appendNode(
+      @prependNode(
         connections: $connections
         edgeTypeName: "BoardConnectionEdge"
       ) {

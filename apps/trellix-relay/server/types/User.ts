@@ -1,5 +1,5 @@
 import { resolveArrayConnection } from "@pothos/plugin-relay";
-import { eq, relations } from "drizzle-orm";
+import { desc, eq, relations } from "drizzle-orm";
 import { pgSchema, uuid } from "drizzle-orm/pg-core";
 import { pick } from "lodash-es";
 import invariant from "tiny-invariant";
@@ -25,7 +25,11 @@ export const User = builder.node("User", {
       type: Board,
       resolve: async ({ id }, args, { db }) => {
         const data = await db((tx) =>
-          tx.select().from(boards).where(eq(boards.userId, id)),
+          tx
+            .select()
+            .from(boards)
+            .where(eq(boards.userId, id))
+            .orderBy(desc(boards.createdAt)),
         );
 
         return resolveArrayConnection({ args }, data);
