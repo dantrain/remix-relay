@@ -5,6 +5,7 @@ import { pick } from "lodash-es";
 import invariant from "tiny-invariant";
 import { builder } from "../builder";
 import { Board, boards } from "./Board";
+import { columns } from "./Column";
 
 const authSchema = pgSchema("auth");
 
@@ -14,6 +15,7 @@ export const users = authSchema.table("users", {
 
 export const usersRelations = relations(users, ({ many }) => ({
   boards: many(boards),
+  columns: many(columns),
 }));
 
 export type User = typeof users.$inferSelect;

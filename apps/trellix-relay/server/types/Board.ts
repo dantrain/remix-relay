@@ -5,6 +5,7 @@ import exists from "server/lib/exists";
 import { fromGlobalId } from "server/lib/global-id";
 import { z } from "zod";
 import { builder } from "../builder";
+import { columns } from "./Column";
 import { users } from "./User";
 
 export const boards = pgTable("boards", {
@@ -16,8 +17,9 @@ export const boards = pgTable("boards", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const boardRelations = relations(boards, ({ one }) => ({
+export const boardRelations = relations(boards, ({ one, many }) => ({
   user: one(users, { fields: [boards.userId], references: [users.id] }),
+  columns: many(columns),
 }));
 
 export type Board = typeof boards.$inferSelect;

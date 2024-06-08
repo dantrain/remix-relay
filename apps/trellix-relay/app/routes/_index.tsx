@@ -22,7 +22,7 @@ export const loader = ({ context }: LoaderFunctionArgs) =>
 
 export const clientLoader = () => clientLoaderQuery(query, {});
 
-export default function Index() {
+export default function IndexPage() {
   const [data] = useLoaderQuery<IndexQuery>(query);
 
   return (

@@ -29,9 +29,17 @@ type Board implements Node {
   name: String!
 }
 
+type Column implements Node {
+  createdAt: String!
+  id: ID!
+  title: String!
+}
+
 type Mutation {
   createOneBoard(id: ID!, name: String!): Board!
+  createOneColumn(boardId: ID!, id: ID!, title: String!): Column!
   deleteOneBoard(id: ID!): Board!
+  deleteOneColumn(id: ID!): Column!
   updateOneBoard(id: ID!, name: String!): Board!
 }
 

@@ -45,14 +45,14 @@ export type Items = Record<UniqueIdentifier, UniqueIdentifier[]>;
 const PLACEHOLDER_ID = "placeholder";
 const empty: UniqueIdentifier[] = [];
 
-export function MultipleContainers() {
+export function Board() {
   const isClient = useIsClient();
 
   const [items, setItems] = useState<Items>(() => ({
-    A: range(3).map((index) => `A${index + 1}`),
-    B: range(3).map((index) => `B${index + 1}`),
-    C: range(3).map((index) => `C${index + 1}`),
-    D: range(3).map((index) => `D${index + 1}`),
+    A: range(3).map((index) => `A-${index + 1}`),
+    B: range(3).map((index) => `B-${index + 1}`),
+    C: range(3).map((index) => `C-${index + 1}`),
+    D: range(3).map((index) => `D-${index + 1}`),
   }));
 
   const [containers, setContainers] = useState(
