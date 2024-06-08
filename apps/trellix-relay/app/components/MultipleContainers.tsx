@@ -23,11 +23,11 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal, unstable_batchedUpdates } from "react-dom";
 import exists from "server/lib/exists";
 import { useIsClient } from "usehooks-ts";
+import { getCollisionDetectionStrategy } from "~/lib/collision-detection-strategy";
 import { coordinateGetter } from "~/lib/keyboard-coordinates";
-import { getCollisionDetectionStrategy } from "../../lib/collision-detection-strategy";
-import { Container } from "../Container/Container";
-import { Item } from "../Item/Item";
+import { Container } from "./Container";
 import { DroppableContainer } from "./DroppableContainer";
+import { Item } from "./Item";
 import { SortableItem } from "./SortableItem";
 
 const dropAnimation: DropAnimation = {

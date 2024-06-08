@@ -1,5 +1,5 @@
 import { CSSProperties, HTMLAttributes, forwardRef } from "react";
-import { Action } from "../Action/Action";
+import { Action } from "./Action";
 
 export type HandleProps = HTMLAttributes<HTMLButtonElement> & {
   active?: {

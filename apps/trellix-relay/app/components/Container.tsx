@@ -1,8 +1,8 @@
 import { cx } from "class-variance-authority";
 import { CSSProperties, ReactNode, forwardRef } from "react";
-import { ActionProps } from "../Action/Action";
-import { Handle } from "../Handle/Handle";
-import { Remove } from "../Remove/Remove";
+import { ActionProps } from "./Action";
+import { Handle } from "./Handle";
+import { Remove } from "./Remove";
 
 export type ContainerProps = {
   children: ReactNode;

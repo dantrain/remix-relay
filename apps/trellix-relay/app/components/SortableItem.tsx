@@ -1,6 +1,6 @@
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
-import { Item } from "../Item/Item";
+import { Item } from "./Item";
 
 export type SortableItemProps = {
   containerId: UniqueIdentifier;
