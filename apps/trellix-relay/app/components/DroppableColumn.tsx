@@ -5,24 +5,24 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Container, ContainerProps } from "./Container";
+import { Column, ColumnProps } from "./Column";
 
 const animateLayoutChanges: AnimateLayoutChanges = (args) =>
   defaultAnimateLayoutChanges({ ...args, wasDragging: true });
 
-export type DroppableContainerProps = ContainerProps & {
+export type DroppableColumnProps = ColumnProps & {
   disabled?: boolean;
   id: UniqueIdentifier;
-  items: UniqueIdentifier[];
+  items?: UniqueIdentifier[];
 };
 
-export function DroppableContainer({
+export function DroppableColumn({
   children,
   disabled,
   id,
-  items,
+  items = [],
   ...props
-}: DroppableContainerProps) {
+}: DroppableColumnProps) {
   const {
     active,
     attributes,
@@ -47,7 +47,7 @@ export function DroppableContainer({
     : false;
 
   return (
-    <Container
+    <Column
       ref={disabled ? undefined : setNodeRef}
       style={{
         transition,
@@ -62,6 +62,6 @@ export function DroppableContainer({
       {...props}
     >
       {children}
-    </Container>
+    </Column>
   );
 }

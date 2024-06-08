@@ -1,5 +1,5 @@
 import { resolveArrayConnection } from "@pothos/plugin-relay";
-import { and, desc, eq, relations } from "drizzle-orm";
+import { and, asc, eq, relations } from "drizzle-orm";
 import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import pRetry from "p-retry";
 import exists from "server/lib/exists";
@@ -40,7 +40,7 @@ export const Board = builder.node("Board", {
             .select()
             .from(columns)
             .where(eq(columns.boardId, id))
-            .orderBy(desc(columns.createdAt)),
+            .orderBy(asc(columns.createdAt)),
         );
 
         return resolveArrayConnection({ args }, data);

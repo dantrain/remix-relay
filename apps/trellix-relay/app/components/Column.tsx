@@ -1,10 +1,19 @@
 import { cx } from "class-variance-authority";
 import { CSSProperties, ReactNode, forwardRef } from "react";
+import { graphql } from "react-relay";
 import { ActionProps } from "./Action";
 import { Handle } from "./Handle";
-import { Remove } from "./Remove";
+import { ColumnFragment$key } from "./__generated__/ColumnFragment.graphql";
 
-export type ContainerProps = {
+const fragment = graphql`
+  fragment ColumnFragment on Column {
+    id
+    title
+  }
+`;
+
+export type ColumnProps = {
+  dataRef?: ColumnFragment$key;
   children: ReactNode;
   label?: string;
   style?: CSSProperties;
@@ -13,22 +22,20 @@ export type ContainerProps = {
   shadow?: boolean;
   placeholder?: boolean;
   onClick?(): void;
-  onRemove?(): void;
 };
 
-export const Container = forwardRef<HTMLDivElement, ContainerProps>(
+export const Column = forwardRef<HTMLDivElement, ColumnProps>(
   (
     {
       children,
       handleProps,
       hover,
-      onRemove,
       label,
       placeholder,
       style,
       shadow,
       ...props
-    }: ContainerProps,
+    }: ColumnProps,
     ref,
   ) => {
     return (
@@ -53,7 +60,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
           >
             {label}
             <div className="flex gap-2">
-              {onRemove ? <Remove onClick={onRemove} /> : undefined}
+              {/* {onRemove ? <Remove onClick={onRemove} /> : undefined} */}
               <Handle {...handleProps} />
             </div>
           </div>
@@ -68,4 +75,4 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
   },
 );
 
-Container.displayName = "Container";
+Column.displayName = "Container";

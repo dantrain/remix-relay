@@ -13,6 +13,7 @@ const query = graphql`
     board(id: $id) {
       id
       name
+      ...BoardFragment
     }
   }
 `;
@@ -37,7 +38,7 @@ export default function BoardPage() {
       <Header />
       <main className="flex-1 overflow-x-auto p-4 sm:p-8">
         <h1 className="mx-2 mb-4 text-2xl font-medium">{board.name}</h1>
-        <Board />
+        <Board dataRef={board} />
       </main>
     </div>
   );

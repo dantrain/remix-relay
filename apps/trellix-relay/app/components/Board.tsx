@@ -21,14 +21,34 @@ import {
 import { range } from "lodash-es";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal, unstable_batchedUpdates } from "react-dom";
+import { graphql, useFragment } from "react-relay";
 import exists from "server/lib/exists";
 import { useIsClient } from "usehooks-ts";
 import { getCollisionDetectionStrategy } from "~/lib/collision-detection-strategy";
 import { coordinateGetter } from "~/lib/keyboard-coordinates";
-import { Container } from "./Container";
-import { DroppableContainer } from "./DroppableContainer";
+import { Column } from "./Column";
+import CreateColumn from "./CreateColumn";
+import { DroppableColumn } from "./DroppableColumn";
 import { Item } from "./Item";
 import { SortableItem } from "./SortableItem";
+import { BoardFragment$key } from "./__generated__/BoardFragment.graphql";
+import { ColumnFragment$key } from "./__generated__/ColumnFragment.graphql";
+
+const fragment = graphql`
+  fragment BoardFragment on Board {
+    id
+    columnConnection {
+      __id
+      edges {
+        node {
+          id
+          title
+          ...ColumnFragment
+        }
+      }
+    }
+  }
+`;
 
 const dropAnimation: DropAnimation = {
   sideEffects: defaultDropAnimationSideEffects({
@@ -40,24 +60,55 @@ const dropAnimation: DropAnimation = {
   }),
 };
 
-export type Items = Record<UniqueIdentifier, UniqueIdentifier[]>;
+type Columns = Record<
+  UniqueIdentifier,
+  { items: UniqueIdentifier[]; dataRef?: ColumnFragment$key }
+>;
 
 const PLACEHOLDER_ID = "placeholder";
-const empty: UniqueIdentifier[] = [];
 
-export function Board() {
+type BoardProps = {
+  dataRef: BoardFragment$key;
+};
+
+export function Board({ dataRef }: BoardProps) {
   const isClient = useIsClient();
 
-  const [items, setItems] = useState<Items>(() => ({
-    A: range(3).map((index) => `A-${index + 1}`),
-    B: range(3).map((index) => `B-${index + 1}`),
-    C: range(3).map((index) => `C-${index + 1}`),
-    D: range(3).map((index) => `D-${index + 1}`),
-  }));
+  const { id: boardId, columnConnection } = useFragment(fragment, dataRef);
 
-  const [containers, setContainers] = useState(
-    Object.keys(items) as UniqueIdentifier[],
+  const [columns, setColumns] = useState<Columns>(() =>
+    columnConnection.edges.reduce(
+      (acc, { node }) => ({
+        ...acc,
+        [node.title]: {
+          items: range(3).map((index) => `${node.title}-${index + 1}`),
+          dataRef: node,
+        },
+      }),
+      {},
+    ),
   );
+
+  const containers = Object.keys(columns) as UniqueIdentifier[];
+
+  const [, setContainers] = useState(
+    Object.keys(columns) as UniqueIdentifier[],
+  );
+
+  useEffect(() => {
+    const columns = columnConnection.edges.reduce(
+      (acc, { node }) => ({
+        ...acc,
+        [node.title]: {
+          items: range(3).map((index) => `${node.title}-${index + 1}`),
+          dataRef: node,
+        },
+      }),
+      {},
+    );
+
+    setColumns(columns);
+  }, [columnConnection.edges]);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const lastOverId = useRef<UniqueIdentifier | null>(null);
@@ -68,14 +119,14 @@ export function Board() {
     () =>
       getCollisionDetectionStrategy(
         activeId,
-        items,
+        columns,
         lastOverId,
         recentlyMovedToNewContainer,
       ),
-    [activeId, items],
+    [activeId, columns],
   );
 
-  const [clonedItems, setClonedItems] = useState<Items | null>(null);
+  const [clonedColumns, setClonedColumns] = useState<Columns | null>(null);
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -84,21 +135,21 @@ export function Board() {
   );
 
   const onDragCancel = () => {
-    if (clonedItems) {
+    if (clonedColumns) {
       // Reset items to their original state in case items have been
       // Dragged across containers
-      setItems(clonedItems);
+      setColumns(clonedColumns);
     }
 
     setActiveId(null);
-    setClonedItems(null);
+    setClonedColumns(null);
   };
 
   useEffect(() => {
     requestAnimationFrame(() => {
       recentlyMovedToNewContainer.current = false;
     });
-  }, [items]);
+  }, [columns]);
 
   function renderSortableItemDragOverlay(id: UniqueIdentifier) {
     return <Item dragOverlay>{id}</Item>;
@@ -106,43 +157,26 @@ export function Board() {
 
   function renderContainerDragOverlay(containerId: UniqueIdentifier) {
     return (
-      <Container
-        label={`Column ${containerId}`}
+      <Column
+        dataRef={exists(columns[containerId]?.dataRef)}
+        label={containerId.toString()}
         style={{
           height: "100%",
         }}
         shadow
       >
-        {exists(items[containerId]).map((item) => (
+        {exists(columns[containerId]?.items).map((item) => (
           <Item key={item}>{item}</Item>
         ))}
-      </Container>
+      </Column>
     );
-  }
-
-  function handleRemove(containerID: UniqueIdentifier) {
-    setContainers((containers) =>
-      containers.filter((id) => id !== containerID),
-    );
-  }
-
-  function handleAddColumn() {
-    const newContainerId = getNextContainerId();
-
-    unstable_batchedUpdates(() => {
-      setContainers((containers) => [...containers, newContainerId]);
-      setItems((items) => ({
-        ...items,
-        [newContainerId]: [],
-      }));
-    });
   }
 
   function getNextContainerId() {
-    const containerIds = Object.keys(items);
-    const lastContainerId = containerIds[containerIds.length - 1];
+    const containerIds = Object.keys(columns);
+    const lastContainerId = exists(containerIds[containerIds.length - 1]);
 
-    return String.fromCharCode(exists(lastContainerId).charCodeAt(0) + 1);
+    return String.fromCharCode(lastContainerId.charCodeAt(0) + 1);
   }
 
   return (
@@ -152,32 +186,32 @@ export function Board() {
       measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
       onDragStart={({ active }) => {
         setActiveId(active.id);
-        setClonedItems(items);
+        setClonedColumns(columns);
       }}
       onDragOver={({ active, over }) => {
         const overId = over?.id;
 
-        if (overId == null || active.id in items) {
+        if (overId == null || active.id in columns) {
           return;
         }
 
-        const overContainer = findContainer(overId, items);
-        const activeContainer = findContainer(active.id, items);
+        const overContainer = findContainer(overId, columns);
+        const activeContainer = findContainer(active.id, columns);
 
         if (!overContainer || !activeContainer) {
           return;
         }
 
         if (activeContainer !== overContainer) {
-          setItems((items) => {
-            const activeItems = exists(items[activeContainer]);
-            const overItems = exists(items[overContainer]);
+          setColumns((columns) => {
+            const activeItems = exists(columns[activeContainer]?.items);
+            const overItems = exists(columns[overContainer]?.items);
             const overIndex = overItems.indexOf(overId);
             const activeIndex = activeItems.indexOf(active.id);
 
             let newIndex: number;
 
-            if (overId in items) {
+            if (overId in columns) {
               newIndex = overItems.length + 1;
             } else {
               const isBelowOverItem =
@@ -195,24 +229,30 @@ export function Board() {
             recentlyMovedToNewContainer.current = true;
 
             return {
-              ...items,
-              [activeContainer]: exists(items[activeContainer]).filter(
-                (item) => item !== active.id,
-              ),
-              [overContainer]: [
-                ...exists(items[overContainer]).slice(0, newIndex),
-                exists(items[activeContainer]?.[activeIndex]),
-                ...exists(items[overContainer]).slice(
-                  newIndex,
-                  exists(items[overContainer]).length,
+              ...columns,
+              [activeContainer]: {
+                ...exists(columns[activeContainer]),
+                items: exists(columns[activeContainer]?.items).filter(
+                  (item) => item !== active.id,
                 ),
-              ],
+              },
+              [overContainer]: {
+                ...exists(columns[overContainer]),
+                items: [
+                  ...exists(columns[overContainer]?.items).slice(0, newIndex),
+                  exists(columns[activeContainer]?.items?.[activeIndex]),
+                  ...exists(columns[overContainer]?.items).slice(
+                    newIndex,
+                    exists(columns[overContainer]?.items).length,
+                  ),
+                ],
+              },
             };
           });
         }
       }}
       onDragEnd={({ active, over }) => {
-        if (active.id in items && over?.id) {
+        if (active.id in columns && over?.id) {
           setContainers((containers) => {
             const activeIndex = containers.indexOf(active.id);
             const overIndex = containers.indexOf(over.id);
@@ -221,7 +261,7 @@ export function Board() {
           });
         }
 
-        const activeContainer = findContainer(active.id, items);
+        const activeContainer = findContainer(active.id, columns);
 
         if (!activeContainer) {
           setActiveId(null);
@@ -235,17 +275,21 @@ export function Board() {
           return;
         }
 
+        // New column when dropped
+
         if (overId === PLACEHOLDER_ID) {
           const newContainerId = getNextContainerId();
 
           unstable_batchedUpdates(() => {
             setContainers((containers) => [...containers, newContainerId]);
-            setItems((items) => ({
-              ...items,
-              [activeContainer]: exists(items[activeContainer]).filter(
-                (id) => id !== activeId,
-              ),
-              [newContainerId]: [active.id],
+            setColumns((columns) => ({
+              ...columns,
+              [activeContainer]: {
+                items: exists(columns[activeContainer]).items.filter(
+                  (id) => id !== activeId,
+                ),
+              },
+              [newContainerId]: { items: [active.id] },
             }));
             setActiveId(null);
           });
@@ -253,20 +297,27 @@ export function Board() {
           return;
         }
 
-        const overContainer = findContainer(overId, items);
+        const overContainer = findContainer(overId, columns);
 
         if (overContainer) {
-          const activeIndex = exists(items[activeContainer]).indexOf(active.id);
-          const overIndex = exists(items[overContainer]).indexOf(overId);
+          const activeIndex = exists(columns[activeContainer]?.items).indexOf(
+            active.id,
+          );
+          const overIndex = exists(columns[overContainer]?.items).indexOf(
+            overId,
+          );
 
           if (activeIndex !== overIndex) {
-            setItems((items) => ({
-              ...items,
-              [overContainer]: arrayMove(
-                exists(items[overContainer]),
-                activeIndex,
-                overIndex,
-              ),
+            setColumns((columns) => ({
+              ...columns,
+              [overContainer]: {
+                ...exists(columns[overContainer]),
+                items: arrayMove(
+                  exists(columns[overContainer]?.items),
+                  activeIndex,
+                  overIndex,
+                ),
+              },
             }));
           }
         }
@@ -281,18 +332,18 @@ export function Board() {
           strategy={horizontalListSortingStrategy}
         >
           {containers.map((containerId) => (
-            <DroppableContainer
+            <DroppableColumn
               key={containerId}
               id={containerId}
-              label={`Column ${containerId}`}
-              items={exists(items[containerId])}
-              onRemove={() => handleRemove(containerId)}
+              label={containerId.toString()}
+              items={exists(columns[containerId]).items}
+              dataRef={exists(columns[containerId]).dataRef}
             >
               <SortableContext
-                items={exists(items[containerId])}
+                items={exists(columns[containerId]).items}
                 strategy={verticalListSortingStrategy}
               >
-                {exists(items[containerId]).map((value) => {
+                {exists(columns[containerId]?.items).map((value) => {
                   return (
                     <SortableItem
                       key={value}
@@ -302,17 +353,18 @@ export function Board() {
                   );
                 })}
               </SortableContext>
-            </DroppableContainer>
+            </DroppableColumn>
           ))}
-          <DroppableContainer
+          <DroppableColumn
             id={PLACEHOLDER_ID}
             disabled={isSortingContainer}
-            items={empty}
-            onClick={handleAddColumn}
             placeholder
           >
-            + Add column
-          </DroppableContainer>
+            <CreateColumn
+              connectionId={columnConnection.__id}
+              boardId={boardId}
+            />
+          </DroppableColumn>
         </SortableContext>
       </div>
       {isClient
@@ -331,10 +383,12 @@ export function Board() {
   );
 }
 
-function findContainer(id: UniqueIdentifier, items: Items) {
+function findContainer(id: UniqueIdentifier, items: Columns) {
   if (id in items) {
     return id;
   }
 
-  return Object.keys(items).find((key) => exists(items[key]).includes(id));
+  return Object.keys(items).find((key) =>
+    exists(items[key]?.items).includes(id),
+  );
 }

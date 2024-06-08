@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2bfaf9ade409b714fe2c5114f482ec89>>
+ * @generated SignedSource<<72dca956908c4c8d0a8c603ea3ddd945>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
+import { FragmentRefs } from "relay-runtime";
 export type boardQuery$variables = {
   id: string;
 };
@@ -16,6 +17,7 @@ export type boardQuery$data = {
   readonly board: {
     readonly id: string;
     readonly name: string;
+    readonly " $fragmentSpreads": FragmentRefs<"BoardFragment">;
   };
 };
 export type boardQuery = {
@@ -33,44 +35,51 @@ var v0 = [
 ],
 v1 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "id",
-        "variableName": "id"
-      }
-    ],
-    "concreteType": "Board",
-    "kind": "LinkedField",
-    "name": "board",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "name",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "Variable",
+    "name": "id",
+    "variableName": "id"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "boardQuery",
-    "selections": (v1/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Board",
+        "kind": "LinkedField",
+        "name": "board",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "BoardFragment"
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Query",
     "abstractKey": null
   },
@@ -79,19 +88,86 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "boardQuery",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Board",
+        "kind": "LinkedField",
+        "name": "board",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "BoardColumnConnection",
+            "kind": "LinkedField",
+            "name": "columnConnection",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "BoardColumnConnectionEdge",
+                "kind": "LinkedField",
+                "name": "edges",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Column",
+                    "kind": "LinkedField",
+                    "name": "node",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "title",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
+              {
+                "kind": "ClientExtension",
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "__id",
+                    "storageKey": null
+                  }
+                ]
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "dc8e80981af4702a0b387fb44fab5bd0",
+    "cacheID": "07dda8a8d6cd614a431379a723607e0c",
     "id": null,
     "metadata": {},
     "name": "boardQuery",
     "operationKind": "query",
-    "text": "query boardQuery(\n  $id: ID!\n) {\n  board(id: $id) {\n    id\n    name\n  }\n}\n"
+    "text": "query boardQuery(\n  $id: ID!\n) {\n  board(id: $id) {\n    id\n    name\n    ...BoardFragment\n  }\n}\n\nfragment BoardFragment on Board {\n  id\n  columnConnection {\n    edges {\n      node {\n        id\n        title\n        ...ColumnFragment\n      }\n    }\n  }\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n}\n"
   }
 };
 })();
 
-(node as any).hash = "a2bfa09ef2d3eaf6908f7bb4c19037b8";
+(node as any).hash = "ac9513a3564ac96158768ad64aaf5dfb";
 
 export default node;

@@ -18,16 +18,16 @@ import exists from "server/lib/exists";
  */
 export const getCollisionDetectionStrategy = (
   activeId: UniqueIdentifier | null,
-  items: Record<UniqueIdentifier, UniqueIdentifier[]>,
+  columns: Record<UniqueIdentifier, { items: UniqueIdentifier[] }>,
   lastOverId: React.MutableRefObject<UniqueIdentifier | null>,
   recentlyMovedToNewContainer: React.MutableRefObject<boolean>,
 ): CollisionDetection => {
   return (args) => {
-    if (activeId && activeId in items) {
+    if (activeId && activeId in columns) {
       return closestCenter({
         ...args,
         droppableContainers: args.droppableContainers.filter(
-          (container) => container.id in items,
+          (container) => container.id in columns,
         ),
       });
     }
@@ -44,8 +44,8 @@ export const getCollisionDetectionStrategy = (
     let overId = getFirstCollision(intersections, "id");
 
     if (overId !== null) {
-      if (overId in items) {
-        const containerItems = exists(items[overId]);
+      if (overId in columns) {
+        const containerItems = exists(columns[overId]?.items);
 
         // If a container is matched and it contains items (columns 'A', 'B', 'C')
         if (containerItems.length > 0) {
