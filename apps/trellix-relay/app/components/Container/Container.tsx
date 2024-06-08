@@ -1,6 +1,7 @@
 import { cx } from "class-variance-authority";
 import React, { forwardRef } from "react";
-import { Handle, Remove } from "../Item";
+import { Handle } from "../Handle/Handle";
+import { Remove } from "../Remove/Remove";
 import styles from "./Container.module.css";
 
 export interface ContainerProps {

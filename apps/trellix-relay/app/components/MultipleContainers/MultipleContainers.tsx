@@ -37,8 +37,8 @@ import { createPortal, unstable_batchedUpdates } from "react-dom";
 import exists from "server/lib/exists";
 import { useIsClient } from "usehooks-ts";
 import { coordinateGetter as multipleContainersCoordinateGetter } from "~/lib/keyboard-coordinates";
-import { Container, ContainerProps } from "./Container/Container";
-import { Item } from "./Item";
+import { Container, ContainerProps } from "../Container/Container";
+import { Item } from "../Item/Item";
 
 const animateLayoutChanges: AnimateLayoutChanges = (args) =>
   defaultAnimateLayoutChanges({ ...args, wasDragging: true });
@@ -449,7 +449,6 @@ export function MultipleContainers({
         style={{
           display: "inline-grid",
           boxSizing: "border-box",
-          padding: 20,
           gridAutoFlow: vertical ? "row" : "column",
         }}
       >

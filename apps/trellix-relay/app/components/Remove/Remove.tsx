@@ -1,14 +1,12 @@
-import React from 'react';
-
-import {Action, ActionProps} from '../Action';
+import { Action, ActionProps } from "../Action/Action";
 
 export function Remove(props: ActionProps) {
   return (
     <Action
       {...props}
       active={{
-        fill: 'rgba(255, 70, 70, 0.95)',
-        background: 'rgba(255, 70, 70, 0.1)',
+        fill: "rgba(255, 70, 70, 0.95)",
+        background: "rgba(255, 70, 70, 0.1)",
       }}
     >
       <svg width="8" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
