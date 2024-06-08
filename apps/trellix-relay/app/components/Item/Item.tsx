@@ -2,21 +2,16 @@ import type { DraggableSyntheticListeners } from "@dnd-kit/core";
 import type { Transform } from "@dnd-kit/utilities";
 import { cx } from "class-variance-authority";
 import { CSSProperties, ReactNode, forwardRef, memo, useEffect } from "react";
-import { Remove } from "../Remove/Remove";
-import styles from "./Item.module.css";
+import { useFocusVisible } from "react-aria";
 
 export type ItemProps = {
   dragOverlay?: boolean;
-  disabled?: boolean;
   dragging?: boolean;
-  height?: number;
   index?: number;
   transform?: Transform | null;
   listeners?: DraggableSyntheticListeners;
-  style?: CSSProperties;
   transition?: string | null;
-  value: ReactNode;
-  onRemove?(): void;
+  children: ReactNode;
 };
 
 export const Item = memo(
@@ -25,18 +20,17 @@ export const Item = memo(
       {
         dragOverlay,
         dragging,
-        disabled,
         index,
         listeners,
-        onRemove,
-        style,
         transition,
         transform,
-        value,
+        children,
         ...props
       },
       ref,
     ) => {
+      const { isFocusVisible } = useFocusVisible({ isTextInput: true });
+
       useEffect(() => {
         if (!dragOverlay) {
           return;
@@ -51,9 +45,11 @@ export const Item = memo(
 
       return (
         <li
-          className={cx(styles.Wrapper, dragOverlay && styles.dragOverlay)}
+          className={cx("flex touch-manipulation", dragOverlay && "z-50")}
           style={
             {
+              transform:
+                "translate3d(var(--translate-x, 0), var(--translate-y, 0), 0) scaleX(var(--scale-x, 1)) scaleY(var(--scale-y, 1))",
               transition,
               "--translate-x": transform
                 ? `${Math.round(transform.x)}px`
@@ -72,27 +68,23 @@ export const Item = memo(
           }
           ref={ref}
         >
-          <div
+          <button
             className={cx(
-              styles.Item,
-              dragging && styles.dragging,
-              dragOverlay && styles.dragOverlay,
-              disabled && styles.disabled,
-              "bg-white",
+              `flex flex-grow cursor-grab touch-manipulation rounded-md border
+              border-slate-100 bg-white px-5 py-4 shadow-sm outline-none`,
+              isFocusVisible && "ring-blue-400 ring-offset-2 focus:ring-2",
+              dragging && "invisible",
+              dragOverlay && "cursor-[inherit] shadow-md",
+              isFocusVisible && dragOverlay && "ring-4 ring-offset-0",
             )}
-            style={style}
+            style={{ WebkitTapHighlightColor: "transparent" } as CSSProperties}
             {...listeners}
             {...props}
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            type="button"
             tabIndex={0}
           >
-            {value}
-            <span className={styles.Actions}>
-              {onRemove ? (
-                <Remove className={styles.Remove} onClick={onRemove} />
-              ) : null}
-            </span>
-          </div>
+            {children}
+          </button>
         </li>
       );
     },

@@ -18,12 +18,13 @@ export function SortableItem({ disabled, id, index }: SortableItemProps) {
   return (
     <Item
       ref={disabled ? undefined : setNodeRef}
-      value={id}
       dragging={isDragging}
       index={index}
       transition={transition}
       transform={transform}
       listeners={listeners}
-    />
+    >
+      {id}
+    </Item>
   );
 }

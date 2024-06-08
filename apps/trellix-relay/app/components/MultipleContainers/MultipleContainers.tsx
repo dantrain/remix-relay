@@ -34,7 +34,7 @@ const dropAnimation: DropAnimation = {
   sideEffects: defaultDropAnimationSideEffects({
     styles: {
       active: {
-        opacity: "0.5",
+        visibility: "hidden",
       },
     },
   }),
@@ -101,7 +101,7 @@ export function MultipleContainers() {
   }, [items]);
 
   function renderSortableItemDragOverlay(id: UniqueIdentifier) {
-    return <Item value={id} dragOverlay />;
+    return <Item dragOverlay>{id}</Item>;
   }
 
   function renderContainerDragOverlay(containerId: UniqueIdentifier) {
@@ -114,7 +114,7 @@ export function MultipleContainers() {
         shadow
       >
         {exists(items[containerId]).map((item) => (
-          <Item key={item} value={item} />
+          <Item key={item}>{item}</Item>
         ))}
       </Container>
     );
