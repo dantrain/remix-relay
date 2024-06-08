@@ -5,7 +5,6 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { CSSProperties } from "react";
 import { Container, ContainerProps } from "../Container/Container";
 
 const animateLayoutChanges: AnimateLayoutChanges = (args) =>
@@ -15,16 +14,13 @@ export type DroppableContainerProps = ContainerProps & {
   disabled?: boolean;
   id: UniqueIdentifier;
   items: UniqueIdentifier[];
-  style?: CSSProperties;
 };
 
 export function DroppableContainer({
   children,
-  columns = 1,
   disabled,
   id,
   items,
-  style,
   ...props
 }: DroppableContainerProps) {
   const {
@@ -44,6 +40,7 @@ export function DroppableContainer({
     },
     animateLayoutChanges,
   });
+
   const isOverContainer = over
     ? (id === over.id && active?.data.current?.type !== "container") ||
       items.includes(over.id)
@@ -53,17 +50,15 @@ export function DroppableContainer({
     <Container
       ref={disabled ? undefined : setNodeRef}
       style={{
-        ...style,
         transition,
         transform: CSS.Translate.toString(transform),
-        opacity: isDragging ? 0.5 : undefined,
+        visibility: isDragging ? "hidden" : undefined,
       }}
       hover={isOverContainer}
       handleProps={{
         ...attributes,
         ...listeners,
       }}
-      columns={columns}
       {...props}
     >
       {children}

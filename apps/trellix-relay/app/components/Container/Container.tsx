@@ -3,16 +3,13 @@ import { CSSProperties, ReactNode, forwardRef } from "react";
 import { ActionProps } from "../Action/Action";
 import { Handle } from "../Handle/Handle";
 import { Remove } from "../Remove/Remove";
-import styles from "./Container.module.css";
 
 export type ContainerProps = {
   children: ReactNode;
-  columns?: number;
   label?: string;
   style?: CSSProperties;
   hover?: boolean;
   handleProps?: ActionProps;
-  scrollable?: boolean;
   shadow?: boolean;
   placeholder?: boolean;
   onClick?(): void;
@@ -23,14 +20,12 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
   (
     {
       children,
-      columns = 1,
       handleProps,
       hover,
       onRemove,
       label,
       placeholder,
       style,
-      scrollable,
       shadow,
       ...props
     }: ContainerProps,
@@ -40,30 +35,34 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
       <div
         {...props}
         ref={ref}
-        style={
-          {
-            ...style,
-            "--columns": columns,
-          } as CSSProperties
-        }
+        style={style}
         className={cx(
-          styles.Container,
-          hover && styles.hover,
-          placeholder && styles.placeholder,
-          scrollable && styles.scrollable,
-          shadow && styles.shadow,
+          `flex min-h-52 min-w-80 flex-col overflow-hidden rounded-md border
+          outline-none transition-colors duration-200`,
+          !placeholder && "border-slate-300",
+          hover ? "bg-[#e9eef4]" : "bg-slate-100",
+          shadow && "shadow-md",
+          placeholder &&
+            "items-center justify-center border-dashed border-slate-400",
+          placeholder && !hover && "bg-transparent",
         )}
       >
         {label ? (
-          <div className={styles.Header}>
+          <div
+            className="flex justify-between px-3 pt-2 font-medium text-slate-700"
+          >
             {label}
-            <div className={styles.Actions}>
+            <div className="flex gap-2">
               {onRemove ? <Remove onClick={onRemove} /> : undefined}
               <Handle {...handleProps} />
             </div>
           </div>
         ) : null}
-        {placeholder ? children : <ul>{children}</ul>}
+        {placeholder ? (
+          children
+        ) : (
+          <ul className="flex flex-col gap-2 p-2">{children}</ul>
+        )}
       </div>
     );
   },

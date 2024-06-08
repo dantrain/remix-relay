@@ -275,7 +275,7 @@ export function MultipleContainers() {
       }}
       onDragCancel={onDragCancel}
     >
-      <div className="inline-grid grid-flow-col">
+      <div className="inline-grid grid-flow-col gap-3">
         <SortableContext
           items={[...containers, PLACEHOLDER_ID]}
           strategy={horizontalListSortingStrategy}

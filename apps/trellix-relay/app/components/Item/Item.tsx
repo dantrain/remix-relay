@@ -67,11 +67,13 @@ export const Item = memo(
         >
           <button
             className={cx(
-              `flex flex-grow cursor-grab touch-manipulation rounded-md border
-              border-slate-100 bg-white px-5 py-4 shadow-sm outline-none`,
+              `flex flex-grow touch-manipulation rounded-md border
+              border-slate-200 bg-white px-5 py-4 outline-none`,
               isFocusVisible && "ring-blue-400 ring-offset-2 focus:ring-2",
               dragging && "invisible",
-              dragOverlay && "cursor-[inherit] shadow-md",
+              dragOverlay
+                ? "cursor-[inherit] shadow-md"
+                : "cursor-grab shadow-sm",
               isFocusVisible && dragOverlay && "ring-4 ring-offset-0",
             )}
             style={{ WebkitTapHighlightColor: "transparent" } as CSSProperties}
