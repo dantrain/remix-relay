@@ -8,7 +8,6 @@ import styles from "./Item.module.css";
 
 export interface Props {
   dragOverlay?: boolean;
-  color?: string;
   disabled?: boolean;
   dragging?: boolean;
   handle?: boolean;
@@ -43,7 +42,6 @@ export const Item = React.memo(
   React.forwardRef<HTMLLIElement, Props>(
     (
       {
-        color,
         dragOverlay,
         dragging,
         disabled,
@@ -118,7 +116,6 @@ export const Item = React.memo(
                 ? `${transform.scaleY}`
                 : undefined,
               "--index": index,
-              "--color": color,
             } as React.CSSProperties
           }
           ref={ref}
@@ -130,7 +127,6 @@ export const Item = React.memo(
               handle && styles.withHandle,
               dragOverlay && styles.dragOverlay,
               disabled && styles.disabled,
-              color && styles.color,
               "bg-white",
             )}
             style={style}
