@@ -1,63 +1,38 @@
 import type { DraggableSyntheticListeners } from "@dnd-kit/core";
 import type { Transform } from "@dnd-kit/utilities";
 import { cx } from "class-variance-authority";
-import React, { useEffect } from "react";
-import { Handle } from "../Handle/Handle";
+import { CSSProperties, forwardRef, memo, useEffect } from "react";
 import { Remove } from "../Remove/Remove";
 import styles from "./Item.module.css";
 
-export interface Props {
+export type ItemProps = {
   dragOverlay?: boolean;
   disabled?: boolean;
   dragging?: boolean;
-  handle?: boolean;
-  handleProps?: any;
   height?: number;
   index?: number;
-  fadeIn?: boolean;
   transform?: Transform | null;
   listeners?: DraggableSyntheticListeners;
-  sorting?: boolean;
   style?: React.CSSProperties;
   transition?: string | null;
-  wrapperStyle?: React.CSSProperties;
   value: React.ReactNode;
   onRemove?(): void;
-  renderItem?(args: {
-    dragOverlay: boolean;
-    dragging: boolean;
-    sorting: boolean;
-    index: number | undefined;
-    fadeIn: boolean;
-    listeners: DraggableSyntheticListeners;
-    ref: React.Ref<HTMLElement>;
-    style: React.CSSProperties | undefined;
-    transform: Props["transform"];
-    transition: Props["transition"];
-    value: Props["value"];
-  }): React.ReactElement;
-}
+};
 
-export const Item = React.memo(
-  React.forwardRef<HTMLLIElement, Props>(
+export const Item = memo(
+  forwardRef<HTMLLIElement, ItemProps>(
     (
       {
         dragOverlay,
         dragging,
         disabled,
-        fadeIn,
-        handle,
-        handleProps,
         index,
         listeners,
         onRemove,
-        renderItem,
-        sorting,
         style,
         transition,
         transform,
         value,
-        wrapperStyle,
         ...props
       },
       ref,
@@ -74,35 +49,12 @@ export const Item = React.memo(
         };
       }, [dragOverlay]);
 
-      return renderItem ? (
-        renderItem({
-          dragOverlay: Boolean(dragOverlay),
-          dragging: Boolean(dragging),
-          sorting: Boolean(sorting),
-          index,
-          fadeIn: Boolean(fadeIn),
-          listeners,
-          ref,
-          style,
-          transform,
-          transition,
-          value,
-        })
-      ) : (
+      return (
         <li
-          className={cx(
-            styles.Wrapper,
-            fadeIn && styles.fadeIn,
-            sorting && styles.sorting,
-            dragOverlay && styles.dragOverlay,
-          )}
+          className={cx(styles.Wrapper, dragOverlay && styles.dragOverlay)}
           style={
             {
-              ...wrapperStyle,
-              transition:
-                [transition, wrapperStyle?.transition]
-                  .filter(Boolean)
-                  .join(", ") || undefined,
+              transition,
               "--translate-x": transform
                 ? `${Math.round(transform.x)}px`
                 : undefined,
@@ -116,7 +68,7 @@ export const Item = React.memo(
                 ? `${transform.scaleY}`
                 : undefined,
               "--index": index,
-            } as React.CSSProperties
+            } as CSSProperties
           }
           ref={ref}
         >
@@ -124,23 +76,20 @@ export const Item = React.memo(
             className={cx(
               styles.Item,
               dragging && styles.dragging,
-              handle && styles.withHandle,
               dragOverlay && styles.dragOverlay,
               disabled && styles.disabled,
               "bg-white",
             )}
             style={style}
-            data-cypress="draggable-item"
-            {...(!handle ? listeners : undefined)}
+            {...listeners}
             {...props}
-            tabIndex={!handle ? 0 : undefined}
+            tabIndex={0}
           >
             {value}
             <span className={styles.Actions}>
               {onRemove ? (
                 <Remove className={styles.Remove} onClick={onRemove} />
               ) : null}
-              {handle ? <Handle {...handleProps} {...listeners} /> : null}
             </span>
           </div>
         </li>
