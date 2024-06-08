@@ -5,11 +5,9 @@ import { Item } from "../Item/Item";
 export type SortableItemProps = {
   containerId: UniqueIdentifier;
   id: UniqueIdentifier;
-  index: number;
-  disabled?: boolean;
 };
 
-export function SortableItem({ disabled, id, index }: SortableItemProps) {
+export function SortableItem({ id }: SortableItemProps) {
   const { setNodeRef, listeners, isDragging, transform, transition } =
     useSortable({
       id,
@@ -17,9 +15,8 @@ export function SortableItem({ disabled, id, index }: SortableItemProps) {
 
   return (
     <Item
-      ref={disabled ? undefined : setNodeRef}
+      ref={setNodeRef}
       dragging={isDragging}
-      index={index}
       transition={transition}
       transform={transform}
       listeners={listeners}

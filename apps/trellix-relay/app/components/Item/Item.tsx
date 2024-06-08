@@ -7,7 +7,6 @@ import { useFocusVisible } from "react-aria";
 export type ItemProps = {
   dragOverlay?: boolean;
   dragging?: boolean;
-  index?: number;
   transform?: Transform | null;
   listeners?: DraggableSyntheticListeners;
   transition?: string | null;
@@ -20,7 +19,6 @@ export const Item = memo(
       {
         dragOverlay,
         dragging,
-        index,
         listeners,
         transition,
         transform,
@@ -63,7 +61,6 @@ export const Item = memo(
               "--scale-y": transform?.scaleY
                 ? `${transform.scaleY}`
                 : undefined,
-              "--index": index,
             } as CSSProperties
           }
           ref={ref}

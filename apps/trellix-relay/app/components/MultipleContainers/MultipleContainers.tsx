@@ -292,13 +292,11 @@ export function MultipleContainers() {
                 items={exists(items[containerId])}
                 strategy={verticalListSortingStrategy}
               >
-                {exists(items[containerId]).map((value, index) => {
+                {exists(items[containerId]).map((value) => {
                   return (
                     <SortableItem
-                      disabled={isSortingContainer}
                       key={value}
                       id={value}
-                      index={index}
                       containerId={containerId}
                     />
                   );
