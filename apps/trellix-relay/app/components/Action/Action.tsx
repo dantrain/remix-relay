@@ -1,14 +1,14 @@
 import { cx } from "class-variance-authority";
-import React, { forwardRef, CSSProperties } from "react";
+import { forwardRef, CSSProperties, HTMLAttributes } from "react";
 import styles from "./Action.module.css";
 
-export interface ActionProps extends React.HTMLAttributes<HTMLButtonElement> {
+export type ActionProps = HTMLAttributes<HTMLButtonElement> & {
   active?: {
     fill: string;
     background: string;
   };
   cursor?: CSSProperties["cursor"];
-}
+};
 
 export const Action = forwardRef<HTMLButtonElement, ActionProps>(
   ({ active, className, cursor, style, ...props }, ref) => {

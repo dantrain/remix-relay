@@ -1,7 +1,7 @@
 import type { DraggableSyntheticListeners } from "@dnd-kit/core";
 import type { Transform } from "@dnd-kit/utilities";
 import { cx } from "class-variance-authority";
-import { CSSProperties, forwardRef, memo, useEffect } from "react";
+import { CSSProperties, ReactNode, forwardRef, memo, useEffect } from "react";
 import { Remove } from "../Remove/Remove";
 import styles from "./Item.module.css";
 
@@ -13,9 +13,9 @@ export type ItemProps = {
   index?: number;
   transform?: Transform | null;
   listeners?: DraggableSyntheticListeners;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   transition?: string | null;
-  value: React.ReactNode;
+  value: ReactNode;
   onRemove?(): void;
 };
 
@@ -83,6 +83,7 @@ export const Item = memo(
             style={style}
             {...listeners}
             {...props}
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
           >
             {value}

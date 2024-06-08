@@ -8,10 +8,10 @@
 
   &.dragOverlay {
     --scale: 1.05;
-    --box-shadow: $box-shadow;
+    /* --box-shadow: $box-shadow;
     --box-shadow-picked-up: $box-shadow-border,
       -1px 0 15px 0 rgba(34, 33, 81, 0.01),
-      0px 15px 15px 0 rgba(34, 33, 81, 0.25);
+      0px 15px 15px 0 rgba(34, 33, 81, 0.25); */
     z-index: 999;
   }
 }
@@ -22,8 +22,8 @@
   flex-grow: 1;
   align-items: center;
   padding: 18px 20px;
-  background-color: $background-color;
-  box-shadow: $box-shadow;
+  /* background-color: $background-color; */
+  /* box-shadow: $box-shadow; */
   outline: none;
   border-radius: calc(4px / var(--scale-x, 1));
   box-sizing: border-box;
@@ -32,8 +32,8 @@
 
   -webkit-tap-highlight-color: transparent;
 
-  color: $text-color;
-  font-weight: $font-weight;
+  /* color: $text-color; */
+  /* font-weight: $font-weight; */
   font-size: 1rem;
   white-space: nowrap;
 
@@ -43,29 +43,29 @@
   /* transform: scale(var(--scale, 1)); */
   transition: box-shadow 200ms cubic-bezier(0.18, 0.67, 0.6, 1.22);
 
-  &:focus-visible {
+  /* &:focus-visible {
     box-shadow:
       0 0px 4px 1px $focused-outline-color,
       $box-shadow;
-  }
+  } */
 
   &.dragging:not(.dragOverlay) {
     opacity: var(--dragging-opacity, 0.5);
     z-index: 0;
 
-    &:focus {
+    /* &:focus {
       box-shadow: $box-shadow;
-    }
+    } */
   }
 
   &.disabled {
     color: #999;
     background-color: #f1f1f1;
-    &:focus {
+    /* &:focus {
       box-shadow:
         0 0px 4px 1px rgba(0, 0, 0, 0.1),
         $box-shadow;
-    }
+    } */
     cursor: not-allowed;
   }
 

@@ -92,6 +92,7 @@
 
 .Actions {
   display: flex;
+  gap: 8px;
 
   > *:first-child:not(:last-child) {
     opacity: 0;

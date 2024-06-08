@@ -1,24 +1,23 @@
 import { cx } from "class-variance-authority";
-import React, { forwardRef } from "react";
+import { CSSProperties, ReactNode, forwardRef } from "react";
+import { ActionProps } from "../Action/Action";
 import { Handle } from "../Handle/Handle";
 import { Remove } from "../Remove/Remove";
 import styles from "./Container.module.css";
 
-export interface ContainerProps {
-  children: React.ReactNode;
+export type ContainerProps = {
+  children: ReactNode;
   columns?: number;
   label?: string;
-  style?: React.CSSProperties;
-  horizontal?: boolean;
+  style?: CSSProperties;
   hover?: boolean;
-  handleProps?: React.HTMLAttributes<any>;
+  handleProps?: ActionProps;
   scrollable?: boolean;
   shadow?: boolean;
   placeholder?: boolean;
-  unstyled?: boolean;
   onClick?(): void;
   onRemove?(): void;
-}
+};
 
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
   (
@@ -26,7 +25,6 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
       children,
       columns = 1,
       handleProps,
-      horizontal,
       hover,
       onRemove,
       label,
@@ -34,7 +32,6 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
       style,
       scrollable,
       shadow,
-      unstyled,
       ...props
     }: ContainerProps,
     ref,
@@ -47,12 +44,10 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
           {
             ...style,
             "--columns": columns,
-          } as React.CSSProperties
+          } as CSSProperties
         }
         className={cx(
           styles.Container,
-          unstyled && styles.unstyled,
-          horizontal && styles.horizontal,
           hover && styles.hover,
           placeholder && styles.placeholder,
           scrollable && styles.scrollable,

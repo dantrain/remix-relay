@@ -112,7 +112,6 @@ export function MultipleContainers() {
           height: "100%",
         }}
         shadow
-        unstyled={false}
       >
         {exists(items[containerId]).map((item) => (
           <Item key={item} value={item} />

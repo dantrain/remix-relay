@@ -1,7 +1,15 @@
-import { forwardRef } from "react";
-import { Action, ActionProps } from "../Action/Action";
+import { CSSProperties, HTMLAttributes, forwardRef } from "react";
+import { Action } from "../Action/Action";
 
-export const Handle = forwardRef<HTMLButtonElement, ActionProps>(
+export type HandleProps = HTMLAttributes<HTMLButtonElement> & {
+  active?: {
+    fill: string;
+    background: string;
+  };
+  cursor?: CSSProperties["cursor"];
+};
+
+export const Handle = forwardRef<HTMLButtonElement, HandleProps>(
   (props, ref) => {
     return (
       <Action ref={ref} cursor="grab" {...props}>
