@@ -48,10 +48,7 @@ builder.mutationFields((t) => ({
         required: true,
         validate: { schema: z.string().min(1).max(50) },
       }),
-      boardId: t.arg.id({
-        required: true,
-        validate: { schema: z.string().cuid2() },
-      }),
+      boardId: t.arg.id({ required: true }),
     },
     resolve: async (_parent, args, { db, user }) => {
       const [column] = await db((tx) =>
@@ -61,7 +58,7 @@ builder.mutationFields((t) => ({
             id: args.id.toString(),
             title: args.title,
             userId: user.id,
-            boardId: args.boardId.toString(),
+            boardId: fromGlobalId(args.boardId),
           })
           .returning(),
       );
@@ -80,7 +77,7 @@ builder.mutationFields((t) => ({
           .where(
             and(
               eq(columns.id, fromGlobalId(args.id)),
-              eq(boards.userId, user.id),
+              eq(columns.userId, user.id),
             ),
           )
           .returning(),

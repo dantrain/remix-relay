@@ -1,11 +1,12 @@
-import { and, eq, relations } from "drizzle-orm";
+import { resolveArrayConnection } from "@pothos/plugin-relay";
+import { and, desc, eq, relations } from "drizzle-orm";
 import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import pRetry from "p-retry";
 import exists from "server/lib/exists";
 import { fromGlobalId } from "server/lib/global-id";
 import { z } from "zod";
 import { builder } from "../builder";
-import { columns } from "./Column";
+import { Column, columns } from "./Column";
 import { users } from "./User";
 
 export const boards = pgTable("boards", {
@@ -30,6 +31,20 @@ export const Board = builder.node("Board", {
     name: t.exposeString("name"),
     createdAt: t.string({
       resolve: ({ createdAt }) => createdAt.toISOString(),
+    }),
+    columnConnection: t.connection({
+      type: Column,
+      resolve: async ({ id }, args, { db }) => {
+        const data = await db((tx) =>
+          tx
+            .select()
+            .from(columns)
+            .where(eq(columns.boardId, id))
+            .orderBy(desc(columns.createdAt)),
+        );
+
+        return resolveArrayConnection({ args }, data);
+      },
     }),
   }),
 });

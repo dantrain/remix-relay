@@ -24,9 +24,20 @@ directive @stream(
 ) on FIELD
 
 type Board implements Node {
+  columnConnection(after: String, before: String, first: Int, last: Int): BoardColumnConnection!
   createdAt: String!
   id: ID!
   name: String!
+}
+
+type BoardColumnConnection {
+  edges: [BoardColumnConnectionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type BoardColumnConnectionEdge {
+  cursor: String!
+  node: Column!
 }
 
 type Column implements Node {
