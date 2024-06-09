@@ -1,14 +1,7 @@
 import { UniqueIdentifier } from "@dnd-kit/core";
-import {
-  AnimateLayoutChanges,
-  defaultAnimateLayoutChanges,
-  useSortable,
-} from "@dnd-kit/sortable";
+import { defaultAnimateLayoutChanges, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Column, ColumnProps } from "./Column";
-
-const animateLayoutChanges: AnimateLayoutChanges = (args) =>
-  defaultAnimateLayoutChanges({ ...args, wasDragging: true });
 
 export type DroppableColumnProps = ColumnProps & {
   disabled?: boolean;
@@ -38,7 +31,8 @@ export function DroppableColumn({
       type: "container",
       children: items,
     },
-    animateLayoutChanges,
+    animateLayoutChanges: (args) =>
+      defaultAnimateLayoutChanges({ ...args, wasDragging: true }),
   });
 
   const isOverContainer = over

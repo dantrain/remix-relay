@@ -22,7 +22,7 @@ type DeleteColumnProps = {
   connectionId: string;
 };
 
-export default function DeleteColumn({ id, connectionId }: DeleteColumnProps) {
+export function DeleteColumn({ id, connectionId }: DeleteColumnProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const [commit] = useMutation<DeleteColumnDeleteOneColumnMutation>(
@@ -32,7 +32,7 @@ export default function DeleteColumn({ id, connectionId }: DeleteColumnProps) {
   const deleteColumn = () => {
     commit({
       variables: { id, connections: [connectionId] },
-      optimisticResponse: { deleteOneBoard: { id } },
+      optimisticResponse: { deleteOneColumn: { id } },
     });
 
     setDialogOpen(false);
@@ -43,12 +43,7 @@ export default function DeleteColumn({ id, connectionId }: DeleteColumnProps) {
       open={dialogOpen}
       onOpenChange={setDialogOpen}
       trigger={
-        <Button
-          className="absolute right-3 top-3 py-1.5 leading-none sm:opacity-0
-            sm:transition-opacity sm:focus:opacity-100
-            sm:group-hover:opacity-100"
-          color="sky"
-        >
+        <Button className="px-1" color="sky">
           <DeleteIcon className="not-sr-only w-6 sm:w-4" />
           <span className="sr-only">Delete</span>
         </Button>

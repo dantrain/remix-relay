@@ -20,7 +20,7 @@ import {
 } from "@dnd-kit/sortable";
 import { range } from "lodash-es";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { createPortal, unstable_batchedUpdates } from "react-dom";
+import { createPortal } from "react-dom";
 import { graphql, useFragment } from "react-relay";
 import exists from "server/lib/exists";
 import { useIsClient } from "usehooks-ts";
@@ -30,6 +30,7 @@ import { Column } from "./Column";
 import CreateColumn from "./CreateColumn";
 import { DroppableColumn } from "./DroppableColumn";
 import { Item } from "./Item";
+import { PlaceholderColumn } from "./PlaceholderColumn";
 import { SortableItem } from "./SortableItem";
 import { BoardFragment$key } from "./__generated__/BoardFragment.graphql";
 import { ColumnFragment$key } from "./__generated__/ColumnFragment.graphql";
@@ -62,7 +63,7 @@ const dropAnimation: DropAnimation = {
 
 type Columns = Record<
   UniqueIdentifier,
-  { items: UniqueIdentifier[]; dataRef?: ColumnFragment$key }
+  { items: UniqueIdentifier[]; dataRef: ColumnFragment$key }
 >;
 
 const PLACEHOLDER_ID = "placeholder";
@@ -80,7 +81,7 @@ export function Board({ dataRef }: BoardProps) {
     columnConnection.edges.reduce(
       (acc, { node }) => ({
         ...acc,
-        [node.title]: {
+        [node.id]: {
           items: range(3).map((index) => `${node.title}-${index + 1}`),
           dataRef: node,
         },
@@ -99,7 +100,7 @@ export function Board({ dataRef }: BoardProps) {
     const columns = columnConnection.edges.reduce(
       (acc, { node }) => ({
         ...acc,
-        [node.title]: {
+        [node.id]: {
           items: range(3).map((index) => `${node.title}-${index + 1}`),
           dataRef: node,
         },
@@ -159,7 +160,7 @@ export function Board({ dataRef }: BoardProps) {
     return (
       <Column
         dataRef={exists(columns[containerId]?.dataRef)}
-        label={containerId.toString()}
+        connectionId={columnConnection.__id}
         style={{
           height: "100%",
         }}
@@ -277,25 +278,25 @@ export function Board({ dataRef }: BoardProps) {
 
         // New column when dropped
 
-        if (overId === PLACEHOLDER_ID) {
-          const newContainerId = getNextContainerId();
+        // if (overId === PLACEHOLDER_ID) {
+        //   const newContainerId = getNextContainerId();
 
-          unstable_batchedUpdates(() => {
-            setContainers((containers) => [...containers, newContainerId]);
-            setColumns((columns) => ({
-              ...columns,
-              [activeContainer]: {
-                items: exists(columns[activeContainer]).items.filter(
-                  (id) => id !== activeId,
-                ),
-              },
-              [newContainerId]: { items: [active.id] },
-            }));
-            setActiveId(null);
-          });
+        //   unstable_batchedUpdates(() => {
+        //     setContainers((containers) => [...containers, newContainerId]);
+        //     setColumns((columns) => ({
+        //       ...columns,
+        //       [activeContainer]: {
+        //         items: exists(columns[activeContainer]).items.filter(
+        //           (id) => id !== activeId,
+        //         ),
+        //       },
+        //       [newContainerId]: { items: [active.id] },
+        //     }));
+        //     setActiveId(null);
+        //   });
 
-          return;
-        }
+        //   return;
+        // }
 
         const overContainer = findContainer(overId, columns);
 
@@ -335,9 +336,9 @@ export function Board({ dataRef }: BoardProps) {
             <DroppableColumn
               key={containerId}
               id={containerId}
-              label={containerId.toString()}
               items={exists(columns[containerId]).items}
               dataRef={exists(columns[containerId]).dataRef}
+              connectionId={columnConnection.__id}
             >
               <SortableContext
                 items={exists(columns[containerId]).items}
@@ -355,16 +356,12 @@ export function Board({ dataRef }: BoardProps) {
               </SortableContext>
             </DroppableColumn>
           ))}
-          <DroppableColumn
-            id={PLACEHOLDER_ID}
-            disabled={isSortingContainer}
-            placeholder
-          >
+          <PlaceholderColumn id={PLACEHOLDER_ID}>
             <CreateColumn
               connectionId={columnConnection.__id}
               boardId={boardId}
             />
-          </DroppableColumn>
+          </PlaceholderColumn>
         </SortableContext>
       </div>
       {isClient
