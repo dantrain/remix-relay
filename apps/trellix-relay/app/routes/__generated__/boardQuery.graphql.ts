@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<72dca956908c4c8d0a8c603ea3ddd945>>
+ * @generated SignedSource<<68dd6f8f98923f9f09a124a273a7edf2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -130,6 +130,13 @@ return {
                         "kind": "ScalarField",
                         "name": "title",
                         "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "rank",
+                        "storageKey": null
                       }
                     ],
                     "storageKey": null
@@ -158,12 +165,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "07dda8a8d6cd614a431379a723607e0c",
+    "cacheID": "69aab1bbdbf31712281bad1f32f8440e",
     "id": null,
     "metadata": {},
     "name": "boardQuery",
     "operationKind": "query",
-    "text": "query boardQuery(\n  $id: ID!\n) {\n  board(id: $id) {\n    id\n    name\n    ...BoardFragment\n  }\n}\n\nfragment BoardFragment on Board {\n  id\n  columnConnection {\n    edges {\n      node {\n        id\n        title\n        ...ColumnFragment\n      }\n    }\n  }\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n}\n"
+    "text": "query boardQuery(\n  $id: ID!\n) {\n  board(id: $id) {\n    id\n    name\n    ...BoardFragment\n  }\n}\n\nfragment BoardFragment on Board {\n  id\n  columnConnection {\n    edges {\n      node {\n        id\n        title\n        rank\n        ...ColumnFragment\n      }\n    }\n  }\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n}\n"
   }
 };
 })();

@@ -10,6 +10,7 @@ import {
 import exists from "lib/exists";
 import { fromGlobalId } from "lib/global-id";
 import { getNextRank } from "lib/rank";
+import { omit } from "lodash-es";
 import { builder } from "server/builder";
 import invariant from "tiny-invariant";
 import { z } from "zod";
@@ -47,6 +48,7 @@ export const Column = builder.node("Column", {
   id: { resolve: (_) => _.id },
   fields: (t) => ({
     title: t.exposeString("title"),
+    rank: t.exposeString("rank"),
     createdAt: t.string({
       resolve: ({ createdAt }) => createdAt.toISOString(),
     }),
@@ -100,6 +102,29 @@ builder.mutationFields((t) => ({
           })
           .returning();
       });
+
+      return exists(column, "Column not found");
+    },
+  }),
+  updateOneColumn: t.field({
+    type: Column,
+    args: {
+      id: t.arg.id({ required: true }),
+      rank: t.arg.string(),
+    },
+    resolve: async (_parent, args, { db, user }) => {
+      const [column] = await db((tx) =>
+        tx
+          .update(columns)
+          .set({ rank: args.rank ?? undefined })
+          .where(
+            and(
+              eq(columns.id, fromGlobalId(args.id)),
+              eq(columns.userId, user.id),
+            ),
+          )
+          .returning(),
+      );
 
       return exists(column, "Column not found");
     },

@@ -19,10 +19,11 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import exists from "lib/exists";
-import { range } from "lodash-es";
+import { getRankBetween } from "lib/rank";
+import { range, sortBy } from "lodash-es";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { graphql, useFragment } from "react-relay";
+import { graphql, useFragment, useMutation } from "react-relay";
 import { useIsClient } from "usehooks-ts";
 import { getCollisionDetectionStrategy } from "~/lib/collision-detection-strategy";
 import { coordinateGetter } from "~/lib/keyboard-coordinates";
@@ -44,9 +45,19 @@ const fragment = graphql`
         node {
           id
           title
+          rank
           ...ColumnFragment
         }
       }
+    }
+  }
+`;
+
+const columnRankMutation = graphql`
+  mutation BoardColumnRankMutation($id: ID!, $rank: String) {
+    updateOneColumn(id: $id, rank: $rank) {
+      id
+      rank
     }
   }
 `;
@@ -63,7 +74,7 @@ const dropAnimation: DropAnimation = {
 
 type Columns = Record<
   UniqueIdentifier,
-  { items: UniqueIdentifier[]; dataRef: ColumnFragment$key }
+  { items: UniqueIdentifier[]; rank: string; dataRef: ColumnFragment$key }
 >;
 
 const PLACEHOLDER_ID = "placeholder";
@@ -77,39 +88,39 @@ export function Board({ dataRef }: BoardProps) {
 
   const { id: boardId, columnConnection } = useFragment(fragment, dataRef);
 
+  const [commitColumnRank] = useMutation(columnRankMutation);
+
   const [columns, setColumns] = useState<Columns>(() =>
-    columnConnection.edges.reduce(
+    sortBy(columnConnection.edges, "node.rank").reduce(
       (acc, { node }) => ({
         ...acc,
         [node.id]: {
           items: range(3).map((index) => `${node.title}-${index + 1}`),
           dataRef: node,
+          rank: node.rank,
         },
       }),
       {},
     ),
   );
 
-  // const containers = Object.keys(columns) as UniqueIdentifier[];
+  const containers = Object.keys(columns) as UniqueIdentifier[];
 
-  const [containers, setContainers] = useState(
-    Object.keys(columns) as UniqueIdentifier[],
-  );
+  useEffect(() => {
+    const columns = sortBy(columnConnection.edges, "node.rank").reduce(
+      (acc, { node }) => ({
+        ...acc,
+        [node.id]: {
+          items: range(3).map((index) => `${node.title}-${index + 1}`),
+          dataRef: node,
+          rank: node.rank,
+        },
+      }),
+      {},
+    );
 
-  // useEffect(() => {
-  //   const columns = columnConnection.edges.reduce(
-  //     (acc, { node }) => ({
-  //       ...acc,
-  //       [node.id]: {
-  //         items: range(3).map((index) => `${node.title}-${index + 1}`),
-  //         dataRef: node,
-  //       },
-  //     }),
-  //     {},
-  //   );
-
-  //   setColumns(columns);
-  // }, [columnConnection.edges]);
+    setColumns(columns);
+  }, [columnConnection.edges]);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const lastOverId = useRef<UniqueIdentifier | null>(null);
@@ -247,11 +258,28 @@ export function Board({ dataRef }: BoardProps) {
       }}
       onDragEnd={({ active, over }) => {
         if (active.id in columns && over?.id) {
-          setContainers((containers) => {
-            const activeIndex = containers.indexOf(active.id);
-            const overIndex = containers.indexOf(over.id);
+          const activeIndex = containers.indexOf(active.id);
+          const overIndex = containers.indexOf(over.id);
 
-            return arrayMove(containers, activeIndex, overIndex);
+          const reorderedContainers = arrayMove(
+            containers,
+            activeIndex,
+            overIndex,
+          );
+
+          const beforeId = reorderedContainers[overIndex - 1];
+          const afterId = reorderedContainers[overIndex + 1];
+
+          const rank = getRankBetween(
+            columns[beforeId ?? ""],
+            columns[afterId ?? ""],
+          );
+
+          commitColumnRank({
+            variables: { id: active.id, rank },
+            optimisticResponse: {
+              updateOneColumn: { id: active.id, rank },
+            },
           });
         }
 

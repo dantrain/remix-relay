@@ -43,6 +43,7 @@ type BoardColumnConnectionEdge {
 type Column implements Node {
   createdAt: String!
   id: ID!
+  rank: String!
   title: String!
 }
 
@@ -52,6 +53,7 @@ type Mutation {
   deleteOneBoard(id: ID!): Board!
   deleteOneColumn(id: ID!): Column!
   updateOneBoard(id: ID!, name: String!): Board!
+  updateOneColumn(id: ID!, rank: String): Column!
 }
 
 interface Node {
