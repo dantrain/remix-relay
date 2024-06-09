@@ -43,13 +43,13 @@ export function DeleteColumn({ id, connectionId }: DeleteColumnProps) {
       open={dialogOpen}
       onOpenChange={setDialogOpen}
       trigger={
-        <Button className="px-1" color="sky">
+        <Button className="relative px-1" color="sky">
           <DeleteIcon className="not-sr-only w-6 sm:w-4" />
           <span className="sr-only">Delete</span>
         </Button>
       }
       title="Delete column"
-      description="Are you sure?"
+      description="All the items in the column will be deleted."
       content={
         <ResponsiveDialogFooter>
           <Button

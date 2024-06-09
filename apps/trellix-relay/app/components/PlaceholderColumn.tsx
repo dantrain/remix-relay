@@ -26,7 +26,7 @@ export function PlaceholderColumn({ id, children }: PlaceholderColumnProps) {
       className={cx(
         `flex min-h-52 min-w-80 items-center justify-center rounded-md border
         border-dashed border-slate-400`,
-        isOverContainer && "bg-[#d6dee8]",
+        isOverContainer && "bg-[#e9eef4]",
       )}
       style={{
         transition,

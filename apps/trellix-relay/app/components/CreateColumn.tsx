@@ -102,7 +102,7 @@ export default function CreateColumn({
               color="sky"
               type="submit"
             >
-              Create
+              Add
             </Button>
             <ResponsiveDialogClose asChild>
               <Button className="px-3 py-2 sm:py-1" color="sky">

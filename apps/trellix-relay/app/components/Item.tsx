@@ -1,6 +1,6 @@
 import type { DraggableSyntheticListeners } from "@dnd-kit/core";
 import type { Transform } from "@dnd-kit/utilities";
-import { cx } from "class-variance-authority";
+import { cva, cx } from "class-variance-authority";
 import { CSSProperties, ReactNode, forwardRef, memo, useEffect } from "react";
 import { useFocusVisible } from "react-aria";
 
@@ -17,7 +17,7 @@ export const Item = memo(
   forwardRef<HTMLLIElement, ItemProps>(
     (
       {
-        dragOverlay,
+        dragOverlay = false,
         dragging,
         listeners,
         transition,
@@ -66,16 +66,37 @@ export const Item = memo(
           ref={ref}
         >
           <button
-            className={cx(
+            className={cva(
               `flex flex-grow touch-manipulation rounded-md border
               border-slate-200 bg-white px-5 py-4 outline-none`,
-              isFocusVisible && "ring-blue-400 ring-offset-2 focus:ring-2",
-              dragging && "invisible",
-              dragOverlay
-                ? "cursor-[inherit] shadow-md"
-                : "cursor-grab shadow-sm",
-              isFocusVisible && dragOverlay && "ring-4 ring-offset-0",
-            )}
+              {
+                variants: {
+                  dragging: { true: "invisible" },
+                  dragOverlay: {
+                    true: "cursor-[inherit]",
+                    false: "cursor-grab shadow-sm",
+                  },
+                  isFocusVisible: { true: "ring-blue-400" },
+                },
+                compoundVariants: [
+                  {
+                    isFocusVisible: false,
+                    dragOverlay: true,
+                    className: "shadow-md",
+                  },
+                  {
+                    isFocusVisible: true,
+                    dragOverlay: false,
+                    className: "ring-offset-2 focus:ring-2",
+                  },
+                  {
+                    isFocusVisible: true,
+                    dragOverlay: true,
+                    className: "shadow-lg ring-4",
+                  },
+                ],
+              },
+            )({ dragging, dragOverlay, isFocusVisible })}
             style={{ WebkitTapHighlightColor: "transparent" } as CSSProperties}
             {...listeners}
             {...props}

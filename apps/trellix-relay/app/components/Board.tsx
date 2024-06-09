@@ -90,26 +90,26 @@ export function Board({ dataRef }: BoardProps) {
     ),
   );
 
-  const containers = Object.keys(columns) as UniqueIdentifier[];
+  // const containers = Object.keys(columns) as UniqueIdentifier[];
 
-  const [, setContainers] = useState(
+  const [containers, setContainers] = useState(
     Object.keys(columns) as UniqueIdentifier[],
   );
 
-  useEffect(() => {
-    const columns = columnConnection.edges.reduce(
-      (acc, { node }) => ({
-        ...acc,
-        [node.id]: {
-          items: range(3).map((index) => `${node.title}-${index + 1}`),
-          dataRef: node,
-        },
-      }),
-      {},
-    );
+  // useEffect(() => {
+  //   const columns = columnConnection.edges.reduce(
+  //     (acc, { node }) => ({
+  //       ...acc,
+  //       [node.id]: {
+  //         items: range(3).map((index) => `${node.title}-${index + 1}`),
+  //         dataRef: node,
+  //       },
+  //     }),
+  //     {},
+  //   );
 
-    setColumns(columns);
-  }, [columnConnection.edges]);
+  //   setColumns(columns);
+  // }, [columnConnection.edges]);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const lastOverId = useRef<UniqueIdentifier | null>(null);
@@ -171,13 +171,6 @@ export function Board({ dataRef }: BoardProps) {
         ))}
       </Column>
     );
-  }
-
-  function getNextContainerId() {
-    const containerIds = Object.keys(columns);
-    const lastContainerId = exists(containerIds[containerIds.length - 1]);
-
-    return String.fromCharCode(lastContainerId.charCodeAt(0) + 1);
   }
 
   return (
