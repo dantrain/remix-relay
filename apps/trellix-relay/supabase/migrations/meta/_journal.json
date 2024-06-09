@@ -15,6 +15,20 @@
       "when": 1717870916879,
       "tag": "20240608182155_add_columns",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1717940224164,
+      "tag": "20240609133702_add_column_rank",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1717940329907,
+      "tag": "20240609133848_add_board_user_index",
+      "breakpoints": true
     }
   ]
 }

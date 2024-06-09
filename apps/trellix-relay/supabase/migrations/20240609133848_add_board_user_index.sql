@@ -1,0 +1,1 @@
+CREATE INDEX IF NOT EXISTS "board_user_idx" ON "boards" USING btree (user_id);

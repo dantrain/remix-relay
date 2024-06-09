@@ -1,7 +1,7 @@
 import { Link } from "@remix-run/react";
+import { fromGlobalId } from "lib/global-id";
 import { useState } from "react";
 import { graphql, useFragment, useMutation } from "react-relay";
-import { fromGlobalId } from "server/lib/global-id";
 import { Button } from "@remix-relay/ui";
 import { DeleteIcon } from "./Icons";
 import {

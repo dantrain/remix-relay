@@ -18,11 +18,11 @@ import {
   horizontalListSortingStrategy,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import exists from "lib/exists";
 import { range } from "lodash-es";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { graphql, useFragment } from "react-relay";
-import exists from "server/lib/exists";
 import { useIsClient } from "usehooks-ts";
 import { getCollisionDetectionStrategy } from "~/lib/collision-detection-strategy";
 import { coordinateGetter } from "~/lib/keyboard-coordinates";

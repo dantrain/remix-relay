@@ -1,22 +1,33 @@
 import { resolveArrayConnection } from "@pothos/plugin-relay";
 import { and, asc, eq, relations } from "drizzle-orm";
-import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import {
+  index,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  varchar,
+} from "drizzle-orm/pg-core";
+import exists from "lib/exists";
+import { fromGlobalId } from "lib/global-id";
 import pRetry from "p-retry";
-import exists from "server/lib/exists";
-import { fromGlobalId } from "server/lib/global-id";
 import { z } from "zod";
 import { builder } from "../builder";
 import { Column, columns } from "./Column";
 import { users } from "./User";
 
-export const boards = pgTable("boards", {
-  id: varchar("id").primaryKey(),
-  name: text("name").notNull(),
-  userId: uuid("user_id")
-    .references(() => users.id, { onDelete: "cascade" })
-    .notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+export const boards = pgTable(
+  "boards",
+  {
+    id: varchar("id").primaryKey(),
+    name: text("name").notNull(),
+    userId: uuid("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (board) => ({ userIdx: index("board_user_idx").on(board.userId) }),
+);
 
 export const boardRelations = relations(boards, ({ one, many }) => ({
   user: one(users, { fields: [boards.userId], references: [users.id] }),
@@ -36,11 +47,10 @@ export const Board = builder.node("Board", {
       type: Column,
       resolve: async ({ id }, args, { db }) => {
         const data = await db((tx) =>
-          tx
-            .select()
-            .from(columns)
-            .where(eq(columns.boardId, id))
-            .orderBy(asc(columns.createdAt)),
+          tx.query.columns.findMany({
+            where: eq(columns.boardId, id),
+            orderBy: asc(columns.rank),
+          }),
         );
 
         return resolveArrayConnection({ args }, data);
@@ -61,16 +71,13 @@ builder.queryField("board", (t) =>
     resolve: async (_parent, args, { db, user }) => {
       return pRetry(
         async () => {
-          const [board] = await db((tx) =>
-            tx
-              .select()
-              .from(boards)
-              .where(
-                and(
-                  eq(boards.userId, user.id),
-                  eq(boards.id, args.id.toString()),
-                ),
+          const board = await db((tx) =>
+            tx.query.boards.findFirst({
+              where: and(
+                eq(boards.userId, user.id),
+                eq(boards.id, args.id.toString()),
               ),
+            }),
           );
 
           return exists(board, "Board not found");

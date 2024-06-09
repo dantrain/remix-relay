@@ -3,13 +3,14 @@ import { sql } from "drizzle-orm";
 import { PostgresJsDatabase, drizzle } from "drizzle-orm/postgres-js";
 import { jwtDecode } from "jwt-decode";
 import postgres from "postgres";
+import * as schema from "./db-schema";
 import { env } from "./env";
 
 const client = postgres(env.DATABASE_URL);
-const db = drizzle(client);
+const db = drizzle(client, { schema });
 
 export function getDb(session: Session) {
-  return <T>(cb: (tx: PostgresJsDatabase) => T | Promise<T>) => {
+  return <T>(cb: (tx: PostgresJsDatabase<typeof schema>) => T | Promise<T>) => {
     const claims = jwtDecode<{ role: string }>(session.access_token);
 
     return db.transaction(async (tx) => {

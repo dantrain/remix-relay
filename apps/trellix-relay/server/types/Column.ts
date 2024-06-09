@@ -1,23 +1,40 @@
-import { and, eq, relations } from "drizzle-orm";
-import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { and, desc, eq, relations } from "drizzle-orm";
+import {
+  index,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  varchar,
+} from "drizzle-orm/pg-core";
+import exists from "lib/exists";
+import { fromGlobalId } from "lib/global-id";
+import { getNextRank } from "lib/rank";
 import { builder } from "server/builder";
-import exists from "server/lib/exists";
-import { fromGlobalId } from "server/lib/global-id";
+import invariant from "tiny-invariant";
 import { z } from "zod";
 import { boards } from "./Board";
 import { users } from "./User";
 
-export const columns = pgTable("columns", {
-  id: varchar("id").primaryKey(),
-  title: text("title").notNull(),
-  userId: uuid("user_id")
-    .references(() => users.id, { onDelete: "cascade" })
-    .notNull(),
-  boardId: varchar("board_id")
-    .references(() => boards.id, { onDelete: "cascade" })
-    .notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+export const columns = pgTable(
+  "columns",
+  {
+    id: varchar("id").primaryKey(),
+    title: text("title").notNull(),
+    rank: text("rank").notNull(),
+    userId: uuid("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    boardId: varchar("board_id")
+      .references(() => boards.id, { onDelete: "cascade" })
+      .notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (column) => ({
+    boardIdx: index("column_board_idx").on(column.boardId),
+    rankIdx: index("column_rank_idx").on(column.rank),
+  }),
+);
 
 export const columnRelations = relations(columns, ({ one }) => ({
   user: one(users, { fields: [columns.userId], references: [users.id] }),
@@ -51,17 +68,39 @@ builder.mutationFields((t) => ({
       boardId: t.arg.id({ required: true }),
     },
     resolve: async (_parent, args, { db, user }) => {
-      const [column] = await db((tx) =>
-        tx
+      const [column] = await db(async (tx) => {
+        const board = await tx.query.boards.findFirst({
+          where: eq(boards.id, fromGlobalId(args.boardId)),
+          columns: {
+            userId: true,
+          },
+          with: {
+            columns: {
+              columns: {
+                rank: true,
+              },
+              orderBy: [desc(columns.rank)],
+              limit: 1,
+            },
+          },
+        });
+
+        invariant(board?.userId === user.id, "Unauthorized");
+
+        const beforeColumn = board.columns[0];
+
+        return tx
           .insert(columns)
           .values({
             id: args.id.toString(),
             title: args.title,
+            rank: getNextRank(beforeColumn),
             userId: user.id,
             boardId: fromGlobalId(args.boardId),
           })
-          .returning(),
-      );
+          .returning();
+      });
+
       return exists(column, "Column not found");
     },
   }),

@@ -27,11 +27,10 @@ export const User = builder.node("User", {
       type: Board,
       resolve: async ({ id }, args, { db }) => {
         const data = await db((tx) =>
-          tx
-            .select()
-            .from(boards)
-            .where(eq(boards.userId, id))
-            .orderBy(desc(boards.createdAt)),
+          tx.query.boards.findMany({
+            where: eq(boards.userId, id),
+            orderBy: desc(boards.createdAt),
+          }),
         );
 
         return resolveArrayConnection({ args }, data);

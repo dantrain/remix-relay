@@ -6,7 +6,7 @@ import {
   pointerWithin,
   rectIntersection,
 } from "@dnd-kit/core";
-import exists from "server/lib/exists";
+import exists from "lib/exists";
 
 /**
  * Custom collision detection strategy optimized for multiple containers
