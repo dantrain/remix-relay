@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2cb0dbfe29337716c14e9cfa88ad5256>>
+ * @generated SignedSource<<8b6bc06ed1588af436c3532b188d7f83>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,11 +13,13 @@ export type CreateColumnCreateOneColumnMutation$variables = {
   boardId: string;
   connections: ReadonlyArray<string>;
   id: string;
+  rank: string;
   title: string;
 };
 export type CreateColumnCreateOneColumnMutation$data = {
   readonly createOneColumn: {
     readonly id: string;
+    readonly rank: string;
     readonly title: string;
   };
 };
@@ -45,9 +47,14 @@ v2 = {
 v3 = {
   "defaultValue": null,
   "kind": "LocalArgument",
+  "name": "rank"
+},
+v4 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
   "name": "title"
 },
-v4 = [
+v5 = [
   {
     "kind": "Variable",
     "name": "boardId",
@@ -60,13 +67,18 @@ v4 = [
   },
   {
     "kind": "Variable",
+    "name": "rank",
+    "variableName": "rank"
+  },
+  {
+    "kind": "Variable",
     "name": "title",
     "variableName": "title"
   }
 ],
-v5 = {
+v6 = {
   "alias": null,
-  "args": (v4/*: any*/),
+  "args": (v5/*: any*/),
   "concreteType": "Column",
   "kind": "LinkedField",
   "name": "createOneColumn",
@@ -85,6 +97,13 @@ v5 = {
       "kind": "ScalarField",
       "name": "title",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "rank",
+      "storageKey": null
     }
   ],
   "storageKey": null
@@ -95,13 +114,14 @@ return {
       (v0/*: any*/),
       (v1/*: any*/),
       (v2/*: any*/),
-      (v3/*: any*/)
+      (v3/*: any*/),
+      (v4/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
     "name": "CreateColumnCreateOneColumnMutation",
     "selections": [
-      (v5/*: any*/)
+      (v6/*: any*/)
     ],
     "type": "Mutation",
     "abstractKey": null
@@ -110,6 +130,7 @@ return {
   "operation": {
     "argumentDefinitions": [
       (v2/*: any*/),
+      (v4/*: any*/),
       (v3/*: any*/),
       (v0/*: any*/),
       (v1/*: any*/)
@@ -117,10 +138,10 @@ return {
     "kind": "Operation",
     "name": "CreateColumnCreateOneColumnMutation",
     "selections": [
-      (v5/*: any*/),
+      (v6/*: any*/),
       {
         "alias": null,
-        "args": (v4/*: any*/),
+        "args": (v5/*: any*/),
         "filters": null,
         "handle": "appendNode",
         "key": "",
@@ -142,16 +163,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1399e2c9aa0a48f509ba7f6f576e82a4",
+    "cacheID": "41212edec70b1a19dc421cbb57224e74",
     "id": null,
     "metadata": {},
     "name": "CreateColumnCreateOneColumnMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateColumnCreateOneColumnMutation(\n  $id: ID!\n  $title: String!\n  $boardId: ID!\n) {\n  createOneColumn(id: $id, title: $title, boardId: $boardId) {\n    id\n    title\n  }\n}\n"
+    "text": "mutation CreateColumnCreateOneColumnMutation(\n  $id: ID!\n  $title: String!\n  $rank: String!\n  $boardId: ID!\n) {\n  createOneColumn(id: $id, title: $title, rank: $rank, boardId: $boardId) {\n    id\n    title\n    rank\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "7f40043438aa0b36dfb1189ea6d3f38d";
+(node as any).hash = "5ff37af87faba9cb9e31b5dbdc6c7d84";
 
 export default node;

@@ -1,4 +1,5 @@
-import { and, desc, eq, relations } from "drizzle-orm";
+import { resolveArrayConnection } from "@pothos/plugin-relay";
+import { and, asc, eq, relations } from "drizzle-orm";
 import {
   index,
   pgTable,
@@ -9,12 +10,11 @@ import {
 } from "drizzle-orm/pg-core";
 import exists from "lib/exists";
 import { fromGlobalId } from "lib/global-id";
-import { getNextRank } from "lib/rank";
 import { builder } from "server/builder";
 import invariant from "tiny-invariant";
 import { z } from "zod";
 import { boards } from "./Board";
-import { items } from "./Item";
+import { Item, items } from "./Item";
 import { users } from "./User";
 
 export const columns = pgTable(
@@ -53,6 +53,19 @@ export const Column = builder.node("Column", {
     createdAt: t.string({
       resolve: ({ createdAt }) => createdAt.toISOString(),
     }),
+    itemConnection: t.connection({
+      type: Item,
+      resolve: async ({ id }, args, { db }) => {
+        const data = await db((tx) =>
+          tx.query.items.findMany({
+            where: eq(items.columnId, id),
+            orderBy: asc(items.rank),
+          }),
+        );
+
+        return resolveArrayConnection({ args }, data);
+      },
+    }),
   }),
 });
 
@@ -69,35 +82,23 @@ builder.mutationFields((t) => ({
         validate: { schema: z.string().min(1).max(50) },
       }),
       boardId: t.arg.id({ required: true }),
+      rank: t.arg.string({ required: true }),
     },
     resolve: async (_parent, args, { db, user }) => {
       const [column] = await db(async (tx) => {
         const board = await tx.query.boards.findFirst({
           where: eq(boards.id, fromGlobalId(args.boardId)),
-          columns: {
-            userId: true,
-          },
-          with: {
-            columns: {
-              columns: {
-                rank: true,
-              },
-              orderBy: [desc(columns.rank)],
-              limit: 1,
-            },
-          },
+          columns: { userId: true },
         });
 
         invariant(board?.userId === user.id, "Unauthorized");
-
-        const beforeColumn = board.columns[0];
 
         return tx
           .insert(columns)
           .values({
             id: args.id.toString(),
             title: args.title,
-            rank: getNextRank(beforeColumn),
+            rank: args.rank,
             userId: user.id,
             boardId: fromGlobalId(args.boardId),
           })

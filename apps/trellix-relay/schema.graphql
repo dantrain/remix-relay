@@ -43,17 +43,38 @@ type BoardColumnConnectionEdge {
 type Column implements Node {
   createdAt: String!
   id: ID!
+  itemConnection(after: String, before: String, first: Int, last: Int): ColumnItemConnection!
   rank: String!
   title: String!
 }
 
+type ColumnItemConnection {
+  edges: [ColumnItemConnectionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ColumnItemConnectionEdge {
+  cursor: String!
+  node: Item!
+}
+
+type Item implements Node {
+  createdAt: String!
+  id: ID!
+  rank: String!
+  text: String!
+}
+
 type Mutation {
   createOneBoard(id: ID!, name: String!): Board!
-  createOneColumn(boardId: ID!, id: ID!, title: String!): Column!
+  createOneColumn(boardId: ID!, id: ID!, rank: String!, title: String!): Column!
+  createOneItem(columnId: ID!, id: ID!, text: String!): Item!
   deleteOneBoard(id: ID!): Board!
   deleteOneColumn(id: ID!): Column!
+  deleteOneItem(id: ID!): Item!
   updateOneBoard(id: ID!, name: String!): Board!
   updateOneColumn(id: ID!, rank: String): Column!
+  updateOneItem(id: ID!, rank: String): Item!
 }
 
 interface Node {

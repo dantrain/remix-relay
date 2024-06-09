@@ -20,7 +20,7 @@ import {
 } from "@dnd-kit/sortable";
 import exists from "lib/exists";
 import { getRankBetween } from "lib/rank";
-import { range, sortBy } from "lodash-es";
+import { last, range, sortBy } from "lodash-es";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { graphql, useFragment, useMutation } from "react-relay";
@@ -28,7 +28,7 @@ import { useIsClient } from "usehooks-ts";
 import { getCollisionDetectionStrategy } from "~/lib/collision-detection-strategy";
 import { coordinateGetter } from "~/lib/keyboard-coordinates";
 import { Column } from "./Column";
-import CreateColumn from "./CreateColumn";
+import { CreateColumn } from "./CreateColumn";
 import { DroppableColumn } from "./DroppableColumn";
 import { Item } from "./Item";
 import { PlaceholderColumn } from "./PlaceholderColumn";
@@ -44,9 +44,17 @@ const fragment = graphql`
       edges {
         node {
           id
-          title
           rank
           ...ColumnFragment
+          itemConnection {
+            edges {
+              node {
+                id
+                text
+                rank
+              }
+            }
+          }
         }
       }
     }
@@ -96,7 +104,9 @@ export function Board({ dataRef }: BoardProps) {
         (acc, { node }) => ({
           ...acc,
           [node.id]: {
-            items: range(3).map((index) => `${node.title}-${index + 1}`),
+            items: sortBy(node.itemConnection.edges, "node.rank").map(
+              ({ node }) => node.text,
+            ),
             dataRef: node,
             rank: node.rank,
           },
@@ -111,7 +121,7 @@ export function Board({ dataRef }: BoardProps) {
       (acc, { node }) => ({
         ...acc,
         [node.id]: {
-          items: range(3).map((index) => `${node.title}-${index + 1}`),
+          items: range(3).map((index) => `${node.id}-${index + 1}`),
           dataRef: node,
           rank: node.rank,
         },
@@ -122,21 +132,21 @@ export function Board({ dataRef }: BoardProps) {
 
   const containers = Object.keys(columns) as UniqueIdentifier[];
 
-  useEffect(() => {
-    const columns = sortBy(columnConnection.edges, "node.rank").reduce(
-      (acc, { node }) => ({
-        ...acc,
-        [node.id]: {
-          items: range(3).map((index) => `${node.title}-${index + 1}`),
-          dataRef: node,
-          rank: node.rank,
-        },
-      }),
-      {},
-    );
+  // useEffect(() => {
+  //   const columns = sortBy(columnConnection.edges, "node.rank").reduce(
+  //     (acc, { node }) => ({
+  //       ...acc,
+  //       [node.id]: {
+  //         items: range(3).map((index) => `${node.title}-${index + 1}`),
+  //         dataRef: node,
+  //         rank: node.rank,
+  //       },
+  //     }),
+  //     {},
+  //   );
 
-    setColumns(columns);
-  }, [columnConnection.edges]);
+  //   setColumns(columns);
+  // }, [columnConnection.edges]);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const lastOverId = useRef<UniqueIdentifier | null>(null);
@@ -397,6 +407,7 @@ export function Board({ dataRef }: BoardProps) {
             <CreateColumn
               connectionId={columnConnection.__id}
               boardId={boardId}
+              lastColumn={last(columnConnection.edges)?.node}
             />
           </PlaceholderColumn>
         </SortableContext>

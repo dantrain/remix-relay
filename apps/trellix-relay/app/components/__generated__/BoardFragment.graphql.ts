@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fa85eb3d63bbd499fdf32f5f14e9fdd6>>
+ * @generated SignedSource<<212be3a5da42a6b2b67f56df8f9d4fa3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,8 +16,16 @@ export type BoardFragment$data = {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
+        readonly itemConnection: {
+          readonly edges: ReadonlyArray<{
+            readonly node: {
+              readonly id: string;
+              readonly rank: string;
+              readonly text: string;
+            };
+          }>;
+        };
         readonly rank: string;
-        readonly title: string;
         readonly " $fragmentSpreads": FragmentRefs<"ColumnFragment">;
       };
     }>;
@@ -36,6 +44,13 @@ var v0 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rank",
   "storageKey": null
 };
 return {
@@ -70,24 +85,53 @@ return {
               "plural": false,
               "selections": [
                 (v0/*: any*/),
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "title",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "rank",
-                  "storageKey": null
-                },
+                (v1/*: any*/),
                 {
                   "args": null,
                   "kind": "FragmentSpread",
                   "name": "ColumnFragment"
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "ColumnItemConnection",
+                  "kind": "LinkedField",
+                  "name": "itemConnection",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "ColumnItemConnectionEdge",
+                      "kind": "LinkedField",
+                      "name": "edges",
+                      "plural": true,
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "concreteType": "Item",
+                          "kind": "LinkedField",
+                          "name": "node",
+                          "plural": false,
+                          "selections": [
+                            (v0/*: any*/),
+                            {
+                              "alias": null,
+                              "args": null,
+                              "kind": "ScalarField",
+                              "name": "text",
+                              "storageKey": null
+                            },
+                            (v1/*: any*/)
+                          ],
+                          "storageKey": null
+                        }
+                      ],
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
                 }
               ],
               "storageKey": null
@@ -116,6 +160,6 @@ return {
 };
 })();
 
-(node as any).hash = "3253fb4a8b42d61a2a9a976657f377ed";
+(node as any).hash = "5914e6304fe66c475f619563d1449398";
 
 export default node;

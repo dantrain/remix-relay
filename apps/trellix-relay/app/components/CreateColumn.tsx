@@ -1,5 +1,6 @@
 import { createId } from "@paralleldrive/cuid2";
 import { toGlobalId } from "graphql-relay";
+import { getNextRank } from "lib/rank";
 import { FormEvent, useState } from "react";
 import { graphql, useMutation } from "react-relay";
 import { Button } from "@remix-relay/ui";
@@ -14,16 +15,18 @@ const mutation = graphql`
   mutation CreateColumnCreateOneColumnMutation(
     $id: ID!
     $title: String!
+    $rank: String!
     $boardId: ID!
     $connections: [ID!]!
   ) {
-    createOneColumn(id: $id, title: $title, boardId: $boardId)
+    createOneColumn(id: $id, title: $title, rank: $rank, boardId: $boardId)
       @appendNode(
         connections: $connections
         edgeTypeName: "ColumnConnectionEdge"
       ) {
       id
       title
+      rank
     }
   }
 `;
@@ -31,11 +34,13 @@ const mutation = graphql`
 type CreateColumnProps = {
   boardId: string;
   connectionId: string;
+  lastColumn?: { rank: string };
 };
 
-export default function CreateColumn({
+export function CreateColumn({
   boardId,
   connectionId,
+  lastColumn,
 }: CreateColumnProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [commit] = useMutation<CreateColumnCreateOneColumnMutation>(mutation);
@@ -48,18 +53,21 @@ export default function CreateColumn({
 
     if (title) {
       const id = createId();
+      const rank = getNextRank(lastColumn);
 
       commit({
         variables: {
           id,
           title,
           boardId,
+          rank,
           connections: [connectionId],
         },
         optimisticResponse: {
           createOneColumn: {
             id: toGlobalId("Column", id),
             title,
+            rank,
           },
         },
       });
