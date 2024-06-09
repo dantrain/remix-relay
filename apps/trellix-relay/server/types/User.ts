@@ -6,6 +6,7 @@ import invariant from "tiny-invariant";
 import { builder } from "../builder";
 import { Board, boards } from "./Board";
 import { columns } from "./Column";
+import { items } from "./Item";
 
 const authSchema = pgSchema("auth");
 
@@ -16,6 +17,7 @@ export const users = authSchema.table("users", {
 export const usersRelations = relations(users, ({ many }) => ({
   boards: many(boards),
   columns: many(columns),
+  items: many(items),
 }));
 
 export type User = typeof users.$inferSelect;

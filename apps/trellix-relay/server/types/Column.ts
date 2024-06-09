@@ -10,11 +10,11 @@ import {
 import exists from "lib/exists";
 import { fromGlobalId } from "lib/global-id";
 import { getNextRank } from "lib/rank";
-import { omit } from "lodash-es";
 import { builder } from "server/builder";
 import invariant from "tiny-invariant";
 import { z } from "zod";
 import { boards } from "./Board";
+import { items } from "./Item";
 import { users } from "./User";
 
 export const columns = pgTable(
@@ -37,9 +37,10 @@ export const columns = pgTable(
   }),
 );
 
-export const columnRelations = relations(columns, ({ one }) => ({
+export const columnRelations = relations(columns, ({ one, many }) => ({
   user: one(users, { fields: [columns.userId], references: [users.id] }),
   board: one(boards, { fields: [columns.boardId], references: [boards.id] }),
+  items: many(items),
 }));
 
 export type Column = typeof columns.$inferSelect;

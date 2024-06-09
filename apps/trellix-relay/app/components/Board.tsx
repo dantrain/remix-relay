@@ -90,7 +90,23 @@ export function Board({ dataRef }: BoardProps) {
 
   const [commitColumnRank] = useMutation(columnRankMutation);
 
-  const [columns, setColumns] = useState<Columns>(() =>
+  const columns: Columns = useMemo(
+    () =>
+      sortBy(columnConnection.edges, "node.rank").reduce(
+        (acc, { node }) => ({
+          ...acc,
+          [node.id]: {
+            items: range(3).map((index) => `${node.title}-${index + 1}`),
+            dataRef: node,
+            rank: node.rank,
+          },
+        }),
+        {},
+      ),
+    [columnConnection.edges],
+  );
+
+  const [, setColumns] = useState<Columns>(() =>
     sortBy(columnConnection.edges, "node.rank").reduce(
       (acc, { node }) => ({
         ...acc,
@@ -125,7 +141,7 @@ export function Board({ dataRef }: BoardProps) {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const lastOverId = useRef<UniqueIdentifier | null>(null);
   const recentlyMovedToNewContainer = useRef(false);
-  const isSortingContainer = activeId ? containers.includes(activeId) : false;
+  // const isSortingContainer = activeId ? containers.includes(activeId) : false;
 
   const collisionDetectionStrategy: CollisionDetection = useMemo(
     () =>
