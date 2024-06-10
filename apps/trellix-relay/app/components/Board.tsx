@@ -33,7 +33,9 @@ import { DroppableColumn } from "./DroppableColumn";
 import { Item } from "./Item";
 import { PlaceholderColumn } from "./PlaceholderColumn";
 import { SortableItem } from "./SortableItem";
+import { BoardColumnRankMutation } from "./__generated__/BoardColumnRankMutation.graphql";
 import { BoardFragment$key } from "./__generated__/BoardFragment.graphql";
+import { BoardItemRankMutation } from "./__generated__/BoardItemRankMutation.graphql";
 import { ColumnFragment$key } from "./__generated__/ColumnFragment.graphql";
 
 const fragment = graphql`
@@ -70,6 +72,15 @@ const columnRankMutation = graphql`
   }
 `;
 
+const itemRankMutation = graphql`
+  mutation BoardItemRankMutation($id: ID!, $rank: String!, $columnId: ID!) {
+    updateOneItem(id: $id, rank: $rank, columnId: $columnId) {
+      id
+      rank
+    }
+  }
+`;
+
 const dropAnimation: DropAnimation = {
   sideEffects: defaultDropAnimationSideEffects({
     styles: {
@@ -82,7 +93,11 @@ const dropAnimation: DropAnimation = {
 
 type Columns = Record<
   UniqueIdentifier,
-  { items: UniqueIdentifier[]; rank: string; dataRef: ColumnFragment$key }
+  {
+    items: { id: UniqueIdentifier; rank: string }[];
+    rank: string;
+    dataRef: ColumnFragment$key;
+  }
 >;
 
 const PLACEHOLDER_ID = "placeholder";
@@ -96,7 +111,9 @@ export function Board({ dataRef }: BoardProps) {
 
   const { id: boardId, columnConnection } = useFragment(fragment, dataRef);
 
-  const [commitColumnRank] = useMutation(columnRankMutation);
+  const [commitColumnRank] =
+    useMutation<BoardColumnRankMutation>(columnRankMutation);
+  const [commitItemRank] = useMutation<BoardItemRankMutation>(itemRankMutation);
 
   const columns: Columns = useMemo(
     () =>
@@ -105,7 +122,7 @@ export function Board({ dataRef }: BoardProps) {
           ...acc,
           [node.id]: {
             items: sortBy(node.itemConnection.edges, "node.rank").map(
-              ({ node }) => node.text,
+              ({ node }) => ({ id: node.id, rank: node.rank }),
             ),
             dataRef: node,
             rank: node.rank,
@@ -204,7 +221,7 @@ export function Board({ dataRef }: BoardProps) {
         shadow
       >
         {exists(columns[containerId]?.items).map((item) => (
-          <Item key={item}>{item}</Item>
+          <Item key={item.id}>{item.id.toString().substring(0, 8)}</Item>
         ))}
       </Column>
     );
@@ -234,11 +251,15 @@ export function Board({ dataRef }: BoardProps) {
         }
 
         if (activeContainer !== overContainer) {
+          console.log("Drop on different container");
+
           setColumns((columns) => {
             const activeItems = exists(columns[activeContainer]?.items);
             const overItems = exists(columns[overContainer]?.items);
-            const overIndex = overItems.indexOf(overId);
-            const activeIndex = activeItems.indexOf(active.id);
+            const overIndex = overItems.findIndex(({ id }) => id === overId);
+            const activeIndex = activeItems.findIndex(
+              ({ id }) => id === active.id,
+            );
 
             let newIndex: number;
 
@@ -264,7 +285,7 @@ export function Board({ dataRef }: BoardProps) {
               [activeContainer]: {
                 ...exists(columns[activeContainer]),
                 items: exists(columns[activeContainer]?.items).filter(
-                  (item) => item !== active.id,
+                  (item) => item.id !== active.id,
                 ),
               },
               [overContainer]: {
@@ -302,7 +323,7 @@ export function Board({ dataRef }: BoardProps) {
           );
 
           commitColumnRank({
-            variables: { id: active.id, rank },
+            variables: { id: active.id.toString(), rank },
             optimisticResponse: {
               updateOneColumn: { id: active.id, rank },
             },
@@ -348,25 +369,38 @@ export function Board({ dataRef }: BoardProps) {
         const overContainer = findContainer(overId, columns);
 
         if (overContainer) {
-          const activeIndex = exists(columns[activeContainer]?.items).indexOf(
-            active.id,
+          const activeIndex = exists(columns[activeContainer]?.items).findIndex(
+            ({ id }) => id === active.id,
           );
-          const overIndex = exists(columns[overContainer]?.items).indexOf(
-            overId,
+          const overIndex = exists(columns[overContainer]?.items).findIndex(
+            ({ id }) => id === overId,
           );
 
           if (activeIndex !== overIndex) {
-            setColumns((columns) => ({
-              ...columns,
-              [overContainer]: {
-                ...exists(columns[overContainer]),
-                items: arrayMove(
-                  exists(columns[overContainer]?.items),
-                  activeIndex,
-                  overIndex,
-                ),
+            const reorderedItems = arrayMove(
+              exists(columns[overContainer]?.items),
+              activeIndex,
+              overIndex,
+            );
+
+            const beforeItem = reorderedItems[overIndex - 1];
+            const afterItem = reorderedItems[overIndex + 1];
+
+            const rank = getRankBetween(beforeItem, afterItem);
+
+            commitItemRank({
+              variables: {
+                id: active.id.toString(),
+                columnId: overContainer.toString(),
+                rank,
               },
-            }));
+              optimisticResponse: {
+                updateOneItem: {
+                  id: active.id.toString(),
+                  rank,
+                },
+              },
+            });
           }
         }
 
@@ -391,13 +425,15 @@ export function Board({ dataRef }: BoardProps) {
                 items={exists(columns[containerId]).items}
                 strategy={verticalListSortingStrategy}
               >
-                {exists(columns[containerId]?.items).map((value) => {
+                {exists(columns[containerId]?.items).map((item) => {
                   return (
                     <SortableItem
-                      key={value}
-                      id={value}
+                      key={item.id}
+                      id={item.id}
                       containerId={containerId}
-                    />
+                    >
+                      {item.id.toString().substring(0, 8)}
+                    </SortableItem>
                   );
                 })}
               </SortableContext>
@@ -434,6 +470,6 @@ function findContainer(id: UniqueIdentifier, items: Columns) {
   }
 
   return Object.keys(items).find((key) =>
-    exists(items[key]?.items).includes(id),
+    exists(items[key]?.items).some((item) => item.id === id),
   );
 }

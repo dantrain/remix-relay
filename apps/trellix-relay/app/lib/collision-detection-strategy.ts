@@ -18,7 +18,7 @@ import exists from "lib/exists";
  */
 export const getCollisionDetectionStrategy = (
   activeId: UniqueIdentifier | null,
-  columns: Record<UniqueIdentifier, { items: UniqueIdentifier[] }>,
+  columns: Record<UniqueIdentifier, { items: { id: UniqueIdentifier }[] }>,
   lastOverId: React.MutableRefObject<UniqueIdentifier | null>,
   recentlyMovedToNewContainer: React.MutableRefObject<boolean>,
 ): CollisionDetection => {
@@ -56,7 +56,7 @@ export const getCollisionDetectionStrategy = (
               droppableContainers: args.droppableContainers.filter(
                 (container) =>
                   container.id !== overId &&
-                  containerItems.includes(container.id),
+                  containerItems.some(({ id }) => id === container.id),
               ),
             })[0]?.id,
           );

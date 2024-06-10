@@ -74,7 +74,7 @@ type Mutation {
   deleteOneItem(id: ID!): Item!
   updateOneBoard(id: ID!, name: String!): Board!
   updateOneColumn(id: ID!, rank: String): Column!
-  updateOneItem(id: ID!, rank: String): Item!
+  updateOneItem(columnId: ID!, id: ID!, rank: String!): Item!
 }
 
 interface Node {

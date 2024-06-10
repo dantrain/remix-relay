@@ -102,13 +102,17 @@ builder.mutationFields((t) => ({
     type: Item,
     args: {
       id: t.arg.id({ required: true }),
-      rank: t.arg.string(),
+      rank: t.arg.string({ required: true }),
+      columnId: t.arg.id({ required: true }),
     },
     resolve: async (_parent, args, { db, user }) => {
       const [item] = await db((tx) =>
         tx
           .update(items)
-          .set({ rank: args.rank ?? undefined })
+          .set({
+            rank: args.rank,
+            columnId: fromGlobalId(args.columnId),
+          })
           .where(
             and(eq(items.id, fromGlobalId(args.id)), eq(items.userId, user.id)),
           )

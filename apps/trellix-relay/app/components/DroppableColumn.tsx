@@ -6,7 +6,7 @@ import { Column, ColumnProps } from "./Column";
 export type DroppableColumnProps = ColumnProps & {
   disabled?: boolean;
   id: UniqueIdentifier;
-  items?: UniqueIdentifier[];
+  items?: { id: UniqueIdentifier }[];
 };
 
 export function DroppableColumn({
@@ -37,7 +37,7 @@ export function DroppableColumn({
 
   const isOverContainer = over
     ? (id === over.id && active?.data.current?.type !== "container") ||
-      items.includes(over.id)
+      items.some(({ id }) => id === over.id)
     : false;
 
   return (
