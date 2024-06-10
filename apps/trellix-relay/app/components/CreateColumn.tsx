@@ -27,6 +27,13 @@ const mutation = graphql`
       id
       title
       rank
+      itemConnection {
+        edges {
+          node {
+            id
+          }
+        }
+      }
     }
   }
 `;
@@ -68,6 +75,9 @@ export function CreateColumn({
             id: toGlobalId("Column", id),
             title,
             rank,
+            itemConnection: {
+              edges: [],
+            },
           },
         },
       });

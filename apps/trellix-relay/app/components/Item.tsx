@@ -1,32 +1,43 @@
 import type { DraggableSyntheticListeners } from "@dnd-kit/core";
 import type { Transform } from "@dnd-kit/utilities";
 import { cva, cx } from "class-variance-authority";
-import { CSSProperties, ReactNode, forwardRef, memo, useEffect } from "react";
+import { CSSProperties, forwardRef, memo, useEffect } from "react";
 import { useFocusVisible } from "react-aria";
+import { graphql, useFragment } from "react-relay";
+import { ItemFragment$key } from "./__generated__/ItemFragment.graphql";
+
+const fragment = graphql`
+  fragment ItemFragment on Item {
+    id
+    text
+  }
+`;
 
 export type ItemProps = {
+  dataRef: ItemFragment$key;
   dragOverlay?: boolean;
   dragging?: boolean;
   transform?: Transform | null;
   listeners?: DraggableSyntheticListeners;
   transition?: string | null;
-  children: ReactNode;
 };
 
 export const Item = memo(
   forwardRef<HTMLLIElement, ItemProps>(
     (
       {
+        dataRef,
         dragOverlay = false,
         dragging,
         listeners,
         transition,
         transform,
-        children,
         ...props
       },
       ref,
     ) => {
+      const { text } = useFragment(fragment, dataRef);
+
       const { isFocusVisible } = useFocusVisible({ isTextInput: true });
 
       useEffect(() => {
@@ -103,7 +114,7 @@ export const Item = memo(
             type="button"
             tabIndex={0}
           >
-            {children}
+            {text}
           </button>
         </li>
       );

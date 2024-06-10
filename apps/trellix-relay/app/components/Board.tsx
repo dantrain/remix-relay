@@ -37,6 +37,7 @@ import { BoardColumnRankMutation } from "./__generated__/BoardColumnRankMutation
 import { BoardFragment$key } from "./__generated__/BoardFragment.graphql";
 import { BoardItemRankMutation } from "./__generated__/BoardItemRankMutation.graphql";
 import { ColumnFragment$key } from "./__generated__/ColumnFragment.graphql";
+import { ItemFragment$key } from "./__generated__/ItemFragment.graphql";
 
 const fragment = graphql`
   fragment BoardFragment on Board {
@@ -52,8 +53,8 @@ const fragment = graphql`
             edges {
               node {
                 id
-                text
                 rank
+                ...ItemFragment
               }
             }
           }
@@ -94,7 +95,7 @@ const dropAnimation: DropAnimation = {
 type Columns = Record<
   UniqueIdentifier,
   {
-    items: { id: UniqueIdentifier; rank: string }[];
+    items: { id: UniqueIdentifier; rank: string; dataRef: ItemFragment$key }[];
     rank: string;
     dataRef: ColumnFragment$key;
   }
@@ -122,7 +123,7 @@ export function Board({ dataRef }: BoardProps) {
           ...acc,
           [node.id]: {
             items: sortBy(node.itemConnection.edges, "node.rank").map(
-              ({ node }) => ({ id: node.id, rank: node.rank }),
+              ({ node }) => ({ id: node.id, rank: node.rank, dataRef: node }),
             ),
             dataRef: node,
             rank: node.rank,
@@ -207,7 +208,8 @@ export function Board({ dataRef }: BoardProps) {
   }, [columns]);
 
   function renderSortableItemDragOverlay(id: UniqueIdentifier) {
-    return <Item dragOverlay>{id}</Item>;
+    const item = exists(findItem(id, columns));
+    return <Item dragOverlay dataRef={item.dataRef} />;
   }
 
   function renderContainerDragOverlay(containerId: UniqueIdentifier) {
@@ -221,7 +223,7 @@ export function Board({ dataRef }: BoardProps) {
         shadow
       >
         {exists(columns[containerId]?.items).map((item) => (
-          <Item key={item.id}>{item.id.toString().substring(0, 8)}</Item>
+          <Item key={item.id} dataRef={item.dataRef} />
         ))}
       </Column>
     );
@@ -430,10 +432,8 @@ export function Board({ dataRef }: BoardProps) {
                     <SortableItem
                       key={item.id}
                       id={item.id}
-                      containerId={containerId}
-                    >
-                      {item.id.toString().substring(0, 8)}
-                    </SortableItem>
+                      dataRef={item.dataRef}
+                    />
                   );
                 })}
               </SortableContext>
@@ -464,12 +464,18 @@ export function Board({ dataRef }: BoardProps) {
   );
 }
 
-function findContainer(id: UniqueIdentifier, items: Columns) {
-  if (id in items) {
+function findItem(id: UniqueIdentifier, columns: Columns) {
+  for (const key in columns) {
+    return exists(columns[key]?.items).find((item) => item.id === id);
+  }
+}
+
+function findContainer(id: UniqueIdentifier, columns: Columns) {
+  if (id in columns) {
     return id;
   }
 
-  return Object.keys(items).find((key) =>
-    exists(items[key]?.items).some((item) => item.id === id),
+  return Object.keys(columns).find((key) =>
+    exists(columns[key]?.items).some((item) => item.id === id),
   );
 }

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<212be3a5da42a6b2b67f56df8f9d4fa3>>
+ * @generated SignedSource<<80fca21eaf239586ef81d3550f27ff8b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,7 +21,7 @@ export type BoardFragment$data = {
             readonly node: {
               readonly id: string;
               readonly rank: string;
-              readonly text: string;
+              readonly " $fragmentSpreads": FragmentRefs<"ItemFragment">;
             };
           }>;
         };
@@ -116,14 +116,12 @@ return {
                           "plural": false,
                           "selections": [
                             (v0/*: any*/),
+                            (v1/*: any*/),
                             {
-                              "alias": null,
                               "args": null,
-                              "kind": "ScalarField",
-                              "name": "text",
-                              "storageKey": null
-                            },
-                            (v1/*: any*/)
+                              "kind": "FragmentSpread",
+                              "name": "ItemFragment"
+                            }
                           ],
                           "storageKey": null
                         }
@@ -160,6 +158,6 @@ return {
 };
 })();
 
-(node as any).hash = "5914e6304fe66c475f619563d1449398";
+(node as any).hash = "805df731f51d93dc66c6233210489156";
 
 export default node;

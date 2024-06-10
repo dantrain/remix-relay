@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8b6bc06ed1588af436c3532b188d7f83>>
+ * @generated SignedSource<<ab334fbd14e7a39ad97efcfd25a6ad12>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,6 +19,13 @@ export type CreateColumnCreateOneColumnMutation$variables = {
 export type CreateColumnCreateOneColumnMutation$data = {
   readonly createOneColumn: {
     readonly id: string;
+    readonly itemConnection: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly id: string;
+        };
+      }>;
+    };
     readonly rank: string;
     readonly title: string;
   };
@@ -78,19 +85,20 @@ v5 = [
 ],
 v6 = {
   "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
   "args": (v5/*: any*/),
   "concreteType": "Column",
   "kind": "LinkedField",
   "name": "createOneColumn",
   "plural": false,
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "id",
-      "storageKey": null
-    },
+    (v6/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -103,6 +111,40 @@ v6 = {
       "args": null,
       "kind": "ScalarField",
       "name": "rank",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ColumnItemConnection",
+      "kind": "LinkedField",
+      "name": "itemConnection",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ColumnItemConnectionEdge",
+          "kind": "LinkedField",
+          "name": "edges",
+          "plural": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "Item",
+              "kind": "LinkedField",
+              "name": "node",
+              "plural": false,
+              "selections": [
+                (v6/*: any*/)
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -121,7 +163,7 @@ return {
     "metadata": null,
     "name": "CreateColumnCreateOneColumnMutation",
     "selections": [
-      (v6/*: any*/)
+      (v7/*: any*/)
     ],
     "type": "Mutation",
     "abstractKey": null
@@ -138,7 +180,7 @@ return {
     "kind": "Operation",
     "name": "CreateColumnCreateOneColumnMutation",
     "selections": [
-      (v6/*: any*/),
+      (v7/*: any*/),
       {
         "alias": null,
         "args": (v5/*: any*/),
@@ -163,16 +205,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "41212edec70b1a19dc421cbb57224e74",
+    "cacheID": "23c8b9041f0bc0c075370947df02e558",
     "id": null,
     "metadata": {},
     "name": "CreateColumnCreateOneColumnMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateColumnCreateOneColumnMutation(\n  $id: ID!\n  $title: String!\n  $rank: String!\n  $boardId: ID!\n) {\n  createOneColumn(id: $id, title: $title, rank: $rank, boardId: $boardId) {\n    id\n    title\n    rank\n  }\n}\n"
+    "text": "mutation CreateColumnCreateOneColumnMutation(\n  $id: ID!\n  $title: String!\n  $rank: String!\n  $boardId: ID!\n) {\n  createOneColumn(id: $id, title: $title, rank: $rank, boardId: $boardId) {\n    id\n    title\n    rank\n    itemConnection {\n      edges {\n        node {\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "5ff37af87faba9cb9e31b5dbdc6c7d84";
+(node as any).hash = "0251663fa8dec31d55caa96715e7a49c";
 
 export default node;

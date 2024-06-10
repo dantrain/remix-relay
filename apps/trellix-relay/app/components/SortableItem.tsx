@@ -1,15 +1,13 @@
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
-import { ReactNode } from "react";
-import { Item } from "./Item";
+import { Item, ItemProps } from "./Item";
 
-export type SortableItemProps = {
-  containerId: UniqueIdentifier;
-  id: UniqueIdentifier;
-  children?: ReactNode;
-};
+export type SortableItemProps = { id: UniqueIdentifier } & Omit<
+  ItemProps,
+  "dragging" | "transition" | "transform" | "listeners"
+>;
 
-export function SortableItem({ id, children }: SortableItemProps) {
+export function SortableItem({ id, ...rest }: SortableItemProps) {
   const { setNodeRef, listeners, isDragging, transform, transition } =
     useSortable({
       id,
@@ -22,8 +20,7 @@ export function SortableItem({ id, children }: SortableItemProps) {
       transition={transition}
       transform={transform}
       listeners={listeners}
-    >
-      {children}
-    </Item>
+      {...rest}
+    />
   );
 }
