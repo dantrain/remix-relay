@@ -19,12 +19,12 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import exists from "lib/exists";
-import { getRankBetween } from "lib/rank";
-import { last, range, sortBy } from "lodash-es";
+import { getNextRank, getRankBetween } from "lib/rank";
+import { last, sortBy } from "lodash-es";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { graphql, useFragment, useMutation } from "react-relay";
-import { useIsClient } from "usehooks-ts";
+import { useIsClient, useIsomorphicLayoutEffect } from "usehooks-ts";
 import { getCollisionDetectionStrategy } from "~/lib/collision-detection-strategy";
 import { coordinateGetter } from "~/lib/keyboard-coordinates";
 import { Column } from "./Column";
@@ -48,8 +48,10 @@ const fragment = graphql`
         node {
           id
           rank
+          title
           ...ColumnFragment
           itemConnection {
+            __id
             edges {
               node {
                 id
@@ -84,11 +86,7 @@ const itemRankMutation = graphql`
 
 const dropAnimation: DropAnimation = {
   sideEffects: defaultDropAnimationSideEffects({
-    styles: {
-      active: {
-        visibility: "hidden",
-      },
-    },
+    styles: { active: { visibility: "hidden" } },
   }),
 };
 
@@ -116,30 +114,32 @@ export function Board({ dataRef }: BoardProps) {
     useMutation<BoardColumnRankMutation>(columnRankMutation);
   const [commitItemRank] = useMutation<BoardItemRankMutation>(itemRankMutation);
 
-  const columns: Columns = useMemo(
-    () =>
-      sortBy(columnConnection.edges, "node.rank").reduce(
-        (acc, { node }) => ({
-          ...acc,
-          [node.id]: {
-            items: sortBy(node.itemConnection.edges, "node.rank").map(
-              ({ node }) => ({ id: node.id, rank: node.rank, dataRef: node }),
-            ),
-            dataRef: node,
-            rank: node.rank,
-          },
-        }),
-        {},
-      ),
-    [columnConnection.edges],
-  );
+  // const columns: Columns = useMemo(
+  //   () =>
+  //     sortBy(columnConnection.edges, "node.rank").reduce(
+  //       (acc, { node }) => ({
+  //         ...acc,
+  //         [node.id]: {
+  //           items: sortBy(node.itemConnection.edges, "node.rank").map(
+  //             ({ node }) => ({ id: node.id, rank: node.rank, dataRef: node }),
+  //           ),
+  //           dataRef: node,
+  //           rank: node.rank,
+  //         },
+  //       }),
+  //       {},
+  //     ),
+  //   [columnConnection.edges],
+  // );
 
-  const [, setColumns] = useState<Columns>(() =>
+  const [columns, setColumns] = useState<Columns>(() =>
     sortBy(columnConnection.edges, "node.rank").reduce(
       (acc, { node }) => ({
         ...acc,
         [node.id]: {
-          items: range(3).map((index) => `${node.id}-${index + 1}`),
+          items: sortBy(node.itemConnection.edges, "node.rank").map(
+            ({ node }) => ({ id: node.id, rank: node.rank, dataRef: node }),
+          ),
           dataRef: node,
           rank: node.rank,
         },
@@ -150,26 +150,27 @@ export function Board({ dataRef }: BoardProps) {
 
   const containers = Object.keys(columns) as UniqueIdentifier[];
 
-  // useEffect(() => {
-  //   const columns = sortBy(columnConnection.edges, "node.rank").reduce(
-  //     (acc, { node }) => ({
-  //       ...acc,
-  //       [node.id]: {
-  //         items: range(3).map((index) => `${node.title}-${index + 1}`),
-  //         dataRef: node,
-  //         rank: node.rank,
-  //       },
-  //     }),
-  //     {},
-  //   );
+  useIsomorphicLayoutEffect(() => {
+    const columns = sortBy(columnConnection.edges, "node.rank").reduce(
+      (acc, { node }) => ({
+        ...acc,
+        [node.id]: {
+          items: sortBy(node.itemConnection.edges, "node.rank").map(
+            ({ node }) => ({ id: node.id, rank: node.rank, dataRef: node }),
+          ),
+          dataRef: node,
+          rank: node.rank,
+        },
+      }),
+      {},
+    );
 
-  //   setColumns(columns);
-  // }, [columnConnection.edges]);
+    setColumns(columns);
+  }, [columnConnection.edges]);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const lastOverId = useRef<UniqueIdentifier | null>(null);
   const recentlyMovedToNewContainer = useRef(false);
-  // const isSortingContainer = activeId ? containers.includes(activeId) : false;
 
   const collisionDetectionStrategy: CollisionDetection = useMemo(
     () =>
@@ -182,7 +183,8 @@ export function Board({ dataRef }: BoardProps) {
     [activeId, columns],
   );
 
-  const [clonedColumns, setClonedColumns] = useState<Columns | null>(null);
+  const [draggedFromContainer, setDraggedFromContainer] =
+    useState<UniqueIdentifier | null>(null);
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -191,14 +193,8 @@ export function Board({ dataRef }: BoardProps) {
   );
 
   const onDragCancel = () => {
-    if (clonedColumns) {
-      // Reset items to their original state in case items have been
-      // Dragged across containers
-      setColumns(clonedColumns);
-    }
-
     setActiveId(null);
-    setClonedColumns(null);
+    setDraggedFromContainer(null);
   };
 
   useEffect(() => {
@@ -217,9 +213,7 @@ export function Board({ dataRef }: BoardProps) {
       <Column
         dataRef={exists(columns[containerId]?.dataRef)}
         connectionId={columnConnection.__id}
-        style={{
-          height: "100%",
-        }}
+        style={{ height: "100%" }}
         shadow
       >
         {exists(columns[containerId]?.items).map((item) => (
@@ -236,7 +230,7 @@ export function Board({ dataRef }: BoardProps) {
       measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
       onDragStart={({ active }) => {
         setActiveId(active.id);
-        setClonedColumns(columns);
+        setDraggedFromContainer(findContainer(active.id, columns) ?? null);
       }}
       onDragOver={({ active, over }) => {
         const overId = over?.id;
@@ -253,8 +247,6 @@ export function Board({ dataRef }: BoardProps) {
         }
 
         if (activeContainer !== overContainer) {
-          console.log("Drop on different container");
-
           setColumns((columns) => {
             const activeItems = exists(columns[activeContainer]?.items);
             const overItems = exists(columns[overContainer]?.items);
@@ -330,6 +322,9 @@ export function Board({ dataRef }: BoardProps) {
               updateOneColumn: { id: active.id, rank },
             },
           });
+
+          setActiveId(null);
+          return;
         }
 
         const activeContainer = findContainer(active.id, columns);
@@ -374,11 +369,15 @@ export function Board({ dataRef }: BoardProps) {
           const activeIndex = exists(columns[activeContainer]?.items).findIndex(
             ({ id }) => id === active.id,
           );
+
           const overIndex = exists(columns[overContainer]?.items).findIndex(
             ({ id }) => id === overId,
           );
 
-          if (activeIndex !== overIndex) {
+          if (
+            overContainer !== draggedFromContainer ||
+            activeIndex !== overIndex
+          ) {
             const reorderedItems = arrayMove(
               exists(columns[overContainer]?.items),
               activeIndex,
@@ -388,7 +387,10 @@ export function Board({ dataRef }: BoardProps) {
             const beforeItem = reorderedItems[overIndex - 1];
             const afterItem = reorderedItems[overIndex + 1];
 
-            const rank = getRankBetween(beforeItem, afterItem);
+            const rank =
+              beforeItem || afterItem
+                ? getRankBetween(beforeItem, afterItem)
+                : getNextRank();
 
             commitItemRank({
               variables: {
@@ -466,7 +468,8 @@ export function Board({ dataRef }: BoardProps) {
 
 function findItem(id: UniqueIdentifier, columns: Columns) {
   for (const key in columns) {
-    return exists(columns[key]?.items).find((item) => item.id === id);
+    const item = exists(columns[key]?.items).find((item) => item.id === id);
+    if (item) return item;
   }
 }
 

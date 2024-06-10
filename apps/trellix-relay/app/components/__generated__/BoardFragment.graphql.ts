@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<80fca21eaf239586ef81d3550f27ff8b>>
+ * @generated SignedSource<<16458dc36c1fe60616419252f75d26c8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,7 @@ export type BoardFragment$data = {
       readonly node: {
         readonly id: string;
         readonly itemConnection: {
+          readonly __id: string;
           readonly edges: ReadonlyArray<{
             readonly node: {
               readonly id: string;
@@ -26,6 +27,7 @@ export type BoardFragment$data = {
           }>;
         };
         readonly rank: string;
+        readonly title: string;
         readonly " $fragmentSpreads": FragmentRefs<"ColumnFragment">;
       };
     }>;
@@ -52,6 +54,18 @@ v1 = {
   "kind": "ScalarField",
   "name": "rank",
   "storageKey": null
+},
+v2 = {
+  "kind": "ClientExtension",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "__id",
+      "storageKey": null
+    }
+  ]
 };
 return {
   "argumentDefinitions": [],
@@ -86,6 +100,13 @@ return {
               "selections": [
                 (v0/*: any*/),
                 (v1/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "title",
+                  "storageKey": null
+                },
                 {
                   "args": null,
                   "kind": "FragmentSpread",
@@ -127,7 +148,8 @@ return {
                         }
                       ],
                       "storageKey": null
-                    }
+                    },
+                    (v2/*: any*/)
                   ],
                   "storageKey": null
                 }
@@ -137,18 +159,7 @@ return {
           ],
           "storageKey": null
         },
-        {
-          "kind": "ClientExtension",
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "__id",
-              "storageKey": null
-            }
-          ]
-        }
+        (v2/*: any*/)
       ],
       "storageKey": null
     }
@@ -158,6 +169,6 @@ return {
 };
 })();
 
-(node as any).hash = "805df731f51d93dc66c6233210489156";
+(node as any).hash = "b99d1938969a472fd4d7c637f4cd78cc";
 
 export default node;

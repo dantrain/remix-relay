@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c5f380e0eaef76078cac394114c11559>>
+ * @generated SignedSource<<60aaadc5740671fed644d67764340adc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -60,6 +60,18 @@ v4 = {
   "kind": "ScalarField",
   "name": "rank",
   "storageKey": null
+},
+v5 = {
+  "kind": "ClientExtension",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "__id",
+      "storageKey": null
+    }
+  ]
 };
 return {
   "fragment": {
@@ -177,7 +189,8 @@ return {
                               }
                             ],
                             "storageKey": null
-                          }
+                          },
+                          (v5/*: any*/)
                         ],
                         "storageKey": null
                       }
@@ -187,18 +200,7 @@ return {
                 ],
                 "storageKey": null
               },
-              {
-                "kind": "ClientExtension",
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "__id",
-                    "storageKey": null
-                  }
-                ]
-              }
+              (v5/*: any*/)
             ],
             "storageKey": null
           }
@@ -208,12 +210,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1e39bc1d72b80d8f5efd6510623c84a5",
+    "cacheID": "2fd2d4a0dfe3a067f018407765e85f53",
     "id": null,
     "metadata": {},
     "name": "boardQuery",
     "operationKind": "query",
-    "text": "query boardQuery(\n  $id: ID!\n) {\n  board(id: $id) {\n    id\n    name\n    ...BoardFragment\n  }\n}\n\nfragment BoardFragment on Board {\n  id\n  columnConnection {\n    edges {\n      node {\n        id\n        rank\n        ...ColumnFragment\n        itemConnection {\n          edges {\n            node {\n              id\n              rank\n              ...ItemFragment\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n}\n\nfragment ItemFragment on Item {\n  id\n  text\n}\n"
+    "text": "query boardQuery(\n  $id: ID!\n) {\n  board(id: $id) {\n    id\n    name\n    ...BoardFragment\n  }\n}\n\nfragment BoardFragment on Board {\n  id\n  columnConnection {\n    edges {\n      node {\n        id\n        rank\n        title\n        ...ColumnFragment\n        itemConnection {\n          edges {\n            node {\n              id\n              rank\n              ...ItemFragment\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n}\n\nfragment ItemFragment on Item {\n  id\n  text\n}\n"
   }
 };
 })();
