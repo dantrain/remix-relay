@@ -1,6 +1,7 @@
 import { createId } from "@paralleldrive/cuid2";
 import { toGlobalId } from "graphql-relay";
 import { getNextRank } from "lib/rank";
+import { last, sortBy } from "lodash-es";
 import { FormEvent, useState } from "react";
 import { graphql, useMutation } from "react-relay";
 import { Button } from "@remix-relay/ui";
@@ -9,75 +10,65 @@ import {
   ResponsiveDialogClose,
   ResponsiveDialogFooter,
 } from "./ResponsiveDialog";
-import { CreateColumnCreateOneColumnMutation } from "./__generated__/CreateColumnCreateOneColumnMutation.graphql";
+import { CreateItemCreateOneItemMutation } from "./__generated__/CreateItemCreateOneItemMutation.graphql";
 
 const mutation = graphql`
-  mutation CreateColumnCreateOneColumnMutation(
+  mutation CreateItemCreateOneItemMutation(
     $id: ID!
-    $title: String!
+    $columnId: ID!
+    $text: String!
     $rank: String!
-    $boardId: ID!
     $connections: [ID!]!
   ) {
-    createOneColumn(id: $id, title: $title, rank: $rank, boardId: $boardId)
+    createOneItem(id: $id, columnId: $columnId, text: $text, rank: $rank)
       @appendNode(
         connections: $connections
-        edgeTypeName: "BoardColumnConnectionEdge"
+        edgeTypeName: "ColumnItemConnectionEdge"
       ) {
       id
-      title
       rank
-      itemConnection {
-        edges {
-          node {
-            id
-          }
-        }
-      }
+      text
     }
   }
 `;
 
-type CreateColumnProps = {
-  boardId: string;
+type CreateItemProps = {
+  columnId: string;
   connectionId: string;
-  lastColumn?: { rank: string };
+  itemEdges: readonly { node: { rank: string } }[];
 };
 
-export function CreateColumn({
-  boardId,
+export function CreateItem({
+  columnId,
   connectionId,
-  lastColumn,
-}: CreateColumnProps) {
+  itemEdges,
+}: CreateItemProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [commit] = useMutation<CreateColumnCreateOneColumnMutation>(mutation);
+  const [commit] = useMutation<CreateItemCreateOneItemMutation>(mutation);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
-    const title = formData.get("title") as string;
+    const text = formData.get("text") as string;
 
-    if (title) {
+    if (text) {
       const id = createId();
-      const rank = getNextRank(lastColumn);
+      const rank = getNextRank(last(sortBy(itemEdges, "node.rank"))?.node);
 
       commit({
         variables: {
           id,
-          title,
-          boardId,
+          text,
+          columnId,
           rank,
           connections: [connectionId],
         },
         optimisticResponse: {
-          createOneColumn: {
-            id: toGlobalId("Column", id),
-            title,
+          createOneItem: {
+            id: toGlobalId("Item", id),
+            text,
             rank,
-            itemConnection: {
-              edges: [],
-            },
           },
         },
       });
@@ -91,22 +82,19 @@ export function CreateColumn({
       open={dialogOpen}
       onOpenChange={setDialogOpen}
       trigger={
-        <Button className="px-4 py-2" color="sky">
-          + Add column
+        <Button className="w-full py-2" color="sky">
+          + Add card
         </Button>
       }
-      title="Add column"
+      title="Add card"
       content={
-        <form onSubmit={handleSubmit}>
-          <label
-            className="mb-1 block text-sm font-medium"
-            htmlFor="createColumnInput-title"
-          >
-            Title
+        <form className="relative" onSubmit={handleSubmit}>
+          <label className="sr-only" htmlFor="createItemInput-text">
+            Text
           </label>
           <input
-            id="createColumnInput-title"
-            name="title"
+            id="createItemInput-text"
+            name="text"
             className="mb-6 block w-full rounded-md border-transparent
               bg-slate-100 focus:border-slate-500 focus:bg-white focus:ring-0"
             type="text"

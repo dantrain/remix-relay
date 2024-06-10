@@ -1,8 +1,7 @@
-import { and, desc, eq, relations } from "drizzle-orm";
+import { and, eq, relations } from "drizzle-orm";
 import { index, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import exists from "lib/exists";
 import { fromGlobalId } from "lib/global-id";
-import { getNextRank } from "lib/rank";
 import { builder } from "server/builder";
 import invariant from "tiny-invariant";
 import { z } from "zod";
@@ -57,38 +56,26 @@ builder.mutationFields((t) => ({
       }),
       text: t.arg.string({
         required: true,
-        validate: { schema: z.string().min(1).max(50) },
+        validate: { schema: z.string().min(1).max(100) },
       }),
+      rank: t.arg.string({ required: true }),
       columnId: t.arg.id({ required: true }),
     },
     resolve: async (_parent, args, { db, user }) => {
       const [item] = await db(async (tx) => {
         const column = await tx.query.columns.findFirst({
           where: eq(columns.id, fromGlobalId(args.columnId)),
-          columns: {
-            userId: true,
-          },
-          with: {
-            items: {
-              columns: {
-                rank: true,
-              },
-              orderBy: [desc(items.rank)],
-              limit: 1,
-            },
-          },
+          columns: { userId: true },
         });
 
         invariant(column?.userId === user.id, "Unauthorized");
-
-        const beforeItem = column.items[0];
 
         return tx
           .insert(items)
           .values({
             id: args.id.toString(),
             text: args.text,
-            rank: getNextRank(beforeItem),
+            rank: args.rank,
             userId: user.id,
             columnId: fromGlobalId(args.columnId),
           })

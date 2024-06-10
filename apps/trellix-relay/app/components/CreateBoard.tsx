@@ -19,7 +19,7 @@ const mutation = graphql`
     createOneBoard(id: $id, name: $name)
       @prependNode(
         connections: $connections
-        edgeTypeName: "BoardConnectionEdge"
+        edgeTypeName: "UserBoardConnectionEdge"
       ) {
       id
       ...BoardCardFragment

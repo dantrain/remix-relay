@@ -79,7 +79,7 @@ export const Item = memo(
           <button
             className={cva(
               `flex flex-grow touch-manipulation rounded-md border
-              border-slate-200 bg-white px-5 py-4 outline-none`,
+              border-slate-200 bg-white px-5 py-4 text-left outline-none`,
               {
                 variants: {
                   dragging: { true: "invisible" },

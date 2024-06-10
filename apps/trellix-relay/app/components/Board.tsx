@@ -162,6 +162,9 @@ export function Board({ dataRef }: BoardProps) {
   }, [columnConnection.edges]);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+  const [draggedFromContainer, setDraggedFromContainer] =
+    useState<UniqueIdentifier | null>(null);
+
   const lastOverId = useRef<UniqueIdentifier | null>(null);
   const recentlyMovedToNewContainer = useRef(false);
 
@@ -175,9 +178,6 @@ export function Board({ dataRef }: BoardProps) {
       ),
     [activeId, columns],
   );
-
-  const [draggedFromContainer, setDraggedFromContainer] =
-    useState<UniqueIdentifier | null>(null);
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -409,6 +409,7 @@ export function Board({ dataRef }: BoardProps) {
                 );
 
                 ConnectionHandler.insertEdgeAfter(nextConnectionRecord, edge);
+
                 ConnectionHandler.deleteNode(
                   prevConnectionRecord,
                   active.id.toString(),

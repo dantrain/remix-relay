@@ -68,7 +68,7 @@ type Item implements Node {
 type Mutation {
   createOneBoard(id: ID!, name: String!): Board!
   createOneColumn(boardId: ID!, id: ID!, rank: String!, title: String!): Column!
-  createOneItem(columnId: ID!, id: ID!, text: String!): Item!
+  createOneItem(columnId: ID!, id: ID!, rank: String!, text: String!): Item!
   deleteOneBoard(id: ID!): Board!
   deleteOneColumn(id: ID!): Column!
   deleteOneItem(id: ID!): Item!
