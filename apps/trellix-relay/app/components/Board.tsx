@@ -140,6 +140,10 @@ export function Board({ dataRef }: BoardProps) {
     ),
   );
 
+  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+  const [draggedFromContainer, setDraggedFromContainer] =
+    useState<UniqueIdentifier | null>(null);
+
   const containers = Object.keys(columns) as UniqueIdentifier[];
 
   useIsomorphicLayoutEffect(() => {
@@ -159,11 +163,7 @@ export function Board({ dataRef }: BoardProps) {
     );
 
     setColumns(columns);
-  }, [columnConnection.edges]);
-
-  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const [draggedFromContainer, setDraggedFromContainer] =
-    useState<UniqueIdentifier | null>(null);
+  }, [columnConnection.edges, activeId]);
 
   const lastOverId = useRef<UniqueIdentifier | null>(null);
   const recentlyMovedToNewContainer = useRef(false);
@@ -378,72 +378,65 @@ export function Board({ dataRef }: BoardProps) {
             ({ id }) => id === overId,
           );
 
-          if (
-            overContainer !== draggedFromContainer ||
-            activeIndex !== overIndex
-          ) {
-            const reorderedItems = arrayMove(
-              exists(columns[overContainer]?.items),
-              activeIndex,
-              overIndex,
-            );
+          const items = exists(columns[overContainer]).items;
 
-            const beforeItem = reorderedItems[overIndex - 1];
-            const afterItem = reorderedItems[overIndex + 1];
+          const reorderedItems = arrayMove(items, activeIndex, overIndex);
 
-            const rank =
-              beforeItem || afterItem
-                ? getRankBetween(beforeItem, afterItem)
-                : getNextRank();
+          const beforeItem = reorderedItems[overIndex - 1];
+          const afterItem = reorderedItems[overIndex + 1];
 
-            const updater = (
-              store: RecordSourceSelectorProxy<BoardItemRankMutation$data>,
-            ) => {
-              if (draggedFromContainer !== overContainer) {
-                const payload = store.getRootField("updateOneItem");
+          const rank =
+            beforeItem || afterItem
+              ? getRankBetween(beforeItem, afterItem)
+              : getNextRank();
 
-                const prevConnectionRecord = exists(
-                  store.get(
-                    exists(columns[draggedFromContainer]?.itemConnectionId),
-                  ),
-                );
+          const updater = (
+            store: RecordSourceSelectorProxy<BoardItemRankMutation$data>,
+          ) => {
+            if (draggedFromContainer !== overContainer) {
+              const payload = store.getRootField("updateOneItem");
 
-                const nextConnectionRecord = exists(
-                  store.get(exists(columns[overContainer]?.itemConnectionId)),
-                );
+              const prevConnectionRecord = exists(
+                store.get(
+                  exists(columns[draggedFromContainer]?.itemConnectionId),
+                ),
+              );
 
-                const edge = ConnectionHandler.createEdge(
-                  store,
-                  nextConnectionRecord,
-                  payload,
-                  "ItemEdge",
-                );
+              const nextConnectionRecord = exists(
+                store.get(exists(columns[overContainer]?.itemConnectionId)),
+              );
 
-                ConnectionHandler.insertEdgeAfter(nextConnectionRecord, edge);
+              const edge = ConnectionHandler.createEdge(
+                store,
+                nextConnectionRecord,
+                payload,
+                "ItemEdge",
+              );
 
-                ConnectionHandler.deleteNode(
-                  prevConnectionRecord,
-                  active.id.toString(),
-                );
-              }
-            };
+              ConnectionHandler.insertEdgeAfter(nextConnectionRecord, edge);
 
-            commitItemRank({
-              variables: {
+              ConnectionHandler.deleteNode(
+                prevConnectionRecord,
+                active.id.toString(),
+              );
+            }
+          };
+
+          commitItemRank({
+            variables: {
+              id: active.id.toString(),
+              columnId: overContainer.toString(),
+              rank,
+            },
+            optimisticResponse: {
+              updateOneItem: {
                 id: active.id.toString(),
-                columnId: overContainer.toString(),
                 rank,
               },
-              optimisticResponse: {
-                updateOneItem: {
-                  id: active.id.toString(),
-                  rank,
-                },
-              },
-              optimisticUpdater: updater,
-              updater,
-            });
-          }
+            },
+            optimisticUpdater: updater,
+            updater,
+          });
         }
 
         setActiveId(null);
