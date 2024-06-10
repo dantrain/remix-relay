@@ -3,7 +3,10 @@ import type { Transform } from "@dnd-kit/utilities";
 import { cva, cx } from "class-variance-authority";
 import { CSSProperties, forwardRef, memo, useEffect } from "react";
 import { useFocusVisible } from "react-aria";
-import { graphql, useFragment } from "react-relay";
+import { graphql, useFragment, useMutation } from "react-relay";
+import { Button } from "@remix-relay/ui";
+import { DeleteIcon } from "./Icons";
+import { ItemDeleteOneItemMutation } from "./__generated__/ItemDeleteOneItemMutation.graphql";
 import { ItemFragment$key } from "./__generated__/ItemFragment.graphql";
 
 const fragment = graphql`
@@ -13,8 +16,17 @@ const fragment = graphql`
   }
 `;
 
+const deleteOneItemMutation = graphql`
+  mutation ItemDeleteOneItemMutation($id: ID!, $connections: [ID!]!) {
+    deleteOneItem(id: $id) {
+      id @deleteEdge(connections: $connections)
+    }
+  }
+`;
+
 export type ItemProps = {
   dataRef: ItemFragment$key;
+  connectionId: string;
   dragOverlay?: boolean;
   dragging?: boolean;
   transform?: Transform | null;
@@ -27,6 +39,7 @@ export const Item = memo(
     (
       {
         dataRef,
+        connectionId,
         dragOverlay = false,
         dragging,
         listeners,
@@ -36,7 +49,11 @@ export const Item = memo(
       },
       ref,
     ) => {
-      const { text } = useFragment(fragment, dataRef);
+      const { id, text } = useFragment(fragment, dataRef);
+
+      const [commitDelete] = useMutation<ItemDeleteOneItemMutation>(
+        deleteOneItemMutation,
+      );
 
       const { isFocusVisible } = useFocusVisible({ isTextInput: true });
 
@@ -51,6 +68,13 @@ export const Item = memo(
           document.body.style.cursor = "";
         };
       }, [dragOverlay]);
+
+      const deleteItem = () => {
+        commitDelete({
+          variables: { id, connections: [connectionId] },
+          optimisticResponse: { deleteOneItem: { id } },
+        });
+      };
 
       return (
         <li
@@ -76,10 +100,10 @@ export const Item = memo(
           }
           ref={ref}
         >
-          <button
+          <div
             className={cva(
-              `flex flex-grow touch-manipulation rounded-md border
-              border-slate-200 bg-white px-5 py-4 text-left outline-none`,
+              `group flex flex-grow touch-manipulation items-start gap-2
+              rounded-md border border-slate-200 bg-white px-5 py-4 outline-none`,
               {
                 variants: {
                   dragging: { true: "invisible" },
@@ -111,11 +135,20 @@ export const Item = memo(
             style={{ WebkitTapHighlightColor: "transparent" } as CSSProperties}
             {...listeners}
             {...props}
-            type="button"
+            role="button"
             tabIndex={0}
           >
-            {text}
-          </button>
+            <span className="flex-1 self-center">{text}</span>
+            <Button
+              className="relative px-1 focus:opacity-100 group-hover:opacity-100
+                sm:opacity-0"
+              color="sky"
+              onPress={deleteItem}
+            >
+              <DeleteIcon className="not-sr-only w-6 sm:w-4" />
+              <span className="sr-only">Delete</span>
+            </Button>
+          </div>
         </li>
       );
     },

@@ -62,10 +62,16 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
         )}
       >
         <div
-          className="flex justify-between px-3 pt-2 font-medium text-slate-700"
+          className="group flex justify-between px-3 pt-2 font-medium
+            text-slate-700"
         >
           {title}
-          <div className="flex gap-2">
+          <div
+            className={cx(
+              "flex gap-2 focus-within:opacity-100 group-hover:opacity-100",
+              !shadow && "sm:opacity-0",
+            )}
+          >
             <DeleteColumn id={id} connectionId={connectionId} />
             <Handle {...handleProps} />
           </div>

@@ -197,20 +197,31 @@ export function Board({ dataRef }: BoardProps) {
   }, [columns]);
 
   function renderSortableItemDragOverlay(id: UniqueIdentifier) {
-    const item = exists(findItem(id, columns));
-    return <Item dragOverlay dataRef={item.dataRef} />;
+    const { column, item } = exists(findItem(id, columns));
+    return (
+      <Item
+        dragOverlay
+        dataRef={item.dataRef}
+        connectionId={column?.itemConnectionId}
+      />
+    );
   }
 
   function renderContainerDragOverlay(containerId: UniqueIdentifier) {
+    const container = exists(columns[containerId]);
     return (
       <Column
-        dataRef={exists(columns[containerId]?.dataRef)}
+        dataRef={container.dataRef}
         connectionId={columnConnection.__id}
         style={{ height: "100%" }}
         shadow
       >
-        {exists(columns[containerId]?.items).map((item) => (
-          <Item key={item.id} dataRef={item.dataRef} />
+        {exists(container.items).map((item) => (
+          <Item
+            key={item.id}
+            dataRef={item.dataRef}
+            connectionId={container.itemConnectionId}
+          />
         ))}
       </Column>
     );
@@ -444,30 +455,34 @@ export function Board({ dataRef }: BoardProps) {
           items={[...containers, PLACEHOLDER_ID]}
           strategy={horizontalListSortingStrategy}
         >
-          {containers.map((containerId) => (
-            <DroppableColumn
-              key={containerId}
-              id={containerId}
-              items={exists(columns[containerId]).items}
-              dataRef={exists(columns[containerId]).dataRef}
-              connectionId={columnConnection.__id}
-            >
-              <SortableContext
-                items={exists(columns[containerId]).items}
-                strategy={verticalListSortingStrategy}
+          {containers.map((containerId) => {
+            const container = exists(columns[containerId]);
+            return (
+              <DroppableColumn
+                key={containerId}
+                id={containerId}
+                items={container.items}
+                dataRef={container.dataRef}
+                connectionId={columnConnection.__id}
               >
-                {exists(columns[containerId]?.items).map((item) => {
-                  return (
-                    <SortableItem
-                      key={item.id}
-                      id={item.id}
-                      dataRef={item.dataRef}
-                    />
-                  );
-                })}
-              </SortableContext>
-            </DroppableColumn>
-          ))}
+                <SortableContext
+                  items={container.items}
+                  strategy={verticalListSortingStrategy}
+                >
+                  {container.items.map((item) => {
+                    return (
+                      <SortableItem
+                        key={item.id}
+                        id={item.id}
+                        dataRef={item.dataRef}
+                        connectionId={container.itemConnectionId}
+                      />
+                    );
+                  })}
+                </SortableContext>
+              </DroppableColumn>
+            );
+          })}
           <PlaceholderColumn id={PLACEHOLDER_ID}>
             <CreateColumn
               connectionId={columnConnection.__id}
@@ -496,7 +511,7 @@ export function Board({ dataRef }: BoardProps) {
 function findItem(id: UniqueIdentifier, columns: Columns) {
   for (const key in columns) {
     const item = exists(columns[key]?.items).find((item) => item.id === id);
-    if (item) return item;
+    if (item) return { column: exists(columns[key]), item };
   }
 }
 
