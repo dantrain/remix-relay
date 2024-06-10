@@ -23,7 +23,13 @@ import { getNextRank, getRankBetween } from "lib/rank";
 import { last, sortBy } from "lodash-es";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { graphql, useFragment, useMutation } from "react-relay";
+import {
+  ConnectionHandler,
+  graphql,
+  useFragment,
+  useMutation,
+} from "react-relay";
+import { RecordSourceSelectorProxy } from "relay-runtime";
 import { useIsClient, useIsomorphicLayoutEffect } from "usehooks-ts";
 import { getCollisionDetectionStrategy } from "~/lib/collision-detection-strategy";
 import { coordinateGetter } from "~/lib/keyboard-coordinates";
@@ -35,7 +41,10 @@ import { PlaceholderColumn } from "./PlaceholderColumn";
 import { SortableItem } from "./SortableItem";
 import { BoardColumnRankMutation } from "./__generated__/BoardColumnRankMutation.graphql";
 import { BoardFragment$key } from "./__generated__/BoardFragment.graphql";
-import { BoardItemRankMutation } from "./__generated__/BoardItemRankMutation.graphql";
+import {
+  BoardItemRankMutation,
+  BoardItemRankMutation$data,
+} from "./__generated__/BoardItemRankMutation.graphql";
 import { ColumnFragment$key } from "./__generated__/ColumnFragment.graphql";
 import { ItemFragment$key } from "./__generated__/ItemFragment.graphql";
 
@@ -48,7 +57,6 @@ const fragment = graphql`
         node {
           id
           rank
-          title
           ...ColumnFragment
           itemConnection {
             __id
@@ -95,6 +103,7 @@ type Columns = Record<
   {
     items: { id: UniqueIdentifier; rank: string; dataRef: ItemFragment$key }[];
     rank: string;
+    itemConnectionId: string;
     dataRef: ColumnFragment$key;
   }
 >;
@@ -114,24 +123,6 @@ export function Board({ dataRef }: BoardProps) {
     useMutation<BoardColumnRankMutation>(columnRankMutation);
   const [commitItemRank] = useMutation<BoardItemRankMutation>(itemRankMutation);
 
-  // const columns: Columns = useMemo(
-  //   () =>
-  //     sortBy(columnConnection.edges, "node.rank").reduce(
-  //       (acc, { node }) => ({
-  //         ...acc,
-  //         [node.id]: {
-  //           items: sortBy(node.itemConnection.edges, "node.rank").map(
-  //             ({ node }) => ({ id: node.id, rank: node.rank, dataRef: node }),
-  //           ),
-  //           dataRef: node,
-  //           rank: node.rank,
-  //         },
-  //       }),
-  //       {},
-  //     ),
-  //   [columnConnection.edges],
-  // );
-
   const [columns, setColumns] = useState<Columns>(() =>
     sortBy(columnConnection.edges, "node.rank").reduce(
       (acc, { node }) => ({
@@ -140,8 +131,9 @@ export function Board({ dataRef }: BoardProps) {
           items: sortBy(node.itemConnection.edges, "node.rank").map(
             ({ node }) => ({ id: node.id, rank: node.rank, dataRef: node }),
           ),
-          dataRef: node,
           rank: node.rank,
+          itemConnectionId: node.itemConnection.__id,
+          dataRef: node,
         },
       }),
       {},
@@ -158,8 +150,9 @@ export function Board({ dataRef }: BoardProps) {
           items: sortBy(node.itemConnection.edges, "node.rank").map(
             ({ node }) => ({ id: node.id, rank: node.rank, dataRef: node }),
           ),
-          dataRef: node,
           rank: node.rank,
+          itemConnectionId: node.itemConnection.__id,
+          dataRef: node,
         },
       }),
       {},
@@ -365,7 +358,7 @@ export function Board({ dataRef }: BoardProps) {
 
         const overContainer = findContainer(overId, columns);
 
-        if (overContainer) {
+        if (overContainer && draggedFromContainer) {
           const activeIndex = exists(columns[activeContainer]?.items).findIndex(
             ({ id }) => id === active.id,
           );
@@ -392,6 +385,37 @@ export function Board({ dataRef }: BoardProps) {
                 ? getRankBetween(beforeItem, afterItem)
                 : getNextRank();
 
+            const updater = (
+              store: RecordSourceSelectorProxy<BoardItemRankMutation$data>,
+            ) => {
+              if (draggedFromContainer !== overContainer) {
+                const payload = store.getRootField("updateOneItem");
+
+                const prevConnectionRecord = exists(
+                  store.get(
+                    exists(columns[draggedFromContainer]?.itemConnectionId),
+                  ),
+                );
+
+                const nextConnectionRecord = exists(
+                  store.get(exists(columns[overContainer]?.itemConnectionId)),
+                );
+
+                const edge = ConnectionHandler.createEdge(
+                  store,
+                  nextConnectionRecord,
+                  payload,
+                  "ItemEdge",
+                );
+
+                ConnectionHandler.insertEdgeAfter(nextConnectionRecord, edge);
+                ConnectionHandler.deleteNode(
+                  prevConnectionRecord,
+                  active.id.toString(),
+                );
+              }
+            };
+
             commitItemRank({
               variables: {
                 id: active.id.toString(),
@@ -404,6 +428,8 @@ export function Board({ dataRef }: BoardProps) {
                   rank,
                 },
               },
+              optimisticUpdater: updater,
+              updater,
             });
           }
         }

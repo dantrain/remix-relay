@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<16458dc36c1fe60616419252f75d26c8>>
+ * @generated SignedSource<<23a7ba7de11794b18f7255af9e246cd5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -27,7 +27,6 @@ export type BoardFragment$data = {
           }>;
         };
         readonly rank: string;
-        readonly title: string;
         readonly " $fragmentSpreads": FragmentRefs<"ColumnFragment">;
       };
     }>;
@@ -101,13 +100,6 @@ return {
                 (v0/*: any*/),
                 (v1/*: any*/),
                 {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "title",
-                  "storageKey": null
-                },
-                {
                   "args": null,
                   "kind": "FragmentSpread",
                   "name": "ColumnFragment"
@@ -169,6 +161,6 @@ return {
 };
 })();
 
-(node as any).hash = "b99d1938969a472fd4d7c637f4cd78cc";
+(node as any).hash = "327adb7dcefef7a5118ff7c74ace718f";
 
 export default node;
