@@ -66,7 +66,7 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
         onOpenChange={setDialogOpen}
         trigger={
           <Button
-            className="absolute right-2 top-2 py-1.5 leading-none sm:opacity-0
+            className="absolute right-2 top-2 p-1.5 leading-none sm:opacity-0
               sm:transition-opacity sm:focus:opacity-100
               sm:group-hover:opacity-100"
             variant="ghost"

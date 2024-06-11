@@ -111,7 +111,7 @@ export const Item = memo(
                     true: "cursor-[inherit]",
                     false: "cursor-grab shadow-sm",
                   },
-                  isFocusVisible: { true: "ring-blue-400" },
+                  isFocusVisible: { true: "ring-sky-500" },
                 },
                 compoundVariants: [
                   {
@@ -140,12 +140,12 @@ export const Item = memo(
           >
             <span className="flex-1 self-center">{text}</span>
             <Button
-              className="relative px-1 focus:opacity-100 group-hover:opacity-100
-                sm:opacity-0"
+              className="relative p-2 focus:opacity-100 group-hover:opacity-100
+                sm:p-1 sm:opacity-0"
               variant="ghost"
               onPress={deleteItem}
             >
-              <DeleteIcon className="not-sr-only w-6 sm:w-4" />
+              <DeleteIcon className="not-sr-only w-4" />
               <span className="sr-only">Delete</span>
             </Button>
           </div>

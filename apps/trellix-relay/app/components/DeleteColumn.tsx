@@ -44,8 +44,8 @@ export function DeleteColumn({ id, connectionId, title }: DeleteColumnProps) {
       open={dialogOpen}
       onOpenChange={setDialogOpen}
       trigger={
-        <Button className="relative px-1" variant="ghost">
-          <DeleteIcon className="not-sr-only w-6 sm:w-4" />
+        <Button className="relative p-2 sm:p-1" variant="ghost">
+          <DeleteIcon className="not-sr-only w-4" />
           <span className="sr-only">Delete</span>
         </Button>
       }

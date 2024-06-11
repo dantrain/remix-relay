@@ -2,11 +2,10 @@ import { useDndContext } from "@dnd-kit/core";
 import { cx } from "class-variance-authority";
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import { graphql, useFragment } from "react-relay";
-import { ActionProps } from "./Action";
 import AutoHeight from "./AutoHeight";
 import { CreateItem } from "./CreateItem";
 import { DeleteColumn } from "./DeleteColumn";
-import { Handle } from "./Handle";
+import { Handle, HandleProps } from "./Handle";
 import { ColumnFragment$key } from "./__generated__/ColumnFragment.graphql";
 
 const fragment = graphql`
@@ -31,7 +30,7 @@ export type ColumnProps = {
   children: ReactNode;
   style?: CSSProperties;
   hover?: boolean;
-  handleProps?: ActionProps;
+  handleProps?: HandleProps;
 };
 
 export const Column = forwardRef<HTMLDivElement, ColumnProps>(
@@ -65,13 +64,13 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
         )}
       >
         <div
-          className="group flex justify-between px-3 pt-2 font-medium
-            text-slate-800"
+          className="group flex items-center justify-between px-3 pt-2
+            font-medium text-slate-800"
         >
           {title}
           <div
             className={cx(
-              "flex gap-2",
+              "flex sm:gap-1",
               !active && "focus-within:opacity-100 group-hover:opacity-100",
               !dragOverlay && "sm:opacity-0",
             )}
@@ -85,7 +84,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
             <ul className="flex flex-col gap-2 p-2">{children}</ul>
           </AutoHeight>
         </div>
-        <div className="p-2 pt-1">
+        <div className="p-2 pt-0">
           <CreateItem
             connectionId={itemConnection.__id}
             columnId={id}

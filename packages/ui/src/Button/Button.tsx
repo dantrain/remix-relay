@@ -11,7 +11,7 @@ type ButtonProps = {
   variant?: "slate" | "sky" | "ghost";
   children: ReactNode;
   disabled?: boolean;
-  onClick?: () => void;
+  onClick?: any;
 } & (({ asChild?: false } & AriaButtonOptions<"button">) | { asChild: true });
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
