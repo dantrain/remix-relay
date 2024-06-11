@@ -67,7 +67,7 @@ export default function SignIn() {
         <div className="flex justify-center">
           <Button
             className="flex items-center justify-center gap-3 px-6 py-2"
-            color="slate"
+            variant="slate"
             disabled={signingIn}
             onClick={() => signIn("github")}
           >

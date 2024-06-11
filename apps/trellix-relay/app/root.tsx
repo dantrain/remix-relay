@@ -23,7 +23,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-slate-200 text-slate-900">
+      <body className="bg-slate-200 text-slate-950">
         <RemixRelayProvider>
           <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
             <Progress />

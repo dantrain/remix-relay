@@ -20,9 +20,10 @@ const deleteOneColumnMutation = graphql`
 type DeleteColumnProps = {
   id: string;
   connectionId: string;
+  title: string;
 };
 
-export function DeleteColumn({ id, connectionId }: DeleteColumnProps) {
+export function DeleteColumn({ id, connectionId, title }: DeleteColumnProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const [commit] = useMutation<DeleteColumnDeleteOneColumnMutation>(
@@ -43,24 +44,24 @@ export function DeleteColumn({ id, connectionId }: DeleteColumnProps) {
       open={dialogOpen}
       onOpenChange={setDialogOpen}
       trigger={
-        <Button className="relative px-1" color="sky">
+        <Button className="relative px-1" variant="ghost">
           <DeleteIcon className="not-sr-only w-6 sm:w-4" />
           <span className="sr-only">Delete</span>
         </Button>
       }
-      title="Delete column"
+      title={`Delete column “${title}”`}
       description="All the items in the column will be deleted."
       content={
         <ResponsiveDialogFooter>
           <Button
             className="flex-1 px-3 py-2 sm:flex-none sm:py-1"
-            color="sky"
+            variant="sky"
             onPress={deleteColumn}
           >
             Delete
           </Button>
           <ResponsiveDialogClose asChild>
-            <Button className="px-3 py-2 sm:py-1" color="sky">
+            <Button className="px-3 py-2 sm:py-1" variant="sky">
               Cancel
             </Button>
           </ResponsiveDialogClose>

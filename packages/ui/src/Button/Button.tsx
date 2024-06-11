@@ -8,7 +8,7 @@ import { twMerge } from "tailwind-merge";
 
 type ButtonProps = {
   className?: string;
-  color?: "slate" | "sky";
+  variant?: "slate" | "sky" | "ghost";
   children: ReactNode;
   disabled?: boolean;
   onClick?: () => void;
@@ -19,7 +19,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     {
       asChild,
       className,
-      color = "slate",
+      variant = "slate",
       disabled = false,
       onClick,
       children,
@@ -45,33 +45,44 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             focus:outline-none max-sm:transition-colors`,
             {
               variants: {
-                color: {
+                variant: {
                   slate: "border border-slate-700 bg-slate-900 text-white",
                   sky: "bg-[#0894d8] text-white",
+                  ghost: "",
                 },
                 disabled: {
                   true: "cursor-not-allowed opacity-60",
                 },
                 isPressed: { true: "" },
                 isFocusVisible: {
-                  true: "ring-offset-2 focus:ring-2",
+                  true: "focus:ring-2",
                 },
               },
               compoundVariants: [
+                // Hovered
                 {
-                  isFocusVisible: true,
-                  color: "slate",
-                  className: "ring-blue-400 ring-offset-slate-950",
+                  isPressed: false,
+                  disabled: false,
+                  variant: "slate",
+                  className: "sm:hover:border-slate-600 sm:hover:bg-slate-800",
                 },
                 {
-                  isFocusVisible: true,
-                  color: "sky",
-                  className: "ring-sky-500 ring-offset-slate-200",
+                  isPressed: false,
+                  disabled: false,
+                  variant: "sky",
+                  className: "sm:hover:bg-sky-500",
                 },
+                {
+                  isPressed: false,
+                  disabled: false,
+                  variant: "ghost",
+                  className: "sm:hover:bg-[#d6dee8]",
+                },
+                // Pressed
                 {
                   isPressed: true,
                   disabled: false,
-                  color: "slate",
+                  variant: "slate",
                   className: [
                     `border-slate-600 bg-slate-800 sm:border-slate-500
                     sm:bg-slate-700`,
@@ -80,24 +91,35 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 {
                   isPressed: true,
                   disabled: false,
-                  color: "sky",
+                  variant: "sky",
                   className: "bg-sky-700 sm:bg-sky-600",
                 },
                 {
-                  isPressed: false,
+                  isPressed: true,
                   disabled: false,
-                  color: "slate",
-                  className: "sm:hover:border-slate-600 sm:hover:bg-slate-800",
+                  variant: "ghost",
+                  className: "bg-[#d6dee8] sm:bg-slate-300",
+                },
+                // Focused
+                {
+                  isFocusVisible: true,
+                  variant: "slate",
+                  className:
+                    "ring-blue-400 ring-offset-2 ring-offset-slate-950",
                 },
                 {
-                  isPressed: false,
-                  disabled: false,
-                  color: "sky",
-                  className: "sm:hover:bg-sky-500",
+                  isFocusVisible: true,
+                  variant: "sky",
+                  className: "ring-sky-500 ring-offset-2 ring-offset-slate-200",
+                },
+                {
+                  isFocusVisible: true,
+                  variant: "ghost",
+                  className: "ring-sky-500 ring-offset-slate-100",
                 },
               ],
             },
-          )({ color, disabled, isPressed, isFocusVisible }),
+          )({ variant, disabled, isPressed, isFocusVisible }),
           className,
         )}
         type={Comp === "button" ? "button" : undefined}

@@ -102,8 +102,8 @@ export const Item = memo(
         >
           <div
             className={cva(
-              `group flex flex-grow touch-manipulation items-start gap-2
-              rounded-md border border-slate-200 bg-white px-5 py-4 outline-none`,
+              `border-200 group flex flex-grow touch-manipulation items-start
+              gap-2 rounded-md border bg-white py-2 pl-3 pr-2 outline-none`,
               {
                 variants: {
                   dragging: { true: "invisible" },
@@ -142,7 +142,7 @@ export const Item = memo(
             <Button
               className="relative px-1 focus:opacity-100 group-hover:opacity-100
                 sm:opacity-0"
-              color="sky"
+              variant="ghost"
               onPress={deleteItem}
             >
               <DeleteIcon className="not-sr-only w-6 sm:w-4" />

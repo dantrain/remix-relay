@@ -59,14 +59,14 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
         style={style}
         className={cx(
           `z-10 flex min-h-52 w-80 flex-col overflow-hidden rounded-md border
-          outline-none transition-colors duration-200`,
+          border-[#d6dee8] outline-none transition-colors duration-200`,
           hover ? "bg-[#e9eef4]" : "bg-slate-100",
           dragOverlay && "shadow-md",
         )}
       >
         <div
           className="group flex justify-between px-3 pt-2 font-medium
-            text-slate-700"
+            text-slate-800"
         >
           {title}
           <div
@@ -76,7 +76,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
               !dragOverlay && "sm:opacity-0",
             )}
           >
-            <DeleteColumn id={id} connectionId={connectionId} />
+            <DeleteColumn id={id} connectionId={connectionId} title={title} />
             <Handle {...handleProps} />
           </div>
         </div>

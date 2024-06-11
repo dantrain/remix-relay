@@ -66,10 +66,10 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
         onOpenChange={setDialogOpen}
         trigger={
           <Button
-            className="absolute right-3 top-3 py-1.5 leading-none sm:opacity-0
+            className="absolute right-2 top-2 py-1.5 leading-none sm:opacity-0
               sm:transition-opacity sm:focus:opacity-100
               sm:group-hover:opacity-100"
-            color="sky"
+            variant="ghost"
           >
             <DeleteIcon className="not-sr-only w-6 sm:w-4" />
             <span className="sr-only">Delete</span>
@@ -81,13 +81,13 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
           <ResponsiveDialogFooter>
             <Button
               className="flex-1 px-3 py-2 sm:flex-none sm:py-1"
-              color="sky"
+              variant="sky"
               onPress={deleteBoard}
             >
               Delete
             </Button>
             <ResponsiveDialogClose asChild>
-              <Button className="px-3 py-2 sm:py-1" color="sky">
+              <Button className="px-3 py-2 sm:py-1" variant="sky">
                 Cancel
               </Button>
             </ResponsiveDialogClose>
