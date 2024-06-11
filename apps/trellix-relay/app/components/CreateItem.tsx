@@ -95,8 +95,9 @@ export function CreateItem({
           <input
             id="createItemInput-text"
             name="text"
-            className="mb-6 block w-full rounded-md border-transparent
+            className="mb-4 block w-full rounded-md border-transparent
               bg-slate-100 focus:border-slate-500 focus:bg-white focus:ring-0"
+            placeholder="Enter a title"
             type="text"
             autoComplete="off"
             required

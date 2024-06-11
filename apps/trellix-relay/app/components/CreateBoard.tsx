@@ -74,17 +74,15 @@ export default function CreateBoard({ connectionId }: CreateBoardProps) {
       title="Create board"
       content={
         <form onSubmit={handleSubmit}>
-          <label
-            className="mb-1 block text-sm font-medium"
-            htmlFor="createBoardInput-name"
-          >
+          <label className="sr-only" htmlFor="createBoardInput-name">
             Title
           </label>
           <input
             id="createBoardInput-name"
             name="name"
-            className="mb-6 block w-full rounded-md border-transparent
+            className="mb-4 block w-full rounded-md border-transparent
               bg-slate-100 focus:border-slate-500 focus:bg-white focus:ring-0"
+            placeholder="Enter a title"
             type="text"
             autoComplete="off"
             required

@@ -98,17 +98,15 @@ export function CreateColumn({
       title="Add column"
       content={
         <form onSubmit={handleSubmit}>
-          <label
-            className="mb-1 block text-sm font-medium"
-            htmlFor="createColumnInput-title"
-          >
+          <label className="sr-only" htmlFor="createColumnInput-title">
             Title
           </label>
           <input
             id="createColumnInput-title"
             name="title"
-            className="mb-6 block w-full rounded-md border-transparent
+            className="mb-4 block w-full rounded-md border-transparent
               bg-slate-100 focus:border-slate-500 focus:bg-white focus:ring-0"
+            placeholder="Enter a title"
             type="text"
             autoComplete="off"
             required
