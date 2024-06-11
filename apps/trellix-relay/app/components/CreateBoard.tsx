@@ -39,7 +39,7 @@ export default function CreateBoard({ connectionId }: CreateBoardProps) {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
-    const name = formData.get("name") as string;
+    const name = (formData.get("name") as string).trim();
 
     if (name) {
       const id = createId();

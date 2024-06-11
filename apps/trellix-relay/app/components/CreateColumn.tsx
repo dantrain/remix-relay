@@ -56,7 +56,7 @@ export function CreateColumn({
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
-    const title = formData.get("title") as string;
+    const title = (formData.get("title") as string).trim();
 
     if (title) {
       const id = createId();

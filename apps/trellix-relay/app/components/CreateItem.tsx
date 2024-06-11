@@ -50,7 +50,7 @@ export function CreateItem({
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
-    const text = formData.get("text") as string;
+    const text = (formData.get("text") as string).trim();
 
     if (text) {
       const id = createId();

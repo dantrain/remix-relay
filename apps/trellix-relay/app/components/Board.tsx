@@ -214,7 +214,6 @@ export function Board({ dataRef }: BoardProps) {
         dataRef={container.dataRef}
         connectionId={columnConnection.__id}
         style={{ height: "100%" }}
-        shadow
       >
         {exists(container.items).map((item) => (
           <Item

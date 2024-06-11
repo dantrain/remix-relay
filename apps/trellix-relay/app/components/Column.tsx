@@ -1,3 +1,4 @@
+import { useDndContext } from "@dnd-kit/core";
 import { cx } from "class-variance-authority";
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import { graphql, useFragment } from "react-relay";
@@ -30,7 +31,6 @@ export type ColumnProps = {
   style?: CSSProperties;
   hover?: boolean;
   handleProps?: ActionProps;
-  shadow?: boolean;
 };
 
 export const Column = forwardRef<HTMLDivElement, ColumnProps>(
@@ -42,12 +42,14 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
       handleProps,
       hover,
       style,
-      shadow,
       ...props
     }: ColumnProps,
     ref,
   ) => {
     const { id, title, itemConnection } = useFragment(fragment, dataRef);
+    const { active } = useDndContext();
+
+    const dragOverlay = id === active?.id;
 
     return (
       <div
@@ -58,7 +60,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
           `z-10 flex min-h-52 w-80 flex-col overflow-hidden rounded-md border
           outline-none transition-colors duration-200`,
           hover ? "bg-[#e9eef4]" : "bg-slate-100",
-          shadow && "shadow-md",
+          dragOverlay && "shadow-md",
         )}
       >
         <div
@@ -68,8 +70,9 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
           {title}
           <div
             className={cx(
-              "flex gap-2 focus-within:opacity-100 group-hover:opacity-100",
-              !shadow && "sm:opacity-0",
+              "flex gap-2",
+              !active && "focus-within:opacity-100 group-hover:opacity-100",
+              !dragOverlay && "sm:opacity-0",
             )}
           >
             <DeleteColumn id={id} connectionId={connectionId} />
