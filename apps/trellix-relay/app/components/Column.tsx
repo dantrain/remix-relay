@@ -3,6 +3,7 @@ import { cx } from "class-variance-authority";
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import { graphql, useFragment } from "react-relay";
 import { ActionProps } from "./Action";
+import AutoHeight from "./AutoHeight";
 import { CreateItem } from "./CreateItem";
 import { DeleteColumn } from "./DeleteColumn";
 import { Handle } from "./Handle";
@@ -79,7 +80,11 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
             <Handle {...handleProps} />
           </div>
         </div>
-        <ul className="flex flex-1 flex-col gap-2 p-2">{children}</ul>
+        <div className="flex-1">
+          <AutoHeight duration={200}>
+            <ul className="flex flex-col gap-2 p-2">{children}</ul>
+          </AutoHeight>
+        </div>
         <div className="p-2 pt-1">
           <CreateItem
             connectionId={itemConnection.__id}
