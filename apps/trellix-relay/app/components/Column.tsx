@@ -52,14 +52,10 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     const scrollToBottom = () => {
-      setTimeout(
-        () =>
-          scrollContainerRef.current?.scrollTo({
-            top: scrollContainerRef.current.scrollHeight,
-            behavior: "smooth",
-          }),
-        200,
-      );
+      scrollContainerRef.current?.scrollTo({
+        top: scrollContainerRef.current.scrollHeight,
+        behavior: "instant",
+      });
     };
 
     const dragOverlay = id === active?.id;
@@ -70,8 +66,9 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
         ref={ref}
         style={style}
         className={cx(
-          `z-10 flex min-h-52 w-80 flex-col overflow-hidden rounded-md border
-          border-[#d6dee8] outline-none transition-colors duration-200`,
+          `z-10 flex max-h-full min-h-36 w-80 flex-col self-start
+          overflow-hidden rounded-md border border-[#d6dee8] outline-none
+          transition-colors duration-200`,
           hover ? "bg-[#e9eef4]" : "bg-slate-100",
           dragOverlay && "shadow-md",
         )}

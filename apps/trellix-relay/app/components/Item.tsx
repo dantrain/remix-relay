@@ -122,7 +122,7 @@ export const Item = memo(
                   {
                     isFocusVisible: true,
                     dragOverlay: false,
-                    className: "ring-offset-2 focus:ring-2",
+                    className: "ring-inset focus:ring-2",
                   },
                   {
                     isFocusVisible: true,

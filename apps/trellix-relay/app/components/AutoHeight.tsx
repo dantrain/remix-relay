@@ -10,18 +10,9 @@ function AutoHeight({
 
   useEffect(() => {
     const element = contentDiv.current as HTMLDivElement;
-    let timeout: NodeJS.Timeout;
 
     const resizeObserver = new ResizeObserver(() => {
-      const newHeight = element.clientHeight;
-
-      clearTimeout(timeout);
-
-      if (newHeight >= height) {
-        setHeight(newHeight);
-      } else {
-        timeout = setTimeout(() => setHeight(newHeight), 200);
-      }
+      setHeight(element.clientHeight);
     });
 
     resizeObserver.observe(element);

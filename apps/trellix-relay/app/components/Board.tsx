@@ -442,7 +442,7 @@ export function Board({ dataRef }: BoardProps) {
       }}
       onDragCancel={onDragCancel}
     >
-      <div className="inline-grid min-h-0 grid-flow-col gap-3">
+      <div className="grid min-h-0 grid-flow-col gap-3">
         <SortableContext
           items={[...containers, PLACEHOLDER_ID]}
           strategy={horizontalListSortingStrategy}

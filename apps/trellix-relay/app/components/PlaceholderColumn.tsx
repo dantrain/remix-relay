@@ -24,7 +24,7 @@ export function PlaceholderColumn({ id, children }: PlaceholderColumnProps) {
   return (
     <div
       className={cx(
-        `flex min-h-52 min-w-80 items-center justify-center rounded-md border
+        `flex min-h-36 min-w-80 items-center justify-center rounded-md border
         border-dashed border-slate-400`,
         isOverContainer && "bg-[#e9eef4]",
       )}
