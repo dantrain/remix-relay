@@ -64,7 +64,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
         )}
       >
         <div
-          className="group flex items-center justify-between px-3 pt-2
+          className="group flex items-center justify-between px-3 py-2
             font-medium text-slate-800"
         >
           {title}
@@ -79,12 +79,12 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
             <Handle {...handleProps} />
           </div>
         </div>
-        <div className="flex-1">
+        <div className="flex-1 overflow-x-auto">
           <AutoHeight duration={200}>
-            <ul className="flex flex-col gap-2 p-2">{children}</ul>
+            <ul className="flex flex-col gap-2 px-2">{children}</ul>
           </AutoHeight>
         </div>
-        <div className="p-2 pt-0">
+        <div className="p-2">
           <CreateItem
             connectionId={itemConnection.__id}
             columnId={id}
