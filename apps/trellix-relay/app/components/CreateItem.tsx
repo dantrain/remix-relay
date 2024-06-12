@@ -36,12 +36,14 @@ type CreateItemProps = {
   columnId: string;
   connectionId: string;
   itemEdges: readonly { node: { rank: string } }[];
+  scrollToBottom: () => void;
 };
 
 export function CreateItem({
   columnId,
   connectionId,
   itemEdges,
+  scrollToBottom,
 }: CreateItemProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [commit] = useMutation<CreateItemCreateOneItemMutation>(mutation);
@@ -71,6 +73,7 @@ export function CreateItem({
             rank,
           },
         },
+        onCompleted: scrollToBottom,
       });
 
       setDialogOpen(false);

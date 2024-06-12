@@ -1,6 +1,6 @@
 import { useDndContext } from "@dnd-kit/core";
 import { cx } from "class-variance-authority";
-import { CSSProperties, ReactNode, forwardRef } from "react";
+import { CSSProperties, ReactNode, forwardRef, useRef } from "react";
 import { graphql, useFragment } from "react-relay";
 import AutoHeight from "./AutoHeight";
 import { CreateItem } from "./CreateItem";
@@ -49,6 +49,19 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
     const { id, title, itemConnection } = useFragment(fragment, dataRef);
     const { active } = useDndContext();
 
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+    const scrollToBottom = () => {
+      setTimeout(
+        () =>
+          scrollContainerRef.current?.scrollTo({
+            top: scrollContainerRef.current.scrollHeight,
+            behavior: "smooth",
+          }),
+        200,
+      );
+    };
+
     const dragOverlay = id === active?.id;
 
     return (
@@ -79,7 +92,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
             <Handle {...handleProps} />
           </div>
         </div>
-        <div className="flex-1 overflow-x-auto">
+        <div className="flex-1 overflow-y-auto" ref={scrollContainerRef}>
           <AutoHeight duration={200}>
             <ul className="flex flex-col gap-2 px-2">{children}</ul>
           </AutoHeight>
@@ -89,6 +102,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
             connectionId={itemConnection.__id}
             columnId={id}
             itemEdges={itemConnection.edges}
+            scrollToBottom={scrollToBottom}
           />
         </div>
       </div>
