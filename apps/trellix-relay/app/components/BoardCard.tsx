@@ -57,6 +57,7 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
           rounded-sm bg-slate-100 p-3 font-bold shadow-sm ring-sky-500
           ring-offset-2 ring-offset-slate-200 focus:outline-none
           focus-visible:ring-2 group-hover:shadow-md"
+        prefetch="viewport"
       >
         <div className="flex-1">{name}</div>
         <div className="h-full w-8" />
