@@ -5,8 +5,8 @@ import { SignOutIcon } from "./Icons";
 export default function Header() {
   return (
     <header
-      className="flex items-center justify-between bg-slate-900 p-6 text-white
-        sm:px-8"
+      className="flex items-center justify-between bg-slate-900 p-4 text-white
+        sm:px-8 sm:py-6"
     >
       <Link
         className="rounded-sm ring-sky-500 ring-offset-4 ring-offset-slate-900

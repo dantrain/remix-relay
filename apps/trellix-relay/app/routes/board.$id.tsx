@@ -37,11 +37,18 @@ export default function BoardPage() {
     <div className="flex h-[100dvh] flex-col">
       <Header />
       <main
-        className="flex flex-1 flex-col items-start gap-4 overflow-x-auto p-4
-          sm:p-6"
+        className="flex min-h-0 min-w-[min(100dvw,1280px)] max-w-[100dvw] flex-1
+          flex-col self-center"
       >
-        <h1 className="mx-2 text-2xl font-medium">{board.name}</h1>
-        <Board dataRef={board} />
+        <h1 className="px-4 pt-3 text-2xl font-medium sm:px-6 sm:pt-5">
+          {board.name}
+        </h1>
+        <div
+          className="flex min-h-0 flex-1 flex-col items-start overflow-x-auto
+            p-2 sm:p-4"
+        >
+          <Board dataRef={board} />
+        </div>
       </main>
     </div>
   );

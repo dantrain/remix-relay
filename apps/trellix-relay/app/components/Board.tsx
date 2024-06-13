@@ -230,6 +230,7 @@ export function Board({ dataRef }: BoardProps) {
 
   return (
     <DndContext
+      autoScroll={{ interval: Number.MIN_VALUE }}
       sensors={sensors}
       collisionDetection={collisionDetectionStrategy}
       measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
@@ -291,7 +292,9 @@ export function Board({ dataRef }: BoardProps) {
                 ...exists(columns[overContainer]),
                 items: [
                   ...exists(columns[overContainer]?.items).slice(0, newIndex),
-                  exists(columns[activeContainer]?.items?.[activeIndex]),
+                  ...(columns[activeContainer]?.items?.[activeIndex]
+                    ? [exists(columns[activeContainer]?.items?.[activeIndex])]
+                    : []),
                   ...exists(columns[overContainer]?.items).slice(
                     newIndex,
                     exists(columns[overContainer]?.items).length,
