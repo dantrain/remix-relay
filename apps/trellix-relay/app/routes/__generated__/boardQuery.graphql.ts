@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3b00ac4cc9cd40b5212ff3fb7b7c3f7b>>
+ * @generated SignedSource<<13090cb2ca5b400f96ff632a34512bc9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type boardQuery$data = {
   readonly board: {
     readonly id: string;
     readonly name: string;
-    readonly " $fragmentSpreads": FragmentRefs<"BoardFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"BoardFragment" | "BoardTitleFragment">;
   };
 };
 export type boardQuery = {
@@ -90,6 +90,11 @@ return {
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "BoardTitleFragment"
+          },
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -210,16 +215,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8bb5965de5091fdb7ac548ad5ef0e89d",
+    "cacheID": "2b38a359eb63a1b4d5fe869a50a61815",
     "id": null,
     "metadata": {},
     "name": "boardQuery",
     "operationKind": "query",
-    "text": "query boardQuery(\n  $id: ID!\n) {\n  board(id: $id) {\n    id\n    name\n    ...BoardFragment\n  }\n}\n\nfragment BoardFragment on Board {\n  id\n  columnConnection {\n    edges {\n      node {\n        id\n        rank\n        ...ColumnFragment\n        itemConnection {\n          edges {\n            node {\n              id\n              rank\n              ...ItemFragment\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n  itemConnection {\n    edges {\n      node {\n        id\n        rank\n      }\n    }\n  }\n}\n\nfragment ItemFragment on Item {\n  id\n  text\n}\n"
+    "text": "query boardQuery(\n  $id: ID!\n) {\n  board(id: $id) {\n    id\n    name\n    ...BoardTitleFragment\n    ...BoardFragment\n  }\n}\n\nfragment BoardFragment on Board {\n  id\n  columnConnection {\n    edges {\n      node {\n        id\n        rank\n        ...ColumnFragment\n        itemConnection {\n          edges {\n            node {\n              id\n              rank\n              ...ItemFragment\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\nfragment BoardTitleFragment on Board {\n  id\n  name\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n  itemConnection {\n    edges {\n      node {\n        id\n        rank\n      }\n    }\n  }\n}\n\nfragment ItemFragment on Item {\n  id\n  text\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ac9513a3564ac96158768ad64aaf5dfb";
+(node as any).hash = "7f555642b0b29a5d9bb9294e4e2384bc";
 
 export default node;

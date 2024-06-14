@@ -1,8 +1,9 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { Params, ClientLoaderFunctionArgs } from "@remix-run/react";
+import { ClientLoaderFunctionArgs, Params } from "@remix-run/react";
 import { graphql } from "react-relay";
 import { metaQuery, useLoaderQuery } from "@remix-relay/react";
 import { Board } from "~/components/Board";
+import { BoardTitle } from "~/components/BoardTitle";
 import Header from "~/components/Header";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
@@ -13,6 +14,7 @@ const query = graphql`
     board(id: $id) {
       id
       name
+      ...BoardTitleFragment
       ...BoardFragment
     }
   }
@@ -40,12 +42,12 @@ export default function BoardPage() {
         className="flex min-h-0 min-w-[min(100dvw,1280px)] max-w-[100dvw] flex-1
           flex-col self-center"
       >
-        <h1 className="px-4 pt-3 text-2xl font-medium sm:px-6 sm:pt-5">
-          {board.name}
-        </h1>
+        <div className="self-start px-2 pt-3 sm:px-4 sm:pt-5">
+          <BoardTitle dataRef={board} />
+        </div>
         <div
           className="flex min-h-0 flex-1 flex-col items-start overflow-x-auto
-            p-2 sm:p-4"
+            p-2 sm:p-4 sm:pt-2"
         >
           <Board dataRef={board} />
         </div>
