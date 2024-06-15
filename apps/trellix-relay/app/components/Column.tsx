@@ -1,6 +1,6 @@
 import { useDndContext } from "@dnd-kit/core";
 import { cx } from "class-variance-authority";
-import { CSSProperties, ReactNode, forwardRef, useRef } from "react";
+import { CSSProperties, ReactNode, forwardRef, useRef, useState } from "react";
 import { graphql, useFragment } from "react-relay";
 import AutoHeight from "./AutoHeight";
 import { CreateItem } from "./CreateItem";
@@ -48,6 +48,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
   ) => {
     const { id, title, itemConnection } = useFragment(fragment, dataRef);
     const { active } = useDndContext();
+    const [isCreating, setIsCreating] = useState(false);
 
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -90,7 +91,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
           </div>
         </div>
         <div className="flex-1 overflow-y-auto" ref={scrollContainerRef}>
-          <AutoHeight duration={200}>
+          <AutoHeight duration={isCreating ? 0 : 200}>
             <ul className="flex flex-col gap-2 px-2">{children}</ul>
           </AutoHeight>
         </div>
@@ -100,6 +101,8 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
             columnId={id}
             itemEdges={itemConnection.edges}
             scrollToBottom={scrollToBottom}
+            isCreating={isCreating}
+            setIsCreating={setIsCreating}
           />
         </div>
       </div>

@@ -1,15 +1,12 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import { createId } from "@paralleldrive/cuid2";
 import { toGlobalId } from "graphql-relay";
 import { getNextRank } from "lib/rank";
 import { last, sortBy } from "lodash-es";
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef } from "react";
 import { graphql, useMutation } from "react-relay";
+import { useOnClickOutside } from "usehooks-ts";
 import { Button } from "@remix-relay/ui";
-import {
-  ResponsiveDialog,
-  ResponsiveDialogClose,
-  ResponsiveDialogFooter,
-} from "./ResponsiveDialog";
 import { CreateItemCreateOneItemMutation } from "./__generated__/CreateItemCreateOneItemMutation.graphql";
 
 const mutation = graphql`
@@ -37,6 +34,8 @@ type CreateItemProps = {
   connectionId: string;
   itemEdges: readonly { node: { rank: string } }[];
   scrollToBottom: () => void;
+  isCreating: boolean;
+  setIsCreating: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export function CreateItem({
@@ -44,9 +43,16 @@ export function CreateItem({
   connectionId,
   itemEdges,
   scrollToBottom,
+  isCreating,
+  setIsCreating,
 }: CreateItemProps) {
-  const [dialogOpen, setDialogOpen] = useState(false);
   const [commit] = useMutation<CreateItemCreateOneItemMutation>(mutation);
+
+  const formRef = useRef<HTMLFormElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useOnClickOutside(formRef, () => setIsCreating(false), "mousedown");
+  useOnClickOutside(formRef, () => setIsCreating(false), "focusout");
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -73,55 +79,56 @@ export function CreateItem({
             rank,
           },
         },
-        onCompleted: scrollToBottom,
+        onCompleted: () => {
+          scrollToBottom();
+          formRef.current?.reset();
+          inputRef.current?.focus();
+        },
       });
-
-      setDialogOpen(false);
     }
   };
 
-  return (
-    <ResponsiveDialog
-      open={dialogOpen}
-      onOpenChange={setDialogOpen}
-      trigger={
-        <Button className="w-full py-2 text-left" variant="ghost">
-          + Add card
+  return isCreating ? (
+    <form className="relative" ref={formRef} onSubmit={handleSubmit}>
+      <label className="sr-only" htmlFor="createItemInput-text">
+        Text
+      </label>
+      <input
+        id="createItemInput-text"
+        ref={inputRef}
+        name="text"
+        className="mb-2 block w-full rounded-md border border-slate-200 bg-white
+          shadow-sm focus:border-slate-200 focus:ring-0"
+        placeholder="Enter a title"
+        type="text"
+        autoComplete="off"
+        autoFocus
+        required
+      />
+      <div className="flex flex-row-reverse justify-start gap-2">
+        <Button
+          className="flex-1 px-3 py-2 sm:flex-none sm:py-1"
+          variant="sky"
+          type="submit"
+        >
+          Add
         </Button>
-      }
-      title="Add card"
-      content={
-        <form className="relative" onSubmit={handleSubmit}>
-          <label className="sr-only" htmlFor="createItemInput-text">
-            Text
-          </label>
-          <input
-            id="createItemInput-text"
-            name="text"
-            className="mb-4 block w-full rounded-md border-transparent
-              bg-slate-100 focus:border-slate-500 focus:bg-white focus:ring-0"
-            placeholder="Enter a title"
-            type="text"
-            autoComplete="off"
-            required
-          />
-
-          <ResponsiveDialogFooter>
-            <Button
-              className="flex-1 px-3 py-2 sm:flex-none sm:py-1"
-              variant="sky"
-              type="submit"
-            >
-              Add
-            </Button>
-            <ResponsiveDialogClose asChild>
-              <Button className="px-3 py-2 sm:py-1" variant="sky">
-                Cancel
-              </Button>
-            </ResponsiveDialogClose>
-          </ResponsiveDialogFooter>
-        </form>
-      }
-    />
+        <Button
+          className="px-3 py-2 sm:py-1"
+          variant="sky"
+          onPress={() => setIsCreating(false)}
+        >
+          Cancel
+        </Button>
+      </div>
+    </form>
+  ) : (
+    <Button
+      className="w-full py-2 text-left"
+      variant="ghost"
+      onPress={() => setIsCreating(true)}
+    >
+      + Add card
+    </Button>
   );
 }

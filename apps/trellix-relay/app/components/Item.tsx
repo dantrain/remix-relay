@@ -102,8 +102,9 @@ export const Item = memo(
         >
           <div
             className={cva(
-              `border-200 group flex flex-grow touch-manipulation items-start
-              gap-2 rounded-md border bg-white py-2 pl-3 pr-2 outline-none`,
+              `group flex flex-grow touch-manipulation items-start gap-2
+              rounded-md border border-slate-200 bg-white py-2 pl-3 pr-2
+              outline-none`,
               {
                 variants: {
                   dragging: { true: "invisible" },
