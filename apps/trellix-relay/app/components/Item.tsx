@@ -6,7 +6,15 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import { cva, cx } from "class-variance-authority";
 import { EllipsisVerticalIcon, PencilIcon, Trash2Icon } from "lucide-react";
-import { CSSProperties, forwardRef, memo, useEffect } from "react";
+import {
+  CSSProperties,
+  FormEvent,
+  forwardRef,
+  memo,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useFocusVisible } from "react-aria";
 import { graphql, useFragment, useMutation } from "react-relay";
 import { Button } from "@remix-relay/ui";
@@ -55,6 +63,10 @@ export const Item = memo(
       ref,
     ) => {
       const { id, text } = useFragment(fragment, dataRef);
+      const [isEditing, setIsEditing] = useState(false);
+
+      const inputRef = useRef<HTMLInputElement>(null);
+      const formRef = useRef<HTMLFormElement>(null);
 
       const [commitDelete] = useMutation<ItemDeleteOneItemMutation>(
         deleteOneItemMutation,
@@ -79,6 +91,12 @@ export const Item = memo(
           variables: { id, connections: [connectionId] },
           optimisticResponse: { deleteOneItem: { id } },
         });
+      };
+
+      const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+
+        setIsEditing(false);
       };
 
       return (
@@ -139,12 +157,46 @@ export const Item = memo(
               },
             )({ dragging, dragOverlay, isFocusVisible })}
             style={{ WebkitTapHighlightColor: "transparent" } as CSSProperties}
-            {...listeners}
+            {...(isEditing ? [] : listeners)}
             {...props}
             role="button"
             tabIndex={0}
           >
-            <span className="flex-1 self-center">{text}</span>
+            {isEditing ? (
+              <form
+                className="flex-1"
+                ref={formRef}
+                onSubmit={handleSubmit}
+                onBlur={() => formRef.current?.requestSubmit()}
+              >
+                <label className="sr-only" htmlFor="editItemInput-text">
+                  Title
+                </label>
+                <input
+                  id="editItemInput-text"
+                  ref={inputRef}
+                  name="title"
+                  className="block w-full rounded-md border-none bg-slate-100
+                    p-0 focus:ring-0"
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      event.preventDefault();
+                      formRef.current?.requestSubmit();
+                    }
+                    if (event.key === "Escape") {
+                      setIsEditing(false);
+                    }
+                  }}
+                  placeholder="Enter a title"
+                  type="text"
+                  autoComplete="off"
+                  defaultValue={text}
+                  required
+                />
+              </form>
+            ) : (
+              <span className="flex-1 self-center">{text}</span>
+            )}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -160,9 +212,21 @@ export const Item = memo(
                   <span className="sr-only">Delete</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent
+                align="end"
+                onCloseAutoFocus={(e) => {
+                  if (isEditing) {
+                    e.preventDefault();
+                    inputRef.current?.focus();
+                  }
+                }}
+              >
                 <DropdownMenuItem asChild>
-                  <Button className="w-full" variant="ghost">
+                  <Button
+                    className="w-full"
+                    variant="ghost"
+                    onPress={() => setIsEditing(true)}
+                  >
                     <PencilIcon className="mr-2 w-4" />
                     Edit
                   </Button>
