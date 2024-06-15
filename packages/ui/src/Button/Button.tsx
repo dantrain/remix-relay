@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Slot } from "@radix-ui/react-slot";
 import { mergeProps, useObjectRef } from "@react-aria/utils";
 import { cva } from "class-variance-authority";
@@ -16,8 +17,8 @@ type ButtonProps = {
   variant?: "slate" | "sky" | "outline" | "ghost";
   children: ReactNode;
   disabled?: boolean;
-  // eslint-disable-next-line no-unused-vars
   onPress?: (e: PressEvent) => void;
+  onClick?: (e: MouseEvent) => void;
 } & (({ asChild?: false } & AriaButtonOptions<"button">) | { asChild: true });
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -28,6 +29,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       variant = "slate",
       disabled = false,
       onPress,
+      onClick,
       children,
       ...rest
     },
@@ -39,7 +41,16 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const { isFocusVisible } = useFocusVisible({ isTextInput: true });
 
     const { buttonProps, isPressed } = useButton(
-      { onPress, isDisabled: disabled },
+      {
+        onPress: (e) => {
+          if (onPress) {
+            return onPress(e);
+          } else if (e.pointerType === "keyboard" && onClick) {
+            return onClick(e as unknown as MouseEvent);
+          }
+        },
+        isDisabled: disabled,
+      },
       ref,
     );
 
@@ -149,7 +160,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           className,
         )}
         type={Comp === "button" ? "button" : undefined}
-        {...mergeProps(rest, buttonProps)}
+        {...mergeProps(rest, { onClick }, buttonProps)}
         disabled={Comp === "button" ? disabled : undefined}
         ref={ref}
       >

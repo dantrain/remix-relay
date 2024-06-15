@@ -17,15 +17,26 @@ import {
 } from "react";
 import { useFocusVisible } from "react-aria";
 import { graphql, useFragment, useMutation } from "react-relay";
+import TextareaAutosize from "react-textarea-autosize";
 import { Button } from "@remix-relay/ui";
 import { DropdownMenuContent, DropdownMenuItem } from "./DropdownMenu";
 import { ItemDeleteOneItemMutation } from "./__generated__/ItemDeleteOneItemMutation.graphql";
 import { ItemFragment$key } from "./__generated__/ItemFragment.graphql";
+import { ItemUpdateOneItemMutation } from "./__generated__/ItemUpdateOneItemMutation.graphql";
 
 const fragment = graphql`
   fragment ItemFragment on Item {
     id
     text
+  }
+`;
+
+const updateOneItemMutation = graphql`
+  mutation ItemUpdateOneItemMutation($id: ID!, $text: String) {
+    updateOneItem(id: $id, text: $text) {
+      id
+      text
+    }
   }
 `;
 
@@ -65,8 +76,12 @@ export const Item = memo(
       const { id, text } = useFragment(fragment, dataRef);
       const [isEditing, setIsEditing] = useState(false);
 
-      const inputRef = useRef<HTMLInputElement>(null);
+      const textAreaRef = useRef<HTMLTextAreaElement>(null);
       const formRef = useRef<HTMLFormElement>(null);
+
+      const [commitUpdate] = useMutation<ItemUpdateOneItemMutation>(
+        updateOneItemMutation,
+      );
 
       const [commitDelete] = useMutation<ItemDeleteOneItemMutation>(
         deleteOneItemMutation,
@@ -95,6 +110,16 @@ export const Item = memo(
 
       const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
+
+        const formData = new FormData(e.target as HTMLFormElement);
+        const newText = (formData.get("title") as string).trim();
+
+        if (newText && newText !== text) {
+          commitUpdate({
+            variables: { id, text: newText },
+            optimisticResponse: { updateOneItem: { id, text: newText } },
+          });
+        }
 
         setIsEditing(false);
       };
@@ -126,18 +151,23 @@ export const Item = memo(
           <div
             className={cva(
               `group flex flex-grow touch-manipulation items-start gap-2
-              rounded-md border border-slate-200 bg-white py-2 pl-3 pr-2
-              outline-none`,
+              rounded-md border border-slate-200 bg-white pr-2 outline-none`,
               {
                 variants: {
                   dragging: { true: "invisible" },
                   dragOverlay: {
                     true: "cursor-[inherit]",
-                    false: "cursor-grab shadow-sm",
+                    false: "cursor-default shadow-sm",
                   },
                   isFocusVisible: { true: "ring-sky-500" },
+                  isEditing: { true: "border-slate-500" },
                 },
                 compoundVariants: [
+                  {
+                    dragOverlay: false,
+                    isEditing: false,
+                    className: "cursor-grab",
+                  },
                   {
                     isFocusVisible: false,
                     dragOverlay: true,
@@ -155,7 +185,7 @@ export const Item = memo(
                   },
                 ],
               },
-            )({ dragging, dragOverlay, isFocusVisible })}
+            )({ dragging, dragOverlay, isFocusVisible, isEditing })}
             style={{ WebkitTapHighlightColor: "transparent" } as CSSProperties}
             {...(isEditing ? [] : listeners)}
             {...props}
@@ -172,12 +202,12 @@ export const Item = memo(
                 <label className="sr-only" htmlFor="editItemInput-text">
                   Title
                 </label>
-                <input
+                <TextareaAutosize
                   id="editItemInput-text"
-                  ref={inputRef}
+                  ref={textAreaRef}
                   name="title"
-                  className="block w-full rounded-md border-none bg-slate-100
-                    p-0 focus:ring-0"
+                  className="block w-full resize-none rounded-md border-none p-0
+                    py-2 pl-3 focus:ring-0"
                   onKeyDown={(event) => {
                     if (event.key === "Enter") {
                       event.preventDefault();
@@ -188,20 +218,18 @@ export const Item = memo(
                     }
                   }}
                   placeholder="Enter a title"
-                  type="text"
                   autoComplete="off"
                   defaultValue={text}
-                  required
                 />
               </form>
             ) : (
-              <span className="flex-1 self-center">{text}</span>
+              <div className="flex-1 self-center py-2 pl-3">{text}</div>
             )}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   className={cx(
-                    `relative p-2 group-hover:opacity-100
+                    `relative mt-2 p-2 group-hover:opacity-100
                     data-[state=open]:bg-slate-300 data-[state=open]:opacity-100
                     sm:p-1 sm:opacity-0`,
                     isFocusVisible && "focus:opacity-100",
@@ -217,7 +245,13 @@ export const Item = memo(
                 onCloseAutoFocus={(e) => {
                   if (isEditing) {
                     e.preventDefault();
-                    inputRef.current?.focus();
+                    const textarea = textAreaRef.current;
+
+                    if (textarea) {
+                      const len = textarea.value.length;
+                      textarea.focus();
+                      textarea.setSelectionRange(len, len);
+                    }
                   }
                 }}
               >

@@ -90,8 +90,9 @@ builder.mutationFields((t) => ({
     type: Item,
     args: {
       id: t.arg.id({ required: true }),
-      rank: t.arg.string({ required: true }),
-      columnId: t.arg.id({ required: true }),
+      rank: t.arg.string(),
+      columnId: t.arg.id(),
+      text: t.arg.string(),
     },
     resolve: async (_parent, args, { db, user }) =>
       retry(async () => {
@@ -99,8 +100,9 @@ builder.mutationFields((t) => ({
           tx
             .update(items)
             .set({
-              rank: args.rank,
-              columnId: fromGlobalId(args.columnId),
+              rank: args.rank ?? undefined,
+              columnId: args.columnId ? fromGlobalId(args.columnId) : undefined,
+              text: args.text ?? undefined,
             })
             .where(
               and(
