@@ -80,11 +80,12 @@ export function CreateItem({
             rank,
           },
         },
-        onCompleted: () => {
-          scrollToBottom();
-          formRef.current?.reset();
-          textAreaRef.current?.focus();
-        },
+      });
+
+      requestIdleCallback(() => {
+        scrollToBottom();
+        formRef.current?.reset();
+        textAreaRef.current?.focus();
       });
     }
   };
@@ -121,11 +122,11 @@ export function CreateItem({
           variant="sky"
           type="submit"
         >
-          Add
+          Add card
         </Button>
         <Button
           className="px-3 py-2 sm:py-1"
-          variant="sky"
+          variant="outline"
           onPress={() => setIsCreating(false)}
         >
           Cancel

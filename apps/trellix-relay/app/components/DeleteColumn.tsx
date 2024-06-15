@@ -61,7 +61,7 @@ export function DeleteColumn({ id, connectionId, title }: DeleteColumnProps) {
             Delete
           </Button>
           <ResponsiveDialogClose asChild>
-            <Button className="px-3 py-2 sm:py-1" variant="sky">
+            <Button className="px-3 py-2 sm:py-1" variant="outline">
               Cancel
             </Button>
           </ResponsiveDialogClose>

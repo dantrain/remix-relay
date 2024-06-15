@@ -8,7 +8,7 @@ import { twMerge } from "tailwind-merge";
 
 type ButtonProps = {
   className?: string;
-  variant?: "slate" | "sky" | "ghost";
+  variant?: "slate" | "sky" | "outline" | "ghost";
   children: ReactNode;
   disabled?: boolean;
   onClick?: any;
@@ -48,6 +48,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 variant: {
                   slate: "border border-slate-700 bg-slate-900 text-white",
                   sky: "bg-[#0894d8] text-white",
+                  outline: [
+                    "text-slate-800 shadow-[inset_0_0_0_1px] shadow-slate-600",
+                  ],
                   ghost: "",
                 },
                 disabled: {
@@ -75,6 +78,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 {
                   isPressed: false,
                   disabled: false,
+                  variant: "outline",
+                  className: "sm:hover:bg-slate-200",
+                },
+                {
+                  isPressed: false,
+                  disabled: false,
                   variant: "ghost",
                   className: "sm:hover:bg-[#d6dee8]",
                 },
@@ -97,6 +106,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 {
                   isPressed: true,
                   disabled: false,
+                  variant: "outline",
+                  className: "bg-slate-200 sm:bg-[#d6dee8]",
+                },
+                {
+                  isPressed: true,
+                  disabled: false,
                   variant: "ghost",
                   className: "bg-[#d6dee8] sm:bg-slate-300",
                 },
@@ -110,6 +125,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 {
                   isFocusVisible: true,
                   variant: "sky",
+                  className: "ring-sky-500 ring-offset-2 ring-offset-slate-200",
+                },
+                {
+                  isFocusVisible: true,
+                  variant: "outline",
                   className: "ring-sky-500 ring-offset-2 ring-offset-slate-200",
                 },
                 {
