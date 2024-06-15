@@ -10,6 +10,7 @@ import {
 } from "drizzle-orm/pg-core";
 import exists from "lib/exists";
 import { fromGlobalId } from "lib/global-id";
+import { retry } from "lib/retry";
 import { builder } from "server/builder";
 import invariant from "tiny-invariant";
 import { z } from "zod";
@@ -115,45 +116,47 @@ builder.mutationFields((t) => ({
       title: t.arg.string(),
       rank: t.arg.string(),
     },
-    resolve: async (_parent, args, { db, user }) => {
-      const [column] = await db((tx) =>
-        tx
-          .update(columns)
-          .set({
-            title: args.title ?? undefined,
-            rank: args.rank ?? undefined,
-          })
-          .where(
-            and(
-              eq(columns.id, fromGlobalId(args.id)),
-              eq(columns.userId, user.id),
-            ),
-          )
-          .returning(),
-      );
+    resolve: async (_parent, args, { db, user }) =>
+      retry(async () => {
+        const [column] = await db((tx) =>
+          tx
+            .update(columns)
+            .set({
+              title: args.title ?? undefined,
+              rank: args.rank ?? undefined,
+            })
+            .where(
+              and(
+                eq(columns.id, fromGlobalId(args.id)),
+                eq(columns.userId, user.id),
+              ),
+            )
+            .returning(),
+        );
 
-      return exists(column, "Column not found");
-    },
+        return exists(column, "Column not found");
+      }),
   }),
   deleteOneColumn: t.field({
     type: Column,
     args: {
       id: t.arg.id({ required: true }),
     },
-    resolve: async (_parent, args, { db, user }) => {
-      const [column] = await db((tx) =>
-        tx
-          .delete(columns)
-          .where(
-            and(
-              eq(columns.id, fromGlobalId(args.id)),
-              eq(columns.userId, user.id),
-            ),
-          )
-          .returning(),
-      );
+    resolve: async (_parent, args, { db, user }) =>
+      retry(async () => {
+        const [column] = await db((tx) =>
+          tx
+            .delete(columns)
+            .where(
+              and(
+                eq(columns.id, fromGlobalId(args.id)),
+                eq(columns.userId, user.id),
+              ),
+            )
+            .returning(),
+        );
 
-      return exists(column, "Column not found");
-    },
+        return exists(column, "Column not found");
+      }),
   }),
 }));

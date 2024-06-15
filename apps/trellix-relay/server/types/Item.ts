@@ -2,6 +2,7 @@ import { and, eq, relations } from "drizzle-orm";
 import { index, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import exists from "lib/exists";
 import { fromGlobalId } from "lib/global-id";
+import { retry } from "lib/retry";
 import { builder } from "server/builder";
 import invariant from "tiny-invariant";
 import { z } from "zod";
@@ -92,39 +93,47 @@ builder.mutationFields((t) => ({
       rank: t.arg.string({ required: true }),
       columnId: t.arg.id({ required: true }),
     },
-    resolve: async (_parent, args, { db, user }) => {
-      const [item] = await db((tx) =>
-        tx
-          .update(items)
-          .set({
-            rank: args.rank,
-            columnId: fromGlobalId(args.columnId),
-          })
-          .where(
-            and(eq(items.id, fromGlobalId(args.id)), eq(items.userId, user.id)),
-          )
-          .returning(),
-      );
+    resolve: async (_parent, args, { db, user }) =>
+      retry(async () => {
+        const [item] = await db((tx) =>
+          tx
+            .update(items)
+            .set({
+              rank: args.rank,
+              columnId: fromGlobalId(args.columnId),
+            })
+            .where(
+              and(
+                eq(items.id, fromGlobalId(args.id)),
+                eq(items.userId, user.id),
+              ),
+            )
+            .returning(),
+        );
 
-      return exists(item, "Item not found");
-    },
+        return exists(item, "Item not found");
+      }),
   }),
   deleteOneItem: t.field({
     type: Item,
     args: {
       id: t.arg.id({ required: true }),
     },
-    resolve: async (_parent, args, { db, user }) => {
-      const [item] = await db((tx) =>
-        tx
-          .delete(items)
-          .where(
-            and(eq(items.id, fromGlobalId(args.id)), eq(items.userId, user.id)),
-          )
-          .returning(),
-      );
+    resolve: async (_parent, args, { db, user }) =>
+      retry(async () => {
+        const [item] = await db((tx) =>
+          tx
+            .delete(items)
+            .where(
+              and(
+                eq(items.id, fromGlobalId(args.id)),
+                eq(items.userId, user.id),
+              ),
+            )
+            .returning(),
+        );
 
-      return exists(item, "Item not found");
-    },
+        return exists(item, "Item not found");
+      }),
   }),
 }));

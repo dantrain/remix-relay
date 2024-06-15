@@ -10,7 +10,7 @@ import {
 } from "drizzle-orm/pg-core";
 import exists from "lib/exists";
 import { fromGlobalId } from "lib/global-id";
-import pRetry from "p-retry";
+import { retry } from "lib/retry";
 import { z } from "zod";
 import { builder } from "../builder";
 import { Column, columns } from "./Column";
@@ -68,23 +68,19 @@ builder.queryField("board", (t) =>
         validate: { schema: z.string().cuid2() },
       }),
     },
-    resolve: async (_parent, args, { db, user }) => {
-      return pRetry(
-        async () => {
-          const board = await db((tx) =>
-            tx.query.boards.findFirst({
-              where: and(
-                eq(boards.userId, user.id),
-                eq(boards.id, args.id.toString()),
-              ),
-            }),
-          );
+    resolve: async (_parent, args, { db, user }) =>
+      retry(async () => {
+        const board = await db((tx) =>
+          tx.query.boards.findFirst({
+            where: and(
+              eq(boards.userId, user.id),
+              eq(boards.id, args.id.toString()),
+            ),
+          }),
+        );
 
-          return exists(board, "Board not found");
-        },
-        { retries: 3 },
-      );
-    },
+        return exists(board, "Board not found");
+      }),
   }),
 );
 
@@ -125,42 +121,44 @@ builder.mutationFields((t) => ({
         validate: { schema: z.string().min(1).max(50) },
       }),
     },
-    resolve: async (_parent, args, { db, user }) => {
-      const [board] = await db((tx) =>
-        tx
-          .update(boards)
-          .set({ name: args.name })
-          .where(
-            and(
-              eq(boards.id, fromGlobalId(args.id)),
-              eq(boards.userId, user.id),
-            ),
-          )
-          .returning(),
-      );
+    resolve: async (_parent, args, { db, user }) =>
+      retry(async () => {
+        const [board] = await db((tx) =>
+          tx
+            .update(boards)
+            .set({ name: args.name })
+            .where(
+              and(
+                eq(boards.id, fromGlobalId(args.id)),
+                eq(boards.userId, user.id),
+              ),
+            )
+            .returning(),
+        );
 
-      return exists(board, "Board not found");
-    },
+        return exists(board, "Board not found");
+      }),
   }),
   deleteOneBoard: t.field({
     type: Board,
     args: {
       id: t.arg.id({ required: true }),
     },
-    resolve: async (_parent, args, { db, user }) => {
-      const [board] = await db((tx) =>
-        tx
-          .delete(boards)
-          .where(
-            and(
-              eq(boards.id, fromGlobalId(args.id)),
-              eq(boards.userId, user.id),
-            ),
-          )
-          .returning(),
-      );
+    resolve: async (_parent, args, { db, user }) =>
+      retry(async () => {
+        const [board] = await db((tx) =>
+          tx
+            .delete(boards)
+            .where(
+              and(
+                eq(boards.id, fromGlobalId(args.id)),
+                eq(boards.userId, user.id),
+              ),
+            )
+            .returning(),
+        );
 
-      return exists(board, "Board not found");
-    },
+        return exists(board, "Board not found");
+      }),
   }),
 }));

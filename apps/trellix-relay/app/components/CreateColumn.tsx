@@ -133,15 +133,14 @@ export function CreateColumn({
       </div>
     </form>
   ) : (
-    <Button
-      className={cx(
-        "w-[max-content] self-start px-4 py-2",
-        !lastColumn && "m-2",
-      )}
-      variant={lastColumn ? "ghost" : "sky"}
-      onPress={() => setIsCreating(true)}
-    >
-      + Add column
-    </Button>
+    <div className="w-80 self-start">
+      <Button
+        className={cx("w-[max-content] px-4 py-2", !lastColumn && "m-2")}
+        variant={lastColumn ? "ghost" : "sky"}
+        onPress={() => setIsCreating(true)}
+      >
+        + Add column
+      </Button>
+    </div>
   );
 }
