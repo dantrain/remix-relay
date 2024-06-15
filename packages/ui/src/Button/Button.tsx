@@ -1,9 +1,14 @@
 import { Slot } from "@radix-ui/react-slot";
-import { useObjectRef } from "@react-aria/utils";
+import { mergeProps, useObjectRef } from "@react-aria/utils";
 import { cva } from "class-variance-authority";
 import type { ReactElement, ReactNode } from "react";
 import { Children, forwardRef } from "react";
-import { AriaButtonOptions, useButton, useFocusVisible } from "react-aria";
+import {
+  AriaButtonOptions,
+  PressEvent,
+  useButton,
+  useFocusVisible,
+} from "react-aria";
 import { twMerge } from "tailwind-merge";
 
 type ButtonProps = {
@@ -11,7 +16,8 @@ type ButtonProps = {
   variant?: "slate" | "sky" | "outline" | "ghost";
   children: ReactNode;
   disabled?: boolean;
-  onClick?: any;
+  // eslint-disable-next-line no-unused-vars
+  onPress?: (e: PressEvent) => void;
 } & (({ asChild?: false } & AriaButtonOptions<"button">) | { asChild: true });
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -21,7 +27,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       variant = "slate",
       disabled = false,
-      onClick,
+      onPress,
       children,
       ...rest
     },
@@ -33,7 +39,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const { isFocusVisible } = useFocusVisible({ isTextInput: true });
 
     const { buttonProps, isPressed } = useButton(
-      { onPress: onClick, ...rest, isDisabled: disabled },
+      { onPress, isDisabled: disabled },
       ref,
     );
 
@@ -143,7 +149,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           className,
         )}
         type={Comp === "button" ? "button" : undefined}
-        {...buttonProps}
+        {...mergeProps(rest, buttonProps)}
         disabled={Comp === "button" ? disabled : undefined}
         ref={ref}
       >

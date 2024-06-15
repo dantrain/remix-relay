@@ -1,11 +1,16 @@
 import type { DraggableSyntheticListeners } from "@dnd-kit/core";
 import type { Transform } from "@dnd-kit/utilities";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+} from "@radix-ui/react-dropdown-menu";
 import { cva, cx } from "class-variance-authority";
+import { EllipsisVerticalIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import { CSSProperties, forwardRef, memo, useEffect } from "react";
 import { useFocusVisible } from "react-aria";
 import { graphql, useFragment, useMutation } from "react-relay";
 import { Button } from "@remix-relay/ui";
-import { DeleteIcon } from "./Icons";
+import { DropdownMenuContent, DropdownMenuItem } from "./DropdownMenu";
 import { ItemDeleteOneItemMutation } from "./__generated__/ItemDeleteOneItemMutation.graphql";
 import { ItemFragment$key } from "./__generated__/ItemFragment.graphql";
 
@@ -140,15 +145,40 @@ export const Item = memo(
             tabIndex={0}
           >
             <span className="flex-1 self-center">{text}</span>
-            <Button
-              className="relative p-2 focus:opacity-100 group-hover:opacity-100
-                sm:p-1 sm:opacity-0"
-              variant="ghost"
-              onPress={deleteItem}
-            >
-              <DeleteIcon className="not-sr-only w-4" />
-              <span className="sr-only">Delete</span>
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  className={cx(
+                    `relative p-2 group-hover:opacity-100
+                    data-[state=open]:bg-slate-300 data-[state=open]:opacity-100
+                    sm:p-1 sm:opacity-0`,
+                    isFocusVisible && "focus:opacity-100",
+                  )}
+                  variant="ghost"
+                >
+                  <EllipsisVerticalIcon className="not-sr-only w-4" />
+                  <span className="sr-only">Delete</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild>
+                  <Button className="w-full" variant="ghost">
+                    <PencilIcon className="mr-2 w-4" />
+                    Edit
+                  </Button>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Button
+                    className="w-full"
+                    variant="ghost"
+                    onPress={deleteItem}
+                  >
+                    <Trash2Icon className="mr-2 w-4" />
+                    Delete
+                  </Button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </li>
       );

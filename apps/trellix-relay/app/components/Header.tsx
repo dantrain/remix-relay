@@ -1,6 +1,6 @@
 import { NavLink } from "@remix-run/react";
+import { LogOutIcon } from "lucide-react";
 import { Button } from "@remix-relay/ui";
-import { SignOutIcon } from "./Icons";
 
 export default function Header() {
   return (
@@ -20,7 +20,7 @@ export default function Header() {
 
       <Button asChild className="px-3">
         <a className="flex items-center gap-2" href="/auth/signout">
-          <SignOutIcon />
+          <LogOutIcon className="w-4" />
           Sign out
         </a>
       </Button>

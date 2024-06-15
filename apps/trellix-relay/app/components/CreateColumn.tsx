@@ -3,6 +3,7 @@ import { createId } from "@paralleldrive/cuid2";
 import { cx } from "class-variance-authority";
 import { toGlobalId } from "graphql-relay";
 import { getNextRank } from "lib/rank";
+import { PlusIcon } from "lucide-react";
 import { FormEvent, useRef, useState } from "react";
 import { graphql, useMutation } from "react-relay";
 import { useOnClickOutside } from "usehooks-ts";
@@ -136,11 +137,15 @@ export function CreateColumn({
   ) : (
     <div className="w-80 self-start">
       <Button
-        className={cx("w-[max-content] px-4 py-2", !lastColumn && "m-2")}
+        className={cx(
+          "flex w-[max-content] items-center gap-1 px-4 py-2",
+          !lastColumn && "m-2",
+        )}
         variant={lastColumn ? "ghost" : "sky"}
         onPress={() => setIsCreating(true)}
       >
-        + Add column
+        <PlusIcon className="not-sr-only w-4" />
+        Add column
       </Button>
     </div>
   );

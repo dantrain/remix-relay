@@ -1,11 +1,11 @@
+import { Trash2Icon } from "lucide-react";
 import { useState } from "react";
 import { graphql, useMutation } from "react-relay";
 import { Button } from "@remix-relay/ui";
-import { DeleteIcon } from "./Icons";
 import {
   ResponsiveDialog,
-  ResponsiveDialogFooter,
   ResponsiveDialogClose,
+  ResponsiveDialogFooter,
 } from "./ResponsiveDialog";
 import { DeleteColumnDeleteOneColumnMutation } from "./__generated__/DeleteColumnDeleteOneColumnMutation.graphql";
 
@@ -45,7 +45,7 @@ export function DeleteColumn({ id, connectionId, title }: DeleteColumnProps) {
       onOpenChange={setDialogOpen}
       trigger={
         <Button className="relative p-2 sm:p-1" variant="ghost">
-          <DeleteIcon className="not-sr-only w-4" />
+          <Trash2Icon className="not-sr-only w-4" />
           <span className="sr-only">Delete</span>
         </Button>
       }

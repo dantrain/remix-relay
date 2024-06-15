@@ -1,9 +1,11 @@
 import { NavLink } from "@remix-run/react";
+import { cx } from "class-variance-authority";
 import { fromGlobalId } from "lib/global-id";
+import { Trash2Icon } from "lucide-react";
 import { useState } from "react";
+import { useFocusVisible } from "react-aria";
 import { graphql, useFragment, useMutation } from "react-relay";
 import { Button } from "@remix-relay/ui";
-import { DeleteIcon } from "./Icons";
 import {
   ResponsiveDialog,
   ResponsiveDialogClose,
@@ -36,6 +38,8 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
   const { id, name } = useFragment(fragment, dataRef);
   const [dialogOpen, setDialogOpen] = useState(false);
 
+  const { isFocusVisible } = useFocusVisible({ isTextInput: true });
+
   const [commit] = useMutation<BoardCardDeleteOneBoardMutation>(
     deleteOneBoardMutation,
   );
@@ -67,12 +71,14 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
         onOpenChange={setDialogOpen}
         trigger={
           <Button
-            className="absolute right-2 top-2 p-1.5 leading-none sm:opacity-0
-              sm:transition-opacity sm:focus:opacity-100
-              sm:group-hover:opacity-100"
+            className={cx(
+              `absolute right-2 top-2 p-1.5 leading-none sm:opacity-0
+              sm:group-hover:opacity-100`,
+              isFocusVisible && "sm:focus:opacity-100",
+            )}
             variant="ghost"
           >
-            <DeleteIcon className="not-sr-only w-6 sm:w-4" />
+            <Trash2Icon className="not-sr-only w-6 sm:w-4" />
             <span className="sr-only">Delete</span>
           </Button>
         }

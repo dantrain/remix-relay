@@ -1,6 +1,7 @@
 import { useDndContext } from "@dnd-kit/core";
 import { cx } from "class-variance-authority";
 import { CSSProperties, ReactNode, forwardRef, useRef, useState } from "react";
+import { useFocusVisible } from "react-aria";
 import { graphql, useFragment } from "react-relay";
 import AutoHeight from "./AutoHeight";
 import { ColumnTitle } from "./ColumnTitle";
@@ -53,6 +54,8 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
     const { active } = useDndContext();
     const [isCreating, setIsCreating] = useState(false);
 
+    const { isFocusVisible } = useFocusVisible({ isTextInput: true });
+
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     const scrollToBottom = () => {
@@ -85,8 +88,9 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
           <div
             className={cx(
               "flex sm:gap-1",
-              !active && "focus-within:opacity-100 group-hover:opacity-100",
+              !active && "group-hover:opacity-100",
               !dragOverlay && "sm:opacity-0",
+              isFocusVisible && "focus-within:opacity-100",
             )}
           >
             <DeleteColumn id={id} connectionId={connectionId} title={title} />

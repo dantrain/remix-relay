@@ -3,6 +3,7 @@ import { createId } from "@paralleldrive/cuid2";
 import { toGlobalId } from "graphql-relay";
 import { getNextRank } from "lib/rank";
 import { last, sortBy } from "lodash-es";
+import { PlusIcon } from "lucide-react";
 import { FormEvent, useRef } from "react";
 import { graphql, useMutation } from "react-relay";
 import TextareaAutosize from "react-textarea-autosize";
@@ -131,11 +132,12 @@ export function CreateItem({
     </form>
   ) : (
     <Button
-      className="w-full py-2 text-left"
+      className="flex w-full items-center gap-1 py-2 text-left"
       variant="ghost"
       onPress={() => setIsCreating(true)}
     >
-      + Add card
+      <PlusIcon className="not-sr-only w-4" />
+      Add card
     </Button>
   );
 }
