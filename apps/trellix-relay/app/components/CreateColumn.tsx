@@ -95,7 +95,8 @@ export function CreateColumn({
 
   return isCreating ? (
     <form
-      className="w-80 self-start rounded-md border border-[#d6dee8] bg-slate-100"
+      className="relative w-80 self-start rounded-md border border-[#d6dee8]
+        bg-slate-100"
       ref={formRef}
       onSubmit={handleSubmit}
     >

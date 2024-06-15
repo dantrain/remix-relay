@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { NavLink } from "@remix-run/react";
 import { fromGlobalId } from "lib/global-id";
 import { useState } from "react";
 import { graphql, useFragment, useMutation } from "react-relay";
@@ -6,8 +6,8 @@ import { Button } from "@remix-relay/ui";
 import { DeleteIcon } from "./Icons";
 import {
   ResponsiveDialog,
-  ResponsiveDialogFooter,
   ResponsiveDialogClose,
+  ResponsiveDialogFooter,
 } from "./ResponsiveDialog";
 import { BoardCardDeleteOneBoardMutation } from "./__generated__/BoardCardDeleteOneBoardMutation.graphql";
 import { BoardCardFragment$key } from "./__generated__/BoardCardFragment.graphql";
@@ -51,17 +51,17 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
 
   return (
     <div className="group relative">
-      <Link
+      <NavLink
         to={`/board/${fromGlobalId(id)}`}
         className="ring-offset-3 flex aspect-video select-none items-start gap-3
-          rounded-sm bg-slate-100 p-3 font-bold shadow-sm ring-sky-500
+          rounded-md bg-slate-100 p-3 font-bold shadow-sm ring-sky-500
           ring-offset-2 ring-offset-slate-200 focus:outline-none
-          focus-visible:ring-2 group-hover:shadow-md"
+          focus-visible:ring-2 group-hover:shadow-md [&.pending]:bg-[#e9eef4]"
         prefetch="viewport"
       >
         <div className="flex-1">{name}</div>
         <div className="h-full w-8" />
-      </Link>
+      </NavLink>
       <ResponsiveDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}

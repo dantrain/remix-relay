@@ -28,7 +28,7 @@ export default function IndexPage() {
   return (
     <>
       <Header />
-      <main className="mx-auto max-w-7xl p-4 pt-5 sm:p-8">
+      <main className="mx-auto max-w-7xl p-4 pt-5 sm:py-8">
         <h2 className="mb-4 text-lg font-bold uppercase text-slate-500">
           Your Boards
         </h2>
