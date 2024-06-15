@@ -37,7 +37,6 @@ import { Column } from "./Column";
 import { CreateColumn } from "./CreateColumn";
 import { DroppableColumn } from "./DroppableColumn";
 import { Item } from "./Item";
-import { PlaceholderColumn } from "./PlaceholderColumn";
 import { SortableItem } from "./SortableItem";
 import { BoardColumnRankMutation } from "./__generated__/BoardColumnRankMutation.graphql";
 import { BoardFragment$key } from "./__generated__/BoardFragment.graphql";
@@ -107,8 +106,6 @@ type Columns = Record<
     dataRef: ColumnFragment$key;
   }
 >;
-
-const PLACEHOLDER_ID = "placeholder";
 
 type BoardProps = {
   dataRef: BoardFragment$key;
@@ -349,28 +346,6 @@ export function Board({ dataRef }: BoardProps) {
           return;
         }
 
-        // New column when dropped
-
-        // if (overId === PLACEHOLDER_ID) {
-        //   const newContainerId = getNextContainerId();
-
-        //   unstable_batchedUpdates(() => {
-        //     setContainers((containers) => [...containers, newContainerId]);
-        //     setColumns((columns) => ({
-        //       ...columns,
-        //       [activeContainer]: {
-        //         items: exists(columns[activeContainer]).items.filter(
-        //           (id) => id !== activeId,
-        //         ),
-        //       },
-        //       [newContainerId]: { items: [active.id] },
-        //     }));
-        //     setActiveId(null);
-        //   });
-
-        //   return;
-        // }
-
         const overContainer = findContainer(overId, columns);
 
         if (overContainer && draggedFromContainer) {
@@ -449,7 +424,7 @@ export function Board({ dataRef }: BoardProps) {
     >
       <div className="grid min-h-0 grid-flow-col gap-3">
         <SortableContext
-          items={[...containers, PLACEHOLDER_ID]}
+          items={[...containers]}
           strategy={horizontalListSortingStrategy}
         >
           {containers.map((containerId) => {
@@ -480,14 +455,12 @@ export function Board({ dataRef }: BoardProps) {
               </DroppableColumn>
             );
           })}
-          <PlaceholderColumn id={PLACEHOLDER_ID}>
-            <CreateColumn
-              connectionId={columnConnection.__id}
-              boardId={boardId}
-              lastColumn={last(columnConnection.edges)?.node}
-            />
-          </PlaceholderColumn>
         </SortableContext>
+        <CreateColumn
+          connectionId={columnConnection.__id}
+          boardId={boardId}
+          lastColumn={last(columnConnection.edges)?.node}
+        />
       </div>
       {isClient
         ? createPortal(

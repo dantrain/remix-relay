@@ -116,12 +116,8 @@ export function CreateItem({
         autoFocus
         required
       />
-      <div className="flex flex-row-reverse justify-start gap-2">
-        <Button
-          className="flex-1 px-3 py-2 sm:flex-none sm:py-1"
-          variant="sky"
-          type="submit"
-        >
+      <div className="flex flex-row-reverse justify-start gap-2 sm:py-1">
+        <Button className="px-3 py-2 sm:py-1" variant="sky" type="submit">
           Add card
         </Button>
         <Button

@@ -1,14 +1,12 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import { createId } from "@paralleldrive/cuid2";
+import { cx } from "class-variance-authority";
 import { toGlobalId } from "graphql-relay";
 import { getNextRank } from "lib/rank";
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { graphql, useMutation } from "react-relay";
+import { useOnClickOutside } from "usehooks-ts";
 import { Button } from "@remix-relay/ui";
-import {
-  ResponsiveDialog,
-  ResponsiveDialogClose,
-  ResponsiveDialogFooter,
-} from "./ResponsiveDialog";
 import { CreateColumnCreateOneColumnMutation } from "./__generated__/CreateColumnCreateOneColumnMutation.graphql";
 
 const mutation = graphql`
@@ -49,8 +47,14 @@ export function CreateColumn({
   connectionId,
   lastColumn,
 }: CreateColumnProps) {
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [isCreating, setIsCreating] = useState(!lastColumn);
   const [commit] = useMutation<CreateColumnCreateOneColumnMutation>(mutation);
+
+  const formRef = useRef<HTMLFormElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useOnClickOutside(formRef, () => setIsCreating(false), "mousedown");
+  useOnClickOutside(formRef, () => setIsCreating(false), "focusin");
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -82,52 +86,62 @@ export function CreateColumn({
         },
       });
 
-      setDialogOpen(false);
+      requestIdleCallback(() => {
+        formRef.current?.reset();
+        inputRef.current?.focus();
+      });
     }
   };
 
-  return (
-    <ResponsiveDialog
-      open={dialogOpen}
-      onOpenChange={setDialogOpen}
-      trigger={
-        <Button className="px-4 py-2" variant="ghost">
-          + Add column
+  return isCreating ? (
+    <form
+      className="w-80 self-start rounded-md border border-[#d6dee8] bg-slate-100"
+      ref={formRef}
+      onSubmit={handleSubmit}
+    >
+      <label className="sr-only" htmlFor="createColumnInput-title">
+        Title
+      </label>
+      <input
+        id="createColumnInput-title"
+        ref={inputRef}
+        name="title"
+        className="block w-full rounded-md border-none border-transparent
+          bg-slate-100 font-medium focus:ring-0"
+        onKeyDown={(event) => {
+          if (event.key === "Escape") {
+            setIsCreating(false);
+          }
+        }}
+        placeholder="Enter a title"
+        type="text"
+        autoComplete="off"
+        autoFocus
+        required
+      />
+      <div className="flex flex-row-reverse justify-start gap-2 px-2 py-3">
+        <Button className="px-3 py-2 sm:py-1" variant="sky" type="submit">
+          Add column
         </Button>
-      }
-      title="Add column"
-      content={
-        <form onSubmit={handleSubmit}>
-          <label className="sr-only" htmlFor="createColumnInput-title">
-            Title
-          </label>
-          <input
-            id="createColumnInput-title"
-            name="title"
-            className="mb-4 block w-full rounded-md border-transparent
-              bg-slate-100 focus:border-slate-500 focus:bg-white focus:ring-0"
-            placeholder="Enter a title"
-            type="text"
-            autoComplete="off"
-            required
-          />
-
-          <ResponsiveDialogFooter>
-            <Button
-              className="flex-1 px-3 py-2 sm:flex-none sm:py-1"
-              variant="sky"
-              type="submit"
-            >
-              Add
-            </Button>
-            <ResponsiveDialogClose asChild>
-              <Button className="px-3 py-2 sm:py-1" variant="outline">
-                Cancel
-              </Button>
-            </ResponsiveDialogClose>
-          </ResponsiveDialogFooter>
-        </form>
-      }
-    />
+        <Button
+          className="px-3 py-2 sm:py-1"
+          variant="outline"
+          onPress={() => setIsCreating(false)}
+        >
+          Cancel
+        </Button>
+      </div>
+    </form>
+  ) : (
+    <Button
+      className={cx(
+        "w-[max-content] self-start px-4 py-2",
+        !lastColumn && "m-2",
+      )}
+      variant={lastColumn ? "ghost" : "sky"}
+      onPress={() => setIsCreating(true)}
+    >
+      + Add column
+    </Button>
   );
 }
