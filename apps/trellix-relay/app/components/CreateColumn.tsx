@@ -106,8 +106,8 @@ export function CreateColumn({
         id="createColumnInput-title"
         ref={inputRef}
         name="title"
-        className="block w-full rounded-md border-none border-transparent
-          bg-slate-100 font-medium focus:ring-0"
+        className="block w-full rounded-md border-none bg-slate-100 font-medium
+          focus:ring-0"
         onKeyDown={(event) => {
           if (event.key === "Escape") {
             setIsCreating(false);

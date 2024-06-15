@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<13090cb2ca5b400f96ff632a34512bc9>>
+ * @generated SignedSource<<d3b0edb3db737dd0627160f6803ced68>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -215,12 +215,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2b38a359eb63a1b4d5fe869a50a61815",
+    "cacheID": "79688f6d292caec9056f0010a85c543d",
     "id": null,
     "metadata": {},
     "name": "boardQuery",
     "operationKind": "query",
-    "text": "query boardQuery(\n  $id: ID!\n) {\n  board(id: $id) {\n    id\n    name\n    ...BoardTitleFragment\n    ...BoardFragment\n  }\n}\n\nfragment BoardFragment on Board {\n  id\n  columnConnection {\n    edges {\n      node {\n        id\n        rank\n        ...ColumnFragment\n        itemConnection {\n          edges {\n            node {\n              id\n              rank\n              ...ItemFragment\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\nfragment BoardTitleFragment on Board {\n  id\n  name\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n  itemConnection {\n    edges {\n      node {\n        id\n        rank\n      }\n    }\n  }\n}\n\nfragment ItemFragment on Item {\n  id\n  text\n}\n"
+    "text": "query boardQuery(\n  $id: ID!\n) {\n  board(id: $id) {\n    id\n    name\n    ...BoardTitleFragment\n    ...BoardFragment\n  }\n}\n\nfragment BoardFragment on Board {\n  id\n  columnConnection {\n    edges {\n      node {\n        id\n        rank\n        ...ColumnFragment\n        itemConnection {\n          edges {\n            node {\n              id\n              rank\n              ...ItemFragment\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\nfragment BoardTitleFragment on Board {\n  id\n  name\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n  ...ColumnTitleFragment\n  itemConnection {\n    edges {\n      node {\n        id\n        rank\n      }\n    }\n  }\n}\n\nfragment ColumnTitleFragment on Column {\n  id\n  title\n}\n\nfragment ItemFragment on Item {\n  id\n  text\n}\n"
   }
 };
 })();

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6f7d072bffe1081207f532fcc3b1f7a6>>
+ * @generated SignedSource<<5732239ca0167f947ef00a76144be208>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -22,6 +22,7 @@ export type ColumnFragment$data = {
     }>;
   };
   readonly title: string;
+  readonly " $fragmentSpreads": FragmentRefs<"ColumnTitleFragment">;
   readonly " $fragmentType": "ColumnFragment";
 };
 export type ColumnFragment$key = {
@@ -50,6 +51,11 @@ return {
       "kind": "ScalarField",
       "name": "title",
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ColumnTitleFragment"
     },
     {
       "alias": null,
@@ -110,6 +116,6 @@ return {
 };
 })();
 
-(node as any).hash = "9ef991f1fe3b9a3f2f78aa0d1d65ac56";
+(node as any).hash = "231b5b1cae63086376af96e90e677bc8";
 
 export default node;

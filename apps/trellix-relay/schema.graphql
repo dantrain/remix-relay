@@ -73,7 +73,7 @@ type Mutation {
   deleteOneColumn(id: ID!): Column!
   deleteOneItem(id: ID!): Item!
   updateOneBoard(id: ID!, name: String!): Board!
-  updateOneColumn(id: ID!, rank: String): Column!
+  updateOneColumn(id: ID!, rank: String, title: String): Column!
   updateOneItem(columnId: ID!, id: ID!, rank: String!): Item!
 }
 

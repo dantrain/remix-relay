@@ -3,6 +3,7 @@ import { cx } from "class-variance-authority";
 import { CSSProperties, ReactNode, forwardRef, useRef, useState } from "react";
 import { graphql, useFragment } from "react-relay";
 import AutoHeight from "./AutoHeight";
+import { ColumnTitle } from "./ColumnTitle";
 import { CreateItem } from "./CreateItem";
 import { DeleteColumn } from "./DeleteColumn";
 import { Handle, HandleProps } from "./Handle";
@@ -12,6 +13,7 @@ const fragment = graphql`
   fragment ColumnFragment on Column {
     id
     title
+    ...ColumnTitleFragment
     itemConnection {
       __id
       edges {
@@ -46,7 +48,8 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
     }: ColumnProps,
     ref,
   ) => {
-    const { id, title, itemConnection } = useFragment(fragment, dataRef);
+    const data = useFragment(fragment, dataRef);
+    const { id, title, itemConnection } = data;
     const { active } = useDndContext();
     const [isCreating, setIsCreating] = useState(false);
 
@@ -75,10 +78,10 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
         )}
       >
         <div
-          className="group flex items-center justify-between px-3 py-2
-            font-medium text-slate-800"
+          className="group flex items-center justify-between gap-2 py-1 pl-1
+            pr-2"
         >
-          {title}
+          <ColumnTitle dataRef={data} />
           <div
             className={cx(
               "flex sm:gap-1",
