@@ -5,6 +5,7 @@ import { getNextRank } from "lib/rank";
 import { last, sortBy } from "lodash-es";
 import { FormEvent, useRef } from "react";
 import { graphql, useMutation } from "react-relay";
+import TextareaAutosize from "react-textarea-autosize";
 import { useOnClickOutside } from "usehooks-ts";
 import { Button } from "@remix-relay/ui";
 import { CreateItemCreateOneItemMutation } from "./__generated__/CreateItemCreateOneItemMutation.graphql";
@@ -49,10 +50,10 @@ export function CreateItem({
   const [commit] = useMutation<CreateItemCreateOneItemMutation>(mutation);
 
   const formRef = useRef<HTMLFormElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   useOnClickOutside(formRef, () => setIsCreating(false), "mousedown");
-  useOnClickOutside(formRef, () => setIsCreating(false), "focusout");
+  useOnClickOutside(formRef, () => setIsCreating(false), "focusin");
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -82,7 +83,7 @@ export function CreateItem({
         onCompleted: () => {
           scrollToBottom();
           formRef.current?.reset();
-          inputRef.current?.focus();
+          textAreaRef.current?.focus();
         },
       });
     }
@@ -93,14 +94,23 @@ export function CreateItem({
       <label className="sr-only" htmlFor="createItemInput-text">
         Text
       </label>
-      <input
+      <TextareaAutosize
         id="createItemInput-text"
-        ref={inputRef}
+        ref={textAreaRef}
         name="text"
-        className="mb-2 block w-full rounded-md border border-slate-200 bg-white
-          shadow-sm focus:border-slate-200 focus:ring-0"
+        className="mb-2 block w-full resize-none rounded-md border
+          border-slate-200 bg-white pr-8 shadow-sm focus:border-slate-200
+          focus:ring-0"
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            formRef.current?.requestSubmit();
+          }
+          if (event.key === "Escape") {
+            setIsCreating(false);
+          }
+        }}
         placeholder="Enter a title"
-        type="text"
         autoComplete="off"
         autoFocus
         required

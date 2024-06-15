@@ -67,7 +67,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
         ref={ref}
         style={style}
         className={cx(
-          `z-10 flex max-h-full min-h-36 w-80 flex-col self-start
+          `z-10 flex max-h-full min-h-[132px] w-80 flex-col self-start
           overflow-hidden rounded-md border border-[#d6dee8] outline-none
           transition-colors duration-200`,
           hover ? "bg-[#e9eef4]" : "bg-slate-100",
@@ -95,7 +95,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
             <ul className="flex flex-col gap-2 px-2">{children}</ul>
           </AutoHeight>
         </div>
-        <div className="p-2">
+        <div className={cx("p-2", !itemConnection.edges.length && "pt-0")}>
           <CreateItem
             connectionId={itemConnection.__id}
             columnId={id}
