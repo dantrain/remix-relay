@@ -138,7 +138,14 @@ export function CreateColumn({
       </div>
     </form>
   ) : (
-    <div className="w-80 self-start">
+    <div
+      className={cx(
+        "w-80 self-start",
+        !lastColumn &&
+          `flex h-24 items-center justify-center rounded-md border border-dashed
+          border-slate-400`,
+      )}
+    >
       <Button
         className={cx(
           "flex w-[max-content] items-center gap-1 px-4 py-2",
