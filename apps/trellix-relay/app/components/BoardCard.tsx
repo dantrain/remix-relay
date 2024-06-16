@@ -63,7 +63,7 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
           focus-visible:ring-2 group-hover:shadow-md [&.pending]:bg-[#e9eef4]"
         prefetch="viewport"
       >
-        <div className="flex-1">{name}</div>
+        <div className="flex-1 text-xl sm:text-base">{name}</div>
         <div className="h-full w-8" />
       </NavLink>
       <ResponsiveDialog
@@ -72,13 +72,13 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
         trigger={
           <Button
             className={cx(
-              `absolute right-2 top-2 p-1.5 leading-none sm:opacity-0
+              `absolute right-2 top-2 p-2 leading-none sm:p-1.5 sm:opacity-0
               sm:group-hover:opacity-100`,
               isFocusVisible && "sm:focus:opacity-100",
             )}
             variant="ghost"
           >
-            <Trash2Icon className="not-sr-only w-6 sm:w-4" />
+            <Trash2Icon className="not-sr-only w-4" />
             <span className="sr-only">Delete</span>
           </Button>
         }

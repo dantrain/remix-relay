@@ -121,11 +121,15 @@ export function CreateItem({
         required
       />
       <div className="flex flex-row-reverse justify-start gap-2 sm:py-1">
-        <Button className="px-3 py-2 sm:py-1" variant="sky" type="submit">
+        <Button
+          className="px-4 py-2 sm:px-3 sm:py-1"
+          variant="sky"
+          type="submit"
+        >
           Add card
         </Button>
         <Button
-          className="px-3 py-2 sm:py-1"
+          className="px-4 py-2 sm:px-3 sm:py-1"
           variant="outline"
           onPress={() => setIsCreating(false)}
         >

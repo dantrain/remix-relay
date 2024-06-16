@@ -208,7 +208,8 @@ export const Item = memo(
           <div
             className={cva(
               `group flex flex-grow touch-manipulation items-start gap-2
-              rounded-md border border-slate-200 bg-white pr-2 outline-none`,
+              rounded-md border border-slate-200 bg-white pr-1 outline-none
+              sm:pr-2`,
               {
                 variants: {
                   dragging: { true: "invisible" },
@@ -286,9 +287,9 @@ export const Item = memo(
               <DropdownMenuTrigger asChild>
                 <Button
                   className={cx(
-                    `relative mt-2 p-2 group-hover:opacity-100
+                    `relative mt-1 p-2 group-hover:opacity-100
                     data-[state=open]:bg-slate-300 data-[state=open]:opacity-100
-                    sm:p-1 sm:opacity-0`,
+                    sm:mt-2 sm:p-1 sm:opacity-0`,
                     isFocusVisible && "focus:opacity-100",
                   )}
                   variant="ghost"

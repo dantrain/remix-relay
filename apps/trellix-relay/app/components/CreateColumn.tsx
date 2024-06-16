@@ -125,11 +125,15 @@ export function CreateColumn({
         required
       />
       <div className="flex flex-row-reverse justify-start gap-2 px-2 py-3">
-        <Button className="px-3 py-2 sm:py-1" variant="sky" type="submit">
+        <Button
+          className="px-4 py-2 sm:px-3 sm:py-1"
+          variant="sky"
+          type="submit"
+        >
           Add column
         </Button>
         <Button
-          className="px-3 py-2 sm:py-1"
+          className="px-4 py-2 sm:px-3 sm:py-1"
           variant="outline"
           onPress={() => setIsCreating(false)}
         >
