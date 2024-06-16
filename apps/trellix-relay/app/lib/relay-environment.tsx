@@ -1,5 +1,6 @@
 import { createId } from "@paralleldrive/cuid2";
 import { Client, ExecutionResult, Sink, createClient } from "graphql-ws";
+import { TriangleAlertIcon } from "lucide-react";
 import { meros } from "meros/browser";
 import type {
   CacheConfig,
@@ -17,6 +18,7 @@ import {
   Store,
 } from "relay-runtime";
 import { PayloadExtensions } from "relay-runtime/lib/network/RelayNetworkTypes";
+import { toast } from "sonner";
 import invariant from "tiny-invariant";
 import { getCachedResponse } from "@remix-relay/react";
 import { trackPromise } from "~/components/Progress";
@@ -75,8 +77,9 @@ const fetchFn: FetchFunction = (
           }
         } catch (err) {
           if (!isServer) {
-            console.error(
+            toast.error(
               err instanceof Error ? err.message : "Something went wrong",
+              { icon: <TriangleAlertIcon className="w-5 text-red-700" /> },
             );
           }
 

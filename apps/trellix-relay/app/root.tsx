@@ -32,7 +32,7 @@ export default function App() {
               <Suspense fallback={<Spinner className="h-36" />}>
                 <Outlet />
               </Suspense>
-              <Toaster />
+              <Toaster variant="light" />
             </ResubscribeProvider>
           </RelayEnvironmentProvider>
         </RemixRelayProvider>
