@@ -20,6 +20,7 @@ const builder = new SchemaBuilder<{
 });
 
 builder.queryType({});
+builder.subscriptionType({});
 builder.mutationType({});
 
 export { builder };

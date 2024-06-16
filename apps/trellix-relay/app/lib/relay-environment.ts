@@ -1,9 +1,12 @@
 import { createId } from "@paralleldrive/cuid2";
+import { Client, ExecutionResult, Sink, createClient } from "graphql-ws";
 import { meros } from "meros/browser";
 import type {
   CacheConfig,
   FetchFunction,
+  PayloadData,
   RequestParameters,
+  SubscribeFunction,
   Variables,
 } from "relay-runtime";
 import {
@@ -13,6 +16,8 @@ import {
   RecordSource,
   Store,
 } from "relay-runtime";
+import { PayloadExtensions } from "relay-runtime/lib/network/RelayNetworkTypes";
+import invariant from "tiny-invariant";
 import { getCachedResponse } from "@remix-relay/react";
 import { trackPromise } from "~/components/Progress";
 
@@ -86,9 +91,33 @@ const fetchFn: FetchFunction = (
   );
 };
 
+const wsClient: Client | null = isServer
+  ? null
+  : createClient({
+      url: `${window.location.protocol === "https:" ? "wss:" : "ws:"}//${
+        window.location.host
+      }/graphql`,
+    });
+
+const subscribeFn: SubscribeFunction = (operation, variables) => {
+  return Observable.create((sink) => {
+    invariant(operation.text);
+
+    return wsClient?.subscribe(
+      {
+        operationName: operation.name,
+        query: operation.text,
+        variables,
+        extensions: { tabId },
+      },
+      sink as Sink<ExecutionResult<PayloadData, PayloadExtensions>>,
+    );
+  });
+};
+
 const createEnvironment = () =>
   new Environment({
-    network: Network.create(fetchFn),
+    network: Network.create(fetchFn, isServer ? undefined : subscribeFn),
     store: new Store(RecordSource.create()),
     isServer,
   });

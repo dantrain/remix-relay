@@ -3,6 +3,7 @@ import { cx } from "class-variance-authority";
 import { CSSProperties, ReactNode, forwardRef, useRef, useState } from "react";
 import { useFocusVisible } from "react-aria";
 import { graphql, useFragment } from "react-relay";
+import { useSubscribe } from "~/hooks/useSubscribe";
 import AutoHeight from "./AutoHeight";
 import { ColumnTitle } from "./ColumnTitle";
 import { CreateItem } from "./CreateItem";
@@ -23,6 +24,14 @@ const fragment = graphql`
           rank
         }
       }
+    }
+  }
+`;
+
+const subscription = graphql`
+  subscription ColumnSubscription($id: ID!) {
+    column(id: $id) {
+      ...ColumnFragment
     }
   }
 `;
@@ -51,6 +60,9 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
   ) => {
     const data = useFragment(fragment, dataRef);
     const { id, title, itemConnection } = data;
+
+    useSubscribe({ subscription, variables: { id } });
+
     const { active } = useDndContext();
     const [isCreating, setIsCreating] = useState(false);
 

@@ -2,12 +2,14 @@
 import { createId } from "@paralleldrive/cuid2";
 import { cx } from "class-variance-authority";
 import { toGlobalId } from "graphql-relay";
+import exists from "lib/exists";
 import { getNextRank } from "lib/rank";
 import { PlusIcon } from "lucide-react";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useContext, useRef, useState } from "react";
 import { graphql, useMutation } from "react-relay";
 import { useOnClickOutside } from "usehooks-ts";
 import { Button } from "@remix-relay/ui";
+import { ViewerIdContext } from "~/lib/viewer-id-context";
 import { CreateColumnCreateOneColumnMutation } from "./__generated__/CreateColumnCreateOneColumnMutation.graphql";
 
 const mutation = graphql`
@@ -50,6 +52,7 @@ export function CreateColumn({
 }: CreateColumnProps) {
   const [isCreating, setIsCreating] = useState(!lastColumn);
   const [commit] = useMutation<CreateColumnCreateOneColumnMutation>(mutation);
+  const viewerId = exists(useContext(ViewerIdContext));
 
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -64,7 +67,7 @@ export function CreateColumn({
     const title = (formData.get("title") as string).trim();
 
     if (title) {
-      const id = createId();
+      const id = `${viewerId}:${createId()}`;
       const rank = getNextRank(lastColumn);
 
       commit({

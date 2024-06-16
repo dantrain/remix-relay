@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import { createRequestHandler } from "@remix-run/express";
 import { installGlobals } from "@remix-run/node";
 import { Session, SupabaseClient, User } from "@supabase/supabase-js";
@@ -8,13 +9,16 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import "express-async-errors";
+import { useServer } from "graphql-ws/lib/use/ws";
 import { createServer } from "http";
 import path from "path";
 import invariant from "tiny-invariant";
+import { WebSocketServer } from "ws";
 import { createSupabaseClient } from "./create-supabase-client";
 import { getDb } from "./drizzle-client";
 import { env } from "./env";
 import { schema } from "./graphql-schema";
+import { PubSub } from "./pubsub";
 
 export type RequestContext = {
   supabase: SupabaseClient;
@@ -22,9 +26,11 @@ export type RequestContext = {
 };
 
 export type PothosContext = {
+  pubsub: PubSub;
   supabase: SupabaseClient;
   db: ReturnType<typeof getDb>;
   user: User;
+  tabId?: string;
 };
 
 installGlobals();
@@ -79,7 +85,52 @@ app.get("/health", (_req, res) => {
   res.status(200).send("OK");
 });
 
-const apolloServer = new ApolloServer<PothosContext>({ schema });
+const wsServer = new WebSocketServer({
+  server: httpServer,
+  path: "/graphql",
+});
+
+const pubsub = new PubSub();
+
+const serverCleanup = useServer(
+  {
+    schema,
+    context: async (ctx, { payload }) => {
+      const supabase = createSupabaseClient(ctx.extra.request, null, {
+        writeCookies: false,
+      });
+
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      return {
+        pubsub,
+        supabase,
+        db: session && getDb(session),
+        user: session?.user,
+        tabId: payload.extensions?.tabId,
+      };
+    },
+  },
+  wsServer,
+);
+
+const apolloServer = new ApolloServer<PothosContext>({
+  schema,
+  plugins: [
+    ApolloServerPluginDrainHttpServer({ httpServer }),
+    {
+      async serverWillStart() {
+        return {
+          async drainServer() {
+            await serverCleanup.dispose();
+          },
+        };
+      },
+    },
+  ],
+});
 
 await apolloServer.start();
 
@@ -137,9 +188,11 @@ app.use(
       invariant(session?.user, "Missing user");
 
       return {
+        pubsub,
         supabase,
         db: session && getDb(session),
         user: session.user,
+        tabId: req.body.extensions?.tabId,
       };
     },
   }),
@@ -160,6 +213,7 @@ app.all(
       return {
         env,
         pothosContext: {
+          pubsub,
           supabase,
           db: session && getDb(session),
           user: session?.user,
@@ -173,5 +227,8 @@ httpServer.listen(env.PORT, () => {
   console.log(`🚀 App running at http://localhost:${env.PORT}`);
   console.log(
     `🚀 Query endpoint ready at http://localhost:${env.PORT}/graphql`,
+  );
+  console.log(
+    `🚀 Subscription endpoint ready at ws://localhost:${env.PORT}/graphql`,
   );
 });

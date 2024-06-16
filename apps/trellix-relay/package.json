@@ -7,7 +7,7 @@
     "build": "zx ./scripts/build.mjs",
     "deploy": "fly deploy",
     "dev": "zx ./scripts/dev.mjs",
-    "generate-types": "supabase gen types typescript --project-id gusxqhuqpahbwohiioms > server/__generated__/database.types.ts",
+    "generate-types": "supabase gen types typescript --local > server/__generated__/database.types.ts",
     "lint": "eslint . --max-warnings 0 --ignore-path ../../.gitignore",
     "migrate-drizzle": "zx ./scripts/migrate-drizzle.mjs",
     "migrate-supabase": "zx ./scripts/migrate-supabase.mjs",
@@ -47,6 +47,8 @@
     "express-async-errors": "^3.1.1",
     "graphql": "17.0.0-alpha.2",
     "graphql-relay": "^0.10.1",
+    "graphql-subscriptions": "^2.0.0",
+    "graphql-ws": "^5.16.0",
     "isbot": "^5.1.8",
     "jwt-decode": "^4.0.0",
     "lexorank": "^1.0.5",
@@ -69,6 +71,7 @@
     "tiny-invariant": "^1.3.3",
     "usehooks-ts": "^3.1.0",
     "vaul": "^0.9.1",
+    "ws": "^8.17.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -88,6 +91,7 @@
     "@types/react-relay": "^16.0.6",
     "@types/react-transition-group": "^4.4.10",
     "@types/relay-runtime": "^14.1.24",
+    "@types/ws": "^8.5.10",
     "dotenv": "^16.4.5",
     "drizzle-kit": "^0.22.1",
     "eslint": "^8.57.0",

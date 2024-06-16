@@ -17,3 +17,5 @@ DO $$ BEGIN
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
+--> statement-breakpoint
+ALTER publication supabase_realtime ADD TABLE "columns";

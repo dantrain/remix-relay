@@ -21,3 +21,5 @@ END $$;
 --> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "item_column_idx" ON "items" USING btree (column_id);--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "item_rank_idx" ON "items" USING btree (rank);
+--> statement-breakpoint
+ALTER publication supabase_realtime ADD TABLE "items";

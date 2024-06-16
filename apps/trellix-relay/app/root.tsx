@@ -11,6 +11,7 @@ import { RemixRelayProvider } from "@remix-relay/react";
 import { Spinner, Toaster } from "@remix-relay/ui";
 import { getCurrentEnvironment } from "~/lib/relay-environment";
 import Progress from "./components/Progress";
+import { ResubscribeProvider } from "./hooks/useSubscribe";
 import "./tailwind.css";
 
 export default function App() {
@@ -26,11 +27,13 @@ export default function App() {
       <body className="bg-slate-200 text-slate-950">
         <RemixRelayProvider>
           <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
-            <Progress />
-            <Suspense fallback={<Spinner className="h-36" />}>
-              <Outlet />
-            </Suspense>
-            <Toaster />
+            <ResubscribeProvider>
+              <Progress />
+              <Suspense fallback={<Spinner className="h-36" />}>
+                <Outlet />
+              </Suspense>
+              <Toaster />
+            </ResubscribeProvider>
           </RelayEnvironmentProvider>
         </RemixRelayProvider>
         <ScrollRestoration />
