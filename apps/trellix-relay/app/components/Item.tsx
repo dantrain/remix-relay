@@ -121,7 +121,7 @@ export const Item = memo(
               store,
               nextConnectionRecord,
               itemRecord,
-              "ItemEdge",
+              "ColumnItemConnectionEdge",
             );
 
             ConnectionHandler.insertEdgeAfter(nextConnectionRecord, edge);

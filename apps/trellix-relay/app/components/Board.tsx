@@ -18,6 +18,7 @@ import {
   horizontalListSortingStrategy,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { toGlobalId } from "graphql-relay";
 import exists from "lib/exists";
 import { getNextRank, getRankBetween } from "lib/rank";
 import { last, sortBy } from "lodash-es";
@@ -41,6 +42,8 @@ import { Item } from "./Item";
 import { SortableItem } from "./SortableItem";
 import { BoardColumnRankMutation } from "./__generated__/BoardColumnRankMutation.graphql";
 import { BoardFragment$key } from "./__generated__/BoardFragment.graphql";
+import { BoardItemCreatedSubscription } from "./__generated__/BoardItemCreatedSubscription.graphql";
+import { BoardItemDeletedSubscription } from "./__generated__/BoardItemDeletedSubscription.graphql";
 import {
   BoardItemRankMutation,
   BoardItemRankMutation$data,
@@ -90,6 +93,24 @@ const columnCreatedSubscription = graphql`
 const columnDeletedSubscription = graphql`
   subscription BoardColumnDeletedSubscription($connections: [ID!]!) {
     columnDeleted {
+      id @deleteEdge(connections: $connections)
+    }
+  }
+`;
+
+const itemCreatedSubscription = graphql`
+  subscription BoardItemCreatedSubscription {
+    itemCreated {
+      id
+      columnId
+      ...ItemFragment
+    }
+  }
+`;
+
+const itemDeletedSubscription = graphql`
+  subscription BoardItemDeletedSubscription($connections: [ID!]!) {
+    itemDeleted {
       id @deleteEdge(connections: $connections)
     }
   }
@@ -146,6 +167,39 @@ export function Board({ dataRef }: BoardProps) {
   useSubscribe({
     subscription: columnDeletedSubscription,
     variables: { connections: [columnConnection.__id] },
+  });
+
+  useSubscribe<BoardItemCreatedSubscription>({
+    subscription: itemCreatedSubscription,
+    variables: {},
+    updater: (store, data) => {
+      const columnId = exists(data?.itemCreated.columnId);
+
+      const itemRecord = store.getRootField("itemCreated");
+      const connectionRecord = exists(
+        store
+          .get(toGlobalId("Column", columnId))
+          ?.getLinkedRecord("itemConnection"),
+      );
+
+      const edge = ConnectionHandler.createEdge(
+        store,
+        connectionRecord,
+        itemRecord,
+        "ColumnItemConnectionEdge",
+      );
+
+      ConnectionHandler.insertEdgeAfter(connectionRecord, edge);
+    },
+  });
+
+  useSubscribe<BoardItemDeletedSubscription>({
+    subscription: itemDeletedSubscription,
+    variables: {
+      connections: columnConnection.edges.map(
+        ({ node }) => node.itemConnection.__id,
+      ),
+    },
   });
 
   const [commitColumnRank] =
@@ -421,7 +475,7 @@ export function Board({ dataRef }: BoardProps) {
                 store,
                 nextConnectionRecord,
                 payload,
-                "ItemEdge",
+                "ColumnItemConnectionEdge",
               );
 
               ConnectionHandler.insertEdgeAfter(nextConnectionRecord, edge);

@@ -66,6 +66,28 @@ builder.subscriptionFields((t) => ({
     },
     resolve: (column) => column,
   }),
+  itemCreated: t.field({
+    type: Item,
+    subscribe: (_parent, _args, { pubsub, user, tabId }) =>
+      pubsub.asyncIterableIterator<Item>({
+        table: "items",
+        eventType: "INSERT",
+        userId: user.id,
+        tabId,
+      }),
+    resolve: (column) => column,
+  }),
+  itemDeleted: t.field({
+    type: Item,
+    subscribe: (_parent, _args, { pubsub, user, tabId }) =>
+      pubsub.asyncIterableIterator<Item>({
+        table: "items",
+        eventType: "DELETE",
+        userId: user.id,
+        tabId,
+      }),
+    resolve: (column) => column,
+  }),
 }));
 
 builder.mutationFields((t) => ({

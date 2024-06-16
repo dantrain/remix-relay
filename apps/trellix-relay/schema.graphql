@@ -101,6 +101,8 @@ type Subscription {
   columnCreated: Column!
   columnDeleted: Column!
   item(id: ID!): Item!
+  itemCreated: Item!
+  itemDeleted: Item!
 }
 
 type User implements Node {
