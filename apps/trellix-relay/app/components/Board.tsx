@@ -107,8 +107,8 @@ const columnRankMutation = graphql`
 const itemRankMutation = graphql`
   mutation BoardItemRankMutation($id: ID!, $rank: String!, $columnId: ID!) {
     updateOneItem(id: $id, rank: $rank, columnId: $columnId) {
-      id
       rank
+      columnId
     }
   }
 `;
@@ -442,6 +442,7 @@ export function Board({ dataRef }: BoardProps) {
             optimisticResponse: {
               updateOneItem: {
                 id: active.id.toString(),
+                columnId: overContainer.toString(),
                 rank,
               },
             },

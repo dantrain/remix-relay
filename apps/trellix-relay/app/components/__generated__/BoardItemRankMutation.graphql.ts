@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d517244001a3484f11117c3ad2cbf0a8>>
+ * @generated SignedSource<<0f7d76c4e3513c1d6cc2cbfe2ae98fe9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type BoardItemRankMutation$variables = {
 };
 export type BoardItemRankMutation$data = {
   readonly updateOneItem: {
-    readonly id: string;
+    readonly columnId: string;
     readonly rank: string;
   };
 };
@@ -43,47 +43,35 @@ v2 = {
 },
 v3 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "columnId",
-        "variableName": "columnId"
-      },
-      {
-        "kind": "Variable",
-        "name": "id",
-        "variableName": "id"
-      },
-      {
-        "kind": "Variable",
-        "name": "rank",
-        "variableName": "rank"
-      }
-    ],
-    "concreteType": "Item",
-    "kind": "LinkedField",
-    "name": "updateOneItem",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "rank",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "Variable",
+    "name": "columnId",
+    "variableName": "columnId"
+  },
+  {
+    "kind": "Variable",
+    "name": "id",
+    "variableName": "id"
+  },
+  {
+    "kind": "Variable",
+    "name": "rank",
+    "variableName": "rank"
   }
-];
+],
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rank",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "columnId",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -94,7 +82,21 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "BoardItemRankMutation",
-    "selections": (v3/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v3/*: any*/),
+        "concreteType": "Item",
+        "kind": "LinkedField",
+        "name": "updateOneItem",
+        "plural": false,
+        "selections": [
+          (v4/*: any*/),
+          (v5/*: any*/)
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Mutation",
     "abstractKey": null
   },
@@ -107,19 +109,40 @@ return {
     ],
     "kind": "Operation",
     "name": "BoardItemRankMutation",
-    "selections": (v3/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v3/*: any*/),
+        "concreteType": "Item",
+        "kind": "LinkedField",
+        "name": "updateOneItem",
+        "plural": false,
+        "selections": [
+          (v4/*: any*/),
+          (v5/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "id",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "714dea6d4ae00ba0d9d9ee43350ef18b",
+    "cacheID": "cf6952e9ac110f8580793693dcafe831",
     "id": null,
     "metadata": {},
     "name": "BoardItemRankMutation",
     "operationKind": "mutation",
-    "text": "mutation BoardItemRankMutation(\n  $id: ID!\n  $rank: String!\n  $columnId: ID!\n) {\n  updateOneItem(id: $id, rank: $rank, columnId: $columnId) {\n    id\n    rank\n  }\n}\n"
+    "text": "mutation BoardItemRankMutation(\n  $id: ID!\n  $rank: String!\n  $columnId: ID!\n) {\n  updateOneItem(id: $id, rank: $rank, columnId: $columnId) {\n    rank\n    columnId\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "15593cf97437768405f37389b5cf999a";
+(node as any).hash = "820d80ebee8e73b0108accdbb3cf8785";
 
 export default node;

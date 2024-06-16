@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createClient, type RealtimeChannel } from "@supabase/supabase-js";
-import { omit } from "lodash-es";
+import { camelCase, mapKeys, omit } from "lodash-es";
 import { EventEmitter } from "node:events";
 import invariant from "tiny-invariant";
 import type { Database } from "./__generated__/database.types";
@@ -49,8 +49,9 @@ export class PubSub {
         "postgres_changes",
         { event: "*", schema: "public", table },
         (payload) => {
-          const row =
-            payload.eventType === "DELETE" ? payload.old : payload.new;
+          let row = payload.eventType === "DELETE" ? payload.old : payload.new;
+
+          row = mapKeys(row, (_value, key) => camelCase(key));
 
           this.ee.emit(
             JSON.stringify({

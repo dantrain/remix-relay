@@ -5,6 +5,8 @@ import {
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { cva, cx } from "class-variance-authority";
+import { toGlobalId } from "graphql-relay";
+import exists from "lib/exists";
 import { EllipsisVerticalIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import {
   CSSProperties,
@@ -16,25 +18,35 @@ import {
   useState,
 } from "react";
 import { useFocusVisible } from "react-aria";
-import { graphql, useFragment, useMutation } from "react-relay";
+import {
+  ConnectionHandler,
+  graphql,
+  useFragment,
+  useMutation,
+} from "react-relay";
 import TextareaAutosize from "react-textarea-autosize";
+import invariant from "tiny-invariant";
 import { Button } from "@remix-relay/ui";
 import { useSubscribe } from "~/hooks/useSubscribe";
 import { DropdownMenuContent, DropdownMenuItem } from "./DropdownMenu";
 import { ItemDeleteOneItemMutation } from "./__generated__/ItemDeleteOneItemMutation.graphql";
 import { ItemFragment$key } from "./__generated__/ItemFragment.graphql";
+import { ItemSubscription } from "./__generated__/ItemSubscription.graphql";
 import { ItemUpdateOneItemMutation } from "./__generated__/ItemUpdateOneItemMutation.graphql";
 
 const fragment = graphql`
   fragment ItemFragment on Item {
     id
     text
+    columnId
   }
 `;
 
 const subscription = graphql`
   subscription ItemSubscription($id: ID!) {
     item(id: $id) {
+      rank
+      columnId
       ...ItemFragment
     }
   }
@@ -82,9 +94,42 @@ export const Item = memo(
       },
       ref,
     ) => {
-      const { id, text } = useFragment(fragment, dataRef);
+      const { id, text, columnId } = useFragment(fragment, dataRef);
 
-      useSubscribe({ subscription, variables: { id } });
+      useSubscribe<ItemSubscription>({
+        subscription,
+        variables: { id },
+        updater: (store, data) => {
+          invariant(data?.item.columnId);
+
+          if (data.item.columnId !== columnId) {
+            const itemRecord = store.getRootField("item");
+
+            const prevConnectionRecord = exists(
+              store
+                .get(toGlobalId("Column", columnId))
+                ?.getLinkedRecord("itemConnection"),
+            );
+
+            const nextConnectionRecord = exists(
+              store
+                .get(toGlobalId("Column", data.item.columnId))
+                ?.getLinkedRecord("itemConnection"),
+            );
+
+            const edge = ConnectionHandler.createEdge(
+              store,
+              nextConnectionRecord,
+              itemRecord,
+              "ItemEdge",
+            );
+
+            ConnectionHandler.insertEdgeAfter(nextConnectionRecord, edge);
+
+            ConnectionHandler.deleteNode(prevConnectionRecord, id);
+          }
+        },
+      });
 
       const [isEditing, setIsEditing] = useState(false);
 

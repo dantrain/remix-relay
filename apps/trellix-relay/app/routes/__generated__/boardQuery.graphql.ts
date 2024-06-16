@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c2f075289b72a65ed940dbd335d734a3>>
+ * @generated SignedSource<<2076bc2330eb7339a21aa85d9ae48f22>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -205,6 +205,13 @@ return {
                                     "kind": "ScalarField",
                                     "name": "text",
                                     "storageKey": null
+                                  },
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "columnId",
+                                    "storageKey": null
                                   }
                                 ],
                                 "storageKey": null
@@ -232,12 +239,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e04d110818def94e03f2cc3c1b680030",
+    "cacheID": "faffc12d55a5e1ceb45122be51128198",
     "id": null,
     "metadata": {},
     "name": "boardQuery",
     "operationKind": "query",
-    "text": "query boardQuery(\n  $id: ID!\n) {\n  viewer {\n    id\n  }\n  board(id: $id) {\n    id\n    name\n    ...BoardTitleFragment\n    ...BoardFragment\n  }\n}\n\nfragment BoardFragment on Board {\n  id\n  columnConnection {\n    edges {\n      node {\n        id\n        rank\n        ...ColumnFragment\n        itemConnection {\n          edges {\n            node {\n              id\n              rank\n              ...ItemFragment\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\nfragment BoardTitleFragment on Board {\n  id\n  name\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n  ...ColumnTitleFragment\n  itemConnection {\n    edges {\n      node {\n        id\n        rank\n      }\n    }\n  }\n}\n\nfragment ColumnTitleFragment on Column {\n  id\n  title\n}\n\nfragment ItemFragment on Item {\n  id\n  text\n}\n"
+    "text": "query boardQuery(\n  $id: ID!\n) {\n  viewer {\n    id\n  }\n  board(id: $id) {\n    id\n    name\n    ...BoardTitleFragment\n    ...BoardFragment\n  }\n}\n\nfragment BoardFragment on Board {\n  id\n  columnConnection {\n    edges {\n      node {\n        id\n        rank\n        ...ColumnFragment\n        itemConnection {\n          edges {\n            node {\n              id\n              rank\n              ...ItemFragment\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\nfragment BoardTitleFragment on Board {\n  id\n  name\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n  ...ColumnTitleFragment\n  itemConnection {\n    edges {\n      node {\n        id\n        rank\n      }\n    }\n  }\n}\n\nfragment ColumnTitleFragment on Column {\n  id\n  title\n}\n\nfragment ItemFragment on Item {\n  id\n  text\n  columnId\n}\n"
   }
 };
 })();

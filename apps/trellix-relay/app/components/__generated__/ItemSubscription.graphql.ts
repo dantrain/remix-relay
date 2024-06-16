@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a861f1b6731f31aab192339c737fd36e>>
+ * @generated SignedSource<<5c5e68d3e7323702a36649b006f9f302>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,8 @@ export type ItemSubscription$variables = {
 };
 export type ItemSubscription$data = {
   readonly item: {
+    readonly columnId: string;
+    readonly rank: string;
     readonly " $fragmentSpreads": FragmentRefs<"ItemFragment">;
   };
 };
@@ -37,7 +39,21 @@ v1 = [
     "name": "id",
     "variableName": "id"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rank",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "columnId",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -53,6 +69,8 @@ return {
         "name": "item",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -79,6 +97,8 @@ return {
         "name": "item",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -99,16 +119,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a8bcc6bdf18a3215c0253f6bae719839",
+    "cacheID": "95ebb5464cfd150259e84e6e6843b2f4",
     "id": null,
     "metadata": {},
     "name": "ItemSubscription",
     "operationKind": "subscription",
-    "text": "subscription ItemSubscription(\n  $id: ID!\n) {\n  item(id: $id) {\n    ...ItemFragment\n    id\n  }\n}\n\nfragment ItemFragment on Item {\n  id\n  text\n}\n"
+    "text": "subscription ItemSubscription(\n  $id: ID!\n) {\n  item(id: $id) {\n    rank\n    columnId\n    ...ItemFragment\n    id\n  }\n}\n\nfragment ItemFragment on Item {\n  id\n  text\n  columnId\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ec03e07c26e403fb53755b823c8c3c8e";
+(node as any).hash = "71fed14e597725b51ec84738bfcd88c1";
 
 export default node;

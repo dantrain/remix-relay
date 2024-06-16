@@ -31,6 +31,7 @@ export const columns = pgTable(
       .references(() => boards.id, { onDelete: "cascade" })
       .notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedBy: varchar("updated_by").notNull(),
   },
   (column) => ({
     boardIdx: index("column_board_idx").on(column.boardId),
@@ -133,7 +134,7 @@ builder.mutationFields((t) => ({
       boardId: t.arg.id({ required: true }),
       rank: t.arg.string({ required: true }),
     },
-    resolve: async (_parent, args, { db, user }) => {
+    resolve: async (_parent, args, { db, user, tabId }) => {
       const [column] = await db(async (tx) => {
         const board = await tx.query.boards.findFirst({
           where: eq(boards.id, fromGlobalId(args.boardId)),
@@ -150,6 +151,7 @@ builder.mutationFields((t) => ({
             rank: args.rank,
             userId: user.id,
             boardId: fromGlobalId(args.boardId),
+            updatedBy: exists(tabId, "Missing tabID"),
           })
           .returning();
       });
@@ -164,7 +166,7 @@ builder.mutationFields((t) => ({
       title: t.arg.string(),
       rank: t.arg.string(),
     },
-    resolve: async (_parent, args, { db, user }) =>
+    resolve: async (_parent, args, { db, user, tabId }) =>
       retry(async () => {
         const [column] = await db((tx) =>
           tx
@@ -172,6 +174,7 @@ builder.mutationFields((t) => ({
             .set({
               title: args.title ?? undefined,
               rank: args.rank ?? undefined,
+              updatedBy: exists(tabId, "Missing tabID"),
             })
             .where(
               and(

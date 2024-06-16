@@ -22,6 +22,7 @@ export const items = pgTable(
       .references(() => columns.id, { onDelete: "cascade" })
       .notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedBy: varchar("updated_by").notNull(),
   },
   (item) => ({
     columnIdx: index("item_column_idx").on(item.columnId),
@@ -41,6 +42,7 @@ export const Item = builder.node("Item", {
   fields: (t) => ({
     text: t.exposeString("text"),
     rank: t.exposeString("rank"),
+    columnId: t.exposeString("columnId"),
     createdAt: t.string({
       resolve: ({ createdAt }) => createdAt.toISOString(),
     }),
@@ -88,7 +90,7 @@ builder.mutationFields((t) => ({
       rank: t.arg.string({ required: true }),
       columnId: t.arg.id({ required: true }),
     },
-    resolve: async (_parent, args, { db, user }) => {
+    resolve: async (_parent, args, { db, user, tabId }) => {
       const [item] = await db(async (tx) => {
         const column = await tx.query.columns.findFirst({
           where: eq(columns.id, fromGlobalId(args.columnId)),
@@ -105,6 +107,7 @@ builder.mutationFields((t) => ({
             rank: args.rank,
             userId: user.id,
             columnId: fromGlobalId(args.columnId),
+            updatedBy: exists(tabId, "Missing tabID"),
           })
           .returning();
       });
@@ -120,7 +123,7 @@ builder.mutationFields((t) => ({
       columnId: t.arg.id(),
       text: t.arg.string(),
     },
-    resolve: async (_parent, args, { db, user }) =>
+    resolve: async (_parent, args, { db, user, tabId }) =>
       retry(async () => {
         const [item] = await db((tx) =>
           tx
@@ -129,6 +132,7 @@ builder.mutationFields((t) => ({
               rank: args.rank ?? undefined,
               columnId: args.columnId ? fromGlobalId(args.columnId) : undefined,
               text: args.text ?? undefined,
+              updatedBy: exists(tabId, "Missing tabID"),
             })
             .where(
               and(

@@ -36,6 +36,13 @@
       "when": 1717962071786,
       "tag": "20240609194110_add_items",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1718554071213,
+      "tag": "20240616160749_add_updated_by_columns",
+      "breakpoints": true
     }
   ]
 }

@@ -59,6 +59,7 @@ type ColumnItemConnectionEdge {
 }
 
 type Item implements Node {
+  columnId: String!
   createdAt: String!
   id: ID!
   rank: String!
