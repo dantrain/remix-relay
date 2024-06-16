@@ -1,11 +1,13 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { ClientLoaderFunctionArgs, Params } from "@remix-run/react";
+import { ClientLoaderFunctionArgs, Params, useParams } from "@remix-run/react";
+import exists from "lib/exists";
 import { fromGlobalId } from "lib/global-id";
 import { graphql } from "react-relay";
 import { metaQuery, useLoaderQuery } from "@remix-relay/react";
 import { Board } from "~/components/Board";
 import { BoardTitle } from "~/components/BoardTitle";
 import Header from "~/components/Header";
+import useWindowVisible from "~/hooks/useWindowVisible";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
 import { ViewerIdContext } from "~/lib/viewer-id-context";
@@ -38,7 +40,10 @@ export const clientLoader = ({ params }: ClientLoaderFunctionArgs) =>
   clientLoaderQuery<boardQuery>(query, getVars(params));
 
 export default function BoardPage() {
-  const [{ viewer, board }] = useLoaderQuery<boardQuery>(query);
+  const params = useParams();
+  const [{ viewer, board }, refetch] = useLoaderQuery<boardQuery>(query);
+
+  useWindowVisible(() => refetch({ id: exists(params.id) }));
 
   return (
     <ViewerIdContext.Provider value={fromGlobalId(viewer.id)}>

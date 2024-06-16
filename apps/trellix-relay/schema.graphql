@@ -97,6 +97,8 @@ type Query {
 
 type Subscription {
   column(id: ID!): Column!
+  columnCreated: Column!
+  columnDeleted: Column!
 }
 
 type User implements Node {

@@ -31,6 +31,7 @@ const fragment = graphql`
 const subscription = graphql`
   subscription ColumnSubscription($id: ID!) {
     column(id: $id) {
+      rank
       ...ColumnFragment
     }
   }

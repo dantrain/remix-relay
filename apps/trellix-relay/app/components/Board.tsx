@@ -31,6 +31,7 @@ import {
 } from "react-relay";
 import { RecordSourceSelectorProxy } from "relay-runtime";
 import { useIsClient, useIsomorphicLayoutEffect } from "usehooks-ts";
+import { useSubscribe } from "~/hooks/useSubscribe";
 import { getCollisionDetectionStrategy } from "~/lib/collision-detection-strategy";
 import { coordinateGetter } from "~/lib/keyboard-coordinates";
 import { Column } from "./Column";
@@ -69,6 +70,27 @@ const fragment = graphql`
           }
         }
       }
+    }
+  }
+`;
+
+const columnCreatedSubscription = graphql`
+  subscription BoardColumnCreatedSubscription($connections: [ID!]!) {
+    columnCreated
+      @appendNode(
+        connections: $connections
+        edgeTypeName: "ColumnConnectionEdge"
+      ) {
+      id
+      ...ColumnFragment
+    }
+  }
+`;
+
+const columnDeletedSubscription = graphql`
+  subscription BoardColumnDeletedSubscription($connections: [ID!]!) {
+    columnDeleted {
+      id @deleteEdge(connections: $connections)
     }
   }
 `;
@@ -115,6 +137,16 @@ export function Board({ dataRef }: BoardProps) {
   const isClient = useIsClient();
 
   const { id: boardId, columnConnection } = useFragment(fragment, dataRef);
+
+  useSubscribe({
+    subscription: columnCreatedSubscription,
+    variables: { connections: [columnConnection.__id] },
+  });
+
+  useSubscribe({
+    subscription: columnDeletedSubscription,
+    variables: { connections: [columnConnection.__id] },
+  });
 
   const [commitColumnRank] =
     useMutation<BoardColumnRankMutation>(columnRankMutation);

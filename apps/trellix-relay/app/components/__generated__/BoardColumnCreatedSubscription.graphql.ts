@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<015738ee4c559cf08e580381d4cfeff9>>
+ * @generated SignedSource<<d98c8c44cc562619165cfaac0aed5d1a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,18 +10,18 @@
 
 import { ConcreteRequest, GraphQLSubscription } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ColumnSubscription$variables = {
-  id: string;
+export type BoardColumnCreatedSubscription$variables = {
+  connections: ReadonlyArray<string>;
 };
-export type ColumnSubscription$data = {
-  readonly column: {
-    readonly rank: string;
+export type BoardColumnCreatedSubscription$data = {
+  readonly columnCreated: {
+    readonly id: string;
     readonly " $fragmentSpreads": FragmentRefs<"ColumnFragment">;
   };
 };
-export type ColumnSubscription = {
-  response: ColumnSubscription$data;
-  variables: ColumnSubscription$variables;
+export type BoardColumnCreatedSubscription = {
+  response: BoardColumnCreatedSubscription$data;
+  variables: BoardColumnCreatedSubscription$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -29,24 +29,10 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "id"
+    "name": "connections"
   }
 ],
-v1 = [
-  {
-    "kind": "Variable",
-    "name": "id",
-    "variableName": "id"
-  }
-],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "rank",
-  "storageKey": null
-},
-v3 = {
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -58,17 +44,17 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ColumnSubscription",
+    "name": "BoardColumnCreatedSubscription",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": null,
         "concreteType": "Column",
         "kind": "LinkedField",
-        "name": "column",
+        "name": "columnCreated",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
+          (v1/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -85,18 +71,17 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ColumnSubscription",
+    "name": "BoardColumnCreatedSubscription",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": null,
         "concreteType": "Column",
         "kind": "LinkedField",
-        "name": "column",
+        "name": "columnCreated",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
+          (v1/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -128,8 +113,14 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v3/*: any*/),
-                      (v2/*: any*/)
+                      (v1/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "rank",
+                        "storageKey": null
+                      }
                     ],
                     "storageKey": null
                   }
@@ -153,20 +144,41 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "filters": null,
+        "handle": "appendNode",
+        "key": "",
+        "kind": "LinkedHandle",
+        "name": "columnCreated",
+        "handleArgs": [
+          {
+            "kind": "Variable",
+            "name": "connections",
+            "variableName": "connections"
+          },
+          {
+            "kind": "Literal",
+            "name": "edgeTypeName",
+            "value": "ColumnConnectionEdge"
+          }
+        ]
       }
     ]
   },
   "params": {
-    "cacheID": "8860b68e6e29c7bef441d2b983b15125",
+    "cacheID": "c1381e0da1c8ff1357b497503ea55281",
     "id": null,
     "metadata": {},
-    "name": "ColumnSubscription",
+    "name": "BoardColumnCreatedSubscription",
     "operationKind": "subscription",
-    "text": "subscription ColumnSubscription(\n  $id: ID!\n) {\n  column(id: $id) {\n    rank\n    ...ColumnFragment\n    id\n  }\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n  ...ColumnTitleFragment\n  itemConnection {\n    edges {\n      node {\n        id\n        rank\n      }\n    }\n  }\n}\n\nfragment ColumnTitleFragment on Column {\n  id\n  title\n}\n"
+    "text": "subscription BoardColumnCreatedSubscription {\n  columnCreated {\n    id\n    ...ColumnFragment\n  }\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n  ...ColumnTitleFragment\n  itemConnection {\n    edges {\n      node {\n        id\n        rank\n      }\n    }\n  }\n}\n\nfragment ColumnTitleFragment on Column {\n  id\n  title\n}\n"
   }
 };
 })();
 
-(node as any).hash = "7bdcecbf0dfdb0082676ab841ef375cb";
+(node as any).hash = "c0a297e188dbb39e337726c0f057e0c6";
 
 export default node;

@@ -11,7 +11,7 @@ import { RemixRelayProvider } from "@remix-relay/react";
 import { Spinner, Toaster } from "@remix-relay/ui";
 import { getCurrentEnvironment } from "~/lib/relay-environment";
 import Progress from "./components/Progress";
-import { ResubscribeProvider } from "./hooks/useSubscribe";
+import { ResubscribeProvider } from "./components/ResubscribeProvider";
 import "./tailwind.css";
 
 export default function App() {
