@@ -1,14 +1,16 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import { createId } from "@paralleldrive/cuid2";
 import { toGlobalId } from "graphql-relay";
+import exists from "lib/exists";
 import { getNextRank } from "lib/rank";
 import { last, sortBy } from "lodash-es";
 import { PlusIcon } from "lucide-react";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useContext, useRef } from "react";
 import { graphql, useMutation } from "react-relay";
 import TextareaAutosize from "react-textarea-autosize";
 import { useOnClickOutside } from "usehooks-ts";
 import { Button } from "@remix-relay/ui";
+import { ViewerIdContext } from "~/lib/viewer-id-context";
 import { CreateItemCreateOneItemMutation } from "./__generated__/CreateItemCreateOneItemMutation.graphql";
 
 const mutation = graphql`
@@ -49,6 +51,7 @@ export function CreateItem({
   setIsCreating,
 }: CreateItemProps) {
   const [commit] = useMutation<CreateItemCreateOneItemMutation>(mutation);
+  const viewerId = exists(useContext(ViewerIdContext));
 
   const formRef = useRef<HTMLFormElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -63,7 +66,7 @@ export function CreateItem({
     const text = (formData.get("text") as string).trim();
 
     if (text) {
-      const id = createId();
+      const id = `${viewerId}:${createId()}`;
       const rank = getNextRank(last(sortBy(itemEdges, "node.rank"))?.node);
 
       commit({

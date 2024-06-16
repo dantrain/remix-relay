@@ -47,13 +47,39 @@ export const Item = builder.node("Item", {
   }),
 });
 
+builder.subscriptionFields((t) => ({
+  item: t.field({
+    type: Item,
+    args: {
+      id: t.arg.id({ required: true }),
+    },
+    subscribe: (_parent, { id }, { pubsub, user, tabId }) => {
+      return pubsub.asyncIterableIterator<Item>({
+        table: "items",
+        eventType: "UPDATE",
+        id: fromGlobalId(id),
+        userId: user.id,
+        tabId,
+      });
+    },
+    resolve: (column) => column,
+  }),
+}));
+
 builder.mutationFields((t) => ({
   createOneItem: t.field({
     type: Item,
     args: {
       id: t.arg.id({
         required: true,
-        validate: { schema: z.string().cuid2() },
+        validate: (value) => {
+          const parts = value.toString().split(":");
+          return !!(
+            parts.length === 2 &&
+            z.string().uuid().parse(parts[0]) &&
+            z.string().cuid2().parse(parts[1])
+          );
+        },
       }),
       text: t.arg.string({
         required: true,

@@ -19,6 +19,7 @@ import { useFocusVisible } from "react-aria";
 import { graphql, useFragment, useMutation } from "react-relay";
 import TextareaAutosize from "react-textarea-autosize";
 import { Button } from "@remix-relay/ui";
+import { useSubscribe } from "~/hooks/useSubscribe";
 import { DropdownMenuContent, DropdownMenuItem } from "./DropdownMenu";
 import { ItemDeleteOneItemMutation } from "./__generated__/ItemDeleteOneItemMutation.graphql";
 import { ItemFragment$key } from "./__generated__/ItemFragment.graphql";
@@ -28,6 +29,14 @@ const fragment = graphql`
   fragment ItemFragment on Item {
     id
     text
+  }
+`;
+
+const subscription = graphql`
+  subscription ItemSubscription($id: ID!) {
+    item(id: $id) {
+      ...ItemFragment
+    }
   }
 `;
 
@@ -74,6 +83,9 @@ export const Item = memo(
       ref,
     ) => {
       const { id, text } = useFragment(fragment, dataRef);
+
+      useSubscribe({ subscription, variables: { id } });
+
       const [isEditing, setIsEditing] = useState(false);
 
       const textAreaRef = useRef<HTMLTextAreaElement>(null);

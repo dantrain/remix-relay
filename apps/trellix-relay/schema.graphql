@@ -99,6 +99,7 @@ type Subscription {
   column(id: ID!): Column!
   columnCreated: Column!
   columnDeleted: Column!
+  item(id: ID!): Item!
 }
 
 type User implements Node {
