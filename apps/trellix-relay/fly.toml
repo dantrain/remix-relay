@@ -1,17 +1,18 @@
-# fly.toml app configuration file generated for dans-counter-app on 2024-01-20T17:17:40Z
+# fly.toml app configuration file generated for trellix-relay on 2024-06-17T16:43:04+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "trellix-relay"
-primary_region = "lhr"
+app = 'trellix-relay'
+primary_region = 'lhr'
 
 [build]
+dockerfile = './Dockerfile'
 
 [env]
-PORT = "3000"
-SUPABASE_URL = "https://gusxqhuqpahbwohiioms.supabase.co"
-SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd1c3hxaHVxcGFoYndvaGlpb21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTc0NDA2NTUsImV4cCI6MjAzMzAxNjY1NX0.Pbra5UB6-rVsBDhG7bC9wECaRpF3GbwvRUE5tA-6fsw"
+PORT = '3000'
+SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd1c3hxaHVxcGFoYndvaGlpb21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTc0NDA2NTUsImV4cCI6MjAzMzAxNjY1NX0.Pbra5UB6-rVsBDhG7bC9wECaRpF3GbwvRUE5tA-6fsw'
+SUPABASE_URL = 'https://gusxqhuqpahbwohiioms.supabase.co'
 
 [http_service]
 internal_port = 3000
@@ -19,16 +20,16 @@ force_https = true
 auto_stop_machines = true
 auto_start_machines = true
 min_machines_running = 1
-processes = ["app"]
+processes = ['app']
 
 [[http_service.checks]]
-grace_period = "10s"
-interval = "30s"
-method = "GET"
-timeout = "5s"
-path = "/health"
+interval = '30s'
+timeout = '5s'
+grace_period = '10s'
+method = 'GET'
+path = '/health'
 
 [[vm]]
-cpu_kind = "shared"
+cpu_kind = 'shared'
 cpus = 1
 memory_mb = 1024
