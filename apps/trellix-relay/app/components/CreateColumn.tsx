@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-autofocus */
 import { createId } from "@paralleldrive/cuid2";
 import { cx } from "class-variance-authority";
 import { toGlobalId } from "graphql-relay";
@@ -121,6 +120,7 @@ export function CreateColumn({
         placeholder="Enter a title"
         type="text"
         autoComplete="off"
+        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
         required
       />

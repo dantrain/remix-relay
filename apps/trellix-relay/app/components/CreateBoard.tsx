@@ -2,6 +2,7 @@ import { createId } from "@paralleldrive/cuid2";
 import { toGlobalId } from "graphql-relay";
 import { FormEvent, useState } from "react";
 import { graphql, useMutation } from "react-relay";
+import { useMediaQuery } from "usehooks-ts";
 import { Button } from "@remix-relay/ui";
 import {
   ResponsiveDialog,
@@ -34,6 +35,7 @@ type CreateBoardProps = {
 export default function CreateBoard({ connectionId }: CreateBoardProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [commit] = useMutation<CreateBoardCreateOneBoardMutation>(mutation);
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -85,6 +87,8 @@ export default function CreateBoard({ connectionId }: CreateBoardProps) {
             placeholder="Enter a title"
             type="text"
             autoComplete="off"
+            // eslint-disable-next-line jsx-a11y/no-autofocus
+            autoFocus
             required
           />
 
@@ -93,11 +97,16 @@ export default function CreateBoard({ connectionId }: CreateBoardProps) {
               className="flex-1 px-3 py-2 sm:flex-none sm:py-1"
               variant="sky"
               type="submit"
+              disableReactAria={!isDesktop}
             >
               Create
             </Button>
             <ResponsiveDialogClose asChild>
-              <Button className="px-3 py-2 sm:py-1" variant="outline">
+              <Button
+                className="px-3 py-2 sm:py-1"
+                variant="outline"
+                disableReactAria={!isDesktop}
+              >
                 Cancel
               </Button>
             </ResponsiveDialogClose>

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-autofocus */
 import { FormEvent, useRef, useState } from "react";
 import { graphql, useFragment, useMutation } from "react-relay";
 import { Button } from "@remix-relay/ui";
@@ -64,6 +63,7 @@ export function BoardTitle({ dataRef }: { dataRef: BoardTitleFragment$key }) {
         autoComplete="off"
         defaultValue={title}
         required
+        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
       />
     </form>

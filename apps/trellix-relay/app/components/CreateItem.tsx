@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-autofocus */
 import { createId } from "@paralleldrive/cuid2";
 import { toGlobalId } from "graphql-relay";
 import exists from "lib/exists";
@@ -121,6 +120,7 @@ export function CreateItem({
         }}
         placeholder="Enter a title"
         autoComplete="off"
+        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
         required
       />
@@ -129,6 +129,7 @@ export function CreateItem({
           className="px-4 py-2 sm:px-3 sm:py-1"
           variant="sky"
           type="submit"
+          disableReactAria={!isDesktop}
         >
           Add card
         </Button>
@@ -136,6 +137,7 @@ export function CreateItem({
           className="px-4 py-2 sm:px-3 sm:py-1"
           variant="outline"
           onPress={() => setIsCreating(false)}
+          disableReactAria={!isDesktop}
         >
           Cancel
         </Button>

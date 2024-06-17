@@ -20,6 +20,7 @@ type ButtonProps = {
   type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
   onPress?: (e: PressEvent) => void;
   onClick?: (e: MouseEvent) => void;
+  disableReactAria?: boolean;
 } & (({ asChild?: false } & AriaButtonOptions<"button">) | { asChild: true });
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -32,6 +33,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       onPress,
       onClick,
       type = "button",
+      disableReactAria = false,
       children,
       ...rest
     },
@@ -55,6 +57,21 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       },
       ref,
     );
+
+    const props = disableReactAria
+      ? mergeProps(rest, {
+          onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+            onClick?.(e as unknown as MouseEvent) ||
+            onPress?.(e as unknown as PressEvent),
+        })
+      : mergeProps(
+          rest,
+          {
+            onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+              onClick?.(e as unknown as MouseEvent),
+          },
+          buttonProps,
+        );
 
     return (
       <Comp
@@ -161,8 +178,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           )({ variant, disabled, isPressed, isFocusVisible }),
           className,
         )}
-        {...mergeProps(rest, { onClick }, buttonProps)}
-        // type={Comp === "button" ? "button" : undefined}
+        {...props}
         type={Comp === "button" ? type : undefined}
         disabled={Comp === "button" ? disabled : undefined}
         ref={ref}
