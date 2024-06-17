@@ -11,10 +11,11 @@ import { TriangleAlertIcon } from "lucide-react";
 import { ReactNode, Suspense, useEffect } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
 import { RemixRelayProvider } from "@remix-relay/react";
-import { Spinner, Toaster } from "@remix-relay/ui";
+import { Toaster } from "@remix-relay/ui";
 import { getCurrentEnvironment } from "~/lib/relay-environment";
 import Progress from "./components/Progress";
 import { ResubscribeProvider } from "./components/ResubscribeProvider";
+import { Spinner } from "./components/Spinner";
 import "./tailwind.css";
 
 export function Layout({ children }: { children: ReactNode }) {
@@ -42,7 +43,7 @@ export default function App() {
       <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
         <ResubscribeProvider>
           <Progress />
-          <Suspense fallback={<Spinner className="h-36" />}>
+          <Suspense fallback={<Spinner className="mx-auto h-36" />}>
             <Outlet />
           </Suspense>
           <Toaster variant="light" />

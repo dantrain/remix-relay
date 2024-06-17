@@ -5,6 +5,7 @@ import type { Provider } from "@supabase/supabase-js";
 import { useState } from "react";
 import { Button } from "@remix-relay/ui";
 import { GitHubIcon } from "~/components/Icons";
+import { Spinner } from "~/components/Spinner";
 
 export const meta: MetaFunction = () => [{ title: "Sign in · Trellix Relay" }];
 
@@ -69,10 +70,9 @@ export default function SignIn() {
             className="flex items-center justify-center gap-3 px-6 py-2"
             variant="slate"
             disabled={signingIn}
-            onClick={() => signIn("github")}
+            onPress={() => signIn("github")}
           >
-            <GitHubIcon />
-            Sign in with GitHub
+            {signingIn ? <Spinner /> : <GitHubIcon />}Sign in with GitHub
           </Button>
         </div>
       </div>
