@@ -8,8 +8,9 @@ import {
   useRouteError,
 } from "@remix-run/react";
 import { TriangleAlertIcon } from "lucide-react";
-import { ReactNode, Suspense, useEffect } from "react";
+import { ReactNode, Suspense } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
+import { useDocumentTitle } from "usehooks-ts";
 import { RemixRelayProvider } from "@remix-relay/react";
 import { Toaster } from "@remix-relay/ui";
 import { getCurrentEnvironment } from "~/lib/relay-environment";
@@ -64,9 +65,7 @@ export function ErrorBoundary() {
 
   const heading = isRouteError ? "Page not found" : "Something went wrong";
 
-  useEffect(() => {
-    document.title = `${heading} | Trellix Relay`;
-  });
+  useDocumentTitle(`${heading} | Trellix Relay`);
 
   return (
     <main

@@ -39,7 +39,11 @@ import {
 } from "react-relay";
 import { Transition, TransitionGroup } from "react-transition-group";
 import { RecordSourceSelectorProxy } from "relay-runtime";
-import { useIsClient, useIsomorphicLayoutEffect } from "usehooks-ts";
+import {
+  useIsClient,
+  useIsomorphicLayoutEffect,
+  useMediaQuery,
+} from "usehooks-ts";
 import { useSubscribe } from "~/hooks/useSubscribe";
 import { getCollisionDetectionStrategy } from "~/lib/collision-detection-strategy";
 import { coordinateGetter } from "~/lib/keyboard-coordinates";
@@ -164,6 +168,7 @@ type BoardProps = {
 
 export function Board({ dataRef }: BoardProps) {
   const isClient = useIsClient();
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const { id: boardId, columnConnection } = useFragment(fragment, dataRef);
 
@@ -324,7 +329,7 @@ export function Board({ dataRef }: BoardProps) {
 
   return (
     <DndContext
-      autoScroll={{ interval: Number.MIN_VALUE }}
+      autoScroll={{ interval: isDesktop ? Number.MIN_VALUE : 5 }}
       sensors={sensors}
       collisionDetection={collisionDetectionStrategy}
       measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
