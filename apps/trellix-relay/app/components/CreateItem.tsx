@@ -8,7 +8,7 @@ import { PlusIcon } from "lucide-react";
 import { FormEvent, useContext, useRef } from "react";
 import { graphql, useMutation } from "react-relay";
 import TextareaAutosize from "react-textarea-autosize";
-import { useOnClickOutside } from "usehooks-ts";
+import { useMediaQuery, useOnClickOutside } from "usehooks-ts";
 import { Button } from "@remix-relay/ui";
 import { ViewerIdContext } from "~/lib/viewer-id-context";
 import { CreateItemCreateOneItemMutation } from "./__generated__/CreateItemCreateOneItemMutation.graphql";
@@ -52,6 +52,7 @@ export function CreateItem({
 }: CreateItemProps) {
   const [commit] = useMutation<CreateItemCreateOneItemMutation>(mutation);
   const viewerId = exists(useContext(ViewerIdContext));
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const formRef = useRef<HTMLFormElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -86,11 +87,14 @@ export function CreateItem({
         },
       });
 
-      requestIdleCallback(() => {
-        scrollToBottom();
-        formRef.current?.reset();
-        textAreaRef.current?.focus();
-      });
+      setTimeout(
+        () => {
+          scrollToBottom();
+          formRef.current?.reset();
+          textAreaRef.current?.focus();
+        },
+        isDesktop ? 0 : 100,
+      );
     }
   };
 
@@ -141,7 +145,12 @@ export function CreateItem({
     <Button
       className="flex w-full items-center gap-1 py-2 text-left"
       variant="ghost"
-      onPress={() => setIsCreating(true)}
+      onPress={() => {
+        setIsCreating(true);
+        setTimeout(() => {
+          scrollToBottom();
+        }, 0);
+      }}
     >
       <PlusIcon className="not-sr-only w-4" />
       Add card
