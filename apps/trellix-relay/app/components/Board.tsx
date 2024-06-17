@@ -90,7 +90,7 @@ const columnCreatedSubscription = graphql`
     columnCreated
       @appendNode(
         connections: $connections
-        edgeTypeName: "ColumnConnectionEdge"
+        edgeTypeName: "BoardColumnConnectionEdge"
       ) {
       id
       ...ColumnFragment

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d31416920ad4cd88a4e314a6f88cf59c>>
+ * @generated SignedSource<<5a6dc456185c0d07d99d91590120ceaa>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -126,7 +126,7 @@ return {
           {
             "kind": "Literal",
             "name": "edgeTypeName",
-            "value": "CounterConnectionEdge"
+            "value": "UserCounterConnectionEdge"
           }
         ]
       }
@@ -143,6 +143,6 @@ return {
 };
 })();
 
-(node as any).hash = "d53f919b99a02905213709902fab6561";
+(node as any).hash = "6e92d95fa47ac320e83f204e3ab4b7fe";
 
 export default node;

@@ -2,7 +2,7 @@
 import { Slot } from "@radix-ui/react-slot";
 import { mergeProps, useObjectRef } from "@react-aria/utils";
 import { cva } from "class-variance-authority";
-import type { ReactElement, ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactElement, ReactNode } from "react";
 import { Children, forwardRef } from "react";
 import {
   AriaButtonOptions,
@@ -17,6 +17,7 @@ type ButtonProps = {
   variant?: "slate" | "sky" | "outline" | "ghost";
   children: ReactNode;
   disabled?: boolean;
+  type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
   onPress?: (e: PressEvent) => void;
   onClick?: (e: MouseEvent) => void;
 } & (({ asChild?: false } & AriaButtonOptions<"button">) | { asChild: true });
@@ -30,6 +31,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled = false,
       onPress,
       onClick,
+      type = "button",
       children,
       ...rest
     },
@@ -159,8 +161,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           )({ variant, disabled, isPressed, isFocusVisible }),
           className,
         )}
-        type={Comp === "button" ? "button" : undefined}
         {...mergeProps(rest, { onClick }, buttonProps)}
+        // type={Comp === "button" ? "button" : undefined}
+        type={Comp === "button" ? type : undefined}
         disabled={Comp === "button" ? disabled : undefined}
         ref={ref}
       >

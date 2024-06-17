@@ -56,10 +56,10 @@
     "@remix-run/server-runtime": "^2.9.2",
     "@types/eslint": "^8.56.10",
     "@types/node": "^20.14.0",
-    "@types/relay-runtime": "^14.1.24",
+    "@types/relay-runtime": "^17.0.0",
     "eslint": "^8.57.0",
     "graphql": "17.0.0-alpha.2",
-    "relay-runtime": "^16.2.0",
+    "relay-runtime": "^17.0.0",
     "tsup": "^8.1.0",
     "typescript": "^5.4.5"
   },

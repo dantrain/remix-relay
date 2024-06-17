@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d98c8c44cc562619165cfaac0aed5d1a>>
+ * @generated SignedSource<<f736b3b446fce512f5ff78db3e5a53c5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -162,7 +162,7 @@ return {
           {
             "kind": "Literal",
             "name": "edgeTypeName",
-            "value": "ColumnConnectionEdge"
+            "value": "BoardColumnConnectionEdge"
           }
         ]
       }
@@ -179,6 +179,6 @@ return {
 };
 })();
 
-(node as any).hash = "c0a297e188dbb39e337726c0f057e0c6";
+(node as any).hash = "d9c35929c31f1de2915bb8ca7dcb53bd";
 
 export default node;

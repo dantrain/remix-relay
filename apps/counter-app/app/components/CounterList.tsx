@@ -27,7 +27,7 @@ const counterCreatedSubscription = graphql`
     counterCreated
       @appendNode(
         connections: $connections
-        edgeTypeName: "CounterConnectionEdge"
+        edgeTypeName: "UserCounterConnectionEdge"
       ) {
       id
       ...CounterFragment
@@ -48,7 +48,7 @@ const mutation = graphql`
     createOneCounter(id: $id)
       @appendNode(
         connections: $connections
-        edgeTypeName: "CounterConnectionEdge"
+        edgeTypeName: "UserCounterConnectionEdge"
       ) {
       id
       ...CounterFragment
