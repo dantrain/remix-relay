@@ -29,7 +29,7 @@
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/tailwind-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
-    "@turbo/gen": "^1.13.3",
+    "@turbo/gen": "^2.0.4",
     "@types/eslint": "^8.56.10",
     "@types/node": "^20.14.0",
     "@types/react": "^18.3.3",
