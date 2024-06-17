@@ -22,7 +22,14 @@ import { toGlobalId } from "graphql-relay";
 import exists from "lib/exists";
 import { getNextRank, getRankBetween } from "lib/rank";
 import { last, sortBy } from "lodash-es";
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  RefObject,
+  createRef,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import {
   ConnectionHandler,
@@ -30,6 +37,7 @@ import {
   useFragment,
   useMutation,
 } from "react-relay";
+import { Transition, TransitionGroup } from "react-transition-group";
 import { RecordSourceSelectorProxy } from "relay-runtime";
 import { useIsClient, useIsomorphicLayoutEffect } from "usehooks-ts";
 import { useSubscribe } from "~/hooks/useSubscribe";
@@ -295,11 +303,7 @@ export function Board({ dataRef }: BoardProps) {
   function renderContainerDragOverlay(containerId: UniqueIdentifier) {
     const container = exists(columns[containerId]);
     return (
-      <Column
-        dataRef={container.dataRef}
-        connectionId={columnConnection.__id}
-        // style={{ height: "100%" }}
-      >
+      <Column dataRef={container.dataRef} connectionId={columnConnection.__id}>
         {exists(container.items).map((item) => (
           <Item
             key={item.id}
@@ -310,6 +314,13 @@ export function Board({ dataRef }: BoardProps) {
       </Column>
     );
   }
+
+  const columnRefs = useRef<
+    Record<UniqueIdentifier, RefObject<HTMLDivElement>>
+  >({});
+
+  const getColumnRef = (id: UniqueIdentifier) =>
+    (columnRefs.current[id] ??= createRef<HTMLDivElement>());
 
   return (
     <DndContext
@@ -514,34 +525,45 @@ export function Board({ dataRef }: BoardProps) {
           items={[...containers]}
           strategy={horizontalListSortingStrategy}
         >
-          {containers.map((containerId) => {
-            const container = exists(columns[containerId]);
-            return (
-              <DroppableColumn
-                key={containerId}
-                id={containerId}
-                items={container.items}
-                dataRef={container.dataRef}
-                connectionId={columnConnection.__id}
-              >
-                <SortableContext
-                  items={container.items}
-                  strategy={verticalListSortingStrategy}
+          <TransitionGroup component={null}>
+            {containers.map((containerId) => {
+              const container = exists(columns[containerId]);
+              return (
+                <Transition
+                  key={containerId}
+                  nodeRef={getColumnRef(containerId)}
+                  timeout={{ exit: 200 }}
                 >
-                  {container.items.map((item) => {
-                    return (
-                      <SortableItem
-                        key={item.id}
-                        id={item.id}
-                        dataRef={item.dataRef}
-                        connectionId={container.itemConnectionId}
-                      />
-                    );
-                  })}
-                </SortableContext>
-              </DroppableColumn>
-            );
-          })}
+                  {(state) => (
+                    <DroppableColumn
+                      id={containerId}
+                      ref={getColumnRef(containerId)}
+                      items={container.items}
+                      dataRef={container.dataRef}
+                      connectionId={columnConnection.__id}
+                      hidden={state === "exiting"}
+                    >
+                      <SortableContext
+                        items={container.items}
+                        strategy={verticalListSortingStrategy}
+                      >
+                        {container.items.map((item) => {
+                          return (
+                            <SortableItem
+                              key={item.id}
+                              id={item.id}
+                              dataRef={item.dataRef}
+                              connectionId={container.itemConnectionId}
+                            />
+                          );
+                        })}
+                      </SortableContext>
+                    </DroppableColumn>
+                  )}
+                </Transition>
+              );
+            })}
+          </TransitionGroup>
         </SortableContext>
         <CreateColumn
           connectionId={columnConnection.__id}

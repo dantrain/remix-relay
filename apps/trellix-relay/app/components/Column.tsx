@@ -43,6 +43,7 @@ export type ColumnProps = {
   children: ReactNode;
   style?: CSSProperties;
   hover?: boolean;
+  hidden?: boolean;
   handleProps?: HandleProps;
 };
 
@@ -54,6 +55,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
       children,
       handleProps,
       hover,
+      hidden,
       style,
       ...props
     }: ColumnProps,
@@ -91,6 +93,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
           transition-colors duration-200 sm:w-80`,
           hover ? "bg-[#e9eef4]" : "bg-slate-100",
           dragOverlay && "shadow-md",
+          hidden && "hidden",
         )}
       >
         <div
