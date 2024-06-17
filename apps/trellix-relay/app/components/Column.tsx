@@ -88,7 +88,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
         ref={ref}
         style={style}
         className={cx(
-          `z-10 flex max-h-full min-h-[140px] w-64 flex-col self-start
+          `z-10 flex max-h-full min-h-[140px] w-72 flex-col self-start
           overflow-hidden rounded-md border border-[#d6dee8] outline-none
           transition-colors duration-200 sm:w-80`,
           hover ? "bg-[#e9eef4]" : "bg-slate-100",

@@ -37,8 +37,8 @@ export default function BoardList({ dataRef }: BoardListProps) {
   return (
     <ul className="grid grid-cols-[repeat(auto-fill,minmax(14rem,1fr))] gap-4">
       <li
-        className="aspect-video content-center rounded-md border border-dashed
-          border-slate-400 text-center"
+        className="flex aspect-video items-center justify-center rounded-md
+          border border-dashed border-slate-400 text-center"
       >
         <CreateBoard connectionId={__id} />
       </li>

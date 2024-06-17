@@ -99,8 +99,8 @@ export function CreateColumn({
 
   return isCreating ? (
     <form
-      className="relative w-80 self-start rounded-md border border-[#d6dee8]
-        bg-slate-100"
+      className="relative w-72 self-start rounded-md border border-[#d6dee8]
+        bg-slate-100 sm:w-80"
       ref={formRef}
       onSubmit={handleSubmit}
     >
@@ -144,7 +144,7 @@ export function CreateColumn({
   ) : (
     <div
       className={cx(
-        "w-80 self-start",
+        "w-72 self-start sm:w-80",
         !lastColumn &&
           `flex h-24 items-center justify-center rounded-md border border-dashed
             border-slate-400`,

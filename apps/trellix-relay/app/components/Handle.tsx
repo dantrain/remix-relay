@@ -23,7 +23,7 @@ export const Handle = forwardRef<HTMLButtonElement, HandleProps>(
     return (
       <button
         className={cx(
-          `rounded-md px-2 outline-none focus-visible:ring-2
+          `select-none rounded-md px-2 outline-none focus-visible:ring-2
           focus-visible:ring-sky-500 sm:px-1`,
           dragOverlay ? "cursor-[inherit]" : "cursor-grab",
         )}
