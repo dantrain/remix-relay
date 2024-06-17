@@ -147,7 +147,7 @@ export function CreateColumn({
         "w-80 self-start",
         !lastColumn &&
           `flex h-24 items-center justify-center rounded-md border border-dashed
-          border-slate-400`,
+            border-slate-400`,
       )}
     >
       <Button
