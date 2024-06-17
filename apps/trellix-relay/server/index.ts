@@ -104,6 +104,8 @@ const serverCleanup = useServer(
         data: { session },
       } = await supabase.auth.getSession();
 
+      invariant(session?.user, "Missing user");
+
       return {
         pubsub,
         supabase,

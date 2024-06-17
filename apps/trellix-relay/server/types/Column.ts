@@ -11,6 +11,7 @@ import {
 import exists from "lib/exists";
 import { fromGlobalId } from "lib/global-id";
 import { retry } from "lib/retry";
+import { idSchema } from "lib/zod-schemas";
 import { builder } from "server/builder";
 import invariant from "tiny-invariant";
 import { z } from "zod";
@@ -118,14 +119,7 @@ builder.mutationFields((t) => ({
     args: {
       id: t.arg.id({
         required: true,
-        validate: (value) => {
-          const parts = value.toString().split(":");
-          return !!(
-            parts.length === 2 &&
-            z.string().uuid().parse(parts[0]) &&
-            z.string().cuid2().parse(parts[1])
-          );
-        },
+        validate: { schema: idSchema },
       }),
       title: t.arg.string({
         required: true,
