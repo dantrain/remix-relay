@@ -15,7 +15,7 @@
           "notNull": true
         },
         "name": {
-          "name": "name",
+          "name": "title",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -193,7 +193,7 @@
           "notNull": true
         },
         "text": {
-          "name": "text",
+          "name": "title",
           "type": "varchar",
           "primaryKey": false,
           "notNull": true

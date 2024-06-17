@@ -27,7 +27,7 @@ type Board implements Node {
   columnConnection(after: String, before: String, first: Int, last: Int): BoardColumnConnection!
   createdAt: String!
   id: ID!
-  name: String!
+  title: String!
 }
 
 type BoardColumnConnection {
@@ -63,19 +63,19 @@ type Item implements Node {
   createdAt: String!
   id: ID!
   rank: String!
-  text: String!
+  title: String!
 }
 
 type Mutation {
-  createOneBoard(id: ID!, name: String!): Board!
+  createOneBoard(id: ID!, title: String!): Board!
   createOneColumn(boardId: ID!, id: ID!, rank: String!, title: String!): Column!
-  createOneItem(columnId: ID!, id: ID!, rank: String!, text: String!): Item!
+  createOneItem(columnId: ID!, id: ID!, rank: String!, title: String!): Item!
   deleteOneBoard(id: ID!): Board!
   deleteOneColumn(id: ID!): Column!
   deleteOneItem(id: ID!): Item!
-  updateOneBoard(id: ID!, name: String!): Board!
+  updateOneBoard(id: ID!, title: String!): Board!
   updateOneColumn(id: ID!, rank: String, title: String): Column!
-  updateOneItem(columnId: ID, id: ID!, rank: String, text: String): Item!
+  updateOneItem(columnId: ID, id: ID!, rank: String, title: String): Item!
 }
 
 interface Node {

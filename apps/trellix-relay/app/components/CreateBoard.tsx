@@ -13,10 +13,10 @@ import { CreateBoardCreateOneBoardMutation } from "./__generated__/CreateBoardCr
 const mutation = graphql`
   mutation CreateBoardCreateOneBoardMutation(
     $id: ID!
-    $name: String!
+    $title: String!
     $connections: [ID!]!
   ) {
-    createOneBoard(id: $id, name: $name)
+    createOneBoard(id: $id, title: $title)
       @prependNode(
         connections: $connections
         edgeTypeName: "UserBoardConnectionEdge"
@@ -39,21 +39,21 @@ export default function CreateBoard({ connectionId }: CreateBoardProps) {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
-    const name = (formData.get("name") as string).trim();
+    const title = (formData.get("title") as string).trim();
 
-    if (name) {
+    if (title) {
       const id = createId();
 
       commit({
         variables: {
           id,
-          name,
+          title,
           connections: [connectionId],
         },
         optimisticResponse: {
           createOneBoard: {
             id: toGlobalId("Board", id),
-            name,
+            title,
           },
         },
       });
@@ -74,12 +74,12 @@ export default function CreateBoard({ connectionId }: CreateBoardProps) {
       title="Create board"
       content={
         <form onSubmit={handleSubmit}>
-          <label className="sr-only" htmlFor="createBoardInput-name">
+          <label className="sr-only" htmlFor="createBoardInput-title">
             Title
           </label>
           <input
-            id="createBoardInput-name"
-            name="name"
+            id="createBoardInput-title"
+            name="title"
             className="mb-4 block w-full rounded-md border-transparent
               bg-slate-100 focus:border-slate-500 focus:bg-white focus:ring-0"
             placeholder="Enter a title"

@@ -37,7 +37,7 @@ import { ItemUpdateOneItemMutation } from "./__generated__/ItemUpdateOneItemMuta
 const fragment = graphql`
   fragment ItemFragment on Item {
     id
-    text
+    title
     columnId
   }
 `;
@@ -53,10 +53,10 @@ const subscription = graphql`
 `;
 
 const updateOneItemMutation = graphql`
-  mutation ItemUpdateOneItemMutation($id: ID!, $text: String) {
-    updateOneItem(id: $id, text: $text) {
+  mutation ItemUpdateOneItemMutation($id: ID!, $title: String) {
+    updateOneItem(id: $id, title: $title) {
       id
-      text
+      title
     }
   }
 `;
@@ -94,7 +94,7 @@ export const Item = memo(
       },
       ref,
     ) => {
-      const { id, text, columnId } = useFragment(fragment, dataRef);
+      const { id, title, columnId } = useFragment(fragment, dataRef);
 
       useSubscribe<ItemSubscription>({
         subscription,
@@ -169,12 +169,12 @@ export const Item = memo(
         e.preventDefault();
 
         const formData = new FormData(e.target as HTMLFormElement);
-        const newText = (formData.get("title") as string).trim();
+        const newTitle = (formData.get("title") as string).trim();
 
-        if (newText && newText !== text) {
+        if (newTitle && newTitle !== title) {
           commitUpdate({
-            variables: { id, text: newText },
-            optimisticResponse: { updateOneItem: { id, text: newText } },
+            variables: { id, title: newTitle },
+            optimisticResponse: { updateOneItem: { id, title: newTitle } },
           });
         }
 
@@ -257,11 +257,11 @@ export const Item = memo(
                 onSubmit={handleSubmit}
                 onBlur={() => formRef.current?.requestSubmit()}
               >
-                <label className="sr-only" htmlFor="editItemInput-text">
+                <label className="sr-only" htmlFor="editItemInput-title">
                   Title
                 </label>
                 <TextareaAutosize
-                  id="editItemInput-text"
+                  id="editItemInput-title"
                   ref={textAreaRef}
                   name="title"
                   className="block w-full resize-none rounded-md border-none p-0
@@ -277,11 +277,11 @@ export const Item = memo(
                   }}
                   placeholder="Enter a title"
                   autoComplete="off"
-                  defaultValue={text}
+                  defaultValue={title}
                 />
               </form>
             ) : (
-              <div className="flex-1 self-center py-2 pl-3">{text}</div>
+              <div className="flex-1 self-center py-2 pl-3">{title}</div>
             )}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

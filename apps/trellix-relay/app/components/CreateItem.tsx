@@ -17,18 +17,18 @@ const mutation = graphql`
   mutation CreateItemCreateOneItemMutation(
     $id: ID!
     $columnId: ID!
-    $text: String!
+    $title: String!
     $rank: String!
     $connections: [ID!]!
   ) {
-    createOneItem(id: $id, columnId: $columnId, text: $text, rank: $rank)
+    createOneItem(id: $id, columnId: $columnId, title: $title, rank: $rank)
       @appendNode(
         connections: $connections
         edgeTypeName: "ColumnItemConnectionEdge"
       ) {
       id
       rank
-      text
+      title
     }
   }
 `;
@@ -63,16 +63,16 @@ export function CreateItem({
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
-    const text = (formData.get("text") as string).trim();
+    const title = (formData.get("title") as string).trim();
 
-    if (text) {
+    if (title) {
       const id = `${viewerId}:${createId()}`;
       const rank = getNextRank(last(sortBy(itemEdges, "node.rank"))?.node);
 
       commit({
         variables: {
           id,
-          text,
+          title,
           columnId,
           rank,
           connections: [connectionId],
@@ -80,7 +80,7 @@ export function CreateItem({
         optimisticResponse: {
           createOneItem: {
             id: toGlobalId("Item", id),
-            text,
+            title,
             rank,
           },
         },
@@ -96,13 +96,13 @@ export function CreateItem({
 
   return isCreating ? (
     <form className="relative" ref={formRef} onSubmit={handleSubmit}>
-      <label className="sr-only" htmlFor="createItemInput-text">
+      <label className="sr-only" htmlFor="createItemInput-title">
         Text
       </label>
       <TextareaAutosize
-        id="createItemInput-text"
+        id="createItemInput-title"
         ref={textAreaRef}
-        name="text"
+        name="title"
         className="mb-2 block w-full resize-none rounded-md border
           border-slate-200 bg-white pr-8 shadow-sm focus:border-slate-200
           focus:ring-0"

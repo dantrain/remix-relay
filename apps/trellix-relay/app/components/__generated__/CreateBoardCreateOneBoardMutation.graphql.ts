@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4900c191873178329b255a7074f1449a>>
+ * @generated SignedSource<<36c7dfab40699524677e0a2b456fe0f6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type CreateBoardCreateOneBoardMutation$variables = {
   connections: ReadonlyArray<string>;
   id: string;
-  name: string;
+  title: string;
 };
 export type CreateBoardCreateOneBoardMutation$data = {
   readonly createOneBoard: {
@@ -40,7 +40,7 @@ v1 = {
 v2 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "name"
+  "name": "title"
 },
 v3 = [
   {
@@ -50,8 +50,8 @@ v3 = [
   },
   {
     "kind": "Variable",
-    "name": "name",
-    "variableName": "name"
+    "name": "title",
+    "variableName": "title"
   }
 ],
 v4 = {
@@ -116,7 +116,7 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "name",
+            "name": "title",
             "storageKey": null
           }
         ],
@@ -146,16 +146,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ad5e67153a5b18096a6fa364a26b203d",
+    "cacheID": "9db8200039856b5968b407e05fb8a418",
     "id": null,
     "metadata": {},
     "name": "CreateBoardCreateOneBoardMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateBoardCreateOneBoardMutation(\n  $id: ID!\n  $name: String!\n) {\n  createOneBoard(id: $id, name: $name) {\n    id\n    ...BoardCardFragment\n  }\n}\n\nfragment BoardCardFragment on Board {\n  id\n  name\n}\n"
+    "text": "mutation CreateBoardCreateOneBoardMutation(\n  $id: ID!\n  $title: String!\n) {\n  createOneBoard(id: $id, title: $title) {\n    id\n    ...BoardCardFragment\n  }\n}\n\nfragment BoardCardFragment on Board {\n  id\n  title\n}\n"
   }
 };
 })();
 
-(node as any).hash = "3eaf4a5a4261e7ba1b2f7df8a0ef1c00";
+(node as any).hash = "656fdf5928c3a1dafabffb1ddc01c45d";
 
 export default node;

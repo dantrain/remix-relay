@@ -13,7 +13,7 @@ export const items = pgTable(
   "items",
   {
     id: varchar("id").primaryKey(),
-    text: varchar("text").notNull(),
+    title: varchar("title").notNull(),
     rank: varchar("rank").notNull(),
     userId: uuid("user_id")
       .references(() => users.id, { onDelete: "cascade" })
@@ -40,7 +40,7 @@ export type Item = typeof items.$inferSelect;
 export const Item = builder.node("Item", {
   id: { resolve: (_) => _.id },
   fields: (t) => ({
-    text: t.exposeString("text"),
+    title: t.exposeString("title"),
     rank: t.exposeString("rank"),
     columnId: t.exposeString("columnId"),
     createdAt: t.string({
@@ -105,7 +105,7 @@ builder.mutationFields((t) => ({
           );
         },
       }),
-      text: t.arg.string({
+      title: t.arg.string({
         required: true,
         validate: { schema: z.string().min(1).max(100) },
       }),
@@ -125,7 +125,7 @@ builder.mutationFields((t) => ({
           .insert(items)
           .values({
             id: args.id.toString(),
-            text: args.text,
+            title: args.title,
             rank: args.rank,
             userId: user.id,
             columnId: fromGlobalId(args.columnId),
@@ -143,7 +143,7 @@ builder.mutationFields((t) => ({
       id: t.arg.id({ required: true }),
       rank: t.arg.string(),
       columnId: t.arg.id(),
-      text: t.arg.string(),
+      title: t.arg.string(),
     },
     resolve: async (_parent, args, { db, user, tabId }) =>
       retry(async () => {
@@ -153,7 +153,7 @@ builder.mutationFields((t) => ({
             .set({
               rank: args.rank ?? undefined,
               columnId: args.columnId ? fromGlobalId(args.columnId) : undefined,
-              text: args.text ?? undefined,
+              title: args.title ?? undefined,
               updatedBy: exists(tabId, "Missing tabID"),
             })
             .where(

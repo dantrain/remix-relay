@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS "items" (
 	"id" varchar PRIMARY KEY NOT NULL,
-	"text" varchar NOT NULL,
+	"title" varchar NOT NULL,
 	"rank" varchar NOT NULL,
 	"user_id" uuid NOT NULL,
 	"column_id" varchar NOT NULL,

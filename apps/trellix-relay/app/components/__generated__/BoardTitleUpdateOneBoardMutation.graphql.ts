@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b9bfd649826988086614c072730675a8>>
+ * @generated SignedSource<<0beace1066b8c82aeb4d6be98437834b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,12 +11,12 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type BoardTitleUpdateOneBoardMutation$variables = {
   id: string;
-  name: string;
+  title: string;
 };
 export type BoardTitleUpdateOneBoardMutation$data = {
   readonly updateOneBoard: {
     readonly id: string;
-    readonly name: string;
+    readonly title: string;
   };
 };
 export type BoardTitleUpdateOneBoardMutation = {
@@ -34,7 +34,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "name"
+    "name": "title"
   }
 ],
 v1 = [
@@ -48,8 +48,8 @@ v1 = [
       },
       {
         "kind": "Variable",
-        "name": "name",
-        "variableName": "name"
+        "name": "title",
+        "variableName": "title"
       }
     ],
     "concreteType": "Board",
@@ -68,7 +68,7 @@ v1 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
-        "name": "name",
+        "name": "title",
         "storageKey": null
       }
     ],
@@ -93,16 +93,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "086fcb4585680fb23f2e27c95102ae88",
+    "cacheID": "1896a9045696dfe3778c4b87f1a1b67e",
     "id": null,
     "metadata": {},
     "name": "BoardTitleUpdateOneBoardMutation",
     "operationKind": "mutation",
-    "text": "mutation BoardTitleUpdateOneBoardMutation(\n  $id: ID!\n  $name: String!\n) {\n  updateOneBoard(id: $id, name: $name) {\n    id\n    name\n  }\n}\n"
+    "text": "mutation BoardTitleUpdateOneBoardMutation(\n  $id: ID!\n  $title: String!\n) {\n  updateOneBoard(id: $id, title: $title) {\n    id\n    title\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "0c19d00fd126d6fcc38d30dfaa8e344f";
+(node as any).hash = "7aac151d48c6573d6014683425cf3362";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e220e7e93f46a459fbb5d7b5a4603524>>
+ * @generated SignedSource<<180e66b500370ab0e1d4f434977e2b02>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,12 +11,12 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type ItemUpdateOneItemMutation$variables = {
   id: string;
-  text?: string | null | undefined;
+  title?: string | null | undefined;
 };
 export type ItemUpdateOneItemMutation$data = {
   readonly updateOneItem: {
     readonly id: string;
-    readonly text: string;
+    readonly title: string;
   };
 };
 export type ItemUpdateOneItemMutation = {
@@ -34,7 +34,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "text"
+    "name": "title"
   }
 ],
 v1 = [
@@ -48,8 +48,8 @@ v1 = [
       },
       {
         "kind": "Variable",
-        "name": "text",
-        "variableName": "text"
+        "name": "title",
+        "variableName": "title"
       }
     ],
     "concreteType": "Item",
@@ -68,7 +68,7 @@ v1 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
-        "name": "text",
+        "name": "title",
         "storageKey": null
       }
     ],
@@ -93,16 +93,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "3956596f38c838acac81d29024327c6a",
+    "cacheID": "2f8d7db1ffe744b227d9058810906cbc",
     "id": null,
     "metadata": {},
     "name": "ItemUpdateOneItemMutation",
     "operationKind": "mutation",
-    "text": "mutation ItemUpdateOneItemMutation(\n  $id: ID!\n  $text: String\n) {\n  updateOneItem(id: $id, text: $text) {\n    id\n    text\n  }\n}\n"
+    "text": "mutation ItemUpdateOneItemMutation(\n  $id: ID!\n  $title: String\n) {\n  updateOneItem(id: $id, title: $title) {\n    id\n    title\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "3e18e63581fd23938e40853214d3d07d";
+(node as any).hash = "9252c057f3bc4bb034c8c9ba2e155b15";
 
 export default node;

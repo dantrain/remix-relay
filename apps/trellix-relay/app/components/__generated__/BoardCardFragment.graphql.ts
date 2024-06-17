@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4ddb593f99604f4da2a7d20b9a944d14>>
+ * @generated SignedSource<<682ab8a7a30b86f6dd9631f9afd30d6d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,7 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type BoardCardFragment$data = {
   readonly id: string;
-  readonly name: string;
+  readonly title: string;
   readonly " $fragmentType": "BoardCardFragment";
 };
 export type BoardCardFragment$key = {
@@ -37,7 +37,7 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "name",
+      "name": "title",
       "storageKey": null
     }
   ],
@@ -45,6 +45,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "6cd3565de579967f10d425f744464c2d";
+(node as any).hash = "4fd8daf249fc36a76b4023ec233e7373";
 
 export default node;

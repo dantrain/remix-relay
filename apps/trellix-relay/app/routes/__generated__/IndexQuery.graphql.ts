@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6cf7072bae6c8103a955c193442996cf>>
+ * @generated SignedSource<<d99c7822c2fee72558e7219dcd969cc8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -99,7 +99,7 @@ return {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "name",
+                        "name": "title",
                         "storageKey": null
                       }
                     ],
@@ -130,12 +130,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2bf83dda0827d6551c6bad97f2773562",
+    "cacheID": "d12ea7ad5e62b01e318ac3ab5a0abb25",
     "id": null,
     "metadata": {},
     "name": "IndexQuery",
     "operationKind": "query",
-    "text": "query IndexQuery {\n  viewer {\n    ...BoardListFragment\n    id\n  }\n}\n\nfragment BoardCardFragment on Board {\n  id\n  name\n}\n\nfragment BoardListFragment on User {\n  boardConnection {\n    edges {\n      node {\n        id\n        ...BoardCardFragment\n      }\n    }\n  }\n}\n"
+    "text": "query IndexQuery {\n  viewer {\n    ...BoardListFragment\n    id\n  }\n}\n\nfragment BoardCardFragment on Board {\n  id\n  title\n}\n\nfragment BoardListFragment on User {\n  boardConnection {\n    edges {\n      node {\n        id\n        ...BoardCardFragment\n      }\n    }\n  }\n}\n"
   }
 };
 })();

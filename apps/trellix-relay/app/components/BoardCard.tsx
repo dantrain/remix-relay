@@ -17,7 +17,7 @@ import { BoardCardFragment$key } from "./__generated__/BoardCardFragment.graphql
 const fragment = graphql`
   fragment BoardCardFragment on Board {
     id
-    name
+    title
   }
 `;
 
@@ -35,7 +35,7 @@ type BoardCardProps = {
 };
 
 export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
-  const { id, name } = useFragment(fragment, dataRef);
+  const { id, title } = useFragment(fragment, dataRef);
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const { isFocusVisible } = useFocusVisible({ isTextInput: true });
@@ -63,7 +63,7 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
           focus-visible:ring-2 group-hover:shadow-md [&.pending]:bg-[#e9eef4]"
         prefetch="viewport"
       >
-        <div className="flex-1 text-xl sm:text-base">{name}</div>
+        <div className="flex-1 text-xl sm:text-base">{title}</div>
         <div className="h-full w-8" />
       </NavLink>
       <ResponsiveDialog
@@ -82,7 +82,7 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
             <span className="sr-only">Delete</span>
           </Button>
         }
-        title={`Delete board “${name}”`}
+        title={`Delete board “${title}”`}
         description="Are you sure?"
         content={
           <ResponsiveDialogFooter>

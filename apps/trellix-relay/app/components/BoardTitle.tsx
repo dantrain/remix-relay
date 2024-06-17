@@ -8,21 +8,21 @@ import { BoardTitleUpdateOneBoardMutation } from "./__generated__/BoardTitleUpda
 const fragment = graphql`
   fragment BoardTitleFragment on Board {
     id
-    name
+    title
   }
 `;
 
 const mutation = graphql`
-  mutation BoardTitleUpdateOneBoardMutation($id: ID!, $name: String!) {
-    updateOneBoard(id: $id, name: $name) {
+  mutation BoardTitleUpdateOneBoardMutation($id: ID!, $title: String!) {
+    updateOneBoard(id: $id, title: $title) {
       id
-      name
+      title
     }
   }
 `;
 
 export function BoardTitle({ dataRef }: { dataRef: BoardTitleFragment$key }) {
-  const { id, name } = useFragment(fragment, dataRef);
+  const { id, title } = useFragment(fragment, dataRef);
   const [isEditing, setIsEditing] = useState(false);
   const [commit] = useMutation<BoardTitleUpdateOneBoardMutation>(mutation);
 
@@ -32,12 +32,12 @@ export function BoardTitle({ dataRef }: { dataRef: BoardTitleFragment$key }) {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
-    const newName = (formData.get("name") as string).trim();
+    const newTitle = (formData.get("title") as string).trim();
 
-    if (newName && newName !== name) {
+    if (newTitle && newTitle !== title) {
       commit({
-        variables: { id, name: newName },
-        optimisticResponse: { updateOneBoard: { id, name: newName } },
+        variables: { id, title: newTitle },
+        optimisticResponse: { updateOneBoard: { id, title: newTitle } },
       });
     }
 
@@ -50,19 +50,19 @@ export function BoardTitle({ dataRef }: { dataRef: BoardTitleFragment$key }) {
       onSubmit={handleSubmit}
       onBlur={() => ref.current?.requestSubmit()}
     >
-      <label className="sr-only" htmlFor="editBoardInput-name">
+      <label className="sr-only" htmlFor="editBoardInput-title">
         Title
       </label>
       <input
-        id="editBoardInput-name"
-        name="name"
+        id="editBoardInput-title"
+        name="title"
         className="block w-80 rounded-md border-transparent bg-slate-100 px-2
           py-1 text-2xl font-medium focus:border-slate-500 focus:bg-white
           focus:ring-0"
         placeholder="Enter a title"
         type="text"
         autoComplete="off"
-        defaultValue={name}
+        defaultValue={title}
         required
         autoFocus
       />
@@ -73,7 +73,7 @@ export function BoardTitle({ dataRef }: { dataRef: BoardTitleFragment$key }) {
       variant="ghost"
       onPress={() => setIsEditing(true)}
     >
-      <h1 className="inline text-2xl font-medium">{name}</h1>
+      <h1 className="inline text-2xl font-medium">{title}</h1>
     </Button>
   );
 }

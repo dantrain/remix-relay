@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2076bc2330eb7339a21aa85d9ae48f22>>
+ * @generated SignedSource<<c809d6ddf58aae474580f0788aa6d651>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type boardQuery$variables = {
 export type boardQuery$data = {
   readonly board: {
     readonly id: string;
-    readonly name: string;
+    readonly title: string;
     readonly " $fragmentSpreads": FragmentRefs<"BoardFragment" | "BoardTitleFragment">;
   };
   readonly viewer: {
@@ -66,7 +66,7 @@ v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "title",
   "storageKey": null
 },
 v5 = {
@@ -166,13 +166,7 @@ return {
                     "selections": [
                       (v1/*: any*/),
                       (v5/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "title",
-                        "storageKey": null
-                      },
+                      (v4/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -199,13 +193,7 @@ return {
                                 "selections": [
                                   (v1/*: any*/),
                                   (v5/*: any*/),
-                                  {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "text",
-                                    "storageKey": null
-                                  },
+                                  (v4/*: any*/),
                                   {
                                     "alias": null,
                                     "args": null,
@@ -239,16 +227,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "faffc12d55a5e1ceb45122be51128198",
+    "cacheID": "7271a02d1e79bf4910327c89a7aadea7",
     "id": null,
     "metadata": {},
     "name": "boardQuery",
     "operationKind": "query",
-    "text": "query boardQuery(\n  $id: ID!\n) {\n  viewer {\n    id\n  }\n  board(id: $id) {\n    id\n    name\n    ...BoardTitleFragment\n    ...BoardFragment\n  }\n}\n\nfragment BoardFragment on Board {\n  id\n  columnConnection {\n    edges {\n      node {\n        id\n        rank\n        ...ColumnFragment\n        itemConnection {\n          edges {\n            node {\n              id\n              rank\n              ...ItemFragment\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\nfragment BoardTitleFragment on Board {\n  id\n  name\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n  ...ColumnTitleFragment\n  itemConnection {\n    edges {\n      node {\n        id\n        rank\n      }\n    }\n  }\n}\n\nfragment ColumnTitleFragment on Column {\n  id\n  title\n}\n\nfragment ItemFragment on Item {\n  id\n  text\n  columnId\n}\n"
+    "text": "query boardQuery(\n  $id: ID!\n) {\n  viewer {\n    id\n  }\n  board(id: $id) {\n    id\n    title\n    ...BoardTitleFragment\n    ...BoardFragment\n  }\n}\n\nfragment BoardFragment on Board {\n  id\n  columnConnection {\n    edges {\n      node {\n        id\n        rank\n        ...ColumnFragment\n        itemConnection {\n          edges {\n            node {\n              id\n              rank\n              ...ItemFragment\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\nfragment BoardTitleFragment on Board {\n  id\n  title\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n  ...ColumnTitleFragment\n  itemConnection {\n    edges {\n      node {\n        id\n        rank\n      }\n    }\n  }\n}\n\nfragment ColumnTitleFragment on Column {\n  id\n  title\n}\n\nfragment ItemFragment on Item {\n  id\n  title\n  columnId\n}\n"
   }
 };
 })();
 
-(node as any).hash = "adc31eba3a5929bd9509c6d7304cc294";
+(node as any).hash = "f88ee49d070b9414e86dc3215f2f9a62";
 
 export default node;

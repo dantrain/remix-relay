@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<17a0e77ac3beae4962ba638fdde3d8c5>>
+ * @generated SignedSource<<401180e1cd7a23525d3a5c7bac364142>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,13 +14,13 @@ export type CreateItemCreateOneItemMutation$variables = {
   connections: ReadonlyArray<string>;
   id: string;
   rank: string;
-  text: string;
+  title: string;
 };
 export type CreateItemCreateOneItemMutation$data = {
   readonly createOneItem: {
     readonly id: string;
     readonly rank: string;
-    readonly text: string;
+    readonly title: string;
   };
 };
 export type CreateItemCreateOneItemMutation = {
@@ -52,7 +52,7 @@ v3 = {
 v4 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "text"
+  "name": "title"
 },
 v5 = [
   {
@@ -72,8 +72,8 @@ v5 = [
   },
   {
     "kind": "Variable",
-    "name": "text",
-    "variableName": "text"
+    "name": "title",
+    "variableName": "title"
   }
 ],
 v6 = {
@@ -102,7 +102,7 @@ v6 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "text",
+      "name": "title",
       "storageKey": null
     }
   ],
@@ -163,16 +163,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1a8e211361e2a628386181512d687bc7",
+    "cacheID": "53cb7b64180d3f54b60dbe38379c3a2a",
     "id": null,
     "metadata": {},
     "name": "CreateItemCreateOneItemMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateItemCreateOneItemMutation(\n  $id: ID!\n  $columnId: ID!\n  $text: String!\n  $rank: String!\n) {\n  createOneItem(id: $id, columnId: $columnId, text: $text, rank: $rank) {\n    id\n    rank\n    text\n  }\n}\n"
+    "text": "mutation CreateItemCreateOneItemMutation(\n  $id: ID!\n  $columnId: ID!\n  $title: String!\n  $rank: String!\n) {\n  createOneItem(id: $id, columnId: $columnId, title: $title, rank: $rank) {\n    id\n    rank\n    title\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "3f95fe0c9929d91e32b3a970b14b9508";
+(node as any).hash = "8985e98f4d2fcb7364fea68f1ffe156a";
 
 export default node;

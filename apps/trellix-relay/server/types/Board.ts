@@ -20,7 +20,7 @@ export const boards = pgTable(
   "boards",
   {
     id: varchar("id").primaryKey(),
-    name: text("name").notNull(),
+    title: text("title").notNull(),
     userId: uuid("user_id")
       .references(() => users.id, { onDelete: "cascade" })
       .notNull(),
@@ -39,7 +39,7 @@ export type Board = typeof boards.$inferSelect;
 export const Board = builder.node("Board", {
   id: { resolve: (_) => _.id },
   fields: (t) => ({
-    name: t.exposeString("name"),
+    title: t.exposeString("title"),
     createdAt: t.string({
       resolve: ({ createdAt }) => createdAt.toISOString(),
     }),
@@ -92,7 +92,7 @@ builder.mutationFields((t) => ({
         required: true,
         validate: { schema: z.string().cuid2() },
       }),
-      name: t.arg.string({
+      title: t.arg.string({
         required: true,
         validate: { schema: z.string().min(1).max(50) },
       }),
@@ -103,7 +103,7 @@ builder.mutationFields((t) => ({
           .insert(boards)
           .values({
             id: args.id.toString(),
-            name: args.name,
+            title: args.title,
             userId: user.id,
           })
           .returning(),
@@ -116,7 +116,7 @@ builder.mutationFields((t) => ({
     type: Board,
     args: {
       id: t.arg.id({ required: true }),
-      name: t.arg.string({
+      title: t.arg.string({
         required: true,
         validate: { schema: z.string().min(1).max(50) },
       }),
@@ -126,7 +126,7 @@ builder.mutationFields((t) => ({
         const [board] = await db((tx) =>
           tx
             .update(boards)
-            .set({ name: args.name })
+            .set({ title: args.title })
             .where(
               and(
                 eq(boards.id, fromGlobalId(args.id)),

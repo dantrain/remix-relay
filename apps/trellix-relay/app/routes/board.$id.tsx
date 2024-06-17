@@ -20,7 +20,7 @@ const query = graphql`
     }
     board(id: $id) {
       id
-      name
+      title
       ...BoardTitleFragment
       ...BoardFragment
     }
@@ -28,7 +28,7 @@ const query = graphql`
 `;
 
 export const meta = metaQuery<boardQuery>(({ data }) => [
-  { title: `${data.board.name} | Trellix Relay` },
+  { title: `${data.board.title} | Trellix Relay` },
 ]);
 
 const getVars = (params: Params<string>) => ({ id: params.id ?? "" });

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5c5e68d3e7323702a36649b006f9f302>>
+ * @generated SignedSource<<4a7e57f10b23038bb226a7c58d0966b4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -110,7 +110,7 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "text",
+            "name": "title",
             "storageKey": null
           }
         ],
@@ -119,12 +119,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "95ebb5464cfd150259e84e6e6843b2f4",
+    "cacheID": "847246ffd28f92f753250c2d0cf178fb",
     "id": null,
     "metadata": {},
     "name": "ItemSubscription",
     "operationKind": "subscription",
-    "text": "subscription ItemSubscription(\n  $id: ID!\n) {\n  item(id: $id) {\n    rank\n    columnId\n    ...ItemFragment\n    id\n  }\n}\n\nfragment ItemFragment on Item {\n  id\n  text\n  columnId\n}\n"
+    "text": "subscription ItemSubscription(\n  $id: ID!\n) {\n  item(id: $id) {\n    rank\n    columnId\n    ...ItemFragment\n    id\n  }\n}\n\nfragment ItemFragment on Item {\n  id\n  title\n  columnId\n}\n"
   }
 };
 })();

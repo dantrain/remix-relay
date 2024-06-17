@@ -3,7 +3,7 @@ import { GripVerticalIcon } from "lucide-react";
 import { HTMLAttributes, forwardRef, useEffect } from "react";
 
 export type HandleProps = {
-  dragOverlay: boolean;
+  dragOverlay?: boolean;
 } & HTMLAttributes<HTMLButtonElement>;
 
 export const Handle = forwardRef<HTMLButtonElement, HandleProps>(

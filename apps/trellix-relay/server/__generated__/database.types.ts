@@ -70,6 +70,7 @@ export type Database = {
           id: string
           rank: string
           title: string
+          updated_by: string
           user_id: string
         }
         Insert: {
@@ -78,6 +79,7 @@ export type Database = {
           id: string
           rank: string
           title: string
+          updated_by: string
           user_id: string
         }
         Update: {
@@ -86,6 +88,7 @@ export type Database = {
           id?: string
           rank?: string
           title?: string
+          updated_by?: string
           user_id?: string
         }
         Relationships: [
@@ -112,6 +115,7 @@ export type Database = {
           id: string
           rank: string
           text: string
+          updated_by: string
           user_id: string
         }
         Insert: {
@@ -120,6 +124,7 @@ export type Database = {
           id: string
           rank: string
           text: string
+          updated_by: string
           user_id: string
         }
         Update: {
@@ -128,6 +133,7 @@ export type Database = {
           id?: string
           rank?: string
           text?: string
+          updated_by?: string
           user_id?: string
         }
         Relationships: [

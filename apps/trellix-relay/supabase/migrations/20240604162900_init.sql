@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS "boards" (
 	"id" varchar PRIMARY KEY NOT NULL,
-	"name" text NOT NULL,
+	"title" text NOT NULL,
 	"user_id" uuid NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL
 );

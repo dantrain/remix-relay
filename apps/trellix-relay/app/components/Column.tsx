@@ -107,7 +107,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
             )}
           >
             <DeleteColumn id={id} connectionId={connectionId} title={title} />
-            <Handle dragOverlay={dragOverlay} {...handleProps} />
+            <Handle {...handleProps} dragOverlay={dragOverlay} />
           </div>
         </div>
         <div className="flex-1 overflow-y-auto" ref={scrollContainerRef}>
