@@ -67,7 +67,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
     useSubscribe({ subscription, variables: { id } });
 
     const { active } = useDndContext();
-    const [isCreating, setIsCreating] = useState(true);
+    const [isCreating, setIsCreating] = useState(false);
 
     const { isFocusVisible } = useFocusVisible({ isTextInput: true });
 

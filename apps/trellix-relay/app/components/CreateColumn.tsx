@@ -6,7 +6,7 @@ import { getNextRank } from "lib/rank";
 import { PlusIcon } from "lucide-react";
 import { FormEvent, useContext, useRef, useState } from "react";
 import { graphql, useMutation } from "react-relay";
-import { useOnClickOutside } from "usehooks-ts";
+import { useMediaQuery, useOnClickOutside } from "usehooks-ts";
 import { Button } from "@remix-relay/ui";
 import { ViewerIdContext } from "~/lib/viewer-id-context";
 import { CreateColumnCreateOneColumnMutation } from "./__generated__/CreateColumnCreateOneColumnMutation.graphql";
@@ -49,7 +49,8 @@ export function CreateColumn({
   connectionId,
   lastColumn,
 }: CreateColumnProps) {
-  const [isCreating, setIsCreating] = useState(!lastColumn);
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const [isCreating, setIsCreating] = useState(!lastColumn && isDesktop);
   const [commit] = useMutation<CreateColumnCreateOneColumnMutation>(mutation);
   const viewerId = exists(useContext(ViewerIdContext));
 
@@ -57,7 +58,11 @@ export function CreateColumn({
   const inputRef = useRef<HTMLInputElement>(null);
 
   useOnClickOutside(formRef, () => setIsCreating(false), "mousedown");
-  useOnClickOutside(formRef, () => setIsCreating(false), "focusin");
+  useOnClickOutside(
+    formRef,
+    () => setIsCreating(false),
+    isDesktop ? "focusin" : "mousedown",
+  );
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -89,10 +94,31 @@ export function CreateColumn({
         },
       });
 
-      requestIdleCallback(() => {
-        formRef.current?.reset();
-        inputRef.current?.focus();
-      });
+      let tempInputEl: HTMLInputElement | undefined;
+
+      if (!isDesktop) {
+        tempInputEl = document.createElement("input");
+        tempInputEl.style.position = "absolute";
+        tempInputEl.style.top = "0";
+        tempInputEl.style.left = "0";
+        tempInputEl.style.height = "0";
+        tempInputEl.style.opacity = "0";
+        document.body.appendChild(tempInputEl);
+        tempInputEl.focus();
+      }
+
+      setTimeout(
+        () => {
+          formRef.current?.reset();
+          inputRef.current?.focus();
+
+          if (tempInputEl) {
+            inputRef.current?.click();
+            document.body.removeChild(tempInputEl);
+          }
+        },
+        isDesktop ? 0 : 100,
+      );
     }
   };
 

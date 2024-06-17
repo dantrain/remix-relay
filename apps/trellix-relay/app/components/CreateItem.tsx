@@ -57,7 +57,11 @@ export function CreateItem({
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   useOnClickOutside(formRef, () => setIsCreating(false), "mousedown");
-  useOnClickOutside(formRef, () => setIsCreating(false), "focusin");
+  useOnClickOutside(
+    formRef,
+    () => setIsCreating(false),
+    isDesktop ? "focusin" : "mousedown",
+  );
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -86,11 +90,29 @@ export function CreateItem({
         },
       });
 
+      let tempInputEl: HTMLInputElement | undefined;
+
+      if (!isDesktop) {
+        tempInputEl = document.createElement("input");
+        tempInputEl.style.position = "absolute";
+        tempInputEl.style.top = "0";
+        tempInputEl.style.left = "0";
+        tempInputEl.style.height = "0";
+        tempInputEl.style.opacity = "0";
+        document.body.appendChild(tempInputEl);
+        tempInputEl.focus();
+      }
+
       setTimeout(
         () => {
           scrollToBottom();
           formRef.current?.reset();
           textAreaRef.current?.focus();
+
+          if (tempInputEl) {
+            textAreaRef.current?.click();
+            document.body.removeChild(tempInputEl);
+          }
         },
         isDesktop ? 0 : 100,
       );
