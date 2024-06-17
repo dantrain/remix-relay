@@ -42,12 +42,14 @@ type CreateColumnProps = {
   boardId: string;
   connectionId: string;
   lastColumn?: { rank: string };
+  scrollToRight: () => void;
 };
 
 export function CreateColumn({
   boardId,
   connectionId,
   lastColumn,
+  scrollToRight,
 }: CreateColumnProps) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [isCreating, setIsCreating] = useState(!lastColumn && isDesktop);
@@ -61,7 +63,7 @@ export function CreateColumn({
   useOnClickOutside(
     formRef,
     () => setIsCreating(false),
-    isDesktop ? "focusin" : "mousedown",
+    isDesktop ? "focusin" : "touchstart",
   );
 
   const handleSubmit = (e: FormEvent) => {
@@ -109,6 +111,7 @@ export function CreateColumn({
 
       setTimeout(
         () => {
+          scrollToRight();
           formRef.current?.reset();
           inputRef.current?.focus();
 

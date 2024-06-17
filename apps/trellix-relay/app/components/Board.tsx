@@ -327,6 +327,15 @@ export function Board({ dataRef }: BoardProps) {
   const getColumnRef = (id: UniqueIdentifier) =>
     (columnRefs.current[id] ??= createRef<HTMLDivElement>());
 
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  const scrollToRight = () => {
+    rootRef.current?.scrollTo({
+      left: rootRef.current.scrollWidth,
+      behavior: "instant",
+    });
+  };
+
   return (
     <DndContext
       autoScroll={{ interval: isDesktop ? Number.MIN_VALUE : 5 }}
@@ -525,56 +534,63 @@ export function Board({ dataRef }: BoardProps) {
       }}
       onDragCancel={onDragCancel}
     >
-      <div className="grid min-h-0 grid-flow-col gap-3">
-        <SortableContext
-          items={[...containers]}
-          strategy={horizontalListSortingStrategy}
-        >
-          <TransitionGroup component={null}>
-            {containers.map((containerId) => {
-              const container = exists(columns[containerId]);
-              return (
-                <Transition
-                  key={containerId}
-                  nodeRef={getColumnRef(containerId)}
-                  timeout={{ exit: 200 }}
-                >
-                  {(state) => (
-                    <DroppableColumn
-                      id={containerId}
-                      ref={getColumnRef(containerId)}
-                      items={container.items}
-                      dataRef={container.dataRef}
-                      connectionId={columnConnection.__id}
-                      hidden={state === "exiting"}
-                    >
-                      <SortableContext
+      <div
+        className="flex min-h-0 flex-1 flex-col items-start overflow-x-auto p-2
+          sm:p-4 sm:pt-2"
+        ref={rootRef}
+      >
+        <div className="grid min-h-0 grid-flow-col gap-3">
+          <SortableContext
+            items={[...containers]}
+            strategy={horizontalListSortingStrategy}
+          >
+            <TransitionGroup component={null}>
+              {containers.map((containerId) => {
+                const container = exists(columns[containerId]);
+                return (
+                  <Transition
+                    key={containerId}
+                    nodeRef={getColumnRef(containerId)}
+                    timeout={{ exit: 200 }}
+                  >
+                    {(state) => (
+                      <DroppableColumn
+                        id={containerId}
+                        ref={getColumnRef(containerId)}
                         items={container.items}
-                        strategy={verticalListSortingStrategy}
+                        dataRef={container.dataRef}
+                        connectionId={columnConnection.__id}
+                        hidden={state === "exiting"}
                       >
-                        {container.items.map((item) => {
-                          return (
-                            <SortableItem
-                              key={item.id}
-                              id={item.id}
-                              dataRef={item.dataRef}
-                              connectionId={container.itemConnectionId}
-                            />
-                          );
-                        })}
-                      </SortableContext>
-                    </DroppableColumn>
-                  )}
-                </Transition>
-              );
-            })}
-          </TransitionGroup>
-        </SortableContext>
-        <CreateColumn
-          connectionId={columnConnection.__id}
-          boardId={boardId}
-          lastColumn={last(columnConnection.edges)?.node}
-        />
+                        <SortableContext
+                          items={container.items}
+                          strategy={verticalListSortingStrategy}
+                        >
+                          {container.items.map((item) => {
+                            return (
+                              <SortableItem
+                                key={item.id}
+                                id={item.id}
+                                dataRef={item.dataRef}
+                                connectionId={container.itemConnectionId}
+                              />
+                            );
+                          })}
+                        </SortableContext>
+                      </DroppableColumn>
+                    )}
+                  </Transition>
+                );
+              })}
+            </TransitionGroup>
+          </SortableContext>
+          <CreateColumn
+            connectionId={columnConnection.__id}
+            boardId={boardId}
+            lastColumn={last(columnConnection.edges)?.node}
+            scrollToRight={scrollToRight}
+          />
+        </div>
       </div>
       {isClient
         ? createPortal(

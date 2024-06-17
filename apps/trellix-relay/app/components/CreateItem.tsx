@@ -60,7 +60,7 @@ export function CreateItem({
   useOnClickOutside(
     formRef,
     () => setIsCreating(false),
-    isDesktop ? "focusin" : "mousedown",
+    isDesktop ? "focusin" : "touchstart",
   );
 
   const handleSubmit = (e: FormEvent) => {

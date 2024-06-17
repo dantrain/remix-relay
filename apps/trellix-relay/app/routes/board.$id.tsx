@@ -56,12 +56,7 @@ export default function BoardPage() {
           <div className="self-start px-2 pt-3 sm:px-4 sm:pt-5">
             <BoardTitle dataRef={board} />
           </div>
-          <div
-            className="flex min-h-0 flex-1 flex-col items-start overflow-x-auto
-              p-2 sm:p-4 sm:pt-2"
-          >
-            <Board dataRef={board} />
-          </div>
+          <Board dataRef={board} />
         </main>
       </div>
     </ViewerIdContext.Provider>
