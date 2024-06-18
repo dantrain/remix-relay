@@ -47,18 +47,18 @@ export default function BoardPage() {
 
   return (
     <ViewerIdContext.Provider value={fromGlobalId(viewer.id)}>
-      <div className="fixed inset-0 flex flex-col">
+      <div className="fixed left-0 right-0 top-0 z-30">
         <Header />
-        <main
-          className="flex min-h-0 min-w-[min(100dvw,1280px)] max-w-[100dvw]
-            flex-1 flex-col self-center"
-        >
-          <div className="self-start px-2 pt-3 sm:px-4 sm:pt-5">
-            <BoardTitle dataRef={board} />
-          </div>
-          <Board dataRef={board} />
-        </main>
       </div>
+      <main
+        className="mx-auto flex h-[100dvh] max-w-[min(100dvw,1280px)] flex-col
+          pt-[74px] sm:pt-[90px]"
+      >
+        <div className="self-start px-2 pt-3 sm:px-4 sm:pt-5">
+          <BoardTitle dataRef={board} />
+        </div>
+        <Board dataRef={board} />
+      </main>
     </ViewerIdContext.Provider>
   );
 }

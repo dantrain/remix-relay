@@ -26,9 +26,11 @@ export default function IndexPage() {
   const [data] = useLoaderQuery<IndexQuery>(query);
 
   return (
-    <div className="fixed inset-0 flex flex-col">
-      <Header />
-      <div className="flex-1 overflow-y-auto">
+    <>
+      <div className="fixed left-0 right-0 top-0">
+        <Header />
+      </div>
+      <div className="flex-1 overflow-y-auto pt-[74px] sm:pt-[90px]">
         <main className="col-start-2 mx-auto max-w-7xl p-4 pt-5 sm:py-8">
           <h2 className="mb-4 text-lg font-bold uppercase text-slate-500">
             Your Boards
@@ -37,6 +39,6 @@ export default function IndexPage() {
           <BoardList dataRef={data.viewer} />
         </main>
       </div>
-    </div>
+    </>
   );
 }
