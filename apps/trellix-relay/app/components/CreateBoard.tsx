@@ -88,7 +88,7 @@ export default function CreateBoard({ connectionId }: CreateBoardProps) {
             type="text"
             autoComplete="off"
             // eslint-disable-next-line jsx-a11y/no-autofocus
-            autoFocus
+            autoFocus={isDesktop}
             required
           />
 
