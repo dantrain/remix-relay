@@ -164,9 +164,10 @@ type Columns = Record<
 
 type BoardProps = {
   dataRef: BoardFragment$key;
+  scrollToRight: () => void;
 };
 
-export function Board({ dataRef }: BoardProps) {
+export function Board({ dataRef, scrollToRight }: BoardProps) {
   const isClient = useIsClient();
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -326,15 +327,6 @@ export function Board({ dataRef }: BoardProps) {
 
   const getColumnRef = (id: UniqueIdentifier) =>
     (columnRefs.current[id] ??= createRef<HTMLDivElement>());
-
-  const rootRef = useRef<HTMLDivElement>(null);
-
-  const scrollToRight = () => {
-    rootRef.current?.scrollTo({
-      left: rootRef.current.scrollWidth,
-      behavior: "instant",
-    });
-  };
 
   return (
     <DndContext
@@ -534,12 +526,11 @@ export function Board({ dataRef }: BoardProps) {
       }}
       onDragCancel={onDragCancel}
     >
-      <div
-        className="flex min-h-0 flex-1 flex-col items-start p-2
-          pb-[calc(0.5rem+env(safe-area-inset-bottom))] sm:p-4 sm:pt-2"
-        ref={rootRef}
-      >
-        <div className="grid min-h-0 grid-flow-col gap-3">
+      <div className="flex min-h-0 w-fit flex-1 flex-col items-start">
+        <div
+          className="grid min-h-0 grid-flow-col gap-3 p-2
+            pb-[calc(0.5rem+env(safe-area-inset-bottom))] sm:p-4 sm:pt-2"
+        >
           <SortableContext
             items={[...containers]}
             strategy={horizontalListSortingStrategy}

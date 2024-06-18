@@ -2,6 +2,7 @@ import { LoaderFunctionArgs } from "@remix-run/node";
 import { ClientLoaderFunctionArgs, Params, useParams } from "@remix-run/react";
 import exists from "lib/exists";
 import { fromGlobalId } from "lib/global-id";
+import { useRef } from "react";
 import { graphql } from "react-relay";
 import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
 import { Board } from "~/components/Board";
@@ -46,6 +47,15 @@ export default function BoardPage() {
 
   useWindowVisible(() => refetch({ id: exists(params.id) }));
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  const scrollToRight = () => {
+    ref.current?.scrollTo({
+      left: ref.current.scrollWidth,
+      behavior: "instant",
+    });
+  };
+
   return (
     <ViewerIdContext.Provider value={fromGlobalId(viewer.id)}>
       <div className="fixed left-0 right-0 top-0 z-30">
@@ -64,6 +74,7 @@ export default function BoardPage() {
           <div
             className="flex min-w-[min(100dvw,1280px)] max-w-[100dvw] flex-1
               flex-col overflow-x-auto"
+            ref={ref}
           >
             <div
               className="not-sr-only invisible self-start px-2 pt-3 sm:px-4
@@ -74,7 +85,7 @@ export default function BoardPage() {
             <div className="fixed self-start px-2 pt-3 sm:px-4 sm:pt-5">
               <BoardTitle dataRef={board} />
             </div>
-            <Board dataRef={board} />
+            <Board dataRef={board} scrollToRight={scrollToRight} />
           </div>
         </Suspense>
       </main>
