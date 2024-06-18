@@ -209,7 +209,7 @@ export const Item = memo(
           <div
             className={cva(
               `group flex flex-grow touch-manipulation select-none items-start
-              gap-2 rounded-md border pr-1 outline-none sm:pr-2`,
+              rounded-md border pr-1 outline-none sm:pr-2`,
               {
                 variants: {
                   dragging: { true: "invisible" },
@@ -220,7 +220,7 @@ export const Item = memo(
                   isFocusVisible: { true: "ring-sky-500" },
                   isEditing: {
                     true: "border-[#afbccc] bg-slate-300",
-                    false: "border-slate-200 bg-white",
+                    false: "gap-2 border-slate-200 bg-white",
                   },
                 },
                 compoundVariants: [
@@ -268,8 +268,8 @@ export const Item = memo(
                   ref={textAreaRef}
                   name="title"
                   className="block w-full resize-none rounded-md border-none
-                    bg-white p-0 py-1 pl-2 shadow-[inset_0_0_0_1px]
-                    shadow-slate-500 focus:ring-0"
+                    bg-white px-2 py-1 shadow-[inset_0_0_0_1px] shadow-slate-500
+                    focus:ring-0"
                   onKeyDown={(event) => {
                     if (event.key === "Enter") {
                       event.preventDefault();

@@ -69,11 +69,11 @@ export function BoardTitle({ dataRef }: { dataRef: BoardTitleFragment$key }) {
     </form>
   ) : (
     <Button
-      className="border border-transparent px-2 py-1"
+      className="border border-transparent px-2 py-1 text-left"
       variant="ghost"
       onPress={() => setIsEditing(true)}
     >
-      <h1 className="inline text-2xl font-medium">{title}</h1>
+      <h1 className="line-clamp-1 text-2xl font-medium">{title}</h1>
     </Button>
   );
 }
