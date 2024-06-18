@@ -22,7 +22,7 @@ const query = graphql`
     board(id: $id) {
       id
       title
-      ...BoardTitleFragment
+      ...BoardTitleFragment @defer
       ...BoardFragment @defer
     }
   }
@@ -52,20 +52,24 @@ export default function BoardPage() {
         <Header />
       </div>
       <main
-        className="mx-auto flex h-[100dvh] max-w-[min(100dvw,1280px)] flex-col
-          pt-[74px] sm:pt-[90px]"
+        className="flex h-[100dvh] flex-col items-center pt-[74px] sm:pt-[90px]"
       >
-        <div className="self-start px-2 pt-3 sm:px-4 sm:pt-5">
-          <BoardTitle dataRef={board} />
-        </div>
         <Suspense
           fallback={
-            <div className="animate-fade mt-8 flex justify-center">
+            <div className="animate-fade mt-12 flex justify-center">
               <Spinner />
             </div>
           }
         >
-          <Board dataRef={board} />
+          <div
+            className="flex min-w-[min(100dvw,1280px)] max-w-[100dvw] flex-1
+              flex-col overflow-x-auto"
+          >
+            <div className="self-start px-2 pt-3 sm:px-4 sm:pt-5">
+              <BoardTitle dataRef={board} />
+            </div>
+            <Board dataRef={board} />
+          </div>
         </Suspense>
       </main>
     </ViewerIdContext.Provider>

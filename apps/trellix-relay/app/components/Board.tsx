@@ -535,7 +535,7 @@ export function Board({ dataRef }: BoardProps) {
       onDragCancel={onDragCancel}
     >
       <div
-        className="flex min-h-0 flex-1 flex-col items-start overflow-x-auto p-2
+        className="flex min-h-0 flex-1 flex-col items-start p-2
           pb-[calc(0.5rem+env(safe-area-inset-bottom))] sm:p-4 sm:pt-2"
         ref={rootRef}
       >

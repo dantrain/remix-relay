@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<83e5d230ba422bd53d1c05f68abd3fc9>>
+ * @generated SignedSource<<9de19b16f3eeeb21470e7e9cebf3d545>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -107,9 +107,14 @@ return {
           (v1/*: any*/),
           (v4/*: any*/),
           {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "BoardTitleFragment"
+            "kind": "Defer",
+            "selections": [
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "BoardTitleFragment"
+              }
+            ]
           },
           {
             "kind": "Defer",
@@ -145,6 +150,15 @@ return {
         "selections": [
           (v1/*: any*/),
           (v4/*: any*/),
+          {
+            "if": null,
+            "kind": "Defer",
+            "label": "boardQuery$defer$BoardTitleFragment",
+            "selections": [
+              (v1/*: any*/),
+              (v4/*: any*/)
+            ]
+          },
           {
             "if": null,
             "kind": "Defer",
@@ -240,16 +254,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "73c6cd80d40fc07b4815ff0a06135ad5",
+    "cacheID": "16e134056eca19b7b09cbb71b56d771e",
     "id": null,
     "metadata": {},
     "name": "boardQuery",
     "operationKind": "query",
-    "text": "query boardQuery(\n  $id: ID!\n) {\n  viewer {\n    id\n  }\n  board(id: $id) {\n    id\n    title\n    ...BoardTitleFragment\n    ...BoardFragment @defer(label: \"boardQuery$defer$BoardFragment\")\n  }\n}\n\nfragment BoardFragment on Board {\n  id\n  columnConnection {\n    edges {\n      node {\n        id\n        rank\n        ...ColumnFragment\n        itemConnection {\n          edges {\n            node {\n              id\n              rank\n              ...ItemFragment\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\nfragment BoardTitleFragment on Board {\n  id\n  title\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n  ...ColumnTitleFragment\n  itemConnection {\n    edges {\n      node {\n        id\n        rank\n      }\n    }\n  }\n}\n\nfragment ColumnTitleFragment on Column {\n  id\n  title\n}\n\nfragment ItemFragment on Item {\n  id\n  title\n  columnId\n}\n"
+    "text": "query boardQuery(\n  $id: ID!\n) {\n  viewer {\n    id\n  }\n  board(id: $id) {\n    id\n    title\n    ...BoardTitleFragment @defer(label: \"boardQuery$defer$BoardTitleFragment\")\n    ...BoardFragment @defer(label: \"boardQuery$defer$BoardFragment\")\n  }\n}\n\nfragment BoardFragment on Board {\n  id\n  columnConnection {\n    edges {\n      node {\n        id\n        rank\n        ...ColumnFragment\n        itemConnection {\n          edges {\n            node {\n              id\n              rank\n              ...ItemFragment\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\nfragment BoardTitleFragment on Board {\n  id\n  title\n}\n\nfragment ColumnFragment on Column {\n  id\n  title\n  ...ColumnTitleFragment\n  itemConnection {\n    edges {\n      node {\n        id\n        rank\n      }\n    }\n  }\n}\n\nfragment ColumnTitleFragment on Column {\n  id\n  title\n}\n\nfragment ItemFragment on Item {\n  id\n  title\n  columnId\n}\n"
   }
 };
 })();
 
-(node as any).hash = "556c10981a9d57c59a7761088ce5b6cc";
+(node as any).hash = "6618b2967673055a5162b5b8a406fce4";
 
 export default node;
