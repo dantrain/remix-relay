@@ -132,6 +132,7 @@ export const Item = memo(
       });
 
       const [isEditing, setIsEditing] = useState(false);
+      const [isMenuOpen, setIsMenuOpen] = useState(false);
 
       const textAreaRef = useRef<HTMLTextAreaElement>(null);
       const formRef = useRef<HTMLFormElement>(null);
@@ -208,8 +209,7 @@ export const Item = memo(
           <div
             className={cva(
               `group flex flex-grow touch-manipulation select-none items-start
-              gap-2 rounded-md border border-slate-200 bg-white pr-1
-              outline-none sm:pr-2`,
+              gap-2 rounded-md border pr-1 outline-none sm:pr-2`,
               {
                 variants: {
                   dragging: { true: "invisible" },
@@ -218,7 +218,10 @@ export const Item = memo(
                     false: "cursor-default shadow-sm",
                   },
                   isFocusVisible: { true: "ring-sky-500" },
-                  isEditing: { true: "border-slate-500" },
+                  isEditing: {
+                    true: "border-[#afbccc] bg-slate-300",
+                    false: "border-slate-200 bg-white",
+                  },
                 },
                 compoundVariants: [
                   {
@@ -245,14 +248,14 @@ export const Item = memo(
               },
             )({ dragging, dragOverlay, isFocusVisible, isEditing })}
             style={{ WebkitTapHighlightColor: "transparent" } as CSSProperties}
-            {...(isEditing ? [] : listeners)}
+            {...(isEditing || isMenuOpen ? [] : listeners)}
             {...props}
             role="button"
             tabIndex={0}
           >
             {isEditing ? (
               <form
-                className="flex-1"
+                className="flex-1 p-1 pr-0"
                 ref={formRef}
                 onSubmit={handleSubmit}
                 onBlur={() => formRef.current?.requestSubmit()}
@@ -264,8 +267,9 @@ export const Item = memo(
                   id="editItemInput-title"
                   ref={textAreaRef}
                   name="title"
-                  className="block w-full resize-none rounded-md border-none p-0
-                    py-2 pl-3 focus:ring-0"
+                  className="block w-full resize-none rounded-md border-none
+                    bg-white p-0 py-1 pl-2 shadow-[inset_0_0_0_1px]
+                    shadow-slate-500 focus:ring-0"
                   onKeyDown={(event) => {
                     if (event.key === "Enter") {
                       event.preventDefault();
@@ -283,7 +287,7 @@ export const Item = memo(
             ) : (
               <div className="flex-1 self-center py-2 pl-3">{title}</div>
             )}
-            <DropdownMenu>
+            <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <DropdownMenuTrigger asChild>
                 <Button
                   className={cx(
@@ -317,7 +321,10 @@ export const Item = memo(
                   <Button
                     className="w-full"
                     variant="ghost"
-                    onPress={() => setIsEditing(true)}
+                    onPress={() => {
+                      setIsEditing(true);
+                      setIsMenuOpen(false);
+                    }}
                   >
                     <PencilIcon className="mr-2 w-4" />
                     Edit
