@@ -3,10 +3,11 @@ import { ClientLoaderFunctionArgs, Params, useParams } from "@remix-run/react";
 import exists from "lib/exists";
 import { fromGlobalId } from "lib/global-id";
 import { graphql } from "react-relay";
-import { metaQuery, useLoaderQuery } from "@remix-relay/react";
+import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
 import { Board } from "~/components/Board";
 import { BoardTitle } from "~/components/BoardTitle";
 import Header from "~/components/Header";
+import { Spinner } from "~/components/Spinner";
 import useWindowVisible from "~/hooks/useWindowVisible";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
@@ -22,7 +23,7 @@ const query = graphql`
       id
       title
       ...BoardTitleFragment
-      ...BoardFragment
+      ...BoardFragment @defer
     }
   }
 `;
@@ -57,7 +58,15 @@ export default function BoardPage() {
         <div className="self-start px-2 pt-3 sm:px-4 sm:pt-5">
           <BoardTitle dataRef={board} />
         </div>
-        <Board dataRef={board} />
+        <Suspense
+          fallback={
+            <div className="animate-fade mt-8 flex justify-center">
+              <Spinner />
+            </div>
+          }
+        >
+          <Board dataRef={board} />
+        </Suspense>
       </main>
     </ViewerIdContext.Provider>
   );
