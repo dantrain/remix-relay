@@ -47,7 +47,7 @@ export default function BoardPage() {
 
   return (
     <ViewerIdContext.Provider value={fromGlobalId(viewer.id)}>
-      <div className="flex h-[100dvh] flex-col">
+      <div className="fixed inset-0 flex flex-col">
         <Header />
         <main
           className="flex min-h-0 min-w-[min(100dvw,1280px)] max-w-[100dvw]

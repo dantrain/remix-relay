@@ -173,10 +173,10 @@ export function CreateColumn({
   ) : (
     <div
       className={cx(
-        "w-72 self-start sm:w-80",
+        "self-start",
         !lastColumn &&
-          `flex h-24 items-center justify-center rounded-md border border-dashed
-            border-slate-400`,
+          `flex h-24 w-72 items-center justify-center rounded-md border
+            border-dashed border-slate-400 sm:w-80`,
       )}
     >
       <Button
@@ -185,7 +185,10 @@ export function CreateColumn({
           !lastColumn && "m-2",
         )}
         variant={lastColumn ? "ghost" : "sky"}
-        onPress={() => setIsCreating(true)}
+        onPress={() => {
+          setIsCreating(true);
+          setTimeout(() => scrollToRight(), 0);
+        }}
       >
         <PlusIcon className="not-sr-only w-4" />
         Add column
