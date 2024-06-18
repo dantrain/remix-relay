@@ -26,15 +26,17 @@ export default function IndexPage() {
   const [data] = useLoaderQuery<IndexQuery>(query);
 
   return (
-    <>
+    <div className="fixed inset-0 flex flex-col">
       <Header />
-      <main className="mx-auto max-w-7xl p-4 pt-5 sm:py-8">
-        <h2 className="mb-4 text-lg font-bold uppercase text-slate-500">
-          Your Boards
-        </h2>
+      <div className="flex-1 overflow-y-auto">
+        <main className="col-start-2 mx-auto max-w-7xl p-4 pt-5 sm:py-8">
+          <h2 className="mb-4 text-lg font-bold uppercase text-slate-500">
+            Your Boards
+          </h2>
 
-        <BoardList dataRef={data.viewer} />
-      </main>
-    </>
+          <BoardList dataRef={data.viewer} />
+        </main>
+      </div>
+    </div>
   );
 }

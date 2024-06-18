@@ -11,6 +11,7 @@ import {
   ResponsiveDialogClose,
   ResponsiveDialogFooter,
 } from "./ResponsiveDialog";
+import { Spinner } from "./Spinner";
 import { BoardCardDeleteOneBoardMutation } from "./__generated__/BoardCardDeleteOneBoardMutation.graphql";
 import { BoardCardFragment$key } from "./__generated__/BoardCardFragment.graphql";
 
@@ -57,14 +58,29 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
     <div className="group relative">
       <NavLink
         to={`/board/${fromGlobalId(id)}`}
-        className="ring-offset-3 flex aspect-video select-none items-start gap-3
+        className="ring-offset-3 flex aspect-[3/1] select-none items-start gap-3
           rounded-md bg-slate-100 p-3 font-bold shadow-sm ring-sky-500
           ring-offset-2 ring-offset-slate-200 focus:outline-none
-          focus-visible:ring-2 group-hover:shadow-md [&.pending]:bg-[#e9eef4]"
+          focus-visible:ring-2 sm:aspect-video sm:group-hover:shadow-md
+          [&.pending]:shadow-md"
         prefetch="viewport"
       >
-        <div className="flex-1 text-xl sm:text-base">{title}</div>
-        <div className="h-full w-8" />
+        {({ isPending }) => (
+          <>
+            <div className="flex-1 text-lg sm:text-base">{title}</div>
+            <div className="h-full w-8" />
+            {isPending ? (
+              <div
+                className="absolute inset-0 flex items-center justify-center
+                  rounded-md bg-slate-400/40"
+              >
+                <div className="animate-fade">
+                  <Spinner />
+                </div>
+              </div>
+            ) : null}
+          </>
+        )}
       </NavLink>
       <ResponsiveDialog
         open={dialogOpen}
