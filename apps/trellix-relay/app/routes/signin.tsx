@@ -5,6 +5,7 @@ import type { Provider } from "@supabase/supabase-js";
 import { useState } from "react";
 import { Button } from "@remix-relay/ui";
 import { GitHubIcon } from "~/components/Icons";
+import { Logo } from "~/components/Logo";
 import { Spinner } from "~/components/Spinner";
 
 export const meta: MetaFunction = () => [{ title: "Sign in · Trellix Relay" }];
@@ -57,7 +58,7 @@ export default function SignIn() {
         text-slate-100"
     >
       <div className="col-start-2 row-start-2 p-4">
-        <img src="/logo.svg" alt="react-relay logo" />
+        <Logo />
         <div className="mb-12 flex flex-col gap-4">
           <p>
             This is a demo app to show off the features of{" "}
