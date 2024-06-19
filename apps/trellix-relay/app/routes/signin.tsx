@@ -53,10 +53,11 @@ export default function SignIn() {
   return (
     <main
       className="grid min-h-[100dvh] grid-cols-[1fr_minmax(auto,32rem)_1fr]
-        grid-rows-[minmax(100px,1fr)_auto_2fr] bg-slate-900 text-lg
+        grid-rows-[minmax(80px,1fr)_auto_3fr] bg-slate-900 text-lg
         text-slate-100"
     >
       <div className="col-start-2 row-start-2 p-4">
+        <img src="/logo.svg" alt="react-relay logo" />
         <div className="mb-12 flex flex-col gap-4">
           <p>
             This is a demo app to show off the features of{" "}
