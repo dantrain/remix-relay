@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import type { Config } from "tailwindcss";
 import sharedConfig from "@remix-relay/tailwind-config";
 
@@ -30,6 +31,13 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/forms")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/forms"),
+    require("tailwind-scrollbar")({
+      nocompatible: true,
+      // preferredStrategy: "pseudoelements",
+    }),
+  ],
   presets: [sharedConfig],
 } satisfies Config;

@@ -113,7 +113,13 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
             <Handle {...handleProps} dragOverlay={dragOverlay} />
           </div>
         </div>
-        <div className="flex-1 overflow-y-auto" ref={scrollContainerRef}>
+        <div
+          className="sm:scrollbar-thin sm:scrollbar-track-slate-100
+            sm:scrollbar-thumb-slate-400 sm:scrollbar-thumb-rounded-full
+            sm:hover:scrollbar-thumb-slate-500
+            sm:active:scrollbar-thumb-slate-500 flex-1 overflow-y-auto"
+          ref={scrollContainerRef}
+        >
           <AutoHeight duration={isCreating ? 0 : 200}>
             <ul className="flex flex-col gap-2 px-2">{children}</ul>
           </AutoHeight>
