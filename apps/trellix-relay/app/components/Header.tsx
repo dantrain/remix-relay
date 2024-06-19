@@ -1,6 +1,7 @@
 import { NavLink } from "@remix-run/react";
 import { LogOutIcon } from "lucide-react";
 import { Button } from "@remix-relay/ui";
+import { GitHubIcon } from "./Icons";
 
 export default function Header() {
   return (
@@ -13,17 +14,26 @@ export default function Header() {
           focus:outline-none focus-visible:ring-2 [&.pending]:opacity-60"
         to="/"
         prefetch="viewport"
+        title="Home"
       >
         <h1 className="mb-0.5 text-2xl font-black leading-none">Trellix</h1>
         <p className="leading-none text-slate-500">a remix-relay demo</p>
       </NavLink>
 
-      <Button asChild className="px-3">
-        <a className="flex items-center gap-2" href="/auth/signout">
-          <LogOutIcon className="w-4" />
-          Sign out
-        </a>
-      </Button>
+      <div className="flex gap-3">
+        <Button asChild className="relative py-2">
+          <a href="https://github.com/dantrain/remix-relay" title="GitHub repo">
+            <GitHubIcon className="w-4" />
+            <span className="sr-only">GitHub repo</span>
+          </a>
+        </Button>
+        <Button asChild className="px-3">
+          <a className="flex items-center gap-2" href="/auth/signout">
+            <LogOutIcon className="w-4" />
+            Sign out
+          </a>
+        </Button>
+      </div>
     </header>
   );
 }
