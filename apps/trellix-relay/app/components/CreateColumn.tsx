@@ -109,6 +109,10 @@ export function CreateColumn({
         tempInputEl.focus();
       }
 
+      requestIdleCallback(() => {
+        scrollToRight();
+      });
+
       setTimeout(
         () => {
           scrollToRight();

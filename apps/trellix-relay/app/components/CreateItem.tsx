@@ -103,6 +103,10 @@ export function CreateItem({
         tempInputEl.focus();
       }
 
+      requestIdleCallback(() => {
+        scrollToBottom();
+      });
+
       setTimeout(
         () => {
           scrollToBottom();
