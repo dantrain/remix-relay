@@ -66,8 +66,17 @@ export default function BoardPage() {
       >
         <Suspense
           fallback={
-            <div className="animate-fade mt-12 flex justify-center">
-              <Spinner />
+            <div
+              className="animate-in fade-in grid flex-1 self-stretch
+                [animation-duration:1500ms]"
+            >
+              <div className="animate-pulse bg-[#afbccc] [grid-area:1/1]" />
+              <div
+                className="animate-fade flex justify-center pt-12
+                  [grid-area:1/1]"
+              >
+                <Spinner className="" />
+              </div>
             </div>
           }
         >
@@ -76,15 +85,10 @@ export default function BoardPage() {
               flex-col overflow-x-auto"
             ref={ref}
           >
-            <div
-              className="not-sr-only invisible self-start px-2 pt-3 sm:px-4
-                sm:pt-5"
-            >
-              <BoardTitle dataRef={board} />
-            </div>
             <div className="fixed self-start px-2 pt-3 sm:px-4 sm:pt-5">
               <BoardTitle dataRef={board} />
             </div>
+            <div className="h-[54px] sm:h-[62px]" />
             <Board dataRef={board} scrollToRight={scrollToRight} />
           </div>
         </Suspense>

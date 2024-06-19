@@ -70,11 +70,15 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
             <div className="flex-1 text-lg sm:text-base">{title}</div>
             <div className="h-full w-8" />
             {isPending ? (
-              <div
-                className="absolute inset-0 flex items-center justify-center
-                  rounded-md bg-slate-400/40"
-              >
-                <div className="animate-fade">
+              <div className="absolute inset-0 grid">
+                <div
+                  className="animate-pulse rounded-md bg-slate-400/50
+                    [grid-area:1/1]"
+                />
+                <div
+                  className="animate-fade flex items-center justify-center
+                    [grid-area:1/1]"
+                >
                   <Spinner />
                 </div>
               </div>

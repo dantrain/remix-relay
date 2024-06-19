@@ -129,7 +129,7 @@ export function CreateItem({
         ref={textAreaRef}
         name="title"
         className="mb-2 block w-full resize-none rounded-md border
-          border-slate-200 bg-white pr-8 shadow-sm focus:border-slate-200
+          border-slate-200 bg-white pr-10 shadow-sm focus:border-slate-200
           focus:ring-0"
         onKeyDown={(event) => {
           if (event.key === "Enter") {
