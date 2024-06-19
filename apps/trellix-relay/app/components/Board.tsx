@@ -148,7 +148,7 @@ const itemRankMutation = graphql`
 
 const dropAnimation: DropAnimation = {
   sideEffects: defaultDropAnimationSideEffects({
-    styles: { active: { visibility: "hidden" } },
+    className: { active: "invisible", dragOverlay: "dropping" },
   }),
 };
 
