@@ -4,6 +4,7 @@ import { createBrowserClient } from "@supabase/ssr";
 import type { Provider } from "@supabase/supabase-js";
 import { useState } from "react";
 import { Button } from "@remix-relay/ui";
+import Anchor from "~/components/Anchor";
 import { GitHubIcon } from "~/components/Icons";
 import { Logo } from "~/components/Logo";
 import { Spinner } from "~/components/Spinner";
@@ -53,8 +54,8 @@ export default function SignIn() {
 
   return (
     <main
-      className="grid min-h-[100dvh] grid-cols-[1fr_minmax(auto,32rem)_1fr]
-        grid-rows-[minmax(80px,1fr)_auto_3fr] bg-slate-900 text-lg
+      className="grid h-[100dvh] grid-cols-[1fr_minmax(auto,32rem)_1fr]
+        grid-rows-[minmax(60px,1fr)_auto_3fr] bg-slate-900 text-lg
         text-slate-100"
     >
       <div className="col-start-2 row-start-2 p-4">
@@ -62,26 +63,18 @@ export default function SignIn() {
         <div className="mb-12 flex flex-col gap-4">
           <p>
             This is a demo app to show off the features of{" "}
-            <a
-              className="underline underline-offset-2"
-              href="https://github.com/dantrain/remix-relay"
-            >
+            <Anchor href="https://github.com/dantrain/remix-relay">
               remix-relay
-            </a>
+            </Anchor>
             . It's a recreation Ryan Florence's{" "}
-            <a
-              className="underline underline-offset-2"
-              href="https://trellix.fly.dev/"
-            >
-              Trellix
-            </a>{" "}
-            demo.
+            <Anchor href="https://trellix.fly.dev/">Trellix</Anchor> demo.
           </p>
           <p>If you want to play around, click sign in!</p>
         </div>
         <div className="flex justify-center">
           <Button
-            className="flex items-center justify-center gap-3 px-6 py-2"
+            className="flex items-center justify-center gap-3 px-6 py-2
+              ring-offset-slate-900"
             variant="sky"
             disabled={signingIn}
             onPress={() => signIn("github")}
