@@ -148,7 +148,7 @@ export const Item = memo(
       const { isFocusVisible } = useFocusVisible({ isTextInput: true });
 
       useEffect(() => {
-        if (!dragOverlay) {
+        if (!dragOverlay || isFocusVisible) {
           return;
         }
 
@@ -157,7 +157,7 @@ export const Item = memo(
         return () => {
           document.body.style.cursor = "";
         };
-      }, [dragOverlay]);
+      }, [dragOverlay, isFocusVisible]);
 
       const deleteItem = () => {
         commitDelete({

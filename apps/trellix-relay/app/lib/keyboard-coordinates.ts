@@ -61,12 +61,12 @@ export const coordinateGetter: KeyboardCoordinateGetter = (
           }
           break;
         case KeyboardCode.Left:
-          if (collisionRect.left >= rect.left + rect.width) {
+          if (collisionRect.left >= rect.left + rect.width / 2) {
             filteredContainers.push(entry);
           }
           break;
         case KeyboardCode.Right:
-          if (collisionRect.left + collisionRect.width <= rect.left) {
+          if (collisionRect.left + collisionRect.width / 2 <= rect.left) {
             filteredContainers.push(entry);
           }
           break;
@@ -88,17 +88,10 @@ export const coordinateGetter: KeyboardCoordinateGetter = (
       const newRect = newDroppable?.rect.current;
 
       if (newNode && newRect) {
-        if (newDroppable.id === "placeholder") {
-          return {
-            x: newRect.left + (newRect.width - collisionRect.width) / 2,
-            y: newRect.top + (newRect.height - collisionRect.height) / 2,
-          };
-        }
-
         if (newDroppable.data.current?.type === "container") {
           return {
-            x: newRect.left + 20,
-            y: newRect.top + 74,
+            x: newRect.left,
+            y: newRect.top + 40,
           };
         }
 

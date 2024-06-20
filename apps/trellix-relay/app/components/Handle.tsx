@@ -1,6 +1,7 @@
 import { cx } from "class-variance-authority";
 import { GripVerticalIcon } from "lucide-react";
 import { HTMLAttributes, forwardRef, useEffect } from "react";
+import { useFocusVisible } from "react-aria";
 
 export type HandleProps = {
   dragOverlay?: boolean;
@@ -8,8 +9,10 @@ export type HandleProps = {
 
 export const Handle = forwardRef<HTMLButtonElement, HandleProps>(
   ({ dragOverlay, ...rest }, ref) => {
+    const { isFocusVisible } = useFocusVisible({ isTextInput: true });
+
     useEffect(() => {
-      if (!dragOverlay) {
+      if (!dragOverlay || isFocusVisible) {
         return;
       }
 
@@ -18,7 +21,7 @@ export const Handle = forwardRef<HTMLButtonElement, HandleProps>(
       return () => {
         document.body.style.cursor = "";
       };
-    }, [dragOverlay]);
+    }, [dragOverlay, isFocusVisible]);
 
     return (
       <button

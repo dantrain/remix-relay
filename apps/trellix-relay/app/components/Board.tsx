@@ -12,6 +12,7 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
+import { restrictToHorizontalAxis } from "@dnd-kit/modifiers";
 import {
   SortableContext,
   arrayMove,
@@ -328,6 +329,8 @@ export function Board({ dataRef, scrollToRight }: BoardProps) {
   const getColumnRef = (id: UniqueIdentifier) =>
     (columnRefs.current[id] ??= createRef<HTMLDivElement>());
 
+  const isDraggingColumn = activeId && containers.includes(activeId);
+
   return (
     <DndContext
       autoScroll={{ interval: isDesktop ? Number.MIN_VALUE : 5 }}
@@ -585,9 +588,12 @@ export function Board({ dataRef, scrollToRight }: BoardProps) {
       </div>
       {isClient
         ? createPortal(
-            <DragOverlay dropAnimation={dropAnimation}>
+            <DragOverlay
+              dropAnimation={dropAnimation}
+              modifiers={isDraggingColumn ? [restrictToHorizontalAxis] : []}
+            >
               {activeId
-                ? containers.includes(activeId)
+                ? isDraggingColumn
                   ? renderContainerDragOverlay(activeId)
                   : renderSortableItemDragOverlay(activeId)
                 : null}

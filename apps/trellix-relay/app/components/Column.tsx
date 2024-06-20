@@ -92,7 +92,8 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
           overflow-hidden rounded-md border border-[#d6dee8] outline-none
           transition-all duration-200 sm:w-80`,
           hover ? "bg-[#e9eef4]" : "bg-slate-100",
-          dragOverlay && "shadow-md",
+          dragOverlay &&
+            (isFocusVisible ? "shadow-lg ring-4 ring-sky-500" : "shadow-md"),
           hidden && "hidden",
         )}
       >

@@ -24,7 +24,7 @@ export const getCollisionDetectionStrategy = (
 ): CollisionDetection => {
   return (args) => {
     if (activeId && activeId in columns) {
-      return closestCenter({
+      return rectIntersection({
         ...args,
         droppableContainers: args.droppableContainers.filter(
           (container) => container.id in columns,
