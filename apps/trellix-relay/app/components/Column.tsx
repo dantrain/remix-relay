@@ -122,10 +122,19 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
           ref={scrollContainerRef}
         >
           <AutoHeight duration={isCreating ? 0 : 200}>
-            <ul className="flex flex-col gap-2 px-2 pb-1">{children}</ul>
+            <ul
+              className={cx(
+                "flex flex-col gap-2 px-2",
+                itemConnection.edges.length && "pb-1",
+              )}
+            >
+              {children}
+            </ul>
           </AutoHeight>
         </div>
-        <div className={cx("p-2 pt-1", !itemConnection.edges.length && "pt-0")}>
+        <div
+          className={cx("p-2", itemConnection.edges.length ? "pt-1" : "pt-0")}
+        >
           <CreateItem
             connectionId={itemConnection.__id}
             columnId={id}

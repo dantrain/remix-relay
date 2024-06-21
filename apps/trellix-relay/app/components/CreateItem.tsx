@@ -92,7 +92,11 @@ export function CreateItem({
 
       let tempInputEl: HTMLInputElement | undefined;
 
-      if (!isDesktop) {
+      if (isDesktop) {
+        requestIdleCallback(() => {
+          scrollToBottom();
+        });
+      } else {
         tempInputEl = document.createElement("input");
         tempInputEl.style.position = "absolute";
         tempInputEl.style.top = "0";
@@ -102,10 +106,6 @@ export function CreateItem({
         document.body.appendChild(tempInputEl);
         tempInputEl.focus();
       }
-
-      requestIdleCallback(() => {
-        scrollToBottom();
-      });
 
       setTimeout(
         () => {

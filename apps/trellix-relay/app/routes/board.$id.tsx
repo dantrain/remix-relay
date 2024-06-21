@@ -75,7 +75,7 @@ export default function BoardPage() {
                 className="animate-fade flex justify-center pt-12
                   [grid-area:1/1]"
               >
-                <Spinner className="" />
+                <Spinner />
               </div>
             </div>
           }
