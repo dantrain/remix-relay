@@ -38,6 +38,7 @@ const fragment = graphql`
   fragment ItemFragment on Item {
     id
     title
+    rank
     columnId
   }
 `;
@@ -100,7 +101,8 @@ export const Item = memo(
         subscription,
         variables: { id },
         updater: (store, data) => {
-          invariant(data?.item.columnId);
+          invariant(columnId, "Missing prev columnId");
+          invariant(data?.item.columnId, "Missing next columnId");
 
           if (data.item.columnId !== columnId) {
             const itemRecord = store.getRootField("item");

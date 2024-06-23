@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ca67f1779166089358ed9fb1148ddae8>>
+ * @generated SignedSource<<df890e9186737ac7073974f09fdd36dd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -89,6 +89,13 @@ return {
             "kind": "ScalarField",
             "name": "title",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "rank",
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -96,12 +103,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8f7602e5620d507d5e6ab6d4ad3850d1",
+    "cacheID": "d7210d4b12ead7c009c71447b0a7dda1",
     "id": null,
     "metadata": {},
     "name": "BoardItemCreatedSubscription",
     "operationKind": "subscription",
-    "text": "subscription BoardItemCreatedSubscription {\n  itemCreated {\n    id\n    columnId\n    ...ItemFragment\n  }\n}\n\nfragment ItemFragment on Item {\n  id\n  title\n  columnId\n}\n"
+    "text": "subscription BoardItemCreatedSubscription {\n  itemCreated {\n    id\n    columnId\n    ...ItemFragment\n  }\n}\n\nfragment ItemFragment on Item {\n  id\n  title\n  rank\n  columnId\n}\n"
   }
 };
 })();

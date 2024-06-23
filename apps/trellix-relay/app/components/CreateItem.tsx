@@ -28,6 +28,8 @@ const mutation = graphql`
       id
       rank
       title
+      columnId
+      ...ItemFragment
     }
   }
 `;
@@ -86,6 +88,7 @@ export function CreateItem({
             id: toGlobalId("Item", id),
             title,
             rank,
+            columnId,
           },
         },
       });

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<401180e1cd7a23525d3a5c7bac364142>>
+ * @generated SignedSource<<875df1a23a0cbfdfa98eac2c4ac4ca13>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { FragmentRefs } from "relay-runtime";
 export type CreateItemCreateOneItemMutation$variables = {
   columnId: string;
   connections: ReadonlyArray<string>;
@@ -18,9 +19,11 @@ export type CreateItemCreateOneItemMutation$variables = {
 };
 export type CreateItemCreateOneItemMutation$data = {
   readonly createOneItem: {
+    readonly columnId: string;
     readonly id: string;
     readonly rank: string;
     readonly title: string;
+    readonly " $fragmentSpreads": FragmentRefs<"ItemFragment">;
   };
 };
 export type CreateItemCreateOneItemMutation = {
@@ -78,34 +81,30 @@ v5 = [
 ],
 v6 = {
   "alias": null,
-  "args": (v5/*: any*/),
-  "concreteType": "Item",
-  "kind": "LinkedField",
-  "name": "createOneItem",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "id",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "rank",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "title",
-      "storageKey": null
-    }
-  ],
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rank",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "columnId",
   "storageKey": null
 };
 return {
@@ -121,7 +120,26 @@ return {
     "metadata": null,
     "name": "CreateItemCreateOneItemMutation",
     "selections": [
-      (v6/*: any*/)
+      {
+        "alias": null,
+        "args": (v5/*: any*/),
+        "concreteType": "Item",
+        "kind": "LinkedField",
+        "name": "createOneItem",
+        "plural": false,
+        "selections": [
+          (v6/*: any*/),
+          (v7/*: any*/),
+          (v8/*: any*/),
+          (v9/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ItemFragment"
+          }
+        ],
+        "storageKey": null
+      }
     ],
     "type": "Mutation",
     "abstractKey": null
@@ -138,7 +156,21 @@ return {
     "kind": "Operation",
     "name": "CreateItemCreateOneItemMutation",
     "selections": [
-      (v6/*: any*/),
+      {
+        "alias": null,
+        "args": (v5/*: any*/),
+        "concreteType": "Item",
+        "kind": "LinkedField",
+        "name": "createOneItem",
+        "plural": false,
+        "selections": [
+          (v6/*: any*/),
+          (v7/*: any*/),
+          (v8/*: any*/),
+          (v9/*: any*/)
+        ],
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": (v5/*: any*/),
@@ -163,16 +195,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "53cb7b64180d3f54b60dbe38379c3a2a",
+    "cacheID": "24f5f4c28016755d30d69bed7b5183aa",
     "id": null,
     "metadata": {},
     "name": "CreateItemCreateOneItemMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateItemCreateOneItemMutation(\n  $id: ID!\n  $columnId: ID!\n  $title: String!\n  $rank: String!\n) {\n  createOneItem(id: $id, columnId: $columnId, title: $title, rank: $rank) {\n    id\n    rank\n    title\n  }\n}\n"
+    "text": "mutation CreateItemCreateOneItemMutation(\n  $id: ID!\n  $columnId: ID!\n  $title: String!\n  $rank: String!\n) {\n  createOneItem(id: $id, columnId: $columnId, title: $title, rank: $rank) {\n    id\n    rank\n    title\n    columnId\n    ...ItemFragment\n  }\n}\n\nfragment ItemFragment on Item {\n  id\n  title\n  rank\n  columnId\n}\n"
   }
 };
 })();
 
-(node as any).hash = "8985e98f4d2fcb7364fea68f1ffe156a";
+(node as any).hash = "c2eca5bf7ec4876fa24708f957ac6225";
 
 export default node;

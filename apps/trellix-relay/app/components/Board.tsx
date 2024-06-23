@@ -197,6 +197,8 @@ export function Board({ dataRef, scrollToRight }: BoardProps) {
           ?.getLinkedRecord("itemConnection"),
       );
 
+      ConnectionHandler.deleteNode(connectionRecord, itemRecord.getDataID());
+
       const edge = ConnectionHandler.createEdge(
         store,
         connectionRecord,

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4a7e57f10b23038bb226a7c58d0966b4>>
+ * @generated SignedSource<<ecc52a6f93fb92e69a22ac4d740d751f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -119,12 +119,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "847246ffd28f92f753250c2d0cf178fb",
+    "cacheID": "fd53b68d095fa852c5306f73d69c85e8",
     "id": null,
     "metadata": {},
     "name": "ItemSubscription",
     "operationKind": "subscription",
-    "text": "subscription ItemSubscription(\n  $id: ID!\n) {\n  item(id: $id) {\n    rank\n    columnId\n    ...ItemFragment\n    id\n  }\n}\n\nfragment ItemFragment on Item {\n  id\n  title\n  columnId\n}\n"
+    "text": "subscription ItemSubscription(\n  $id: ID!\n) {\n  item(id: $id) {\n    rank\n    columnId\n    ...ItemFragment\n    id\n  }\n}\n\nfragment ItemFragment on Item {\n  id\n  title\n  rank\n  columnId\n}\n"
   }
 };
 })();
