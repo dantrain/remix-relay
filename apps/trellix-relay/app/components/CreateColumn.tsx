@@ -124,7 +124,7 @@ export function CreateColumn({
             document.body.removeChild(tempInputEl);
           }
         },
-        isDesktop ? 0 : 100,
+        isDesktop ? 0 : 30,
       );
     }
   };
@@ -153,6 +153,7 @@ export function CreateColumn({
         placeholder="Enter a title"
         type="text"
         autoComplete="off"
+        maxLength={50}
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
         required

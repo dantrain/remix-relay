@@ -87,6 +87,7 @@ export default function CreateBoard({ connectionId }: CreateBoardProps) {
             placeholder="Enter a title"
             type="text"
             autoComplete="off"
+            maxLength={50}
             // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus={isDesktop}
             required

@@ -67,7 +67,8 @@ export function Progress({ isLoading }: { isLoading: boolean }) {
 
   return (
     <TransitionGroup
-      className="pointer-events-none fixed inset-x-0 top-0 h-1 overflow-hidden"
+      className="pointer-events-none fixed inset-x-0 top-0 z-50 h-1
+        overflow-hidden"
     >
       {bar ? (
         <Transition

@@ -114,6 +114,7 @@ export function CreateItem({
         () => {
           scrollToBottom();
           formRef.current?.reset();
+          textAreaRef.current?.style.setProperty("height", "42px");
           textAreaRef.current?.focus();
 
           if (tempInputEl) {
@@ -121,7 +122,7 @@ export function CreateItem({
             document.body.removeChild(tempInputEl);
           }
         },
-        isDesktop ? 0 : 100,
+        isDesktop ? 0 : 30,
       );
     }
   };
@@ -149,6 +150,7 @@ export function CreateItem({
         }}
         placeholder="Enter a title"
         autoComplete="off"
+        maxLength={100}
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
         required
