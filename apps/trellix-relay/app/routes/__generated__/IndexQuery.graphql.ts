@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d99c7822c2fee72558e7219dcd969cc8>>
+ * @generated SignedSource<<855e07f24168acba70e22bb0536b52ca>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -45,9 +45,14 @@ return {
         "plural": false,
         "selections": [
           {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "BoardListFragment"
+            "kind": "Defer",
+            "selections": [
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "BoardListFragment"
+              }
+            ]
           }
         ],
         "storageKey": null
@@ -71,57 +76,64 @@ return {
         "plural": false,
         "selections": [
           {
-            "alias": null,
-            "args": null,
-            "concreteType": "UserBoardConnection",
-            "kind": "LinkedField",
-            "name": "boardConnection",
-            "plural": false,
+            "if": null,
+            "kind": "Defer",
+            "label": "IndexQuery$defer$BoardListFragment",
             "selections": [
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "UserBoardConnectionEdge",
+                "concreteType": "UserBoardConnection",
                 "kind": "LinkedField",
-                "name": "edges",
-                "plural": true,
+                "name": "boardConnection",
+                "plural": false,
                 "selections": [
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "Board",
+                    "concreteType": "UserBoardConnectionEdge",
                     "kind": "LinkedField",
-                    "name": "node",
-                    "plural": false,
+                    "name": "edges",
+                    "plural": true,
                     "selections": [
-                      (v0/*: any*/),
                       {
                         "alias": null,
                         "args": null,
-                        "kind": "ScalarField",
-                        "name": "title",
+                        "concreteType": "Board",
+                        "kind": "LinkedField",
+                        "name": "node",
+                        "plural": false,
+                        "selections": [
+                          (v0/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "title",
+                            "storageKey": null
+                          }
+                        ],
                         "storageKey": null
                       }
                     ],
                     "storageKey": null
+                  },
+                  {
+                    "kind": "ClientExtension",
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "__id",
+                        "storageKey": null
+                      }
+                    ]
                   }
                 ],
                 "storageKey": null
-              },
-              {
-                "kind": "ClientExtension",
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "__id",
-                    "storageKey": null
-                  }
-                ]
               }
-            ],
-            "storageKey": null
+            ]
           },
           (v0/*: any*/)
         ],
@@ -130,16 +142,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d12ea7ad5e62b01e318ac3ab5a0abb25",
+    "cacheID": "a3e366cedb98e7ce46e5901c634cbd7c",
     "id": null,
     "metadata": {},
     "name": "IndexQuery",
     "operationKind": "query",
-    "text": "query IndexQuery {\n  viewer {\n    ...BoardListFragment\n    id\n  }\n}\n\nfragment BoardCardFragment on Board {\n  id\n  title\n}\n\nfragment BoardListFragment on User {\n  boardConnection {\n    edges {\n      node {\n        id\n        ...BoardCardFragment\n      }\n    }\n  }\n}\n"
+    "text": "query IndexQuery {\n  viewer {\n    ...BoardListFragment @defer(label: \"IndexQuery$defer$BoardListFragment\")\n    id\n  }\n}\n\nfragment BoardCardFragment on Board {\n  id\n  title\n}\n\nfragment BoardListFragment on User {\n  boardConnection {\n    edges {\n      node {\n        id\n        ...BoardCardFragment\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d8701d8e06cb5553d8033f254bb9883e";
+(node as any).hash = "da13a7c4aeb93c542dc761a48a2cd0a0";
 
 export default node;

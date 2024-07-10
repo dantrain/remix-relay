@@ -8,7 +8,7 @@ import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
 import { Board } from "~/components/Board";
 import { BoardTitle } from "~/components/BoardTitle";
 import Header from "~/components/Header";
-import { Spinner } from "~/components/Spinner";
+import LoadingScreen from "~/components/LoadingScreen";
 import useWindowVisible from "~/hooks/useWindowVisible";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
@@ -64,22 +64,7 @@ export default function BoardPage() {
       <main
         className="flex h-[100dvh] flex-col items-center pt-[74px] sm:pt-[90px]"
       >
-        <Suspense
-          fallback={
-            <div
-              className="animate-in fade-in grid flex-1 self-stretch
-                [animation-duration:1500ms]"
-            >
-              <div className="animate-pulse bg-[#afbccc] [grid-area:1/1]" />
-              <div
-                className="animate-fade flex justify-center pt-12
-                  [grid-area:1/1]"
-              >
-                <Spinner />
-              </div>
-            </div>
-          }
-        >
+        <Suspense fallback={<LoadingScreen />}>
           <div
             className="flex min-w-[min(100dvw,1280px)] max-w-[100dvw] flex-1
               flex-col overflow-x-auto"
