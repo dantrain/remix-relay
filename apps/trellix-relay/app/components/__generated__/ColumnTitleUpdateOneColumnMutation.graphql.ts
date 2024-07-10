@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0a96fcc4b5a750f50f8edd3f26c8beca>>
+ * @generated SignedSource<<7d7f9475358a7e3b5d2a4de89c008f06>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,8 +16,8 @@ export type ColumnTitleUpdateOneColumnMutation$variables = {
 export type ColumnTitleUpdateOneColumnMutation$data = {
   readonly updateOneColumn: {
     readonly id: string;
-    readonly title: string;
-  };
+    readonly title: string | null | undefined;
+  } | null | undefined;
 };
 export type ColumnTitleUpdateOneColumnMutation = {
   response: ColumnTitleUpdateOneColumnMutation$data;

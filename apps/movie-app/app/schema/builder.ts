@@ -16,9 +16,7 @@ const builder = new SchemaBuilder<{
   DefaultEdgesNullability: false;
 }>({
   plugins: [RelayPlugin],
-  relayOptions: {
-    clientMutationId: "omit",
-    cursorType: "String",
+  relay: {
     edgesFieldOptions: { nullable: false },
   },
 });

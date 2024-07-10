@@ -24,14 +24,14 @@ directive @stream(
 ) on FIELD
 
 type Counter implements Node {
-  count: Int!
+  count: Int
   id: ID!
 }
 
 type Mutation {
-  createOneCounter(id: ID!): Counter!
-  deleteOneCounter(id: ID!): Counter!
-  setCount(count: Int!, id: ID!): Counter!
+  createOneCounter(id: ID!): Counter
+  deleteOneCounter(id: ID!): Counter
+  setCount(count: Int!, id: ID!): Counter
 }
 
 interface Node {
@@ -46,20 +46,20 @@ type PageInfo {
 }
 
 type Query {
-  counter(id: ID!): Counter!
+  counter(id: ID!): Counter
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
-  viewer: User!
+  viewer: User
 }
 
 type Subscription {
-  counter(id: ID!): Counter!
-  counterCreated: Counter!
-  counterDeleted: Counter!
+  counter(id: ID!): Counter
+  counterCreated: Counter
+  counterDeleted: Counter
 }
 
 type User implements Node {
-  counterConnection(after: String, before: String, first: Int, last: Int): UserCounterConnection!
+  counterConnection(after: String, before: String, first: Int, last: Int): UserCounterConnection
   id: ID!
 }
 
@@ -70,5 +70,5 @@ type UserCounterConnection {
 
 type UserCounterConnectionEdge {
   cursor: String!
-  node: Counter!
+  node: Counter
 }

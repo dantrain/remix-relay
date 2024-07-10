@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7e3fece12efddcaa78b1cd54b3927f95>>
+ * @generated SignedSource<<c400e9492639e7ac2db5b6eb2cc62c54>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type BoardCardDeleteOneBoardMutation$variables = {
 export type BoardCardDeleteOneBoardMutation$data = {
   readonly deleteOneBoard: {
     readonly id: string;
-  };
+  } | null | undefined;
 };
 export type BoardCardDeleteOneBoardMutation = {
   response: BoardCardDeleteOneBoardMutation$data;

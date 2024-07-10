@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<180e66b500370ab0e1d4f434977e2b02>>
+ * @generated SignedSource<<ac306090603dc76c12299ec28d4a9cfc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,8 +16,8 @@ export type ItemUpdateOneItemMutation$variables = {
 export type ItemUpdateOneItemMutation$data = {
   readonly updateOneItem: {
     readonly id: string;
-    readonly title: string;
-  };
+    readonly title: string | null | undefined;
+  } | null | undefined;
 };
 export type ItemUpdateOneItemMutation = {
   response: ItemUpdateOneItemMutation$data;

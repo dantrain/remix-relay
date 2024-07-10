@@ -1,4 +1,4 @@
-import { createServerClient, parse } from "@supabase/ssr";
+import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import type { Request, Response } from "express";
 import { IncomingMessage } from "http";
 import { env } from "./env";
@@ -8,50 +8,49 @@ export function createSupabaseClient(
   res: Response | null,
   { writeCookies }: { writeCookies: boolean } = { writeCookies: true },
 ) {
-  const cookiesSetThisRequest: Record<string, string> = {};
+  const reqCookies = (req as Request)?.cookies
+    ? Object.entries((req as Request)?.cookies).map(([name, value]) => ({
+        name,
+        value,
+      }))
+    : null;
+
+  let cookiesSetThisRequest: { name: string; value: string }[] | undefined;
 
   const supabase = createServerClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
     cookies: {
-      get: (key) => {
+      getAll: () => {
         return (
-          cookiesSetThisRequest[key] ??
-          (req as Request)?.cookies?.[key] ??
-          parse(req.headers.cookie ?? "")?.[key] ??
-          ""
+          cookiesSetThisRequest ??
+          reqCookies ??
+          parseCookieHeader(req.headers.cookie ?? "")
         );
       },
-      set: writeCookies
-        ? (key, value, options) => {
+      setAll: writeCookies
+        ? (cookiesToSet) => {
             if (!res || res.headersSent) {
-              console.error("Failed to set cookie", key, {
+              console.error("Failed to set cookies", cookiesToSet, {
                 headersSent: res?.headersSent,
               });
               return;
             }
 
-            res.cookie(key, value, {
-              ...options,
-              sameSite: "lax",
-              httpOnly: true,
-            });
-
-            cookiesSetThisRequest[key] = value;
-          }
-        : () => {},
-      remove: writeCookies
-        ? (key, options) => {
-            if (!res || res.headersSent) {
-              console.error("Failed to remove cookie", key, {
-                headersSent: res?.headersSent,
+            for (const { name, value, options } of cookiesToSet) {
+              res.cookie(name, value, {
+                ...options,
+                sameSite: "lax",
+                httpOnly: true,
               });
-              return;
             }
 
-            res.cookie(key, "", { ...options, httpOnly: true });
+            cookiesSetThisRequest = cookiesToSet;
           }
         : () => {},
     },
   });
+
+  // @ts-expect-error - suppressGetSessionWarning is not part of the official API
+  supabase.auth.suppressGetSessionWarning = true;
 
   return supabase;
 }

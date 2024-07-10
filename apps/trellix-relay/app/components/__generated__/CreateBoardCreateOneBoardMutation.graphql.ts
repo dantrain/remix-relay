@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<36c7dfab40699524677e0a2b456fe0f6>>
+ * @generated SignedSource<<da45e9ba5763f9315a78fd6a81fb8bf4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,7 +19,7 @@ export type CreateBoardCreateOneBoardMutation$data = {
   readonly createOneBoard: {
     readonly id: string;
     readonly " $fragmentSpreads": FragmentRefs<"BoardCardFragment">;
-  };
+  } | null | undefined;
 };
 export type CreateBoardCreateOneBoardMutation = {
   response: CreateBoardCreateOneBoardMutation$data;

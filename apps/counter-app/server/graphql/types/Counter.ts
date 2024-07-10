@@ -4,7 +4,7 @@ import invariant from "tiny-invariant";
 import { z } from "zod";
 import { builder } from "../builder";
 
-const fromGlobalId = (id: string | number) => decodeGlobalID(id.toString()).id;
+const fromGlobalId = (id: string) => decodeGlobalID(id).id;
 
 export type Counter = Omit<
   Database["public"]["Tables"]["counters"]["Row"],

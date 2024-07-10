@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f4202eb756840a0adb3b88c0ab7a47fb>>
+ * @generated SignedSource<<c0e9e6b0928c0cdef69fa6a71b1953d0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type CounterSetCountMutation$variables = {
 export type CounterSetCountMutation$data = {
   readonly setCount: {
     readonly " $fragmentSpreads": FragmentRefs<"CounterFragment">;
-  };
+  } | null | undefined;
 };
 export type CounterSetCountMutation = {
   response: CounterSetCountMutation$data;

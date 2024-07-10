@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ecc52a6f93fb92e69a22ac4d740d751f>>
+ * @generated SignedSource<<a62284da4a96292cf60aaf5bd5b78c5c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,10 +15,10 @@ export type ItemSubscription$variables = {
 };
 export type ItemSubscription$data = {
   readonly item: {
-    readonly columnId: string;
-    readonly rank: string;
+    readonly columnId: string | null | undefined;
+    readonly rank: string | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"ItemFragment">;
-  };
+  } | null | undefined;
 };
 export type ItemSubscription = {
   response: ItemSubscription$data;

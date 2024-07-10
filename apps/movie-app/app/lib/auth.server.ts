@@ -46,7 +46,7 @@ export function getAuthenticator(context: AppLoadContext) {
         email: exists(profile.emails?.[0]?.value, "Missing user email"),
       };
 
-      const env = exists(context?.cloudflare.env) as Env;
+      const env = exists((context as AppLoadContext)?.cloudflare.env) as Env;
       const db = drizzle(env.DB, { schema: dbSchema });
 
       await db

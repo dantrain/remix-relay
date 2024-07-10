@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<23a7ba7de11794b18f7255af9e246cd5>>
+ * @generated SignedSource<<ee46c44363140b847b3e919f87b6b12c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,16 +21,16 @@ export type BoardFragment$data = {
           readonly edges: ReadonlyArray<{
             readonly node: {
               readonly id: string;
-              readonly rank: string;
+              readonly rank: string | null | undefined;
               readonly " $fragmentSpreads": FragmentRefs<"ItemFragment">;
-            };
+            } | null | undefined;
           }>;
-        };
-        readonly rank: string;
+        } | null | undefined;
+        readonly rank: string | null | undefined;
         readonly " $fragmentSpreads": FragmentRefs<"ColumnFragment">;
-      };
+      } | null | undefined;
     }>;
-  };
+  } | null | undefined;
   readonly id: string;
   readonly " $fragmentType": "BoardFragment";
 };

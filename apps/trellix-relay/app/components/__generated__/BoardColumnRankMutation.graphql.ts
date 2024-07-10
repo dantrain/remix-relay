@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5dde2881f950dd5a596426a9fb60407e>>
+ * @generated SignedSource<<8ad41487af564367fabf9eb0665847da>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,8 +16,8 @@ export type BoardColumnRankMutation$variables = {
 export type BoardColumnRankMutation$data = {
   readonly updateOneColumn: {
     readonly id: string;
-    readonly rank: string;
-  };
+    readonly rank: string | null | undefined;
+  } | null | undefined;
 };
 export type BoardColumnRankMutation = {
   response: BoardColumnRankMutation$data;

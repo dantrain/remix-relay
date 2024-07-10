@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<827ac38c59b244ebeb7c074918652ccb>>
+ * @generated SignedSource<<3fddabdaa4be174c8b215aad5b5aa185>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,7 @@ export type CounterListCounterDeletedSubscription$variables = {
 export type CounterListCounterDeletedSubscription$data = {
   readonly counterDeleted: {
     readonly id: string;
-  };
+  } | null | undefined;
 };
 export type CounterListCounterDeletedSubscription = {
   response: CounterListCounterDeletedSubscription$data;

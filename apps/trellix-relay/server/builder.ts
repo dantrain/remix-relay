@@ -1,6 +1,6 @@
 import SchemaBuilder from "@pothos/core";
 import RelayPlugin from "@pothos/plugin-relay";
-import ValidationPlugin from "@pothos/plugin-validation";
+import ZodPlugin from "@pothos/plugin-zod";
 import { PothosContext } from "server";
 import type { Objects } from "./types";
 
@@ -11,10 +11,8 @@ const builder = new SchemaBuilder<{
   Context: PothosContext;
   DefaultEdgesNullability: false;
 }>({
-  plugins: [RelayPlugin, ValidationPlugin],
-  relayOptions: {
-    clientMutationId: "omit",
-    cursorType: "String",
+  plugins: [RelayPlugin, ZodPlugin],
+  relay: {
     edgesFieldOptions: { nullable: false },
   },
 });

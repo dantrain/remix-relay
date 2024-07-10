@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<df890e9186737ac7073974f09fdd36dd>>
+ * @generated SignedSource<<dd9a85b8c88a619b5e069214cd446fd4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,10 +13,10 @@ import { FragmentRefs } from "relay-runtime";
 export type BoardItemCreatedSubscription$variables = Record<PropertyKey, never>;
 export type BoardItemCreatedSubscription$data = {
   readonly itemCreated: {
-    readonly columnId: string;
+    readonly columnId: string | null | undefined;
     readonly id: string;
     readonly " $fragmentSpreads": FragmentRefs<"ItemFragment">;
-  };
+  } | null | undefined;
 };
 export type BoardItemCreatedSubscription = {
   response: BoardItemCreatedSubscription$data;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0beace1066b8c82aeb4d6be98437834b>>
+ * @generated SignedSource<<5a6f230c49acb992068d17cc830c9ae3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,8 +16,8 @@ export type BoardTitleUpdateOneBoardMutation$variables = {
 export type BoardTitleUpdateOneBoardMutation$data = {
   readonly updateOneBoard: {
     readonly id: string;
-    readonly title: string;
-  };
+    readonly title: string | null | undefined;
+  } | null | undefined;
 };
 export type BoardTitleUpdateOneBoardMutation = {
   response: BoardTitleUpdateOneBoardMutation$data;

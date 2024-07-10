@@ -24,10 +24,10 @@ directive @stream(
 ) on FIELD
 
 type Board implements Node {
-  columnConnection(after: String, before: String, first: Int, last: Int): BoardColumnConnection!
-  createdAt: String!
+  columnConnection(after: String, before: String, first: Int, last: Int): BoardColumnConnection
+  createdAt: String
   id: ID!
-  title: String!
+  title: String
 }
 
 type BoardColumnConnection {
@@ -37,15 +37,15 @@ type BoardColumnConnection {
 
 type BoardColumnConnectionEdge {
   cursor: String!
-  node: Column!
+  node: Column
 }
 
 type Column implements Node {
-  createdAt: String!
+  createdAt: String
   id: ID!
-  itemConnection(after: String, before: String, first: Int, last: Int): ColumnItemConnection!
-  rank: String!
-  title: String!
+  itemConnection(after: String, before: String, first: Int, last: Int): ColumnItemConnection
+  rank: String
+  title: String
 }
 
 type ColumnItemConnection {
@@ -55,27 +55,27 @@ type ColumnItemConnection {
 
 type ColumnItemConnectionEdge {
   cursor: String!
-  node: Item!
+  node: Item
 }
 
 type Item implements Node {
-  columnId: String!
-  createdAt: String!
+  columnId: String
+  createdAt: String
   id: ID!
-  rank: String!
-  title: String!
+  rank: String
+  title: String
 }
 
 type Mutation {
-  createOneBoard(id: ID!, title: String!): Board!
-  createOneColumn(boardId: ID!, id: ID!, rank: String!, title: String!): Column!
-  createOneItem(columnId: ID!, id: ID!, rank: String!, title: String!): Item!
-  deleteOneBoard(id: ID!): Board!
-  deleteOneColumn(id: ID!): Column!
-  deleteOneItem(id: ID!): Item!
-  updateOneBoard(id: ID!, title: String!): Board!
-  updateOneColumn(id: ID!, rank: String, title: String): Column!
-  updateOneItem(columnId: ID, id: ID!, rank: String, title: String): Item!
+  createOneBoard(id: ID!, title: String!): Board
+  createOneColumn(boardId: ID!, id: ID!, rank: String!, title: String!): Column
+  createOneItem(columnId: ID!, id: ID!, rank: String!, title: String!): Item
+  deleteOneBoard(id: ID!): Board
+  deleteOneColumn(id: ID!): Column
+  deleteOneItem(id: ID!): Item
+  updateOneBoard(id: ID!, title: String!): Board
+  updateOneColumn(id: ID!, rank: String, title: String): Column
+  updateOneItem(columnId: ID, id: ID!, rank: String, title: String): Item
 }
 
 interface Node {
@@ -90,23 +90,23 @@ type PageInfo {
 }
 
 type Query {
-  board(id: ID!): Board!
+  board(id: ID!): Board
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
-  viewer: User!
+  viewer: User
 }
 
 type Subscription {
-  column(id: ID!): Column!
-  columnCreated: Column!
-  columnDeleted: Column!
-  item(id: ID!): Item!
-  itemCreated: Item!
-  itemDeleted: Item!
+  column(id: ID!): Column
+  columnCreated: Column
+  columnDeleted: Column
+  item(id: ID!): Item
+  itemCreated: Item
+  itemDeleted: Item
 }
 
 type User implements Node {
-  boardConnection(after: String, before: String, first: Int, last: Int): UserBoardConnection!
+  boardConnection(after: String, before: String, first: Int, last: Int): UserBoardConnection
   id: ID!
 }
 
@@ -117,5 +117,5 @@ type UserBoardConnection {
 
 type UserBoardConnectionEdge {
   cursor: String!
-  node: Board!
+  node: Board
 }

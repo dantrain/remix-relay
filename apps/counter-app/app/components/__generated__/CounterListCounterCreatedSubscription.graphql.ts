@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e0f74e0d21cd45229fe303e6cc95d287>>
+ * @generated SignedSource<<1d766dd6ac1b0109a4a236bbc7202d79>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type CounterListCounterCreatedSubscription$data = {
   readonly counterCreated: {
     readonly id: string;
     readonly " $fragmentSpreads": FragmentRefs<"CounterFragment">;
-  };
+  } | null | undefined;
 };
 export type CounterListCounterCreatedSubscription = {
   response: CounterListCounterCreatedSubscription$data;

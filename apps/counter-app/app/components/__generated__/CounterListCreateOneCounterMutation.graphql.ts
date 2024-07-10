@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5a6dc456185c0d07d99d91590120ceaa>>
+ * @generated SignedSource<<deaed000a07984d115082294f02e4c16>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,7 +18,7 @@ export type CounterListCreateOneCounterMutation$data = {
   readonly createOneCounter: {
     readonly id: string;
     readonly " $fragmentSpreads": FragmentRefs<"CounterFragment">;
-  };
+  } | null | undefined;
 };
 export type CounterListCreateOneCounterMutation = {
   response: CounterListCreateOneCounterMutation$data;

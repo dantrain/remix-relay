@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dc58801ed9a4112bec9bbde8ef4ec129>>
+ * @generated SignedSource<<ff4bb011be7acd5c2f4e0f0b991bec43>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type CounterDeleteOneCounterMutation$variables = {
 export type CounterDeleteOneCounterMutation$data = {
   readonly deleteOneCounter: {
     readonly id: string;
-  };
+  } | null | undefined;
 };
 export type CounterDeleteOneCounterMutation = {
   response: CounterDeleteOneCounterMutation$data;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<875df1a23a0cbfdfa98eac2c4ac4ca13>>
+ * @generated SignedSource<<68e4a10bf4a2249c27e7cc2cc0fc1791>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,12 +19,12 @@ export type CreateItemCreateOneItemMutation$variables = {
 };
 export type CreateItemCreateOneItemMutation$data = {
   readonly createOneItem: {
-    readonly columnId: string;
+    readonly columnId: string | null | undefined;
     readonly id: string;
-    readonly rank: string;
-    readonly title: string;
+    readonly rank: string | null | undefined;
+    readonly title: string | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"ItemFragment">;
-  };
+  } | null | undefined;
 };
 export type CreateItemCreateOneItemMutation = {
   response: CreateItemCreateOneItemMutation$data;

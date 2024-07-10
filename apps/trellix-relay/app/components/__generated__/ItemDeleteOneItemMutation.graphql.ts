@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f64369548f53b320efd98f2f4e3db9df>>
+ * @generated SignedSource<<eaeed84af0f444fb2dc433431a986fdd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type ItemDeleteOneItemMutation$variables = {
 export type ItemDeleteOneItemMutation$data = {
   readonly deleteOneItem: {
     readonly id: string;
-  };
+  } | null | undefined;
 };
 export type ItemDeleteOneItemMutation = {
   response: ItemDeleteOneItemMutation$data;

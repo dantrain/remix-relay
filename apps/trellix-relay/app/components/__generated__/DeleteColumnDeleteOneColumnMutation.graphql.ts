@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<13d5c0a2d8bc456a14b0e6e3fca9f7de>>
+ * @generated SignedSource<<f1a1f1b5e252ac60db34163fced181c2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type DeleteColumnDeleteOneColumnMutation$variables = {
 export type DeleteColumnDeleteOneColumnMutation$data = {
   readonly deleteOneColumn: {
     readonly id: string;
-  };
+  } | null | undefined;
 };
 export type DeleteColumnDeleteOneColumnMutation = {
   response: DeleteColumnDeleteOneColumnMutation$data;

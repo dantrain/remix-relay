@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5732239ca0167f947ef00a76144be208>>
+ * @generated SignedSource<<bd6a7ee47c66490c3c3aff3f384ea973>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,11 +17,11 @@ export type ColumnFragment$data = {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
-        readonly rank: string;
-      };
+        readonly rank: string | null | undefined;
+      } | null | undefined;
     }>;
-  };
-  readonly title: string;
+  } | null | undefined;
+  readonly title: string | null | undefined;
   readonly " $fragmentSpreads": FragmentRefs<"ColumnTitleFragment">;
   readonly " $fragmentType": "ColumnFragment";
 };

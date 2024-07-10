@@ -1,41 +1,11 @@
 #!/usr/bin/env zx
 
 /* eslint-disable turbo/no-undeclared-env-vars */
-import { formatInTimeZone } from "date-fns-tz";
 import { snakeCase } from "lodash-es";
-import invariant from "tiny-invariant";
-import { $, question, fs, path } from "zx";
+import { $, question } from "zx";
 
 process.env.FORCE_COLOR = "1";
 
 const name = snakeCase(await question("Migration name: "));
-const newFilename = `${formatInTimeZone(new Date(), "UTC", "yyyyMMddHHmmss")}_${name}`;
 
-const result = await $`drizzle-kit generate --name ${name}`.pipe(
-  process.stdout,
-);
-
-const lastLine = result.stdout.split("\n").filter(Boolean).pop();
-
-if (lastLine?.includes("Your SQL migration file")) {
-  const oldFilename = /(?<=migrations\/)[^.]+/.exec(lastLine)?.[0];
-
-  invariant(oldFilename);
-
-  await fs.rename(
-    path.join(import.meta.dirname, `../supabase/migrations/${oldFilename}.sql`),
-    path.join(import.meta.dirname, `../supabase/migrations/${newFilename}.sql`),
-  );
-
-  const journalPath = path.join(
-    import.meta.dirname,
-    "../supabase/migrations/meta/_journal.json",
-  );
-
-  const journal = await fs.readFile(journalPath, "utf-8");
-
-  await fs.writeFile(journalPath, journal.replace(oldFilename, newFilename));
-
-  console.log();
-  console.log(`Wrote ${newFilename}.sql`);
-}
+await $`drizzle-kit generate --name ${name}`.pipe(process.stdout);

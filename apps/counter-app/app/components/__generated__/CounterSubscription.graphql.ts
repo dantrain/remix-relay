@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5e094976380a6fb12d3f335c8be1cfc6>>
+ * @generated SignedSource<<a88119a33ed549b4f85059d8df50ac34>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type CounterSubscription$variables = {
 export type CounterSubscription$data = {
   readonly counter: {
     readonly " $fragmentSpreads": FragmentRefs<"CounterFragment">;
-  };
+  } | null | undefined;
 };
 export type CounterSubscription = {
   response: CounterSubscription$data;
