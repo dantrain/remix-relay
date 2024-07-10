@@ -23,7 +23,7 @@ export function getDb(session: Session) {
 
       const result = await cb(tx);
 
-      await tx.execute(sql`
+      tx.execute(sql`
         select set_config('request.jwt.claims', null, true);
         reset role;
       `);
