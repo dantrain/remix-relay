@@ -10,10 +10,12 @@ const builder = new SchemaBuilder<{
   Objects: Objects;
   Context: PothosContext;
   DefaultEdgesNullability: false;
+  DefaultNodeNullability: false;
 }>({
   plugins: [RelayPlugin, ZodPlugin],
   relay: {
     edgesFieldOptions: { nullable: false },
+    nodeFieldOptions: { nullable: false },
   },
 });
 

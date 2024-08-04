@@ -41,8 +41,8 @@ export type Item = typeof items.$inferSelect;
 export const Item = builder.node("Item", {
   id: { resolve: (_) => _.id },
   fields: (t) => ({
-    title: t.exposeString("title"),
-    rank: t.exposeString("rank"),
+    title: t.exposeString("title", { nullable: false }),
+    rank: t.exposeString("rank", { nullable: false }),
     columnId: t.exposeString("columnId"),
     createdAt: t.string({
       resolve: ({ createdAt }) => createdAt.toISOString(),
@@ -53,6 +53,7 @@ export const Item = builder.node("Item", {
 builder.subscriptionFields((t) => ({
   item: t.field({
     type: Item,
+    nullable: false,
     args: {
       id: t.arg.id({ required: true }),
     },
@@ -69,6 +70,7 @@ builder.subscriptionFields((t) => ({
   }),
   itemCreated: t.field({
     type: Item,
+    nullable: false,
     subscribe: (_parent, _args, { pubsub, user, tabId }) =>
       pubsub.asyncIterableIterator<Item>({
         table: "items",
@@ -80,6 +82,7 @@ builder.subscriptionFields((t) => ({
   }),
   itemDeleted: t.field({
     type: Item,
+    nullable: false,
     subscribe: (_parent, _args, { pubsub, user, tabId }) =>
       pubsub.asyncIterableIterator<Item>({
         table: "items",

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<68e4a10bf4a2249c27e7cc2cc0fc1791>>
+ * @generated SignedSource<<caa5d86632c391cceae6aee59c69eb6f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,8 +21,8 @@ export type CreateItemCreateOneItemMutation$data = {
   readonly createOneItem: {
     readonly columnId: string | null | undefined;
     readonly id: string;
-    readonly rank: string | null | undefined;
-    readonly title: string | null | undefined;
+    readonly rank: string;
+    readonly title: string;
     readonly " $fragmentSpreads": FragmentRefs<"ItemFragment">;
   } | null | undefined;
 };

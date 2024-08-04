@@ -13,6 +13,7 @@ export const User = builder.node("User", {
   fields: (t) => ({
     counterConnection: t.connection({
       type: Counter,
+      nullable: false,
       resolve: async ({ id }, args, { supabase }) => {
         const { data } = await supabase
           .from("counters")
@@ -30,6 +31,7 @@ export const User = builder.node("User", {
 builder.queryField("viewer", (t) =>
   t.field({
     type: User,
+    nullable: false,
     resolve: (_parent, _args, { user }) => {
       invariant(user);
       return pick(user, "id");

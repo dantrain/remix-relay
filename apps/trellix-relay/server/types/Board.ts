@@ -39,12 +39,13 @@ export type Board = typeof boards.$inferSelect;
 export const Board = builder.node("Board", {
   id: { resolve: (_) => _.id },
   fields: (t) => ({
-    title: t.exposeString("title"),
+    title: t.exposeString("title", { nullable: false }),
     createdAt: t.string({
       resolve: ({ createdAt }) => createdAt.toISOString(),
     }),
     columnConnection: t.connection({
       type: Column,
+      nullable: false,
       resolve: async ({ id }, args, { db }) => {
         const data = await db((tx) =>
           tx.query.columns.findMany({
@@ -62,6 +63,7 @@ export const Board = builder.node("Board", {
 builder.queryField("board", (t) =>
   t.field({
     type: Board,
+    nullable: false,
     args: {
       id: t.arg.id({
         required: true,

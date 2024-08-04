@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a6f91b86cdf70750c1ca8aa84091e863>>
+ * @generated SignedSource<<f61a16fdafcbeff2fd16af6171c12661>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,9 +17,9 @@ export type BoardListFragment$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"BoardCardFragment">;
-      } | null | undefined;
+      };
     }>;
-  } | null | undefined;
+  };
   readonly " $fragmentType": "BoardListFragment";
 };
 export type BoardListFragment$key = {

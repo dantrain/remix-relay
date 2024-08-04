@@ -27,6 +27,7 @@ export const User = builder.node("User", {
   fields: (t) => ({
     boardConnection: t.connection({
       type: Board,
+      nullable: false,
       resolve: async ({ id }, args, { db }) => {
         const data = await db((tx) =>
           tx.query.boards.findMany({
@@ -44,6 +45,7 @@ export const User = builder.node("User", {
 builder.queryField("viewer", (t) =>
   t.field({
     type: User,
+    nullable: false,
     resolve: (_parent, _args, { user }) => {
       invariant(user);
       return pick(user, "id");

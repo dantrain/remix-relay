@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<025b3abb61de9aa0d23b701aab32735b>>
+ * @generated SignedSource<<645e7b2c246807af402ffe89383b5813>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,12 +16,12 @@ export type boardQuery$variables = {
 export type boardQuery$data = {
   readonly board: {
     readonly id: string;
-    readonly title: string | null | undefined;
+    readonly title: string;
     readonly " $fragmentSpreads": FragmentRefs<"BoardFragment" | "BoardTitleFragment">;
-  } | null | undefined;
+  };
   readonly viewer: {
     readonly id: string;
-  } | null | undefined;
+  };
 };
 export type boardQuery = {
   response: boardQuery$data;

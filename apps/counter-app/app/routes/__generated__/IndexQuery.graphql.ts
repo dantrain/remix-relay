@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<767ece053c9802bea894e6c4d3c2e973>>
+ * @generated SignedSource<<145d057b1b6b5842711de4c7aca34ce4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,7 @@ export type IndexQuery$variables = Record<PropertyKey, never>;
 export type IndexQuery$data = {
   readonly viewer: {
     readonly " $fragmentSpreads": FragmentRefs<"CounterListFragment">;
-  } | null | undefined;
+  };
 };
 export type IndexQuery = {
   response: IndexQuery$data;

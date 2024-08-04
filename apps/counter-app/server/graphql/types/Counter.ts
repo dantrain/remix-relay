@@ -14,7 +14,7 @@ export type Counter = Omit<
 export const Counter = builder.node("Counter", {
   id: { resolve: (_) => _.id },
   fields: (t) => ({
-    count: t.exposeInt("count"),
+    count: t.exposeInt("count", { nullable: false }),
   }),
 });
 

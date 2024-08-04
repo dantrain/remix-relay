@@ -1,5 +1,7 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+import formsPlugin from "@tailwindcss/forms";
+import scrollbarPlugin from "tailwind-scrollbar";
 import type { Config } from "tailwindcss";
+import animatePlugin from "tailwindcss-animate";
 import sharedConfig from "@remix-relay/tailwind-config";
 
 export default {
@@ -31,10 +33,11 @@ export default {
       },
     },
   },
+
   plugins: [
-    require("tailwindcss-animate"),
-    require("@tailwindcss/forms"),
-    require("tailwind-scrollbar")({
+    animatePlugin,
+    formsPlugin,
+    scrollbarPlugin({
       nocompatible: true,
       // preferredStrategy: "pseudoelements",
     }),

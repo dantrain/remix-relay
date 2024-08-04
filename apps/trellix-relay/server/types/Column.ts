@@ -51,13 +51,14 @@ export type Column = typeof columns.$inferSelect;
 export const Column = builder.node("Column", {
   id: { resolve: (_) => _.id },
   fields: (t) => ({
-    title: t.exposeString("title"),
-    rank: t.exposeString("rank"),
+    title: t.exposeString("title", { nullable: false }),
+    rank: t.exposeString("rank", { nullable: false }),
     createdAt: t.string({
       resolve: ({ createdAt }) => createdAt.toISOString(),
     }),
     itemConnection: t.connection({
       type: Item,
+      nullable: false,
       resolve: async ({ id }, args, { db }) => {
         const data = await db((tx) =>
           tx.query.items.findMany({

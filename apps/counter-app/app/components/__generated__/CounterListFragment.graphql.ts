@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8fb9882bd36811ab38b7961196bff289>>
+ * @generated SignedSource<<039ea5f0f37a33f4f52212225d7b2029>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,9 +17,9 @@ export type CounterListFragment$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"CounterFragment">;
-      } | null | undefined;
+      };
     }>;
-  } | null | undefined;
+  };
   readonly id: string;
   readonly " $fragmentType": "CounterListFragment";
 };

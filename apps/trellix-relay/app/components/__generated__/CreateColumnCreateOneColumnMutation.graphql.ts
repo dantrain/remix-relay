@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0aefe5e05ff8ef5fc2bc7133f830abc1>>
+ * @generated SignedSource<<43174f9656673fb839fdb06b002af77d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,11 +23,11 @@ export type CreateColumnCreateOneColumnMutation$data = {
       readonly edges: ReadonlyArray<{
         readonly node: {
           readonly id: string;
-        } | null | undefined;
+        };
       }>;
-    } | null | undefined;
-    readonly rank: string | null | undefined;
-    readonly title: string | null | undefined;
+    };
+    readonly rank: string;
+    readonly title: string;
   } | null | undefined;
 };
 export type CreateColumnCreateOneColumnMutation = {

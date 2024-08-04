@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4f73a927ddf07dab32973677f00c5737>>
+ * @generated SignedSource<<32d44464288dabeb6d323535a7a1fcd9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CounterFragment$data = {
-  readonly count: number | null | undefined;
+  readonly count: number;
   readonly id: string;
   readonly " $fragmentType": "CounterFragment";
 };

@@ -1,7 +1,7 @@
 import SchemaBuilder from "@pothos/core";
 import RelayPlugin from "@pothos/plugin-relay";
 import { DrizzleD1Database } from "drizzle-orm/d1";
-import * as dbSchema from "./db-schema";
+import type * as dbSchema from "./db-schema";
 import { Objects } from "./types";
 import { User } from "./types/User";
 
@@ -14,10 +14,14 @@ const builder = new SchemaBuilder<{
   Objects: Objects;
   Context: PothosContext;
   DefaultEdgesNullability: false;
+  DefaultNodeNullability: false;
+  DefaultFieldNullability: false;
 }>({
+  defaultFieldNullability: false,
   plugins: [RelayPlugin],
   relay: {
     edgesFieldOptions: { nullable: false },
+    nodeFieldOptions: { nullable: false },
   },
 });
 

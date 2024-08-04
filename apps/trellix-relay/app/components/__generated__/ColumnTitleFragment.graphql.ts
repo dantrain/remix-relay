@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0cd38c5395de7a1bd386a7e31fca8ae1>>
+ * @generated SignedSource<<cfe446ef01806d8bef8eb25bc39c043e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,7 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ColumnTitleFragment$data = {
   readonly id: string;
-  readonly title: string | null | undefined;
+  readonly title: string;
   readonly " $fragmentType": "ColumnTitleFragment";
 };
 export type ColumnTitleFragment$key = {

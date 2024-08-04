@@ -24,7 +24,7 @@ directive @stream(
 ) on FIELD
 
 type Counter implements Node {
-  count: Int
+  count: Int!
   id: ID!
 }
 
@@ -49,7 +49,7 @@ type Query {
   counter(id: ID!): Counter
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
-  viewer: User
+  viewer: User!
 }
 
 type Subscription {
@@ -59,7 +59,7 @@ type Subscription {
 }
 
 type User implements Node {
-  counterConnection(after: String, before: String, first: Int, last: Int): UserCounterConnection
+  counterConnection(after: String, before: String, first: Int, last: Int): UserCounterConnection!
   id: ID!
 }
 
@@ -70,5 +70,5 @@ type UserCounterConnection {
 
 type UserCounterConnectionEdge {
   cursor: String!
-  node: Counter
+  node: Counter!
 }

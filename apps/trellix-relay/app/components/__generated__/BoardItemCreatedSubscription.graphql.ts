@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dd9a85b8c88a619b5e069214cd446fd4>>
+ * @generated SignedSource<<cb333835fe3c6224db0e7c44247d5ccb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type BoardItemCreatedSubscription$data = {
     readonly columnId: string | null | undefined;
     readonly id: string;
     readonly " $fragmentSpreads": FragmentRefs<"ItemFragment">;
-  } | null | undefined;
+  };
 };
 export type BoardItemCreatedSubscription = {
   response: BoardItemCreatedSubscription$data;

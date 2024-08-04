@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8a6b3fe678b07176ab4edf8bb3066f2e>>
+ * @generated SignedSource<<ce76e6b2fe0a6ef2f34e66c3feea3865>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,7 @@ export type BoardItemDeletedSubscription$variables = {
 export type BoardItemDeletedSubscription$data = {
   readonly itemDeleted: {
     readonly id: string;
-  } | null | undefined;
+  };
 };
 export type BoardItemDeletedSubscription = {
   response: BoardItemDeletedSubscription$data;
