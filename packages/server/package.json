@@ -55,7 +55,7 @@
     "@remix-run/node": "^2.11.0",
     "@remix-run/server-runtime": "^2.11.0",
     "@types/eslint": "^9.6.0",
-    "@types/node": "^22.1.0",
+    "@types/node": "^22.2.0",
     "@types/relay-runtime": "^17.0.3",
     "eslint": "^8.57.0",
     "graphql": "17.0.0-alpha.2",

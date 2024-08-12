@@ -16,7 +16,7 @@
   "dependencies": {
     "@apollo/server": "^4.10.5",
     "@paralleldrive/cuid2": "^2.2.2",
-    "@pothos/core": "^4.1.0",
+    "@pothos/core": "^4.2.0",
     "@pothos/plugin-relay": "^4.1.0",
     "@pothos/plugin-zod": "^4.1.0",
     "@remix-relay/react": "workspace:*",
@@ -62,7 +62,7 @@
     "@types/eslint": "^9.6.0",
     "@types/express": "^4.17.21",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^22.1.0",
+    "@types/node": "^22.2.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@types/react-relay": "^16.0.6",
