@@ -1,41 +1,13 @@
-import { resolveArrayConnection } from "@pothos/plugin-relay";
-import { and, eq, relations } from "drizzle-orm";
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { eq, and } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import exists from "~/lib/exists";
 import { fromGlobalId } from "~/lib/global-id";
 import { builder } from "../builder";
-import { Review, reviews } from "./Review";
-import { usersToMovies } from "./UserToMovie";
+import { movies, usersToMovies } from "../db-schema";
 
-export const movies = sqliteTable("movies", {
-  id: text("id").primaryKey(),
-  slug: text("slug").unique().notNull(),
-  title: text("title").notNull(),
-  criticScore: integer("critic_score").notNull(),
-  audienceScore: integer("audience_score").notNull(),
-  criticsConsensus: text("critics_consensus").notNull(),
-  boxOffice: text("box_office").notNull(),
-  imgUrl: text("img_url").notNull(),
-});
-
-export const moviesRelations = relations(movies, ({ many }) => ({
-  reviews: many(reviews),
-  usersToMovies: many(usersToMovies),
-}));
-
-export type Movie = typeof movies.$inferSelect;
-
-export const Movie = builder.node("Movie", {
-  isTypeOf: () => true,
-  id: { resolve: (_) => _.id },
-  loadOne: async (id, { db }) => {
-    const result = await db.query.movies.findFirst({
-      where: eq(movies.id, id),
-    });
-
-    return exists(result, "Movie not found");
-  },
+export const Movie = builder.drizzleNode("movies", {
+  name: "Movie",
+  id: { column: (movie) => movie.id },
   fields: (t) => ({
     slug: t.exposeString("slug"),
     title: t.exposeString("title"),
@@ -44,16 +16,7 @@ export const Movie = builder.node("Movie", {
     criticsConsensus: t.exposeString("criticsConsensus"),
     boxOffice: t.exposeString("boxOffice"),
     imgUrl: t.exposeString("imgUrl"),
-    reviews: t.connection({
-      type: Review,
-      resolve: async ({ id }, args, { db }) => {
-        const result = await db.query.reviews.findMany({
-          where: eq(reviews.movieId, id),
-        });
-
-        return resolveArrayConnection({ args }, result);
-      },
-    }),
+    reviews: t.relatedConnection("reviews"),
     likedByViewer: t.field({
       type: "Boolean",
       nullable: true,
@@ -74,15 +37,17 @@ export const Movie = builder.node("Movie", {
 });
 
 builder.queryField("movie", (t) =>
-  t.field({
-    type: Movie,
+  t.drizzleField({
+    type: "movies",
     args: {
       slug: t.arg.string({ required: true }),
     },
-    resolve: async (_parent, { slug }, { db }) => {
-      const result = await db.query.movies.findFirst({
-        where: eq(movies.slug, slug),
-      });
+    resolve: async (query, _parent, { slug }, { db }) => {
+      const result = await db.query.movies.findFirst(
+        query({
+          where: eq(movies.slug, slug),
+        }),
+      );
 
       return exists(result, "Movie not found");
     },
@@ -90,13 +55,10 @@ builder.queryField("movie", (t) =>
 );
 
 builder.queryField("movies", (t) =>
-  t.connection({
-    type: Movie,
-    resolve: async (_parent, args, { db }) => {
-      const result = await db.query.movies.findMany();
-
-      return resolveArrayConnection({ args }, result);
-    },
+  t.drizzleConnection({
+    type: "movies",
+    resolve: async (query, _parent, _args, { db }) =>
+      db.query.movies.findMany(query()),
   }),
 );
 

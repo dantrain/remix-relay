@@ -7,7 +7,7 @@ import { Authenticator } from "remix-auth";
 import { GitHubStrategy } from "remix-auth-github";
 import { z } from "zod";
 import * as dbSchema from "~/schema/db-schema";
-import { User, users } from "~/schema/types/User";
+import { User, users } from "~/schema/db-schema";
 import exists from "./exists";
 
 const envSchema = z.object({
