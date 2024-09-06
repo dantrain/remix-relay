@@ -10,7 +10,8 @@
   },
   "devDependencies": {
     "@remix-relay/typescript-config": "workspace:*",
-    "tailwindcss": "^3.4.7",
+    "@types/node": "^22.5.4",
+    "tailwindcss": "^3.4.10",
     "typescript": "^5.5.4"
   }
 }
