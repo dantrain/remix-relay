@@ -269,7 +269,7 @@ export const Item = memo(
                   id="editItemInput-title"
                   ref={textAreaRef}
                   name="title"
-                  className="block w-full resize-none rounded-md border-none
+                  className="block w-full resize-none rounded-[4px] border-none
                     bg-white px-2 py-1 shadow-[inset_0_0_0_1px] shadow-slate-500
                     focus:ring-0"
                   onKeyDown={(event) => {

@@ -60,7 +60,7 @@ export function ColumnTitle({ dataRef }: ColumnTitleProps) {
       <input
         id="editColumnInput-title"
         name="title"
-        className="block w-full rounded-md border-none px-2 py-1 font-medium
+        className="block w-full rounded-[4px] border-none px-2 py-1 font-medium
           shadow-slate-500 focus:shadow-[inset_0_0_0_1px] focus:ring-0"
         placeholder="Enter a title"
         type="text"
