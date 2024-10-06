@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7d2df11c04f0632997099f61393a2e8a>>
+ * @generated SignedSource<<2f0336933c2e1dec8a4514ae93196053>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type MovieDetailFragment$data = {
   readonly audienceScore: number;

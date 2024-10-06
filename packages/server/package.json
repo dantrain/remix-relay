@@ -28,8 +28,7 @@
       "require": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
-      },
-      "default": "./dist/index.js"
+      }
     },
     "./package.json": "./package.json"
   },
@@ -55,13 +54,13 @@
     "@remix-run/node": "^2.12.1",
     "@remix-run/server-runtime": "^2.12.1",
     "@types/eslint": "^9.6.1",
-    "@types/node": "^22.5.4",
+    "@types/node": "^22.7.4",
     "@types/relay-runtime": "^17.0.4",
     "eslint": "^8.57.0",
     "graphql": "17.0.0-alpha.2",
-    "relay-runtime": "^17.0.0",
-    "tsup": "^8.2.4",
-    "typescript": "^5.5.4"
+    "relay-runtime": "^18.1.0",
+    "tsup": "^8.3.0",
+    "typescript": "~5.5.4"
   },
   "peerDependencies": {
     "graphql": "17.0.0-alpha.2",

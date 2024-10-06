@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c400e9492639e7ac2db5b6eb2cc62c54>>
+ * @generated SignedSource<<de76a6b7e6eb1eb1a8c2c9c075577dde>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type BoardCardDeleteOneBoardMutation$variables = {
   connections: ReadonlyArray<string>;
   id: string;

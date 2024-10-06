@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ba267705b407ab00115914d577585d45>>
+ * @generated SignedSource<<4f3abf7c3477df082e6ae9cdc4830da3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, GraphQLSubscription } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type BoardColumnCreatedSubscription$variables = {
   connections: ReadonlyArray<string>;

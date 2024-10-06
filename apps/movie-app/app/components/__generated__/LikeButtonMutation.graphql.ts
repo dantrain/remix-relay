@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8c85925dc77a8cdaf5c13c4cca94826c>>
+ * @generated SignedSource<<80a93ee7bca8d251ea73b45c559ad976>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type LikeButtonMutation$variables = {
   id: string;
   liked: boolean;

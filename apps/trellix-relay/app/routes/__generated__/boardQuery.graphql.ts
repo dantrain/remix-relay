@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<645e7b2c246807af402ffe89383b5813>>
+ * @generated SignedSource<<12b83d0280356fb3deb731d1c9c2483d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type boardQuery$variables = {
   id: string;

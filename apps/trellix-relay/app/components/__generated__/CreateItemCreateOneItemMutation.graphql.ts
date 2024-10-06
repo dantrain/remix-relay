@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<caa5d86632c391cceae6aee59c69eb6f>>
+ * @generated SignedSource<<bf9fd5337a9b2e24f9144ba5e7c71d40>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CreateItemCreateOneItemMutation$variables = {
   columnId: string;

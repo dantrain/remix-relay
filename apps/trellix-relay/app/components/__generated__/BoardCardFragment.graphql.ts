@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<682ab8a7a30b86f6dd9631f9afd30d6d>>
+ * @generated SignedSource<<10241a26f14b76d60d1b94015acb480c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type BoardCardFragment$data = {
   readonly id: string;

@@ -161,9 +161,11 @@ app.use((req, res, next) => {
     if (req.path === "/signin") {
       return next();
     } else if (req.path === "/graphql") {
-      return res.status(401).json({ message: "Unauthorized" });
+      res.status(401).json({ message: "Unauthorized" });
+      return;
     } else {
-      return res.redirect(303, "/signin");
+      res.redirect(303, "/signin");
+      return;
     }
   }
 

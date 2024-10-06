@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7fe00ac27c58ce9da39fcc8b3759ec05>>
+ * @generated SignedSource<<edc3fed60840f2b0bd9cb44156e3e71e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type MovieLinkFragment$data = {
   readonly boxOffice: string;

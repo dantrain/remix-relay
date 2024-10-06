@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e058942c936039cda3e533e481bf5cab>>
+ * @generated SignedSource<<27d3f20aca0084e8a95e96880d3c3941>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ItemUpdateOneItemMutation$variables = {
   id: string;
   title?: string | null | undefined;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c0e9e6b0928c0cdef69fa6a71b1953d0>>
+ * @generated SignedSource<<cd54d5fb4e9e1afe1bb137bd01f48bf2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CounterSetCountMutation$variables = {
   count: number;

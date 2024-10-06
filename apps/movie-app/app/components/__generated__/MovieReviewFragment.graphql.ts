@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e8f6f0e971df467aaf2b5a83f4db9357>>
+ * @generated SignedSource<<c3f7256bbc5be2cbee7a2bfe605b0f50>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type MovieReviewFragment$data = {
   readonly criticName: string;

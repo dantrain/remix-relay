@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<95ba401f8b0209408964e43ac637a110>>
+ * @generated SignedSource<<b27fedd665fccbf19fcfdf8b437b5f81>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type movieQuery$variables = {
   slug: string;

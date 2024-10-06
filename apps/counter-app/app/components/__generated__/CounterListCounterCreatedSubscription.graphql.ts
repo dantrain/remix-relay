@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1d766dd6ac1b0109a4a236bbc7202d79>>
+ * @generated SignedSource<<fe6e7ed82a1ffa29e159682858762e85>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, GraphQLSubscription } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CounterListCounterCreatedSubscription$variables = {
   connections: ReadonlyArray<string>;

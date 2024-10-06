@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4826bdfa594b9b849ea05feda6c1df1d>>
+ * @generated SignedSource<<bc103ef9513a610c06f6a8b20e9fd1dd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ItemFragment$data = {
   readonly columnId: string | null | undefined;

@@ -37,9 +37,9 @@ export function getAuthenticator(context: AppLoadContext) {
 
   const gitHubStrategy = new GitHubStrategy(
     {
-      clientID: env.GITHUB_CLIENT_ID,
+      clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET,
-      callbackURL: `${env.ROOT_URL}/auth/github/callback`,
+      redirectURI: `${env.ROOT_URL}/auth/github/callback`,
     },
     async ({ profile, context }) => {
       const user = {

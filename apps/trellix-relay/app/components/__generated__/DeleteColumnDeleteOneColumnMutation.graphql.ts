@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f1a1f1b5e252ac60db34163fced181c2>>
+ * @generated SignedSource<<f23e9c1dfb9af37555e437292e733fe2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type DeleteColumnDeleteOneColumnMutation$variables = {
   connections: ReadonlyArray<string>;
   id: string;

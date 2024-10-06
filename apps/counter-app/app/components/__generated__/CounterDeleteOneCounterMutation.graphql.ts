@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ff4bb011be7acd5c2f4e0f0b991bec43>>
+ * @generated SignedSource<<f171bc18351835ff98459f053345fe6f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type CounterDeleteOneCounterMutation$variables = {
   connections: ReadonlyArray<string>;
   id: string;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<23a7ba7de11794b18f7255af9e246cd5>>
+ * @generated SignedSource<<57507d9f7a8088bad236a3d1f1c60535>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type BoardFragment$data = {
   readonly columnConnection: {

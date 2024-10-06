@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<43174f9656673fb839fdb06b002af77d>>
+ * @generated SignedSource<<22f2004b4465528f08a7eb3f505ca0cb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type CreateColumnCreateOneColumnMutation$variables = {
   boardId: string;
   connections: ReadonlyArray<string>;

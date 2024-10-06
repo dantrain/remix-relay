@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<deaed000a07984d115082294f02e4c16>>
+ * @generated SignedSource<<bf994d7c318797d84e47f57524db19c0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CounterListCreateOneCounterMutation$variables = {
   connections: ReadonlyArray<string>;

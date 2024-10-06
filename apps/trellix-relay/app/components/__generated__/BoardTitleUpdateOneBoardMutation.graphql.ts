@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dfe3d12d5064e652b623158bc6816789>>
+ * @generated SignedSource<<837aff3d51026fac4315fee9232b5928>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type BoardTitleUpdateOneBoardMutation$variables = {
   id: string;
   title: string;

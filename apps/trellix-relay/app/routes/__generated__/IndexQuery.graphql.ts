@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<855e07f24168acba70e22bb0536b52ca>>
+ * @generated SignedSource<<2b18f203ed55a361097792a725889574>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type IndexQuery$variables = Record<PropertyKey, never>;
 export type IndexQuery$data = {

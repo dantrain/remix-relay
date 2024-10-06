@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<47a2d2db0302fa247d0d2dc310cc79e1>>
+ * @generated SignedSource<<2c1e199fc82df350466f99323be3023c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type LikeButtonFragment$data = {
   readonly id: string;

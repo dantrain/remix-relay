@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ce76e6b2fe0a6ef2f34e66c3feea3865>>
+ * @generated SignedSource<<bc74cf717e755b15d98d94db85d7c335>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, GraphQLSubscription } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type BoardItemDeletedSubscription$variables = {
   connections: ReadonlyArray<string>;
 };

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ab14c8e686b1bedd3c98ab9534099d6d>>
+ * @generated SignedSource<<dfdd7e6599504f07f6d82d6f7e69f65c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type MovieReviewsListPaginationQuery$variables = {
   count?: number | null | undefined;

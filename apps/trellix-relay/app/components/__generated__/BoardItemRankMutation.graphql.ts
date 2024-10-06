@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5c306eb06add9a970b3bdde2c425ddfc>>
+ * @generated SignedSource<<072685ae4caccfb7f474816eaccad640>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type BoardItemRankMutation$variables = {
   columnId: string;
   id: string;

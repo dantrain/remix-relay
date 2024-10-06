@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<32d44464288dabeb6d323535a7a1fcd9>>
+ * @generated SignedSource<<494cc51b0b97c589f40d9ba8788c0f1c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CounterFragment$data = {
   readonly count: number;

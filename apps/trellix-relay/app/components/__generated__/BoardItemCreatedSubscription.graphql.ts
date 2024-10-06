@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cb333835fe3c6224db0e7c44247d5ccb>>
+ * @generated SignedSource<<aedd7c124a64dbd0c0c7b6f7090ec915>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, GraphQLSubscription } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type BoardItemCreatedSubscription$variables = Record<PropertyKey, never>;
 export type BoardItemCreatedSubscription$data = {

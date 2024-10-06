@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<da45e9ba5763f9315a78fd6a81fb8bf4>>
+ * @generated SignedSource<<4eb21b3acaac6fc539d3f552b2ee58a4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CreateBoardCreateOneBoardMutation$variables = {
   connections: ReadonlyArray<string>;

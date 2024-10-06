@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<46f4924377b40850290f32ac470af071>>
+ * @generated SignedSource<<16ab9706aade04a75ade273e8de7d040>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ColumnTitleUpdateOneColumnMutation$variables = {
   id: string;
   title: string;

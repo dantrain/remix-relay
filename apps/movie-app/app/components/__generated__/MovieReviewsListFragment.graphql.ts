@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e435cbc2b1452378a295277a50bbdee2>>
+ * @generated SignedSource<<1e401e75f667da958c9d7c852e1ae531>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type MovieReviewsListFragment$data = {
   readonly id: string;

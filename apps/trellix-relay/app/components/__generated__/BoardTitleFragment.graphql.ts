@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f19abbd37ef189035d8b760d5f377743>>
+ * @generated SignedSource<<266eee388903090b51274ac44d970a70>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type BoardTitleFragment$data = {
   readonly id: string;

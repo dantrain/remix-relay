@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5732239ca0167f947ef00a76144be208>>
+ * @generated SignedSource<<afaa7a1ede10f435fd296de113dab1f4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ColumnFragment$data = {
   readonly id: string;
