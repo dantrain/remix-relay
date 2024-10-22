@@ -40,6 +40,7 @@ export function createSupabaseClient(
                 ...options,
                 sameSite: "lax",
                 httpOnly: true,
+                maxAge: 365 * 24 * 60 * 60 * 1000,
               });
             }
 
