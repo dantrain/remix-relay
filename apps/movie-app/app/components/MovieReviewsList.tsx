@@ -49,7 +49,7 @@ export default function MovieReviewsList({ dataRef }: MovieReviewsListProps) {
         </div>
       ) : hasNext ? (
         <div className="flex h-24 items-start justify-center sm:h-11">
-          <Button className="px-3 py-2" onClick={() => loadNext(5)}>
+          <Button className="px-3 py-2" onPress={() => loadNext(5)}>
             View more reviews
           </Button>
         </div>

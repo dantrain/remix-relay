@@ -99,7 +99,7 @@ export default function CounterList({ dataRef }: CounterListProps) {
           </li>
         ))}
       </ul>
-      <Button className="pb-2 text-center text-3xl" onClick={createCounter}>
+      <Button className="pb-2 text-center text-3xl" onPress={createCounter}>
         +
       </Button>
     </div>

@@ -55,7 +55,7 @@ export default function SignIn() {
         <Button
           className="flex items-center justify-center gap-3 px-6 py-2"
           disabled={signingIn}
-          onClick={() => signIn("google")}
+          onPress={() => signIn("google")}
         >
           <GoogleIcon />
           Sign in with Google
@@ -63,7 +63,7 @@ export default function SignIn() {
         <Button
           className="flex items-center justify-center gap-3 px-6 py-2"
           disabled={signingIn}
-          onClick={() => signIn("github")}
+          onPress={() => signIn("github")}
         >
           <GitHubIcon />
           Sign in with GitHub
@@ -71,7 +71,7 @@ export default function SignIn() {
         <Button
           className="flex items-center justify-center gap-3 px-6 py-2"
           disabled={signingIn}
-          onClick={() => signIn("azure")}
+          onPress={() => signIn("azure")}
         >
           <MicrosoftIcon />
           Sign in with Microsoft

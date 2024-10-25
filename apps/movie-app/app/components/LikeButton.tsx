@@ -35,7 +35,7 @@ export default function LikeButton({ dataRef }: LikeButtonProps) {
   return user ? (
     <Button
       className="flex gap-2"
-      onClick={() =>
+      onPress={() =>
         commit({
           variables: { id, liked: !likedByViewer },
           optimisticResponse: {

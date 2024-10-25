@@ -1,4 +1,5 @@
 #!/usr/bin/env zx
+
 /* eslint-disable turbo/no-undeclared-env-vars */
 import { $ } from "zx";
 
@@ -16,6 +17,6 @@ process.on("uncaughtException", () => {
   process.exit(0);
 });
 
-$`remix vite:dev --port 4000 --strictPort`.pipe(process.stdout);
+$`remix vite:dev --port 4000 --strictPort --host`.pipe(process.stdout);
 $`watchman-make -p 'app/schema/**/*.ts' --run 'pnpm write-graphql-schema'`;
 $`relay-compiler --watch`;

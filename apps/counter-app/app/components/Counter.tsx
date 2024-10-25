@@ -80,15 +80,15 @@ export default function Counter({ dataRef, connectionId }: CounterProps) {
       <Button
         className="px-4 pb-2 text-3xl"
         disabled={!count}
-        onClick={incrementCounter}
+        onPress={incrementCounter}
       >
         -
       </Button>
       <pre className="min-w-[2ch] text-center text-5xl">{count}</pre>
-      <Button className="px-4 pb-2 text-3xl" onClick={decrementCounter}>
+      <Button className="px-4 pb-2 text-3xl" onPress={decrementCounter}>
         +
       </Button>
-      <Button className="px-4 pb-2 text-3xl" onClick={deleteCounter}>
+      <Button className="px-4 pb-2 text-3xl" onPress={deleteCounter}>
         &times;
       </Button>
     </div>
