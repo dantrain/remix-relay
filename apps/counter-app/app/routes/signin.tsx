@@ -1,4 +1,4 @@
-import { AppLoadContext, MetaFunction, json, redirect } from "@remix-run/node";
+import { AppLoadContext, MetaFunction, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { createBrowserClient } from "@supabase/ssr";
 import type { Provider } from "@supabase/supabase-js";
@@ -18,10 +18,10 @@ export const loader = ({ context }: { context: AppLoadContext }) => {
     });
   }
 
-  return json({
+  return {
     SUPABASE_URL: context.env.SUPABASE_URL,
     SUPABASE_ANON_KEY: context.env.SUPABASE_ANON_KEY,
-  });
+  };
 };
 
 export default function SignIn() {
