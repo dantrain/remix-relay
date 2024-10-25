@@ -6,10 +6,5 @@
       "~/*": ["./app/*"]
     }
   },
-  "include": [
-    "env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "node_modules/@remix-run/react/future/single-fetch.d.ts"
-  ]
+  "include": ["env.d.ts", "**/*.ts", "**/*.tsx"]
 }

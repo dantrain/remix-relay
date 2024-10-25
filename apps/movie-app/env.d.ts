@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-
+import "@remix-run/cloudflare";
 import { type PlatformProxy } from "wrangler";
 
 // When using `wrangler.toml` to configure bindings,
@@ -15,5 +15,9 @@ type Cloudflare = Omit<PlatformProxy<Env>, "dispose">;
 declare module "@remix-run/cloudflare" {
   interface AppLoadContext {
     cloudflare: Cloudflare;
+  }
+
+  interface Future {
+    v3_singleFetch: true;
   }
 }
