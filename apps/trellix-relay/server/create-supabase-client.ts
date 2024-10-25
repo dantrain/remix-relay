@@ -36,11 +36,13 @@ export function createSupabaseClient(
             }
 
             for (const { name, value, options } of cookiesToSet) {
+              console.log({ name, value, options });
+
               res.cookie(name, value, {
                 ...options,
                 sameSite: "lax",
                 httpOnly: true,
-                maxAge: 365 * 24 * 60 * 60 * 1000,
+                maxAge: options.maxAge ? 365 * 24 * 60 * 60 * 1000 : 0,
               });
             }
 
