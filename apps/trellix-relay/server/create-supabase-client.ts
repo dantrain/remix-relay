@@ -36,8 +36,6 @@ export function createSupabaseClient(
             }
 
             for (const { name, value, options } of cookiesToSet) {
-              console.log({ name, value, options });
-
               res.cookie(name, value, {
                 ...options,
                 sameSite: "lax",
