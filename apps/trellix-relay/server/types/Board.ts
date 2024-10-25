@@ -19,12 +19,12 @@ import { users } from "./User";
 export const boards = pgTable(
   "boards",
   {
-    id: varchar("id").primaryKey(),
-    title: text("title").notNull(),
-    userId: uuid("user_id")
+    id: varchar().primaryKey(),
+    title: text().notNull(),
+    userId: uuid()
       .references(() => users.id, { onDelete: "cascade" })
       .notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
+    createdAt: timestamp().defaultNow().notNull(),
   },
   (board) => ({ userIdx: index("board_user_idx").on(board.userId) }),
 );

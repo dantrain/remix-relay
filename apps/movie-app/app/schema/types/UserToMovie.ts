@@ -11,13 +11,13 @@ import { users } from "./User";
 export const usersToMovies = sqliteTable(
   "users_to_movies",
   {
-    userEmail: text("user_email")
+    userEmail: text()
       .notNull()
       .references(() => users.email),
-    movieId: text("movie_id")
+    movieId: text()
       .notNull()
       .references(() => movies.id),
-    liked: integer("liked", { mode: "boolean" }),
+    liked: integer({ mode: "boolean" }),
   },
   (t) => ({
     pk: primaryKey({ columns: [t.userEmail, t.movieId] }),

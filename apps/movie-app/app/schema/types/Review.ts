@@ -6,12 +6,12 @@ import { movies } from "./Movie";
 export const reviews = sqliteTable(
   "reviews",
   {
-    id: text("id").primaryKey(),
-    quote: text("quote").notNull(),
-    fresh: integer("fresh", { mode: "boolean" }).notNull(),
-    criticName: text("critic_name").notNull(),
-    criticSource: text("critic_source").notNull(),
-    movieId: text("movie_id")
+    id: text().primaryKey(),
+    quote: text().notNull(),
+    fresh: integer({ mode: "boolean" }).notNull(),
+    criticName: text().notNull(),
+    criticSource: text().notNull(),
+    movieId: text()
       .references(() => movies.id)
       .notNull(),
   },

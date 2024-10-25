@@ -13,7 +13,7 @@ export const loaderQuery = async <TQuery extends OperationType>(
   ...rest: Parameters<ReturnType<typeof getLoaderQuery>>
 ) => {
   const env = context.cloudflare.env as Env;
-  const db = drizzle(env.DB, { schema: dbSchema });
+  const db = drizzle(env.DB, { schema: dbSchema, casing: "snake_case" });
 
   const user = await getAuthenticator(context).isAuthenticated(request);
 

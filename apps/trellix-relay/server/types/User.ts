@@ -11,7 +11,7 @@ import { items } from "./Item";
 const authSchema = pgSchema("auth");
 
 export const users = authSchema.table("users", {
-  id: uuid("id").primaryKey(),
+  id: uuid().primaryKey(),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({

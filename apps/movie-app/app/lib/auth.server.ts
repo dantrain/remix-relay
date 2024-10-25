@@ -47,7 +47,7 @@ export function getAuthenticator(context: AppLoadContext) {
       };
 
       const env = exists((context as AppLoadContext)?.cloudflare.env) as Env;
-      const db = drizzle(env.DB, { schema: dbSchema });
+      const db = drizzle(env.DB, { schema: dbSchema, casing: "snake_case" });
 
       await db
         .insert(users)

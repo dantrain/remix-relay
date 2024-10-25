@@ -13,17 +13,17 @@ import { users } from "./User";
 export const items = pgTable(
   "items",
   {
-    id: varchar("id").primaryKey(),
-    title: varchar("title").notNull(),
-    rank: varchar("rank").notNull(),
-    userId: uuid("user_id")
+    id: varchar().primaryKey(),
+    title: varchar().notNull(),
+    rank: varchar().notNull(),
+    userId: uuid()
       .references(() => users.id, { onDelete: "cascade" })
       .notNull(),
-    columnId: varchar("column_id")
+    columnId: varchar()
       .references(() => columns.id, { onDelete: "cascade" })
       .notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedBy: varchar("updated_by").notNull(),
+    createdAt: timestamp().defaultNow().notNull(),
+    updatedBy: varchar().notNull(),
   },
   (item) => ({
     columnIdx: index("item_column_idx").on(item.columnId),

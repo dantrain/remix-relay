@@ -12,7 +12,7 @@ const yoga = createYoga<PothosContext>({ schema, plugins: [useDeferStream()] });
 
 export async function action({ request, context }: ActionFunctionArgs) {
   const env = context.cloudflare.env as Env;
-  const db = drizzle(env.DB, { schema: dbSchema });
+  const db = drizzle(env.DB, { schema: dbSchema, casing: "snake_case" });
 
   const user = await getAuthenticator(context).isAuthenticated(request);
 

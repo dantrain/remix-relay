@@ -22,17 +22,17 @@ import { users } from "./User";
 export const columns = pgTable(
   "columns",
   {
-    id: varchar("id").primaryKey(),
-    title: text("title").notNull(),
-    rank: text("rank").notNull(),
-    userId: uuid("user_id")
+    id: varchar().primaryKey(),
+    title: text().notNull(),
+    rank: text().notNull(),
+    userId: uuid()
       .references(() => users.id, { onDelete: "cascade" })
       .notNull(),
-    boardId: varchar("board_id")
+    boardId: varchar()
       .references(() => boards.id, { onDelete: "cascade" })
       .notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedBy: varchar("updated_by").notNull(),
+    createdAt: timestamp().defaultNow().notNull(),
+    updatedBy: varchar().notNull(),
   },
   (column) => ({
     boardIdx: index("column_board_idx").on(column.boardId),

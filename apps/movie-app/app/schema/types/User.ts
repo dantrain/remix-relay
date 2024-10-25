@@ -3,7 +3,7 @@ import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { usersToMovies } from "./UserToMovie";
 
 export const users = sqliteTable("users", {
-  email: text("email").primaryKey(),
+  email: text().primaryKey(),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({

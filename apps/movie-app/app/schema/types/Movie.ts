@@ -9,14 +9,14 @@ import { Review, reviews } from "./Review";
 import { usersToMovies } from "./UserToMovie";
 
 export const movies = sqliteTable("movies", {
-  id: text("id").primaryKey(),
-  slug: text("slug").unique().notNull(),
-  title: text("title").notNull(),
-  criticScore: integer("critic_score").notNull(),
-  audienceScore: integer("audience_score").notNull(),
-  criticsConsensus: text("critics_consensus").notNull(),
-  boxOffice: text("box_office").notNull(),
-  imgUrl: text("img_url").notNull(),
+  id: text().primaryKey(),
+  slug: text().unique().notNull(),
+  title: text().notNull(),
+  criticScore: integer().notNull(),
+  audienceScore: integer().notNull(),
+  criticsConsensus: text().notNull(),
+  boxOffice: text().notNull(),
+  imgUrl: text().notNull(),
 });
 
 export const moviesRelations = relations(movies, ({ many }) => ({

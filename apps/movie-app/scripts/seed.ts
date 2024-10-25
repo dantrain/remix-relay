@@ -26,7 +26,7 @@ const dataWithIds = data.map((movie) => ({
   reviews: movie.reviews.map((review) => ({ id: createId(), ...review })),
 }));
 
-const db = drizzle(new Database(), { schema });
+const db = drizzle(new Database(), { schema, casing: "snake_case" });
 
 const moviesSql = combineQueryAndParams(
   db

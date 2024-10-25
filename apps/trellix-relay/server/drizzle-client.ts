@@ -7,7 +7,7 @@ import * as schema from "./db-schema";
 import { env } from "./env";
 
 const client = postgres(env.DATABASE_URL);
-const db = drizzle(client, { schema });
+const db = drizzle(client, { schema, casing: "snake_case" });
 
 export function getDb(session: Session) {
   return <T>(cb: (tx: PostgresJsDatabase<typeof schema>) => T | Promise<T>) => {
