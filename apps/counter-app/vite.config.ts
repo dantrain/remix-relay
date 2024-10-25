@@ -1,11 +1,8 @@
 import { vitePlugin as remix } from "@remix-run/dev";
-import { installGlobals } from "@remix-run/node";
 import { defineConfig } from "vite";
 import { cjsInterop } from "vite-plugin-cjs-interop";
 import relay from "vite-plugin-relay";
 import tsconfigPaths from "vite-tsconfig-paths";
-
-installGlobals();
 
 export default defineConfig(({ command }) => ({
   plugins: [
@@ -18,7 +15,7 @@ export default defineConfig(({ command }) => ({
       ignoredRouteFiles: ["**/.*"],
       serverBuildFile: "remix.js",
       future: {
-        unstable_singleFetch: true,
+        v3_singleFetch: true,
       },
     }),
   ],

@@ -3,7 +3,6 @@ import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import { createRequestHandler } from "@remix-run/express";
-import { installGlobals } from "@remix-run/node";
 import { Session, SupabaseClient, User } from "@supabase/supabase-js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -32,8 +31,6 @@ export type PothosContext = {
   user: User;
   tabId?: string;
 };
-
-installGlobals();
 
 const isProd = env.NODE_ENV === "production";
 
