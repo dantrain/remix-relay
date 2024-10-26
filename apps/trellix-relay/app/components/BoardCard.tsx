@@ -68,7 +68,7 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
         {({ isPending }) => (
           <>
             <div className="flex-1 text-lg sm:text-base">{title}</div>
-            <div className="h-full w-8" />
+            <div className="w-8" />
             {isPending ? (
               <div className="absolute inset-0 grid">
                 <div
