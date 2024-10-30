@@ -26,7 +26,7 @@ export const boards = pgTable(
       .notNull(),
     createdAt: timestamp().defaultNow().notNull(),
   },
-  (board) => ({ userIdx: index("board_user_idx").on(board.userId) }),
+  (board) => [index("board_user_idx").on(board.userId)],
 );
 
 export const boardRelations = relations(boards, ({ one, many }) => ({

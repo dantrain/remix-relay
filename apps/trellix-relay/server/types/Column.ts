@@ -34,10 +34,10 @@ export const columns = pgTable(
     createdAt: timestamp().defaultNow().notNull(),
     updatedBy: varchar().notNull(),
   },
-  (column) => ({
-    boardIdx: index("column_board_idx").on(column.boardId),
-    rankIdx: index("column_rank_idx").on(column.rank),
-  }),
+  (column) => [
+    index("column_board_idx").on(column.boardId),
+    index("column_rank_idx").on(column.rank),
+  ],
 );
 
 export const columnRelations = relations(columns, ({ one, many }) => ({

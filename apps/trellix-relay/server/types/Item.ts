@@ -25,10 +25,10 @@ export const items = pgTable(
     createdAt: timestamp().defaultNow().notNull(),
     updatedBy: varchar().notNull(),
   },
-  (item) => ({
-    columnIdx: index("item_column_idx").on(item.columnId),
-    rankIdx: index("item_rank_idx").on(item.rank),
-  }),
+  (item) => [
+    index("item_column_idx").on(item.columnId),
+    index("item_rank_idx").on(item.rank),
+  ],
 );
 
 export const itemRelations = relations(items, ({ one }) => ({
