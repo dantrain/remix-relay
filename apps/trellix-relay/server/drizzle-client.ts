@@ -6,7 +6,7 @@ import postgres from "postgres";
 import * as schema from "./db-schema";
 import { env } from "./env";
 
-const client = postgres(env.DATABASE_URL);
+const client = postgres(env.DATABASE_URL, { prepare: false });
 const db = drizzle(client, { schema, casing: "snake_case" });
 
 export function getDb(session: Session) {
