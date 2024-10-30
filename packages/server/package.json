@@ -54,12 +54,12 @@
     "@remix-run/node": "^2.13.1",
     "@remix-run/server-runtime": "^2.13.1",
     "@types/eslint": "^9.6.1",
-    "@types/node": "^22.7.9",
+    "@types/node": "^22.8.4",
     "@types/relay-runtime": "^18.1.0",
     "eslint": "^8.57.0",
     "graphql": "17.0.0-alpha.2",
     "relay-runtime": "^18.1.0",
-    "tsup": "^8.3.4",
+    "tsup": "^8.3.5",
     "typescript": "~5.6.3"
   },
   "peerDependencies": {
