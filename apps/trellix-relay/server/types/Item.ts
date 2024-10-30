@@ -5,6 +5,7 @@ import { fromGlobalId } from "lib/global-id";
 import { retry } from "lib/retry";
 import { idSchema } from "lib/zod-schemas";
 import { builder } from "server/builder";
+import rlsPolicy from "server/rls-policy";
 import invariant from "tiny-invariant";
 import { z } from "zod";
 import { columns } from "./Column";
@@ -28,6 +29,7 @@ export const items = pgTable(
   (item) => [
     index("item_column_idx").on(item.columnId),
     index("item_rank_idx").on(item.rank),
+    rlsPolicy,
   ],
 );
 

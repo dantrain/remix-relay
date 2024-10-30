@@ -11,6 +11,7 @@ import {
 import exists from "lib/exists";
 import { fromGlobalId } from "lib/global-id";
 import { retry } from "lib/retry";
+import rlsPolicy from "server/rls-policy";
 import { z } from "zod";
 import { builder } from "../builder";
 import { Column, columns } from "./Column";
@@ -26,7 +27,7 @@ export const boards = pgTable(
       .notNull(),
     createdAt: timestamp().defaultNow().notNull(),
   },
-  (board) => [index("board_user_idx").on(board.userId)],
+  (board) => [index("board_user_idx").on(board.userId), rlsPolicy],
 );
 
 export const boardRelations = relations(boards, ({ one, many }) => ({

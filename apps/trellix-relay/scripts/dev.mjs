@@ -13,7 +13,7 @@ process.on("SIGTERM", exit);
 process.on("SIGINT", exit);
 process.on("uncaughtException", exit);
 
-await $`supabase start -x storage-api,imgproxy,inbucket,edge-runtime,logflare,vector,pg_prove`;
+await $`supabase start -x storage-api,imgproxy,inbucket,edge-runtime,logflare,vector`;
 
 const supabaseParams = JSON.parse(
   (await $`supabase status -o json`.quiet()).stdout,

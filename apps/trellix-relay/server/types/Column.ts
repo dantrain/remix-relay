@@ -13,6 +13,7 @@ import { fromGlobalId } from "lib/global-id";
 import { retry } from "lib/retry";
 import { idSchema } from "lib/zod-schemas";
 import { builder } from "server/builder";
+import rlsPolicy from "server/rls-policy";
 import invariant from "tiny-invariant";
 import { z } from "zod";
 import { boards } from "./Board";
@@ -37,6 +38,7 @@ export const columns = pgTable(
   (column) => [
     index("column_board_idx").on(column.boardId),
     index("column_rank_idx").on(column.rank),
+    rlsPolicy,
   ],
 );
 
