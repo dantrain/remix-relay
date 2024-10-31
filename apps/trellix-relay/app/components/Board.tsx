@@ -1,11 +1,11 @@
 import {
+  MouseSensor as BaseMouseSensor,
   CollisionDetection,
   DndContext,
   DragOverlay,
   DropAnimation,
   KeyboardSensor,
   MeasuringStrategy,
-  MouseSensor,
   TouchSensor,
   UniqueIdentifier,
   defaultDropAnimationSideEffects,
@@ -605,6 +605,18 @@ export function Board({ dataRef, scrollToRight }: BoardProps) {
         : null}
     </DndContext>
   );
+}
+
+class MouseSensor extends BaseMouseSensor {
+  static activators = [
+    {
+      eventName: "onMouseDown" as const,
+      handler: ({ nativeEvent }: React.MouseEvent) => {
+        // Only activate if the left mouse button is pressed
+        return nativeEvent.button === 0;
+      },
+    },
+  ];
 }
 
 function findItem(id: UniqueIdentifier, columns: Columns) {
