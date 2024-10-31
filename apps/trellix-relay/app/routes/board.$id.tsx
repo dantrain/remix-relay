@@ -2,7 +2,7 @@ import { LoaderFunctionArgs } from "@remix-run/node";
 import { ClientLoaderFunctionArgs, Params, useParams } from "@remix-run/react";
 import exists from "lib/exists";
 import { fromGlobalId } from "lib/global-id";
-import { useRef } from "react";
+import { MouseEvent, useRef } from "react";
 import { graphql } from "react-relay";
 import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
 import { Board } from "~/components/Board";
@@ -48,6 +48,37 @@ export default function BoardPage() {
   useWindowVisible(() => refetch({ id: exists(params.id) }));
 
   const ref = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+
+  const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+    if (e.button !== 1 && e.button !== 2) return; // Only allow right or middle mouse button
+    if (!ref.current) return;
+    isDragging.current = true;
+    startX.current = e.pageX - (ref.current?.offsetLeft ?? 0);
+    scrollLeft.current = ref.current?.scrollLeft ?? 0;
+    ref.current.style.cursor = "grabbing";
+  };
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!isDragging.current || !ref.current) return;
+    e.preventDefault();
+    const x = e.pageX - (ref.current?.offsetLeft ?? 0);
+    ref.current.scrollLeft = (scrollLeft.current ?? 0) - (x - startX.current);
+  };
+
+  const handleMouseUp = () => {
+    if (!ref.current) return;
+    isDragging.current = false;
+    ref.current.style.cursor = "";
+  };
+
+  const handleMouseLeave = () => {
+    if (!ref.current) return;
+    isDragging.current = false;
+    ref.current.style.cursor = "";
+  };
 
   const scrollToRight = () => {
     ref.current?.scrollTo({
@@ -65,10 +96,16 @@ export default function BoardPage() {
         className="flex h-[100dvh] flex-col items-center pt-[74px] sm:pt-[90px]"
       >
         <Suspense fallback={<LoadingScreen />}>
+          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
           <div
             className="flex min-w-[min(100dvw,1280px)] max-w-[100dvw] flex-1
               flex-col overflow-x-auto"
             ref={ref}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
+            onContextMenu={(e) => e.preventDefault()} // Prevent context menu on right-click
           >
             <div className="fixed self-start px-2 pt-3 sm:px-4 sm:pt-5">
               <BoardTitle dataRef={board} />
