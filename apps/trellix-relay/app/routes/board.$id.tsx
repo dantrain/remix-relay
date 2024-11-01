@@ -74,7 +74,7 @@ export default function BoardPage() {
             {...dragHandlers}
             onContextMenu={(e) => e.preventDefault()} // Prevent context menu on right-click
           >
-            <div className="fixed self-start px-2 pt-3 sm:px-4 sm:pt-5">
+            <div className="absolute self-start px-2 pt-3 sm:px-4 sm:pt-5">
               <BoardTitle dataRef={board} />
             </div>
             <div className="h-[54px] sm:h-[62px]" />

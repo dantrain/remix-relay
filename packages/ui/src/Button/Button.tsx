@@ -49,7 +49,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         onPress: (e) => {
           if (onPress) {
             return onPress(e);
-          } else if (e.pointerType === "keyboard" && onClick) {
+          } else if (e.pointerType !== "mouse" && onClick) {
             return onClick(e as unknown as MouseEvent);
           }
         },

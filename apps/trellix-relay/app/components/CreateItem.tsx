@@ -122,7 +122,7 @@ export function CreateItem({
             document.body.removeChild(tempInputEl);
           }
         },
-        isDesktop ? 0 : 30,
+        isDesktop ? 0 : 100,
       );
     }
   };
