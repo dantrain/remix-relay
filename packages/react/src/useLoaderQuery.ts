@@ -95,12 +95,7 @@ export function useLoaderQuery<TQuery extends OperationType>(
             environment,
             fetchKey: `${
               deferredResult.params.id ?? deferredResult.params.cacheID
-            }${JSON.stringify(deferredResult.response)
-              .split("")
-              .reduce((a, b) => {
-                a = (a << 5) - a + b.charCodeAt(0);
-                return a & a;
-              }, 0)}`,
+            }${simpleHash(deferredResult.response)}`,
             fetchPolicy,
             isDisposed: false,
             name: deferredResult.params.name,
@@ -110,7 +105,7 @@ export function useLoaderQuery<TQuery extends OperationType>(
           }
         : null;
 
-  invariant(ref);
+  invariant(ref, "Missing queryRef");
 
   const [queryRef, loadQuery, disposeQuery] = useQueryLoader<TQuery>(query);
 
@@ -137,4 +132,13 @@ function writePreloadedQueryToCache<TQuery extends OperationType>(
     preloadedQueryObject.variables,
     preloadedQueryObject.response,
   );
+}
+
+function simpleHash(input: unknown): number {
+  return JSON.stringify(input)
+    .split("")
+    .reduce((a, b) => {
+      a = (a << 5) - a + b.charCodeAt(0);
+      return a & a;
+    }, 0);
 }

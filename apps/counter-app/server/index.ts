@@ -179,7 +179,7 @@ app.use(
   expressMiddleware(apolloServer, {
     context: async ({ req }) => {
       const { user, supabase } = req.context;
-      invariant(user);
+      invariant(user, "Missing user");
 
       return { pubsub, user, supabase, tabId: req.body.extensions.tabId };
     },

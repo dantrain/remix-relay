@@ -8,6 +8,6 @@ export const loaderQuery = <TQuery extends OperationType>(
   { pothosContext }: AppLoadContext,
   ...rest: Parameters<ReturnType<typeof getLoaderQuery>>
 ) => {
-  invariant(pothosContext.user);
+  invariant(pothosContext.user, "Missing user");
   return getLoaderQuery(schema, json, defer, pothosContext)<TQuery>(...rest);
 };

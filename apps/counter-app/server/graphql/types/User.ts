@@ -21,7 +21,7 @@ export const User = builder.node("User", {
           .eq("userId", id)
           .order("createdAt");
 
-        invariant(data);
+        invariant(data, "Missing data");
         return resolveArrayConnection({ args }, data);
       },
     }),
@@ -33,7 +33,6 @@ builder.queryField("viewer", (t) =>
     type: User,
     nullable: false,
     resolve: (_parent, _args, { user }) => {
-      invariant(user);
       return pick(user, "id");
     },
   }),

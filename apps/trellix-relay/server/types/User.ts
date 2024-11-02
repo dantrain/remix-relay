@@ -2,7 +2,6 @@ import { resolveArrayConnection } from "@pothos/plugin-relay";
 import { desc, eq, relations } from "drizzle-orm";
 import { authUsers } from "drizzle-orm/supabase";
 import { pick } from "lodash-es";
-import invariant from "tiny-invariant";
 import { builder } from "../builder";
 import { Board, boards } from "./Board";
 import { columns } from "./Column";
@@ -43,7 +42,6 @@ builder.queryField("viewer", (t) =>
     type: User,
     nullable: false,
     resolve: (_parent, _args, { user }) => {
-      invariant(user);
       return pick(user, "id");
     },
   }),

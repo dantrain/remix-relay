@@ -31,7 +31,7 @@ builder.queryField("counter", (t) =>
           .select("id, count")
           .eq("id", id);
 
-        invariant(data);
+        invariant(data, "Missing data");
         return data[0];
       };
 
@@ -97,7 +97,7 @@ builder.mutationFields((t) => ({
         .eq("id", fromGlobalId(id))
         .select("id, count");
 
-      invariant(data);
+      invariant(data, "Missing data");
       const counter = data[0];
       invariant(counter, "Counter not found");
 
@@ -124,7 +124,7 @@ builder.mutationFields((t) => ({
       const counter = { id: args.id.toString(), count: 0, updatedBy: tabId };
 
       const { status } = await supabase.from("counters").insert(counter);
-      invariant(status === 201);
+      invariant(status === 201, "Failed to create counter");
 
       return counter;
     },
@@ -140,7 +140,7 @@ builder.mutationFields((t) => ({
         .select("id, count")
         .eq("id", id);
 
-      invariant(data);
+      invariant(data, "Missing data");
       const counter = data[0];
       invariant(counter, "Counter not found");
 
