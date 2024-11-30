@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 import { type PlatformProxy } from "wrangler";
 
 // When using `wrangler.toml` to configure bindings,

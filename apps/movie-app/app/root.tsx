@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { ActionFunctionArgs, LinksFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
 import {
   Form,
   Link,
@@ -17,7 +17,11 @@ import { Button, Spinner } from "@remix-relay/ui";
 import { getAuthenticator } from "./lib/auth.server";
 import { getCurrentEnvironment } from "./lib/relay-environment";
 import { User } from "./schema/types/User";
-import "./tailwind.css";
+import styles from "./tailwind.css?url";
+
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: styles },
+];
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
   return getAuthenticator(context).isAuthenticated(request);

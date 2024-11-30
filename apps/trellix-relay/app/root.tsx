@@ -17,7 +17,12 @@ import { getCurrentEnvironment } from "~/lib/relay-environment";
 import Progress from "./components/Progress";
 import { ResubscribeProvider } from "./components/ResubscribeProvider";
 import { Spinner } from "./components/Spinner";
-import "./tailwind.css";
+import { LinksFunction } from "@remix-run/node";
+import styles from "./tailwind.css?url";
+
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: styles },
+];
 
 export function Layout({ children }: { children: ReactNode }) {
   return (

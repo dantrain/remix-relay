@@ -12,7 +12,12 @@ import { Spinner, Toaster } from "@remix-relay/ui";
 import { getCurrentEnvironment } from "~/lib/relay-environment";
 import Progress from "./components/Progress";
 import { ResubscribeProvider } from "./hooks/useSubscribe";
-import "./tailwind.css";
+import { LinksFunction } from "@remix-run/node";
+import styles from "./tailwind.css?url";
+
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: styles },
+];
 
 export default function App() {
   return (
