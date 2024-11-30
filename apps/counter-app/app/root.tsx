@@ -1,23 +1,15 @@
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@remix-run/react";
 import { Suspense } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import { LinksFunction } from "react-router";
 import { RemixRelayProvider } from "@remix-relay/react";
 import { Spinner, Toaster } from "@remix-relay/ui";
 import { getCurrentEnvironment } from "~/lib/relay-environment";
 import Progress from "./components/Progress";
 import { ResubscribeProvider } from "./hooks/useSubscribe";
-import { LinksFunction } from "@remix-run/node";
 import styles from "./tailwind.css?url";
 
-export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: styles },
-];
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export default function App() {
   return (

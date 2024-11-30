@@ -48,3 +48,6 @@ vite.config.ts.*
 # Supabase
 .branches
 .temp
+
+# React Router
+.react-router

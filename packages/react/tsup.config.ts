@@ -5,5 +5,5 @@ export default defineConfig({
   format: ["cjs", "esm"],
   dts: true,
   sourcemap: true,
-  external: ["react"],
+  external: ["react", "react-router"],
 });

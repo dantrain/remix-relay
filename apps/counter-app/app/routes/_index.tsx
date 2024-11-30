@@ -1,5 +1,5 @@
-import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { graphql } from "react-relay";
+import type { MetaFunction } from "react-router";
 import { Suspense, useLoaderQuery } from "@remix-relay/react";
 import { Button, Spinner } from "@remix-relay/ui";
 import CounterList from "~/components/CounterList";
@@ -8,6 +8,7 @@ import useWindowVisible from "~/hooks/useWindowVisible";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
 import { IndexQuery } from "./__generated__/IndexQuery.graphql";
+import type { Route } from ".react-router/types/app/routes/+types/_index";
 
 const query = graphql`
   query IndexQuery {
@@ -19,7 +20,7 @@ const query = graphql`
 
 export const meta: MetaFunction = () => [{ title: "Counter App" }];
 
-export const loader = ({ context }: LoaderFunctionArgs) =>
+export const loader = ({ context }: Route.LoaderArgs) =>
   loaderQuery(context, query, {});
 
 export const clientLoader = () => clientLoaderQuery(query, {});

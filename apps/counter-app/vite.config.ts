@@ -1,4 +1,4 @@
-import { vitePlugin as remix } from "@remix-run/dev";
+import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import { cjsInterop } from "vite-plugin-cjs-interop";
 import relay from "vite-plugin-relay";
@@ -11,17 +11,7 @@ export default defineConfig(({ command }) => ({
       dependencies: ["react-relay"],
     }),
     relay,
-    remix({
-      serverBuildFile: "remix.js",
-      future: {
-        v3_singleFetch: true,
-        v3_fetcherPersist: true,
-        v3_relativeSplatPath: true,
-        v3_throwAbortReason: true,
-        v3_lazyRouteDiscovery: true,
-        v3_routeConfig: true,
-      },
-    }),
+    reactRouter(),
   ],
   ssr: command === "build" ? { noExternal: /(relay)/ } : {},
 }));

@@ -1,4 +1,3 @@
-import { Await } from "@remix-run/react";
 import {
   Suspense as ReactSuspense,
   SuspenseProps,
@@ -6,6 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { Await } from "react-router";
 import { DeferredQueryContext } from "./deferred-query-context";
 
 export function Suspense({ children, ...rest }: SuspenseProps) {

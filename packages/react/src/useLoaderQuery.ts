@@ -1,5 +1,3 @@
-import type { TypedDeferredData } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { flushSync } from "react-dom";
 import type {
@@ -9,6 +7,7 @@ import type {
 } from "react-relay";
 import relay from "react-relay";
 import type { useQueryLoaderHookType } from "react-relay/relay-hooks/useQueryLoader";
+import { useLoaderData } from "react-router";
 import type {
   ConcreteRequest,
   GraphQLResponse,
@@ -37,10 +36,10 @@ export function useLoaderQuery<TQuery extends OperationType>(
 ] {
   const loaderData = useLoaderData<
     () => Promise<
-      | TypedDeferredData<{
+      | {
           preloadedQuery: SerializablePreloadedQuery<TQuery>;
           deferredQueries: Promise<SerializablePreloadedQuery<TQuery>[]>;
-        }>
+        }
       | { queryRef: PreloadedQuery<TQuery> }
     >
   >();

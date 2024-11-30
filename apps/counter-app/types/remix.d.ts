@@ -1,13 +1,9 @@
 import { PothosContext } from "server";
 import { Env } from "server/env";
 
-declare module "@remix-run/node" {
+declare module "react-router" {
   interface AppLoadContext {
     env: Env;
     pothosContext: Partial<PothosContext>;
-  }
-
-  interface Future {
-    v3_singleFetch: true;
   }
 }

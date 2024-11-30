@@ -1,4 +1,4 @@
-import { type AppLoadContext } from "@remix-run/node";
+import { type AppLoadContext } from "react-router";
 import { OperationType } from "relay-runtime";
 import { schema } from "server/graphql/schema";
 import invariant from "tiny-invariant";
