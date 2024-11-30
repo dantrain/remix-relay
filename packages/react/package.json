@@ -63,8 +63,8 @@
     "graphql": "17.0.0-alpha.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-relay": "^18.1.0",
-    "relay-runtime": "^18.1.0",
+    "react-relay": "^18.2.0",
+    "relay-runtime": "^18.2.0",
     "tsup": "^8.3.5",
     "typescript": "~5.7.2"
   },
