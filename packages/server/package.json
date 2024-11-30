@@ -51,8 +51,8 @@
   "devDependencies": {
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
-    "@remix-run/node": "^2.13.1",
-    "@remix-run/server-runtime": "^2.13.1",
+    "@remix-run/node": "^2.15.0",
+    "@remix-run/server-runtime": "^2.15.0",
     "@types/eslint": "^9.6.1",
     "@types/node": "^22.10.1",
     "@types/relay-runtime": "^18.1.1",
