@@ -1,5 +1,3 @@
-/// <reference types="vite/client" />
-import "@remix-run/cloudflare";
 import { type PlatformProxy } from "wrangler";
 
 // When using `wrangler.toml` to configure bindings,

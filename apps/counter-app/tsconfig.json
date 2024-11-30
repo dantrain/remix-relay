@@ -1,6 +1,7 @@
 {
   "extends": "@remix-relay/typescript-config/remix.json",
   "compilerOptions": {
+    "types": ["@remix-run/node", "vite/client"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"]

@@ -1,4 +1,3 @@
-import "@remix-run/node";
 import { PothosContext } from "server";
 import { Env } from "server/env";
 
