@@ -54,11 +54,11 @@
     "@remix-run/react": "^2.13.1",
     "@remix-run/server-runtime": "^2.13.1",
     "@types/eslint": "^9.6.1",
-    "@types/node": "^22.8.4",
+    "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@types/react-relay": "^16.0.6",
-    "@types/relay-runtime": "^18.1.0",
+    "@types/relay-runtime": "^18.1.1",
     "eslint": "^8.57.0",
     "graphql": "17.0.0-alpha.2",
     "react": "^18.3.1",
@@ -66,7 +66,7 @@
     "react-relay": "^18.1.0",
     "relay-runtime": "^18.1.0",
     "tsup": "^8.3.5",
-    "typescript": "~5.6.3"
+    "typescript": "~5.7.2"
   },
   "peerDependencies": {
     "@remix-run/react": "^2.4.1",
