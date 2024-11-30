@@ -36,7 +36,7 @@
     "express-async-errors": "^3.1.1",
     "graphql": "17.0.0-alpha.2",
     "graphql-relay": "^0.10.2",
-    "graphql-subscriptions": "^2.0.0",
+    "graphql-subscriptions": "^3.0.0",
     "graphql-ws": "^5.16.0",
     "isbot": "^5.1.17",
     "lodash-es": "^4.17.21",

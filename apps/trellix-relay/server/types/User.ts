@@ -15,7 +15,7 @@ export const usersRelations = relations(users, ({ many }) => ({
   items: many(items),
 }));
 
-export type User = typeof users.$inferSelect;
+export type User = Pick<typeof users.$inferSelect, "id">;
 
 export const User = builder.node("User", {
   id: { resolve: (_) => _.id },
