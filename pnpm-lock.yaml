@@ -165,6 +165,12 @@ importers:
       '@remix-run/dev':
         specifier: ^2.15.0
         version: 2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))
+      '@remix-run/fs-routes':
+        specifier: ^2.15.0
+        version: 2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(@remix-run/route-config@2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2))(typescript@5.7.2)
+      '@remix-run/route-config':
+        specifier: ^2.15.0
+        version: 2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2)
       '@types/cookie-parser':
         specifier: ^1.4.8
         version: 1.4.8(@types/express@5.0.0)
@@ -12298,7 +12304,7 @@ snapshots:
       '@babel/plugin-syntax-typescript': 7.25.9(@babel/core@7.26.0)
       '@vanilla-extract/babel-plugin-debug-ids': 1.1.0
       '@vanilla-extract/css': 1.16.1
-      esbuild: 0.17.6
+      esbuild: 0.19.12
       eval: 0.1.8
       find-up: 5.0.0
       javascript-stringify: 2.1.0

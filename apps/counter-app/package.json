@@ -57,6 +57,8 @@
     "@remix-relay/tailwind-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
     "@remix-run/dev": "^2.15.0",
+    "@remix-run/fs-routes": "^2.15.0",
+    "@remix-run/route-config": "^2.15.0",
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
     "@types/eslint": "^9.6.1",
