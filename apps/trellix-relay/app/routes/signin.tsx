@@ -1,21 +1,21 @@
-import { AppLoadContext, MetaFunction, redirect } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
 import { createBrowserClient } from "@supabase/ssr";
 import type { Provider } from "@supabase/supabase-js";
 import { useState } from "react";
+import { MetaFunction, redirect, useLoaderData } from "react-router";
 import { Button } from "@remix-relay/ui";
 import Anchor from "~/components/Anchor";
 import { GitHubIcon } from "~/components/Icons";
 import { Logo } from "~/components/Logo";
 import { Spinner } from "~/components/Spinner";
+import { Route } from ".react-router/types/app/routes/+types/signin";
 
 export const meta: MetaFunction = () => [{ title: "Sign in · Trellix Relay" }];
 
 export const headers = () => ({ "Cache-Control": "no-store" });
 
-export const loader = ({ context }: { context: AppLoadContext }) => {
+export const loader = ({ context }: Route.LoaderArgs) => {
   if (context.pothosContext.user) {
-    return redirect("/", {
+    throw redirect("/", {
       status: 303,
       headers: { "Cache-Control": "no-store" },
     });

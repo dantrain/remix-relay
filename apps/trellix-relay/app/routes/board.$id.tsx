@@ -1,9 +1,8 @@
-import { LoaderFunctionArgs } from "@remix-run/node";
-import { ClientLoaderFunctionArgs, Params, useParams } from "@remix-run/react";
 import exists from "lib/exists";
 import { fromGlobalId } from "lib/global-id";
 import { useRef } from "react";
 import { graphql } from "react-relay";
+import { Params, useParams } from "react-router";
 import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
 import { Board } from "~/components/Board";
 import { BoardTitle } from "~/components/BoardTitle";
@@ -15,6 +14,7 @@ import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
 import { ViewerIdContext } from "~/lib/viewer-id-context";
 import { boardQuery } from "./__generated__/boardQuery.graphql";
+import { Route } from ".react-router/types/app/routes/+types/board.$id";
 
 const query = graphql`
   query boardQuery($id: ID!) {
@@ -36,10 +36,10 @@ export const meta = metaQuery<boardQuery>(({ data }) => [
 
 const getVars = (params: Params<string>) => ({ id: params.id ?? "" });
 
-export const loader = ({ context, params }: LoaderFunctionArgs) =>
+export const loader = ({ context, params }: Route.LoaderArgs) =>
   loaderQuery<boardQuery>(context, query, getVars(params));
 
-export const clientLoader = ({ params }: ClientLoaderFunctionArgs) =>
+export const clientLoader = ({ params }: Route.ClientLoaderArgs) =>
   clientLoaderQuery<boardQuery>(query, getVars(params));
 
 export default function BoardPage() {

@@ -1,5 +1,5 @@
-import { NavLink } from "@remix-run/react";
 import { LogOutIcon } from "lucide-react";
+import { NavLink } from "react-router";
 import { Button } from "@remix-relay/ui";
 import { GitHubIcon } from "./Icons";
 

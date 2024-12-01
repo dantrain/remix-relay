@@ -2,7 +2,7 @@
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
-import { createRequestHandler } from "@remix-run/express";
+import { createRequestHandler } from "@react-router/express";
 import { Session, SupabaseClient, User } from "@supabase/supabase-js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -203,7 +203,7 @@ app.all(
   "*",
   createRequestHandler({
     build: viteDevServer
-      ? () => viteDevServer.ssrLoadModule("virtual:remix/server-build")
+      ? () => viteDevServer.ssrLoadModule("virtual:react-router/server-build")
       : ((await import(
           path.join(import.meta.dirname!, "remix.js")
           // eslint-disable-next-line @typescript-eslint/no-explicit-any

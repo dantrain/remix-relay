@@ -1,4 +1,7 @@
-import { LinksFunction } from "@remix-run/node";
+import { TriangleAlertIcon } from "lucide-react";
+import { ReactNode, Suspense } from "react";
+import { RelayEnvironmentProvider } from "react-relay";
+import { LinksFunction } from "react-router";
 import {
   Links,
   Meta,
@@ -7,10 +10,7 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   useRouteError,
-} from "@remix-run/react";
-import { TriangleAlertIcon } from "lucide-react";
-import { ReactNode, Suspense } from "react";
-import { RelayEnvironmentProvider } from "react-relay";
+} from "react-router";
 import { useDocumentTitle } from "usehooks-ts";
 import { RemixRelayProvider } from "@remix-relay/react";
 import { Toaster } from "@remix-relay/ui";

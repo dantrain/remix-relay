@@ -1,10 +1,10 @@
-import { NavLink } from "@remix-run/react";
 import { cx } from "class-variance-authority";
 import { fromGlobalId } from "lib/global-id";
 import { Trash2Icon } from "lucide-react";
 import { useState } from "react";
 import { useFocusVisible } from "react-aria";
 import { graphql, useFragment, useMutation } from "react-relay";
+import { NavLink } from "react-router";
 import { Button } from "@remix-relay/ui";
 import {
   ResponsiveDialog,

@@ -1,5 +1,5 @@
-import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { graphql } from "react-relay";
+import type { MetaFunction } from "react-router";
 import { Suspense, useLoaderQuery } from "@remix-relay/react";
 import BoardList from "~/components/BoardList";
 import Header from "~/components/Header";
@@ -7,6 +7,7 @@ import LoadingScreen from "~/components/LoadingScreen";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
 import { IndexQuery } from "./__generated__/IndexQuery.graphql";
+import { Route } from ".react-router/types/app/routes/+types/_index";
 
 const query = graphql`
   query IndexQuery {
@@ -18,7 +19,7 @@ const query = graphql`
 
 export const meta: MetaFunction = () => [{ title: "Trellix Relay" }];
 
-export const loader = ({ context }: LoaderFunctionArgs) =>
+export const loader = ({ context }: Route.LoaderArgs) =>
   loaderQuery(context, query, {});
 
 export const clientLoader = () => clientLoaderQuery(query, {});
