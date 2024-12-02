@@ -151,14 +151,14 @@ importers:
         version: 3.23.8
     devDependencies:
       '@ast-grep/napi':
-        specifier: ^0.30.1
-        version: 0.30.1
+        specifier: ^0.31.0
+        version: 0.31.0
       '@react-router/dev':
         specifier: ^7.0.0
-        version: 7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))
+        version: 7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))
       '@react-router/fs-routes':
         specifier: ^7.0.0
-        version: 7.0.1(@react-router/dev@7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2)
+        version: 7.0.1(@react-router/dev@7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2)
       '@remix-relay/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -196,8 +196,8 @@ importers:
         specifier: ^16.0.6
         version: 16.0.6
       '@types/relay-runtime':
-        specifier: ^18.1.1
-        version: 18.1.1
+        specifier: ^18.2.0
+        version: 18.2.0
       '@types/uuid':
         specifier: ^10.0.0
         version: 10.0.0
@@ -208,8 +208,8 @@ importers:
         specifier: ^8.57.0
         version: 8.57.0
       supabase:
-        specifier: ^1.223.10
-        version: 1.223.10
+        specifier: ^1.226.3
+        version: 1.226.3
       tailwindcss:
         specifier: ^3.4.15
         version: 3.4.15(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))
@@ -223,17 +223,17 @@ importers:
         specifier: ~5.7.2
         version: 5.7.2
       vite:
-        specifier: ^6.0.1
-        version: 6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
+        specifier: ^6.0.2
+        version: 6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
       vite-plugin-cjs-interop:
         specifier: ^2.1.6
-        version: 2.1.6(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
+        version: 2.1.6(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
       vite-plugin-relay:
         specifier: ^2.1.0
-        version: 2.1.0(babel-plugin-relay@18.1.0)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
+        version: 2.1.0(babel-plugin-relay@18.1.0)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
       vite-tsconfig-paths:
         specifier: ^5.1.3
-        version: 5.1.3(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
+        version: 5.1.3(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
       zx:
         specifier: ^8.2.4
         version: 8.2.4
@@ -310,11 +310,11 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       remix-auth:
-        specifier: ^3.7.0
-        version: 3.7.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/server-runtime@2.15.0(typescript@5.7.2))
+        specifier: ^4.0.0
+        version: 4.0.0
       remix-auth-github:
-        specifier: 2.0.0
-        version: 2.0.0(@remix-run/cloudflare@2.15.0(@cloudflare/workers-types@4.20241127.0)(typescript@5.7.2))(@remix-run/node@2.15.0(typescript@5.7.2))(remix-auth@3.7.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/server-runtime@2.15.0(typescript@5.7.2)))
+        specifier: 3.0.1
+        version: 3.0.1(remix-auth@4.0.0)
       tailwind-merge:
         specifier: ^2.5.5
         version: 2.5.5
@@ -342,13 +342,13 @@ importers:
         version: link:../../packages/typescript-config
       '@remix-run/dev':
         specifier: ^2.15.0
-        version: 2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))
+        version: 2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))
       '@remix-run/fs-routes':
         specifier: ^2.15.0
-        version: 2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(@remix-run/route-config@2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2))(typescript@5.7.2)
+        version: 2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(@remix-run/route-config@2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2))(typescript@5.7.2)
       '@remix-run/route-config':
         specifier: ^2.15.0
-        version: 2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2)
+        version: 2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2)
       '@types/better-sqlite3':
         specifier: ^7.6.12
         version: 7.6.12
@@ -365,8 +365,8 @@ importers:
         specifier: ^16.0.6
         version: 16.0.6
       '@types/relay-runtime':
-        specifier: ^18.1.1
-        version: 18.1.1
+        specifier: ^18.2.0
+        version: 18.2.0
       better-sqlite3:
         specifier: ^11.6.0
         version: 11.6.0
@@ -389,17 +389,17 @@ importers:
         specifier: ~5.7.2
         version: 5.7.2
       vite:
-        specifier: ^6.0.1
-        version: 6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
+        specifier: ^6.0.2
+        version: 6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
       vite-plugin-cjs-interop:
         specifier: ^2.1.6
-        version: 2.1.6(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
+        version: 2.1.6(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
       vite-plugin-relay:
         specifier: ^2.1.0
-        version: 2.1.0(babel-plugin-relay@18.1.0)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
+        version: 2.1.0(babel-plugin-relay@18.1.0)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
       vite-tsconfig-paths:
         specifier: ^5.1.3
-        version: 5.1.3(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
+        version: 5.1.3(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
       wrangler:
         specifier: ^3.91.0
         version: 3.91.0(@cloudflare/workers-types@4.20241127.0)
@@ -576,14 +576,14 @@ importers:
         version: 3.23.8
     devDependencies:
       '@ast-grep/napi':
-        specifier: ^0.30.1
-        version: 0.30.1
+        specifier: ^0.31.0
+        version: 0.31.0
       '@react-router/dev':
         specifier: ^7.0.0
-        version: 7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))
+        version: 7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))
       '@react-router/fs-routes':
         specifier: ^7.0.0
-        version: 7.0.1(@react-router/dev@7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2)
+        version: 7.0.1(@react-router/dev@7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2)
       '@remix-relay/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -624,8 +624,8 @@ importers:
         specifier: ^4.4.11
         version: 4.4.11
       '@types/relay-runtime':
-        specifier: ^18.1.1
-        version: 18.1.1
+        specifier: ^18.2.0
+        version: 18.2.0
       '@types/ws':
         specifier: ^8.5.13
         version: 8.5.13
@@ -639,8 +639,8 @@ importers:
         specifier: ^8.57.0
         version: 8.57.0
       supabase:
-        specifier: ^1.223.10
-        version: 1.223.10
+        specifier: ^1.226.3
+        version: 1.226.3
       tailwind-scrollbar:
         specifier: ^3.1.0
         version: 3.1.0(tailwindcss@3.4.15(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2)))
@@ -660,17 +660,17 @@ importers:
         specifier: ~5.7.2
         version: 5.7.2
       vite:
-        specifier: ^6.0.1
-        version: 6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
+        specifier: ^6.0.2
+        version: 6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
       vite-plugin-cjs-interop:
         specifier: ^2.1.6
-        version: 2.1.6(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
+        version: 2.1.6(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
       vite-plugin-relay:
         specifier: ^2.1.0
-        version: 2.1.0(babel-plugin-relay@18.1.0)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
+        version: 2.1.0(babel-plugin-relay@18.1.0)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
       vite-tsconfig-paths:
         specifier: ^5.1.3
-        version: 5.1.3(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
+        version: 5.1.3(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))
       zx:
         specifier: ^8.2.4
         version: 8.2.4
@@ -739,8 +739,8 @@ importers:
         specifier: ^16.0.6
         version: 16.0.6
       '@types/relay-runtime':
-        specifier: ^18.1.1
-        version: 18.1.1
+        specifier: ^18.2.0
+        version: 18.2.0
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -791,8 +791,8 @@ importers:
         specifier: ^22.10.1
         version: 22.10.1
       '@types/relay-runtime':
-        specifier: ^18.1.1
-        version: 18.1.1
+        specifier: ^18.2.0
+        version: 18.2.0
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -992,62 +992,62 @@ packages:
     resolution: {integrity: sha512-YBDiuAX9i1lLc6GeTy1m7DGLFn/gMnvXqlalOIMjM7DeOgIacEjjfwPqb0M1CQ2v11HhR15d1NmxJoRCfrNqcA==}
     engines: {node: '>=14'}
 
-  '@ast-grep/napi-darwin-arm64@0.30.1':
-    resolution: {integrity: sha512-U6e+ROuK0ff7IjEHQUbBDCHadySCKT1tCCNo9tSMdYBfLgWeYGQlbOfDdIa0zUgtPuqRJhIAMKNqUfljh3Z2oQ==}
+  '@ast-grep/napi-darwin-arm64@0.31.0':
+    resolution: {integrity: sha512-AtH3DNLvbBNY2RlZnb/uGKz39sCWt0IaNK3nI+u5EDLOZyK/iML8aCisJNayYptPyw1WOeqHiK1oA8bX9unxHQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
 
-  '@ast-grep/napi-darwin-x64@0.30.1':
-    resolution: {integrity: sha512-368LWFPTjjuXy//0guWTpCPRqLd2WfpM2h1CaOJzXFvaHHk6inKMpqomXBZ/yqdnHp7wTgFyRpRndOrywx4oRg==}
+  '@ast-grep/napi-darwin-x64@0.31.0':
+    resolution: {integrity: sha512-/ie1FqdcOfS6Hj8MxMIa04B6nQDsynJbPe/uB5U/+aMca4G/SVWfm0+gX4JWrLQUFj1jeYmxw/JECuUHPB+UzA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
 
-  '@ast-grep/napi-linux-arm64-gnu@0.30.1':
-    resolution: {integrity: sha512-UY60qmXnv5XC/YDuib73bsrX41Y6TUgMTqLwHBwq4DgX0xS0KTpX89g+FCYEyTRdEOxoi8Emy+EXoSozftD3qw==}
+  '@ast-grep/napi-linux-arm64-gnu@0.31.0':
+    resolution: {integrity: sha512-6SaJAFKvEKuMLGbb4Qd9GKCpg94DLbDuApXlOzxTQ3FccMSiPCa9iZhLr8Ik+v3Y2Y1PE+dUWRiWCF6HFobemg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@ast-grep/napi-linux-arm64-musl@0.30.1':
-    resolution: {integrity: sha512-e85ILKJg9W10zvsOIY90UIAYi9jCZ+8d1COfex0M9HF+dSiDCqRmvR9YKrA5VFtfrsKpL+8tm5Dso6j/Xf7XAA==}
+  '@ast-grep/napi-linux-arm64-musl@0.31.0':
+    resolution: {integrity: sha512-wFson8SHMsUFUlORv3ZVPdmik/t1eS9FSqRXH7I90yU46cNdwLIZ1kQ2Fat0zVfXvOKkKeED3KRInIRUAbmr3A==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@ast-grep/napi-linux-x64-gnu@0.30.1':
-    resolution: {integrity: sha512-3sJgurAlsNKhEKeZWio/JWZLzUhMMGeN4maJlPsqnpJjAw5E2dk3S8jwq0zLT4xlhFtHGrRMGO0jZtsc0YO2Hw==}
+  '@ast-grep/napi-linux-x64-gnu@0.31.0':
+    resolution: {integrity: sha512-WYuOdjUNCs/n2bieFs5FAsn5KwkdJHHrVkTVI6jTMUHiPs34bc4/6/UD41LmPFPnsDsvCArCUqsFK42EezqXug==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@ast-grep/napi-linux-x64-musl@0.30.1':
-    resolution: {integrity: sha512-KnGBolF2VzQ5qMyzfIa2rlRIA+6XJJsSY0xvBMB1kJJCxSWCkME6vNIKJZvvT1vhMGKXST3xfyuDSYNGLsrcsw==}
+  '@ast-grep/napi-linux-x64-musl@0.31.0':
+    resolution: {integrity: sha512-mW5T+itnDgZggXLPfIjFtWJ0a9Z2CmVgpMDzJtqYNJew0b2iWK9oOUJRBkpQ4R3NGZKM1FB6MVXU750uJWijEQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@ast-grep/napi-win32-arm64-msvc@0.30.1':
-    resolution: {integrity: sha512-NkeBM4d3OCos54H9ALCL0oKWpyh+OMXvz4rcNj7dydXdJ5DJsABrMOcEsKgX52eazJKcf1AsmVxRmV2yjEHNmw==}
+  '@ast-grep/napi-win32-arm64-msvc@0.31.0':
+    resolution: {integrity: sha512-XvcwJFssJpSe0/Soe/2MXVH+1nvj2m06c54kIgtvnx/kBzQdJU8vJaXYLmcBraSuWhuEy5LC/JgHA9yOmG4aUw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
 
-  '@ast-grep/napi-win32-ia32-msvc@0.30.1':
-    resolution: {integrity: sha512-V30W+urqyhirRNHRMRaiyB0dIK1CBvDRG7EjqRHCVXRAWjHhttPvj5xKYcrlUxIEaZK/WwHSC6cddJcxhwjE8w==}
+  '@ast-grep/napi-win32-ia32-msvc@0.31.0':
+    resolution: {integrity: sha512-o6wFNfMw/CzL9ibgvzqasX88EiPmHiffZOo3gc3u32K+tndJSszksW79k7s+kqlKuL8/ymGqU1OQYHuSA2znng==}
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
 
-  '@ast-grep/napi-win32-x64-msvc@0.30.1':
-    resolution: {integrity: sha512-yxQaOVynLbE3pSZWICcNMibQJwLkhs00/1hEwOGGr/UEI574QA1u4ypMiSfu8NMFnmZt2na5o4aDSP976FOSug==}
+  '@ast-grep/napi-win32-x64-msvc@0.31.0':
+    resolution: {integrity: sha512-BFXU3ggeOn6qp/T+5Kdd3qDPt0xf9faOCfdkbSC/lUIBKIApsMQEjx0DNwbkaIW/IXTRkVicY84AEHCY15s9aw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
 
-  '@ast-grep/napi@0.30.1':
-    resolution: {integrity: sha512-uYsFl46kr1M/ZnyQvaOcySwjr5Bw+2RWK0YP9TelltvKYhQefRIEcDUDNNqvfCr6EqLXb52YkfydCXOmG11vWg==}
+  '@ast-grep/napi@0.31.0':
+    resolution: {integrity: sha512-DWxV3uPDNqjCm/4kuXEh2hewMrXyTf3WtckYtmRwi1cfHYfLxtnelhpoCFbFbaBI0kqnlhD/MYJijWEAIt+UOQ==}
     engines: {node: '>= 10'}
 
   '@babel/code-frame@7.24.7':
@@ -2612,6 +2612,9 @@ packages:
   '@microsoft/tsdoc@0.14.2':
     resolution: {integrity: sha512-9b8mPpKrfeGRuhFH5iO1iwCLeIIsV6+H1sRfxbkoGXIyQE2BTsPd9zqSqQJ+pv5sJ/hT5M1zvOFL02MnEezFug==}
 
+  '@mjackson/headers@0.8.0':
+    resolution: {integrity: sha512-A6nE9ZKTGX1hTHQOeoYn/f7+xRTgzixHWu9jtZ8zYgZYq30MPtZIRXqEyY8bWaIILr+zWdmUPQg/R/8e+e/8Nw==}
+
   '@mjackson/node-fetch-server@0.2.0':
     resolution: {integrity: sha512-EMlH1e30yzmTpGLQjlFmaDAjyOeZhng1/XCd7DExR8PNAnG/G1tyruZxEoUe11ClnwGhGrtsdnyyUx1frSzjng==}
 
@@ -2650,20 +2653,23 @@ packages:
     resolution: {integrity: sha512-gGq0NJkIGSwdbUt4yhdF8ZrmkGKVz9vAdVzpOfnom+V8PLSmSOVhZwbNvZZS1EYcJN5hzzKBxmmVVAInM6HQLg==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  '@oslojs/asn1@0.2.3':
-    resolution: {integrity: sha512-cZOLRzKfv3JTxIzNTAoiN0+utB0is9cQOOp5Xq++SE8MtIXXDLFblZGFrHCdTXLGXvUZmopeB/dFZrkh5MpKqQ==}
+  '@oslojs/asn1@1.0.0':
+    resolution: {integrity: sha512-zw/wn0sj0j0QKbIXfIlnEcTviaCzYOY3V5rAyjR6YtOByFtJiT574+8p9Wlach0lZH9fddD4yb9laEAIl4vXQA==}
 
-  '@oslojs/binary@0.4.0':
-    resolution: {integrity: sha512-xi1MOhP7t9TFV1nOmzG0qIdCXdFXbeMYskhfI5eakBlU8re/xO+qjdyiBO+hl+nK4z4lZWCDjlgH8BXUWQDWFw==}
+  '@oslojs/binary@1.0.0':
+    resolution: {integrity: sha512-9RCU6OwXU6p67H4NODbuxv2S3eenuQ4/WFLrsq+K/k682xrznH5EVWA7N4VFk9VYVcbFtKqur5YQQZc0ySGhsQ==}
 
-  '@oslojs/crypto@0.6.2':
-    resolution: {integrity: sha512-2y39MOLkkCvaBdi2TrBDtk7106fayDHRLz11K1/UvtW28VgL5/TbV/tPRTmSA5dhvQQqLYDJj3zsBkjeP+aD2w==}
+  '@oslojs/crypto@1.0.1':
+    resolution: {integrity: sha512-7n08G8nWjAr/Yu3vu9zzrd0L9XnrJfpMioQcvCMxBIiF5orECHe5/3J0jmXRVvgfqMm/+4oxlQ+Sq39COYLcNQ==}
+
+  '@oslojs/encoding@0.4.1':
+    resolution: {integrity: sha512-hkjo6MuIK/kQR5CrGNdAPZhS01ZCXuWDRJ187zh6qqF2+yMHZpD9fAYpX8q2bOO6Ryhl3XpCT6kUX76N8hhm4Q==}
 
   '@oslojs/encoding@1.1.0':
     resolution: {integrity: sha512-70wQhgYmndg4GCPxPPxPGevRKqTIJ2Nh4OkiMWmDAVYsTQ+Ta7Sq+rPevXyXGdzr30/qZBnyOalCszoMxlyldQ==}
 
-  '@oslojs/oauth2@0.5.0':
-    resolution: {integrity: sha512-t70+e4EgnzTbU4MrUWXzqWN2A6RJrlSSvwwuBv6E0Ap6/nsIXrjsdRWeTcSvvXTcC6fi0YdWaqEWLipcEm2Cgw==}
+  '@oslojs/jwt@0.2.0':
+    resolution: {integrity: sha512-bLE7BtHrURedCn4Mco3ma9L4Y1GR2SMBuIvjWr7rmQ4/W/4Jy70TIAgZ+0nIlk0xHz1vNP8x8DCns45Sb2XRbg==}
 
   '@paralleldrive/cuid2@2.2.2':
     resolution: {integrity: sha512-ZOBkgDwEdoYVlSeRbYYXs0S9MejQofiVYoTbKzy/6GQa39/q5tQU2IX46+shYnUkpEl3wc+J6wRlar7r2EK2xA==}
@@ -4074,8 +4080,8 @@ packages:
   '@types/react@18.3.12':
     resolution: {integrity: sha512-D2wOSq/d6Agt28q7rSI3jhU7G6aiuzljDGZ2hTZHIkrTLUI+AF3WMeKkEZ9nN2fkBAlcktT6vcZjDFiIhMYEQw==}
 
-  '@types/relay-runtime@18.1.1':
-    resolution: {integrity: sha512-gnMBe2Vh8Qji0vfUhbXE9ReM7aNFUDz0a9LZ84f/UbJmtCYE2kWnT14OwLDTJud8jp9rL/2+xKyABK5V7pUIHQ==}
+  '@types/relay-runtime@18.2.0':
+    resolution: {integrity: sha512-BJ5N39QadH/mRQqytPlqcZSxq4E68oyrghMwy91ySHi2LAhD/CfnR3EjRjJ0QeYqma7pfKP1bGratLUefLzZvA==}
 
   '@types/retry@0.12.2':
     resolution: {integrity: sha512-XISRgDJ2Tc5q4TRqvgJtzsRkFYNJzZrhTdtMoGVBttwzzQJkPnS3WWTFc7kuDRoPtPakl+T+OfdEUjYJj7Jbow==}
@@ -4389,6 +4395,9 @@ packages:
   anymatch@3.1.3:
     resolution: {integrity: sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==}
     engines: {node: '>= 8'}
+
+  arctic@2.3.0:
+    resolution: {integrity: sha512-ImueY1iKm044nMVxQGsLvzSFLrLsqCIpsvohZprK2l8o3ypXjoSKiMBlxBBdoFpAG0iC78cJ6J/vyLpvdLQlkw==}
 
   arg@4.1.3:
     resolution: {integrity: sha512-58S9QDqG0Xx27YwPSt9fJxivjYl432YCwfDMfZ+71RAqUrZef7LrKQZ3LHLOwCS4FLNBplP533Zx895SeOCHvA==}
@@ -7605,43 +7614,15 @@ packages:
   remark-rehype@10.1.0:
     resolution: {integrity: sha512-EFmR5zppdBp0WQeDVZ/b66CWJipB2q2VLNFMabzDSGR66Z2fQii83G5gTBbgGEnEEA0QRussvrFHxk1HWGJskw==}
 
-  remix-auth-github@2.0.0:
-    resolution: {integrity: sha512-xqFJ1lMQ1M6juOHlh1WNvwmgpRpcPBja0qDDZcqAHjSlSVWOoiq23rLBtmQav1VH5NojcuW9ejHtLwh/njuL5A==}
+  remix-auth-github@3.0.1:
+    resolution: {integrity: sha512-fCzwFWAjaoO33TXPsk7XO8W5E0+xwNwFoX0AwKBY7OLxFXmiRu5myZmCZ0nY3y1vs8aV98qbmUwGgWjx1/YCdw==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=20.0.0}
     peerDependencies:
-      '@remix-run/cloudflare': ^1.0.0 || ^2.0.0
-      '@remix-run/deno': ^1.0.0 || ^2.0.0
-      '@remix-run/node': ^1.0.0 || ^2.0.0
-      remix-auth: ^3.6.0
-    peerDependenciesMeta:
-      '@remix-run/cloudflare':
-        optional: true
-      '@remix-run/deno':
-        optional: true
-      '@remix-run/node':
-        optional: true
+      remix-auth: ^4.0.0
 
-  remix-auth-oauth2@2.4.0:
-    resolution: {integrity: sha512-lsUBvYispJ/MgVR45IYZjqJgYupefLTxEcSiDoP6X3NPn9PUDCDp8okB5aiXZHBCi0/qL6XYCEHRwNvBJaaENw==}
-    engines: {node: ^18.0.0 || ^20.0.0 || >=20.0.0}
-    peerDependencies:
-      '@remix-run/cloudflare': ^1.0.0 || ^2.0.0
-      '@remix-run/deno': ^1.0.0 || ^2.0.0
-      '@remix-run/node': ^1.0.0 || ^2.0.0
-      remix-auth: ^3.6.0
-    peerDependenciesMeta:
-      '@remix-run/cloudflare':
-        optional: true
-      '@remix-run/deno':
-        optional: true
-      '@remix-run/node':
-        optional: true
-
-  remix-auth@3.7.0:
-    resolution: {integrity: sha512-2QVjp2nJVaYxuFBecMQwzixCO7CLSssttLBU5eVlNcNlVeNMmY1g7OkmZ1Ogw9sBcoMXZ18J7xXSK0AISVFcfQ==}
-    peerDependencies:
-      '@remix-run/react': ^1.0.0 || ^2.0.0
-      '@remix-run/server-runtime': ^1.0.0 || ^2.0.0
+  remix-auth@4.0.0:
+    resolution: {integrity: sha512-9rLzT5PORCQFd8pdgHn6n2McH4OlDROlkmZ27r2aaNc99SLMNS7Q/VMgtW6HoLsEaxU050k1f2g6tG7ysFpZtA==}
+    engines: {node: '>=20.0.0'}
 
   require-like@0.1.2:
     resolution: {integrity: sha512-oyrU88skkMtDdauHDuKVrgR+zuItqr6/c//FXzvmxRGMexSDc6hNvJInGW3LL46n+8b50RykrvwSUIIQH2LQ5A==}
@@ -8029,8 +8010,8 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
-  supabase@1.223.10:
-    resolution: {integrity: sha512-a5Wi562n0eiV3w359qiCjewyVad688Z3+JHdvLybdlITrwvNIcR6QYqRR6EzjKY5V/sNCqC+5sNf40wDYAYcHg==}
+  supabase@1.226.3:
+    resolution: {integrity: sha512-+KytrqHMQTg1J71E26Og1lMOsUG7MW+Fvcdlu9ZpUCz2dQG96gm0HEjUlL9/PV01DmhNIUZ1+EUaf8QMco4BLg==}
     engines: {npm: '>=8'}
     hasBin: true
 
@@ -8499,10 +8480,6 @@ packages:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
 
-  uuid@8.3.2:
-    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
-    hasBin: true
-
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
@@ -8605,8 +8582,8 @@ packages:
       terser:
         optional: true
 
-  vite@6.0.1:
-    resolution: {integrity: sha512-Ldn6gorLGr4mCdFnmeAOLweJxZ34HjKnDm4HGo6P66IEqTxQb36VEdFJQENKxWjupNfoIjvRUnswjn1hpYEpjQ==}
+  vite@6.0.2:
+    resolution: {integrity: sha512-XdQ+VsY2tJpBsKGs0wf3U/+azx8BBpYRHFAyKm5VeEZNOJZRB63q7Sc8Iup3k0TrN3KO6QgyzFf+opSbfY1y0g==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -8933,44 +8910,44 @@ snapshots:
 
   '@apollo/utils.withrequired@2.0.1': {}
 
-  '@ast-grep/napi-darwin-arm64@0.30.1':
+  '@ast-grep/napi-darwin-arm64@0.31.0':
     optional: true
 
-  '@ast-grep/napi-darwin-x64@0.30.1':
+  '@ast-grep/napi-darwin-x64@0.31.0':
     optional: true
 
-  '@ast-grep/napi-linux-arm64-gnu@0.30.1':
+  '@ast-grep/napi-linux-arm64-gnu@0.31.0':
     optional: true
 
-  '@ast-grep/napi-linux-arm64-musl@0.30.1':
+  '@ast-grep/napi-linux-arm64-musl@0.31.0':
     optional: true
 
-  '@ast-grep/napi-linux-x64-gnu@0.30.1':
+  '@ast-grep/napi-linux-x64-gnu@0.31.0':
     optional: true
 
-  '@ast-grep/napi-linux-x64-musl@0.30.1':
+  '@ast-grep/napi-linux-x64-musl@0.31.0':
     optional: true
 
-  '@ast-grep/napi-win32-arm64-msvc@0.30.1':
+  '@ast-grep/napi-win32-arm64-msvc@0.31.0':
     optional: true
 
-  '@ast-grep/napi-win32-ia32-msvc@0.30.1':
+  '@ast-grep/napi-win32-ia32-msvc@0.31.0':
     optional: true
 
-  '@ast-grep/napi-win32-x64-msvc@0.30.1':
+  '@ast-grep/napi-win32-x64-msvc@0.31.0':
     optional: true
 
-  '@ast-grep/napi@0.30.1':
+  '@ast-grep/napi@0.31.0':
     optionalDependencies:
-      '@ast-grep/napi-darwin-arm64': 0.30.1
-      '@ast-grep/napi-darwin-x64': 0.30.1
-      '@ast-grep/napi-linux-arm64-gnu': 0.30.1
-      '@ast-grep/napi-linux-arm64-musl': 0.30.1
-      '@ast-grep/napi-linux-x64-gnu': 0.30.1
-      '@ast-grep/napi-linux-x64-musl': 0.30.1
-      '@ast-grep/napi-win32-arm64-msvc': 0.30.1
-      '@ast-grep/napi-win32-ia32-msvc': 0.30.1
-      '@ast-grep/napi-win32-x64-msvc': 0.30.1
+      '@ast-grep/napi-darwin-arm64': 0.31.0
+      '@ast-grep/napi-darwin-x64': 0.31.0
+      '@ast-grep/napi-linux-arm64-gnu': 0.31.0
+      '@ast-grep/napi-linux-arm64-musl': 0.31.0
+      '@ast-grep/napi-linux-x64-gnu': 0.31.0
+      '@ast-grep/napi-linux-x64-musl': 0.31.0
+      '@ast-grep/napi-win32-arm64-msvc': 0.31.0
+      '@ast-grep/napi-win32-ia32-msvc': 0.31.0
+      '@ast-grep/napi-win32-x64-msvc': 0.31.0
 
   '@babel/code-frame@7.24.7':
     dependencies:
@@ -10237,6 +10214,8 @@ snapshots:
 
   '@microsoft/tsdoc@0.14.2': {}
 
+  '@mjackson/headers@0.8.0': {}
+
   '@mjackson/node-fetch-server@0.2.0': {}
 
   '@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1':
@@ -10290,20 +10269,24 @@ snapshots:
     dependencies:
       which: 3.0.1
 
-  '@oslojs/asn1@0.2.3':
+  '@oslojs/asn1@1.0.0':
     dependencies:
-      '@oslojs/binary': 0.4.0
+      '@oslojs/binary': 1.0.0
 
-  '@oslojs/binary@0.4.0': {}
+  '@oslojs/binary@1.0.0': {}
 
-  '@oslojs/crypto@0.6.2':
+  '@oslojs/crypto@1.0.1':
     dependencies:
-      '@oslojs/asn1': 0.2.3
-      '@oslojs/binary': 0.4.0
+      '@oslojs/asn1': 1.0.0
+      '@oslojs/binary': 1.0.0
+
+  '@oslojs/encoding@0.4.1': {}
 
   '@oslojs/encoding@1.1.0': {}
 
-  '@oslojs/oauth2@0.5.0': {}
+  '@oslojs/jwt@0.2.0':
+    dependencies:
+      '@oslojs/encoding': 0.4.1
 
   '@paralleldrive/cuid2@2.2.2':
     dependencies:
@@ -11148,7 +11131,7 @@ snapshots:
       '@swc/helpers': 0.5.15
       react: 18.3.1
 
-  '@react-router/dev@7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))':
+  '@react-router/dev@7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/generator': 7.26.2
@@ -11179,7 +11162,7 @@ snapshots:
       semver: 7.6.3
       set-cookie-parser: 2.7.1
       valibot: 0.41.0(typescript@5.7.2)
-      vite: 6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
+      vite: 6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
       vite-node: 1.6.0(@types/node@22.10.1)
     optionalDependencies:
       '@react-router/serve': 7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)
@@ -11206,9 +11189,9 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.2
 
-  '@react-router/fs-routes@7.0.1(@react-router/dev@7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2)':
+  '@react-router/fs-routes@7.0.1(@react-router/dev@7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2)':
     dependencies:
-      '@react-router/dev': 7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))
+      '@react-router/dev': 7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))
       minimatch: 9.0.5
     optionalDependencies:
       typescript: 5.7.2
@@ -11613,7 +11596,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.2
 
-  '@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))':
+  '@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/generator': 7.26.2
@@ -11674,7 +11657,7 @@ snapshots:
     optionalDependencies:
       '@remix-run/serve': 2.15.0(typescript@5.7.2)
       typescript: 5.7.2
-      vite: 6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
+      vite: 6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
       wrangler: 3.91.0(@cloudflare/workers-types@4.20241127.0)
     transitivePeerDependencies:
       - '@types/node'
@@ -11700,10 +11683,10 @@ snapshots:
       typescript: 5.7.2
     optional: true
 
-  '@remix-run/fs-routes@2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(@remix-run/route-config@2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2))(typescript@5.7.2)':
+  '@remix-run/fs-routes@2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(@remix-run/route-config@2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2))(typescript@5.7.2)':
     dependencies:
-      '@remix-run/dev': 2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))
-      '@remix-run/route-config': 2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2)
+      '@remix-run/dev': 2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))
+      '@remix-run/route-config': 2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2)
     optionalDependencies:
       typescript: 5.7.2
 
@@ -11731,9 +11714,9 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.2
 
-  '@remix-run/route-config@2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2)':
+  '@remix-run/route-config@2.15.0(@remix-run/dev@2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2)':
     dependencies:
-      '@remix-run/dev': 2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))
+      '@remix-run/dev': 2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/serve@2.15.0(typescript@5.7.2))(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))
       lodash: 4.17.21
     optionalDependencies:
       typescript: 5.7.2
@@ -12184,7 +12167,7 @@ snapshots:
   '@types/react-relay@16.0.6':
     dependencies:
       '@types/react': 18.3.12
-      '@types/relay-runtime': 18.1.1
+      '@types/relay-runtime': 18.2.0
 
   '@types/react-transition-group@4.4.11':
     dependencies:
@@ -12195,7 +12178,7 @@ snapshots:
       '@types/prop-types': 15.7.13
       csstype: 3.1.3
 
-  '@types/relay-runtime@18.1.1': {}
+  '@types/relay-runtime@18.2.0': {}
 
   '@types/retry@0.12.2': {}
 
@@ -12622,6 +12605,12 @@ snapshots:
     dependencies:
       normalize-path: 3.0.0
       picomatch: 2.3.1
+
+  arctic@2.3.0:
+    dependencies:
+      '@oslojs/crypto': 1.0.1
+      '@oslojs/encoding': 1.1.0
+      '@oslojs/jwt': 0.2.0
 
   arg@4.1.3: {}
 
@@ -16400,34 +16389,16 @@ snapshots:
       mdast-util-to-hast: 12.3.0
       unified: 10.1.2
 
-  remix-auth-github@2.0.0(@remix-run/cloudflare@2.15.0(@cloudflare/workers-types@4.20241127.0)(typescript@5.7.2))(@remix-run/node@2.15.0(typescript@5.7.2))(remix-auth@3.7.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/server-runtime@2.15.0(typescript@5.7.2))):
+  remix-auth-github@3.0.1(remix-auth@4.0.0):
     dependencies:
-      remix-auth: 3.7.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/server-runtime@2.15.0(typescript@5.7.2))
-      remix-auth-oauth2: 2.4.0(@remix-run/cloudflare@2.15.0(@cloudflare/workers-types@4.20241127.0)(typescript@5.7.2))(@remix-run/node@2.15.0(typescript@5.7.2))(remix-auth@3.7.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/server-runtime@2.15.0(typescript@5.7.2)))
-    optionalDependencies:
-      '@remix-run/cloudflare': 2.15.0(@cloudflare/workers-types@4.20241127.0)(typescript@5.7.2)
-      '@remix-run/node': 2.15.0(typescript@5.7.2)
-    transitivePeerDependencies:
-      - supports-color
-
-  remix-auth-oauth2@2.4.0(@remix-run/cloudflare@2.15.0(@cloudflare/workers-types@4.20241127.0)(typescript@5.7.2))(@remix-run/node@2.15.0(typescript@5.7.2))(remix-auth@3.7.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/server-runtime@2.15.0(typescript@5.7.2))):
-    dependencies:
-      '@oslojs/crypto': 0.6.2
-      '@oslojs/encoding': 1.1.0
-      '@oslojs/oauth2': 0.5.0
+      '@mjackson/headers': 0.8.0
+      arctic: 2.3.0
       debug: 4.3.7
-      remix-auth: 3.7.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/server-runtime@2.15.0(typescript@5.7.2))
-    optionalDependencies:
-      '@remix-run/cloudflare': 2.15.0(@cloudflare/workers-types@4.20241127.0)(typescript@5.7.2)
-      '@remix-run/node': 2.15.0(typescript@5.7.2)
+      remix-auth: 4.0.0
     transitivePeerDependencies:
       - supports-color
 
-  remix-auth@3.7.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(@remix-run/server-runtime@2.15.0(typescript@5.7.2)):
-    dependencies:
-      '@remix-run/react': 2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2)
-      '@remix-run/server-runtime': 2.15.0(typescript@5.7.2)
-      uuid: 8.3.2
+  remix-auth@4.0.0: {}
 
   require-like@0.1.2: {}
 
@@ -16893,7 +16864,7 @@ snapshots:
       pirates: 4.0.6
       ts-interface-checker: 0.1.13
 
-  supabase@1.223.10:
+  supabase@1.226.3:
     dependencies:
       bin-links: 5.0.0
       https-proxy-agent: 7.0.5
@@ -17404,8 +17375,6 @@ snapshots:
 
   utils-merge@1.0.1: {}
 
-  uuid@8.3.2: {}
-
   uuid@9.0.1: {}
 
   uvu@0.5.6:
@@ -17471,30 +17440,30 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-cjs-interop@2.1.6(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)):
+  vite-plugin-cjs-interop@2.1.6(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)):
     dependencies:
       acorn: 8.14.0
       acorn-import-assertions: 1.9.0(acorn@8.14.0)
       estree-walker: 3.0.3
       magic-string: 0.30.14
       minimatch: 10.0.1
-      vite: 6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
+      vite: 6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
 
-  vite-plugin-relay@2.1.0(babel-plugin-relay@18.1.0)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)):
+  vite-plugin-relay@2.1.0(babel-plugin-relay@18.1.0)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)):
     dependencies:
       '@babel/core': 7.24.7
       babel-plugin-relay: 18.1.0
-      vite: 6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
+      vite: 6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
     transitivePeerDependencies:
       - supports-color
 
-  vite-tsconfig-paths@5.1.3(typescript@5.7.2)(vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)):
+  vite-tsconfig-paths@5.1.3(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)):
     dependencies:
       debug: 4.3.7
       globrex: 0.1.2
       tsconfck: 3.1.4(typescript@5.7.2)
     optionalDependencies:
-      vite: 6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
+      vite: 6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -17508,7 +17477,7 @@ snapshots:
       '@types/node': 22.10.1
       fsevents: 2.3.3
 
-  vite@6.0.1(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0):
+  vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0):
     dependencies:
       esbuild: 0.24.0
       postcss: 8.4.49

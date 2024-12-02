@@ -1,10 +1,21 @@
-import { LoaderFunctionArgs } from "@remix-run/cloudflare";
-import { getAuthenticator } from "~/lib/auth.server";
+import { LoaderFunctionArgs, redirect } from "@remix-run/cloudflare";
+import { getAuthenticator, getSessionStorage } from "~/lib/auth.server";
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
-  return getAuthenticator(context).authenticate("github", request, {
-    context,
-    successRedirect: "/",
-    failureRedirect: "/signin",
-  });
+  const user = await getAuthenticator(context).authenticate("github", request);
+  const sessionStorage = getSessionStorage(context);
+
+  if (user) {
+    const session = await sessionStorage.getSession(
+      request.headers.get("cookie"),
+    );
+
+    session.set("user", user);
+
+    return redirect("/", {
+      headers: { "Set-Cookie": await sessionStorage.commitSession(session) },
+    });
+  }
+
+  return redirect("/signin");
 }

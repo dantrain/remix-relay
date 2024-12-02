@@ -2,6 +2,7 @@ import {
   ActionFunctionArgs,
   LinksFunction,
   LoaderFunctionArgs,
+  redirect,
 } from "@remix-run/cloudflare";
 import {
   Form,
@@ -18,7 +19,7 @@ import { Suspense, createContext } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
 import { RemixRelayProvider } from "@remix-relay/react";
 import { Button, Spinner } from "@remix-relay/ui";
-import { getAuthenticator } from "./lib/auth.server";
+import { authenticate, getSessionStorage } from "./lib/auth.server";
 import { getCurrentEnvironment } from "./lib/relay-environment";
 import { User } from "./schema/types/User";
 import styles from "./tailwind.css?url";
@@ -26,11 +27,17 @@ import styles from "./tailwind.css?url";
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
-  return getAuthenticator(context).isAuthenticated(request);
+  return authenticate(request, context);
 }
 
 export async function action({ request, context }: ActionFunctionArgs) {
-  await getAuthenticator(context).logout(request, { redirectTo: "/signin" });
+  const session = await getSessionStorage(context).getSession(
+    request.headers.get("cookie"),
+  );
+
+  return redirect("/signin", {
+    headers: { "Set-Cookie": await sessionStorage.destroySession(session) },
+  });
 }
 
 export const UserContext = createContext<User | null>(null);

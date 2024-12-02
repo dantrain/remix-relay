@@ -1,6 +1,7 @@
 import {
   AppLoadContext,
   createCookieSessionStorage,
+  redirect,
 } from "@remix-run/cloudflare";
 import { drizzle } from "drizzle-orm/d1";
 import { Authenticator } from "remix-auth";
@@ -17,14 +18,18 @@ const envSchema = z.object({
   GITHUB_CLIENT_SECRET: z.string().min(1),
 });
 
-export function getAuthenticator(context: AppLoadContext) {
-  const env = envSchema.parse(
+function getEnv(context: AppLoadContext) {
+  return envSchema.parse(
     process.env.NODE_ENV === "development"
       ? process.env
       : context.cloudflare.env,
   );
+}
 
-  const sessionStorage = createCookieSessionStorage({
+export function getSessionStorage(context: AppLoadContext) {
+  const env = getEnv(context);
+
+  return createCookieSessionStorage({
     cookie: {
       name: "_session", // use any name you want here
       sameSite: "lax", // this helps with CSRF
@@ -34,20 +39,47 @@ export function getAuthenticator(context: AppLoadContext) {
       secure: process.env.NODE_ENV === "production", // enable this in prod only
     },
   });
+}
+
+export function getAuthenticator(context: AppLoadContext) {
+  const env = getEnv(context);
 
   const gitHubStrategy = new GitHubStrategy(
     {
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET,
       redirectURI: `${env.ROOT_URL}/auth/github/callback`,
+      scopes: ["user:email"],
     },
-    async ({ profile, context }) => {
+    async ({ tokens }) => {
+      const response = await fetch("https://api.github.com/user/emails", {
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: `Bearer ${tokens.accessToken()}`,
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+      });
+
+      const emails: [{ email?: string; primary: boolean }] =
+        await response.json();
+
+      console.log("profile", emails);
+
       const user = {
-        email: exists(profile.emails?.[0]?.value, "Missing user email"),
+        email: exists(
+          emails.filter((_) => _.primary)[0]?.email,
+          "Missing user email",
+        ),
       };
 
-      const env = exists((context as AppLoadContext)?.cloudflare.env) as Env;
-      const db = drizzle(env.DB, { schema: dbSchema, casing: "snake_case" });
+      const cloudflareEnv = exists(
+        (context as AppLoadContext)?.cloudflare.env,
+      ) as Env;
+
+      const db = drizzle(cloudflareEnv.DB, {
+        schema: dbSchema,
+        casing: "snake_case",
+      });
 
       await db
         .insert(users)
@@ -58,9 +90,33 @@ export function getAuthenticator(context: AppLoadContext) {
     },
   );
 
-  const authenticator = new Authenticator<User>(sessionStorage);
+  const authenticator = new Authenticator<User>();
 
   authenticator.use(gitHubStrategy);
 
   return authenticator;
+}
+
+export async function authenticate(request: Request, context: AppLoadContext) {
+  const session = await getSessionStorage(context).getSession(
+    request.headers.get("cookie"),
+  );
+
+  const user = session.get("user");
+
+  if (user) {
+    return user;
+  }
+
+  const url = new URL(request.url);
+
+  if (url.pathname !== "/signin") {
+    throw redirect("/signin", {
+      headers: {
+        "Set-Cookie": await getSessionStorage(context).commitSession(session),
+      },
+    });
+  }
+
+  return null;
 }
