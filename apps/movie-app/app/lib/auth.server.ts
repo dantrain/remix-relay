@@ -1,9 +1,5 @@
 import { drizzle } from "drizzle-orm/d1";
-import {
-  AppLoadContext,
-  createCookieSessionStorage,
-  redirect,
-} from "react-router";
+import { AppLoadContext, createCookieSessionStorage } from "react-router";
 import { Authenticator } from "remix-auth";
 import { GitHubStrategy } from "remix-auth-github";
 import { z } from "zod";
@@ -54,6 +50,7 @@ export function getAuthenticator(context: AppLoadContext) {
     async ({ tokens }) => {
       const response = await fetch("https://api.github.com/user/emails", {
         headers: {
+          "User-Agent": "Dans-Movie-App",
           Accept: "application/vnd.github+json",
           Authorization: `Bearer ${tokens.accessToken()}`,
           "X-GitHub-Api-Version": "2022-11-28",
@@ -104,16 +101,6 @@ export async function authenticate(request: Request, context: AppLoadContext) {
 
   if (user) {
     return user;
-  }
-
-  const url = new URL(request.url);
-
-  if (url.pathname !== "/signin") {
-    throw redirect("/signin", {
-      headers: {
-        "Set-Cookie": await getSessionStorage(context).commitSession(session),
-      },
-    });
   }
 
   return null;
