@@ -1,5 +1,5 @@
-import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { drizzle } from "drizzle-orm/d1";
+import type { LoaderFunctionArgs } from "react-router";
 import { OperationType } from "relay-runtime";
 import { getLoaderQuery } from "@remix-relay/server";
 import { PothosContext } from "~/schema/builder";

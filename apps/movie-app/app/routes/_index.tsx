@@ -1,10 +1,11 @@
-import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { graphql } from "react-relay";
+import type { MetaFunction } from "react-router";
 import { useLoaderQuery } from "@remix-relay/react";
 import MovieLink from "~/components/MovieLink";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
 import { IndexQuery } from "./__generated__/IndexQuery.graphql";
+import { Route } from ".react-router/types/app/routes/+types/_index";
 
 const query = graphql`
   query IndexQuery {
@@ -21,7 +22,7 @@ const query = graphql`
 
 export const meta: MetaFunction = () => [{ title: "Movie App" }];
 
-export const loader = async (args: LoaderFunctionArgs) =>
+export const loader = async (args: Route.LoaderArgs) =>
   loaderQuery(args, query, {});
 
 export const clientLoader = () => clientLoaderQuery(query, {});

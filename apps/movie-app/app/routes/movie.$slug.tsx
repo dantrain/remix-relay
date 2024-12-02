@@ -1,6 +1,5 @@
-import { LoaderFunctionArgs } from "@remix-run/cloudflare";
-import type { ClientLoaderFunctionArgs, Params } from "@remix-run/react";
 import { graphql } from "react-relay";
+import type { Params } from "react-router";
 import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
 import { Spinner } from "@remix-relay/ui";
 import BackLink from "~/components/BackLink";
@@ -9,6 +8,7 @@ import MovieReviewsList from "~/components/MovieReviewsList";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
 import type { movieQuery } from "./__generated__/movieQuery.graphql";
+import { Route } from ".react-router/types/app/routes/+types/movie.$slug";
 
 const query = graphql`
   query movieQuery($slug: String!) {
@@ -26,10 +26,10 @@ export const meta = metaQuery<movieQuery>(({ data }) => [
 
 const getVars = (params: Params<string>) => ({ slug: params.slug ?? "" });
 
-export const loader = (args: LoaderFunctionArgs) =>
+export const loader = (args: Route.LoaderArgs) =>
   loaderQuery<movieQuery>(args, query, getVars(args.params));
 
-export const clientLoader = (args: ClientLoaderFunctionArgs) =>
+export const clientLoader = (args: Route.ClientLoaderArgs) =>
   clientLoaderQuery<movieQuery>(query, getVars(args.params));
 
 export default function Movie() {

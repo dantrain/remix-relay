@@ -1,11 +1,11 @@
-import { LoaderFunctionArgs, redirect } from "@remix-run/cloudflare";
-import { Form, MetaFunction, useNavigation } from "@remix-run/react";
+import { Form, MetaFunction, redirect, useNavigation } from "react-router";
 import { Button } from "@remix-relay/ui";
 import { authenticate } from "~/lib/auth.server";
+import { Route } from ".react-router/types/app/routes/+types/signin";
 
 export const meta: MetaFunction = () => [{ title: "Sign in - Movie App" }];
 
-export async function loader({ request, context }: LoaderFunctionArgs) {
+export async function loader({ request, context }: Route.LoaderArgs) {
   const user = await authenticate(request, context);
 
   if (user) {

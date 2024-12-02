@@ -1,7 +1,13 @@
 import { Suspense } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
-import { LinksFunction } from "react-router";
+import {
+  Links,
+  LinksFunction,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+} from "react-router";
 import { RemixRelayProvider } from "@remix-relay/react";
 import { Spinner, Toaster } from "@remix-relay/ui";
 import { getCurrentEnvironment } from "~/lib/relay-environment";

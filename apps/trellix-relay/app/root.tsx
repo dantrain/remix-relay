@@ -1,9 +1,9 @@
 import { TriangleAlertIcon } from "lucide-react";
 import { ReactNode, Suspense } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
-import { LinksFunction } from "react-router";
 import {
   Links,
+  LinksFunction,
   Meta,
   Outlet,
   Scripts,

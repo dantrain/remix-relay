@@ -1,37 +1,36 @@
-import {
-  ActionFunctionArgs,
-  LinksFunction,
-  LoaderFunctionArgs,
-  redirect,
-} from "@remix-run/cloudflare";
+import { Suspense, createContext } from "react";
+import { RelayEnvironmentProvider } from "react-relay";
 import {
   Form,
   Link,
   Links,
+  LinksFunction,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  redirect,
   useLoaderData,
   useLocation,
-} from "@remix-run/react";
-import { Suspense, createContext } from "react";
-import { RelayEnvironmentProvider } from "react-relay";
+} from "react-router";
 import { RemixRelayProvider } from "@remix-relay/react";
 import { Button, Spinner } from "@remix-relay/ui";
 import { authenticate, getSessionStorage } from "./lib/auth.server";
 import { getCurrentEnvironment } from "./lib/relay-environment";
 import { User } from "./schema/types/User";
 import styles from "./tailwind.css?url";
+import { Route } from ".react-router/types/app/+types/root";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
-export async function loader({ request, context }: LoaderFunctionArgs) {
+export async function loader({ request, context }: Route.LoaderArgs) {
   return authenticate(request, context);
 }
 
-export async function action({ request, context }: ActionFunctionArgs) {
-  const session = await getSessionStorage(context).getSession(
+export async function action({ request, context }: Route.ActionArgs) {
+  const sessionStorage = getSessionStorage(context);
+
+  const session = await sessionStorage.getSession(
     request.headers.get("cookie"),
   );
 

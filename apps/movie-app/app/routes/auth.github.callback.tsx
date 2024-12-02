@@ -1,7 +1,8 @@
-import { LoaderFunctionArgs, redirect } from "@remix-run/cloudflare";
+import { redirect } from "react-router";
 import { getAuthenticator, getSessionStorage } from "~/lib/auth.server";
+import { Route } from ".react-router/types/app/routes/+types/auth.github.callback";
 
-export async function loader({ request, context }: LoaderFunctionArgs) {
+export async function loader({ request, context }: Route.LoaderArgs) {
   const user = await getAuthenticator(context).authenticate("github", request);
   const sessionStorage = getSessionStorage(context);
 

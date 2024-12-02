@@ -1,4 +1,4 @@
-import { NavLink } from "@remix-run/react";
+import { NavLink } from "react-router";
 import { Button, Spinner } from "@remix-relay/ui";
 
 export default function BackLink() {

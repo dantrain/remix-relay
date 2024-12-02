@@ -1,9 +1,9 @@
+import { drizzle } from "drizzle-orm/d1";
 import {
   AppLoadContext,
   createCookieSessionStorage,
   redirect,
-} from "@remix-run/cloudflare";
-import { drizzle } from "drizzle-orm/d1";
+} from "react-router";
 import { Authenticator } from "remix-auth";
 import { GitHubStrategy } from "remix-auth-github";
 import { z } from "zod";
@@ -62,8 +62,6 @@ export function getAuthenticator(context: AppLoadContext) {
 
       const emails: [{ email?: string; primary: boolean }] =
         await response.json();
-
-      console.log("profile", emails);
 
       const user = {
         email: exists(

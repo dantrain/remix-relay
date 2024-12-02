@@ -1,11 +1,12 @@
 {
   "extends": "@remix-relay/typescript-config/remix.json",
   "compilerOptions": {
-    "types": ["@remix-run/cloudflare", "vite/client"],
+    "types": ["@react-router/cloudflare", "vite/client"],
     "baseUrl": ".",
+    "rootDirs": [".", "./.react-router/types"],
     "paths": {
       "~/*": ["./app/*"]
     }
   },
-  "include": ["env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["env.d.ts", "**/*.ts", "**/*.tsx", ".react-router/types/**/*"]
 }

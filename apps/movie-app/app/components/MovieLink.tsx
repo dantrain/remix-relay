@@ -1,5 +1,5 @@
-import { NavLink } from "@remix-run/react";
 import { graphql, useFragment } from "react-relay";
+import { NavLink } from "react-router";
 import { Button, Spinner } from "@remix-relay/ui";
 import type { MovieLinkFragment$key } from "./__generated__/MovieLinkFragment.graphql";
 
