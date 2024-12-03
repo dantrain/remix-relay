@@ -6,7 +6,6 @@ import { Params, useParams } from "react-router";
 import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
 import { Board } from "~/components/Board";
 import { BoardTitle } from "~/components/BoardTitle";
-import Header from "~/components/Header";
 import LoadingScreen from "~/components/LoadingScreen";
 import useDragScroll from "~/hooks/useDragScroll";
 import useWindowVisible from "~/hooks/useWindowVisible";
@@ -60,9 +59,6 @@ export default function BoardPage() {
 
   return (
     <ViewerIdContext.Provider value={fromGlobalId(viewer.id)}>
-      <div className="fixed left-0 right-0 top-0 z-30">
-        <Header />
-      </div>
       <main
         className="flex h-[100dvh] flex-col items-center pt-[74px] sm:pt-[90px]"
       >

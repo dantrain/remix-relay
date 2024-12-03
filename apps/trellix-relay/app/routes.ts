@@ -1,9 +1,15 @@
-import { index, route, type RouteConfig } from "@react-router/dev/routes";
+import {
+  index,
+  layout,
+  route,
+  type RouteConfig,
+} from "@react-router/dev/routes";
 
-const routes = [
-  index("./routes/Home.tsx"),
-  route("board/:id", "./routes/Board.tsx"),
+export default [
   route("signin", "./routes/SignIn.tsx"),
-] satisfies RouteConfig;
 
-export default routes;
+  layout("./layouts/SignedIn.tsx", [
+    index("./routes/Home.tsx"),
+    route("board/:id", "./routes/Board.tsx"),
+  ]),
+] satisfies RouteConfig;
