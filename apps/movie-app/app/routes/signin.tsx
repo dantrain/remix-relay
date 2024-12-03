@@ -1,9 +1,9 @@
-import { Form, MetaFunction, redirect, useNavigation } from "react-router";
+import { Form, redirect, useNavigation } from "react-router";
 import { Button } from "@remix-relay/ui";
 import { authenticate } from "~/lib/auth.server";
 import { Route } from ".react-router/types/app/routes/+types/signin";
 
-export const meta: MetaFunction = () => [{ title: "Sign in - Movie App" }];
+export const meta = () => [{ title: "Sign in - Movie App" }];
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   const user = await authenticate(request, context);

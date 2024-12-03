@@ -1,5 +1,4 @@
 import { graphql } from "react-relay";
-import type { Params } from "react-router";
 import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
 import { Spinner } from "@remix-relay/ui";
 import BackLink from "~/components/BackLink";
@@ -24,13 +23,11 @@ export const meta = metaQuery<movieQuery>(({ data }) => [
   { title: `${data.movie.title} - Movie App` },
 ]);
 
-const getVars = (params: Params<string>) => ({ slug: params.slug ?? "" });
-
 export const loader = (args: Route.LoaderArgs) =>
-  loaderQuery<movieQuery>(args, query, getVars(args.params));
+  loaderQuery<movieQuery>(args, query, args.params);
 
 export const clientLoader = (args: Route.ClientLoaderArgs) =>
-  clientLoaderQuery<movieQuery>(query, getVars(args.params));
+  clientLoaderQuery<movieQuery>(query, args.params);
 
 export default function Movie() {
   const [data] = useLoaderQuery<movieQuery>(query);
