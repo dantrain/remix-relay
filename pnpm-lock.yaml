@@ -575,9 +575,6 @@ importers:
       '@react-router/dev':
         specifier: ^7.0.0
         version: 7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0))
-      '@react-router/fs-routes':
-        specifier: ^7.0.0
-        version: 7.0.1(@react-router/dev@7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.10.1)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.2(@types/node@22.10.1)(jiti@2.3.3)(tsx@4.19.2)(yaml@2.6.0))(wrangler@3.91.0(@cloudflare/workers-types@4.20241127.0)))(typescript@5.7.2)
       '@remix-relay/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config

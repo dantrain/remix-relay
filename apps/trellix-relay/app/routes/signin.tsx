@@ -7,7 +7,7 @@ import Anchor from "~/components/Anchor";
 import { GitHubIcon } from "~/components/Icons";
 import { Logo } from "~/components/Logo";
 import { Spinner } from "~/components/Spinner";
-import { Route } from ".react-router/types/app/routes/+types/signin";
+import { Route } from ".react-router/types/app/routes/+types/SignIn";
 
 export const meta: MetaFunction = () => [{ title: "Sign in · Trellix Relay" }];
 
@@ -27,7 +27,7 @@ export const loader = ({ context }: Route.LoaderArgs) => {
   };
 };
 
-export default function SignIn() {
+export default function SignInPage() {
   const { SUPABASE_URL, SUPABASE_ANON_KEY } = useLoaderData<typeof loader>();
 
   // eslint-disable-next-line react/hook-use-state

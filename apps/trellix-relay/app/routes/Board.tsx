@@ -13,11 +13,11 @@ import useWindowVisible from "~/hooks/useWindowVisible";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
 import { ViewerIdContext } from "~/lib/viewer-id-context";
-import { boardQuery } from "./__generated__/boardQuery.graphql";
-import { Route } from ".react-router/types/app/routes/+types/board.$id";
+import { BoardQuery } from "./__generated__/BoardQuery.graphql";
+import { Route } from ".react-router/types/app/routes/+types/Board";
 
 const query = graphql`
-  query boardQuery($id: ID!) {
+  query BoardQuery($id: ID!) {
     viewer {
       id
     }
@@ -30,21 +30,21 @@ const query = graphql`
   }
 `;
 
-export const meta = metaQuery<boardQuery>(({ data }) => [
+export const meta = metaQuery<BoardQuery>(({ data }) => [
   { title: `${data.board.title} | Trellix Relay` },
 ]);
 
 const getVars = (params: Params<string>) => ({ id: params.id ?? "" });
 
 export const loader = ({ context, params }: Route.LoaderArgs) =>
-  loaderQuery<boardQuery>(context, query, getVars(params));
+  loaderQuery<BoardQuery>(context, query, getVars(params));
 
 export const clientLoader = ({ params }: Route.ClientLoaderArgs) =>
-  clientLoaderQuery<boardQuery>(query, getVars(params));
+  clientLoaderQuery<BoardQuery>(query, getVars(params));
 
 export default function BoardPage() {
   const params = useParams();
-  const [{ viewer, board }, refetch] = useLoaderQuery<boardQuery>(query);
+  const [{ viewer, board }, refetch] = useLoaderQuery<BoardQuery>(query);
 
   useWindowVisible(() => refetch({ id: exists(params.id) }));
 

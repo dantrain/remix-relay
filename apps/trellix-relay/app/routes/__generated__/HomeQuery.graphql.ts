@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2b18f203ed55a361097792a725889574>>
+ * @generated SignedSource<<e613c8c41342eb014644aa6beefe5f73>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,15 +10,15 @@
 
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type IndexQuery$variables = Record<PropertyKey, never>;
-export type IndexQuery$data = {
+export type HomeQuery$variables = Record<PropertyKey, never>;
+export type HomeQuery$data = {
   readonly viewer: {
     readonly " $fragmentSpreads": FragmentRefs<"BoardListFragment">;
   };
 };
-export type IndexQuery = {
-  response: IndexQuery$data;
-  variables: IndexQuery$variables;
+export type HomeQuery = {
+  response: HomeQuery$data;
+  variables: HomeQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -34,7 +34,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "IndexQuery",
+    "name": "HomeQuery",
     "selections": [
       {
         "alias": null,
@@ -65,7 +65,7 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "IndexQuery",
+    "name": "HomeQuery",
     "selections": [
       {
         "alias": null,
@@ -78,7 +78,7 @@ return {
           {
             "if": null,
             "kind": "Defer",
-            "label": "IndexQuery$defer$BoardListFragment",
+            "label": "HomeQuery$defer$BoardListFragment",
             "selections": [
               {
                 "alias": null,
@@ -142,16 +142,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a3e366cedb98e7ce46e5901c634cbd7c",
+    "cacheID": "e54858da9635024237af4672e98fc5c7",
     "id": null,
     "metadata": {},
-    "name": "IndexQuery",
+    "name": "HomeQuery",
     "operationKind": "query",
-    "text": "query IndexQuery {\n  viewer {\n    ...BoardListFragment @defer(label: \"IndexQuery$defer$BoardListFragment\")\n    id\n  }\n}\n\nfragment BoardCardFragment on Board {\n  id\n  title\n}\n\nfragment BoardListFragment on User {\n  boardConnection {\n    edges {\n      node {\n        id\n        ...BoardCardFragment\n      }\n    }\n  }\n}\n"
+    "text": "query HomeQuery {\n  viewer {\n    ...BoardListFragment @defer(label: \"HomeQuery$defer$BoardListFragment\")\n    id\n  }\n}\n\nfragment BoardCardFragment on Board {\n  id\n  title\n}\n\nfragment BoardListFragment on User {\n  boardConnection {\n    edges {\n      node {\n        id\n        ...BoardCardFragment\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "da13a7c4aeb93c542dc761a48a2cd0a0";
+(node as any).hash = "9cdf10720607442bd0a07ffee6189af0";
 
 export default node;

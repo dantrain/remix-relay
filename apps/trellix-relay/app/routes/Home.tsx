@@ -6,11 +6,11 @@ import Header from "~/components/Header";
 import LoadingScreen from "~/components/LoadingScreen";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
-import { IndexQuery } from "./__generated__/IndexQuery.graphql";
-import { Route } from ".react-router/types/app/routes/+types/_index";
+import { HomeQuery } from "./__generated__/HomeQuery.graphql";
+import { Route } from ".react-router/types/app/routes/+types/Home";
 
 const query = graphql`
-  query IndexQuery {
+  query HomeQuery {
     viewer {
       ...BoardListFragment @defer
     }
@@ -24,8 +24,8 @@ export const loader = ({ context }: Route.LoaderArgs) =>
 
 export const clientLoader = () => clientLoaderQuery(query, {});
 
-export default function IndexPage() {
-  const [data] = useLoaderQuery<IndexQuery>(query);
+export default function HomePage() {
+  const [data] = useLoaderQuery<HomeQuery>(query);
 
   return (
     <>
