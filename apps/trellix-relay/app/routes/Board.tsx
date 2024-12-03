@@ -2,7 +2,7 @@ import exists from "lib/exists";
 import { fromGlobalId } from "lib/global-id";
 import { useRef } from "react";
 import { graphql } from "react-relay";
-import { Params, useParams } from "react-router";
+import { useParams } from "react-router";
 import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
 import { Board } from "~/components/Board";
 import { BoardTitle } from "~/components/BoardTitle";
@@ -33,13 +33,11 @@ export const meta = metaQuery<BoardQuery>(({ data }) => [
   { title: `${data.board.title} | Trellix Relay` },
 ]);
 
-const getVars = (params: Params<string>) => ({ id: params.id ?? "" });
-
 export const loader = ({ context, params }: Route.LoaderArgs) =>
-  loaderQuery<BoardQuery>(context, query, getVars(params));
+  loaderQuery<BoardQuery>(context, query, params);
 
 export const clientLoader = ({ params }: Route.ClientLoaderArgs) =>
-  clientLoaderQuery<BoardQuery>(query, getVars(params));
+  clientLoaderQuery<BoardQuery>(query, params);
 
 export default function BoardPage() {
   const params = useParams();

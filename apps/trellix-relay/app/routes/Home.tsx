@@ -1,5 +1,4 @@
 import { graphql } from "react-relay";
-import type { MetaFunction } from "react-router";
 import { Suspense, useLoaderQuery } from "@remix-relay/react";
 import BoardList from "~/components/BoardList";
 import LoadingScreen from "~/components/LoadingScreen";
@@ -16,7 +15,7 @@ const query = graphql`
   }
 `;
 
-export const meta: MetaFunction = () => [{ title: "Trellix Relay" }];
+export const meta = () => [{ title: "Trellix Relay" }];
 
 export const loader = ({ context }: Route.LoaderArgs) =>
   loaderQuery(context, query, {});
