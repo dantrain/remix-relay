@@ -1,8 +1,20 @@
-import type { RouteConfig } from "@react-router/dev/routes";
-import { flatRoutes } from "@react-router/fs-routes";
+import {
+  index,
+  prefix,
+  route,
+  type RouteConfig,
+} from "@react-router/dev/routes";
 
-const routes: RouteConfig = flatRoutes({
-  ignoredRouteFiles: ["__generated__/*"],
-});
+export default [
+  index("./routes/_index.tsx"),
+  route("signin", "./routes/signin.tsx"),
 
-export default routes;
+  route("movie/:slug", "./routes/movie.$slug.tsx"),
+
+  route("graphql", "./routes/graphql.ts"),
+
+  ...prefix("auth/github", [
+    index("./routes/auth.github.tsx"),
+    route("callback", "./routes/auth.github.callback.tsx"),
+  ]),
+] satisfies RouteConfig;
