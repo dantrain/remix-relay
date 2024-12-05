@@ -6,15 +6,15 @@ import {
 } from "@react-router/dev/routes";
 
 export default [
-  index("./routes/_index.tsx"),
-  route("signin", "./routes/signin.tsx"),
+  index("./routes/Home.tsx"),
+  route("signin", "./routes/SignIn.tsx"),
 
-  route("movie/:slug", "./routes/movie.$slug.tsx"),
+  route("movie/:slug", "./routes/Movie.tsx"),
 
-  route("graphql", "./routes/graphql.ts"),
+  route("graphql", "./routes/Graphql.ts"),
 
   ...prefix("auth/github", [
-    index("./routes/auth.github.tsx"),
-    route("callback", "./routes/auth.github.callback.tsx"),
+    index("./routes/Auth.tsx"),
+    route("callback", "./routes/AuthCallback.tsx"),
   ]),
 ] satisfies RouteConfig;

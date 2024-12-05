@@ -4,11 +4,11 @@ import { useLoaderQuery } from "@remix-relay/react";
 import MovieLink from "~/components/MovieLink";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
-import { IndexQuery } from "./__generated__/IndexQuery.graphql";
-import { Route } from ".react-router/types/app/routes/+types/_index";
+import { HomeQuery } from "./__generated__/HomeQuery.graphql";
+import { Route } from ".react-router/types/app/routes/+types/Home";
 
 const query = graphql`
-  query IndexQuery {
+  query HomeQuery {
     movies {
       edges {
         node {
@@ -28,7 +28,7 @@ export const loader = async (args: Route.LoaderArgs) =>
 export const clientLoader = () => clientLoaderQuery(query, {});
 
 export default function Index() {
-  const [data] = useLoaderQuery<IndexQuery>(query);
+  const [data] = useLoaderQuery<HomeQuery>(query);
 
   return (
     <main>

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ba380c4e0ac6d03c0bdb055eb176bf1d>>
+ * @generated SignedSource<<5202fe389262e0d8028ac7324674a8ae>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,8 +10,8 @@
 
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type IndexQuery$variables = Record<PropertyKey, never>;
-export type IndexQuery$data = {
+export type HomeQuery$variables = Record<PropertyKey, never>;
+export type HomeQuery$data = {
   readonly movies: {
     readonly edges: ReadonlyArray<{
       readonly node: {
@@ -21,9 +21,9 @@ export type IndexQuery$data = {
     }>;
   };
 };
-export type IndexQuery = {
-  response: IndexQuery$data;
-  variables: IndexQuery$variables;
+export type HomeQuery = {
+  response: HomeQuery$data;
+  variables: HomeQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -39,7 +39,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "IndexQuery",
+    "name": "HomeQuery",
     "selections": [
       {
         "alias": null,
@@ -88,7 +88,7 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "IndexQuery",
+    "name": "HomeQuery",
     "selections": [
       {
         "alias": null,
@@ -155,16 +155,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "025c0cb9c40c7aec8f4b61363169b9fa",
+    "cacheID": "e70821ba395880a2c188262b4016a317",
     "id": null,
     "metadata": {},
-    "name": "IndexQuery",
+    "name": "HomeQuery",
     "operationKind": "query",
-    "text": "query IndexQuery {\n  movies {\n    edges {\n      node {\n        id\n        ...MovieLinkFragment\n      }\n    }\n  }\n}\n\nfragment MovieLinkFragment on Movie {\n  slug\n  title\n  criticScore\n  boxOffice\n}\n"
+    "text": "query HomeQuery {\n  movies {\n    edges {\n      node {\n        id\n        ...MovieLinkFragment\n      }\n    }\n  }\n}\n\nfragment MovieLinkFragment on Movie {\n  slug\n  title\n  criticScore\n  boxOffice\n}\n"
   }
 };
 })();
 
-(node as any).hash = "a0b479e3775e99b9db32ad8b3202a89c";
+(node as any).hash = "fbde4bf9b03c196182fbca799c906656";
 
 export default node;

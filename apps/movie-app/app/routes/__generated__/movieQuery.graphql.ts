@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b27fedd665fccbf19fcfdf8b437b5f81>>
+ * @generated SignedSource<<a42a4b545479c0a330a87dec480aa098>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,18 +10,18 @@
 
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type movieQuery$variables = {
+export type MovieQuery$variables = {
   slug: string;
 };
-export type movieQuery$data = {
+export type MovieQuery$data = {
   readonly movie: {
     readonly title: string;
     readonly " $fragmentSpreads": FragmentRefs<"MovieDetailFragment" | "MovieReviewsListFragment">;
   };
 };
-export type movieQuery = {
-  response: movieQuery$data;
-  variables: movieQuery$variables;
+export type MovieQuery = {
+  response: MovieQuery$data;
+  variables: MovieQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -65,7 +65,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "movieQuery",
+    "name": "MovieQuery",
     "selections": [
       {
         "alias": null,
@@ -102,7 +102,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "movieQuery",
+    "name": "MovieQuery",
     "selections": [
       {
         "alias": null,
@@ -159,7 +159,7 @@ return {
           {
             "if": null,
             "kind": "Defer",
-            "label": "movieQuery$defer$MovieReviewsListFragment",
+            "label": "MovieQuery$defer$MovieReviewsListFragment",
             "selections": [
               {
                 "alias": null,
@@ -281,16 +281,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "df57c3bf0bba8420784e1f21704cb080",
+    "cacheID": "dc77b77038094a591db7b65d9215a146",
     "id": null,
     "metadata": {},
-    "name": "movieQuery",
+    "name": "MovieQuery",
     "operationKind": "query",
-    "text": "query movieQuery(\n  $slug: String!\n) {\n  movie(slug: $slug) {\n    title\n    ...MovieDetailFragment\n    ...MovieReviewsListFragment @defer(label: \"movieQuery$defer$MovieReviewsListFragment\")\n    id\n  }\n}\n\nfragment LikeButtonFragment on Movie {\n  id\n  likedByViewer\n}\n\nfragment MovieDetailFragment on Movie {\n  title\n  criticScore\n  audienceScore\n  criticsConsensus\n  imgUrl\n  ...LikeButtonFragment @defer(label: \"MovieDetailFragment$defer$LikeButtonFragment\")\n}\n\nfragment MovieReviewFragment on Review {\n  quote\n  fresh\n  criticName\n  criticSource\n}\n\nfragment MovieReviewsListFragment on Movie {\n  reviews(first: 5) {\n    edges {\n      node {\n        id\n        ...MovieReviewFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
+    "text": "query MovieQuery(\n  $slug: String!\n) {\n  movie(slug: $slug) {\n    title\n    ...MovieDetailFragment\n    ...MovieReviewsListFragment @defer(label: \"MovieQuery$defer$MovieReviewsListFragment\")\n    id\n  }\n}\n\nfragment LikeButtonFragment on Movie {\n  id\n  likedByViewer\n}\n\nfragment MovieDetailFragment on Movie {\n  title\n  criticScore\n  audienceScore\n  criticsConsensus\n  imgUrl\n  ...LikeButtonFragment @defer(label: \"MovieDetailFragment$defer$LikeButtonFragment\")\n}\n\nfragment MovieReviewFragment on Review {\n  quote\n  fresh\n  criticName\n  criticSource\n}\n\nfragment MovieReviewsListFragment on Movie {\n  reviews(first: 5) {\n    edges {\n      node {\n        id\n        ...MovieReviewFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "e3b914919d27e8eb0811e96143a9b2b9";
+(node as any).hash = "e1c54dcdb7c6b548414ed70819f0226f";
 
 export default node;

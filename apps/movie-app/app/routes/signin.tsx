@@ -1,7 +1,7 @@
 import { Form, redirect, useNavigation } from "react-router";
 import { Button } from "@remix-relay/ui";
 import { authenticate } from "~/lib/auth.server";
-import { Route } from ".react-router/types/app/routes/+types/signin";
+import { Route } from ".react-router/types/app/routes/+types/SignIn";
 
 export const meta = () => [{ title: "Sign in - Movie App" }];
 

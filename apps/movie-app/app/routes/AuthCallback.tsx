@@ -1,6 +1,6 @@
 import { redirect } from "react-router";
 import { getAuthenticator, getSessionStorage } from "~/lib/auth.server";
-import { Route } from ".react-router/types/app/routes/+types/auth.github.callback";
+import { Route } from ".react-router/types/app/routes/+types/AuthCallback";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   const user = await getAuthenticator(context).authenticate("github", request);

@@ -6,7 +6,7 @@ import { getSessionStorage } from "~/lib/auth.server";
 import { PothosContext } from "~/schema/builder";
 import * as dbSchema from "~/schema/db-schema";
 import { schema } from "~/schema/graphql-schema";
-import { Route } from ".react-router/types/app/routes/+types/graphql";
+import { Route } from ".react-router/types/app/routes/+types/Graphql";
 
 const yoga = createYoga<PothosContext>({ schema, plugins: [useDeferStream()] });
 

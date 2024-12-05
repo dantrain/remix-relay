@@ -6,11 +6,11 @@ import MovieDetail from "~/components/MovieDetail";
 import MovieReviewsList from "~/components/MovieReviewsList";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
-import type { movieQuery } from "./__generated__/movieQuery.graphql";
-import { Route } from ".react-router/types/app/routes/+types/movie.$slug";
+import type { MovieQuery } from "./__generated__/MovieQuery.graphql";
+import { Route } from ".react-router/types/app/routes/+types/Movie";
 
 const query = graphql`
-  query movieQuery($slug: String!) {
+  query MovieQuery($slug: String!) {
     movie(slug: $slug) {
       title
       ...MovieDetailFragment
@@ -19,18 +19,18 @@ const query = graphql`
   }
 `;
 
-export const meta = metaQuery<movieQuery>(({ data }) => [
+export const meta = metaQuery<MovieQuery>(({ data }) => [
   { title: `${data.movie.title} - Movie App` },
 ]);
 
 export const loader = (args: Route.LoaderArgs) =>
-  loaderQuery<movieQuery>(args, query, args.params);
+  loaderQuery<MovieQuery>(args, query, args.params);
 
 export const clientLoader = (args: Route.ClientLoaderArgs) =>
-  clientLoaderQuery<movieQuery>(query, args.params);
+  clientLoaderQuery<MovieQuery>(query, args.params);
 
 export default function Movie() {
-  const [data] = useLoaderQuery<movieQuery>(query);
+  const [data] = useLoaderQuery<MovieQuery>(query);
 
   return (
     <>
