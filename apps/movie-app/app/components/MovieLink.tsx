@@ -29,6 +29,7 @@ export default function MovieLink({ dataRef }: MovieLinkProps) {
           [&.pending]:scale-[.99] [&.pending]:border-slate-600
           [&.pending]:bg-slate-800"
         to={`/movie/${slug}`}
+        prefetch="render"
       >
         {({ isPending }) => (
           <>

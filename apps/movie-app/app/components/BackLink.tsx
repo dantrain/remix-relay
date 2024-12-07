@@ -10,6 +10,7 @@ export default function BackLink() {
         relative="path"
         title="Home"
         to="../.."
+        prefetch="render"
       >
         {({ isPending }) =>
           isPending ? (
