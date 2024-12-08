@@ -184,7 +184,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
       >
         {asChild && disabled
-          ? (Children.only(children) as ReactElement).props.children
+          ? (Children.only(children) as ReactElement<{ children: ReactNode }>)
+              .props.children
           : children}
       </Comp>
     );

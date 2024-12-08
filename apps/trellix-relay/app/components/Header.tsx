@@ -13,7 +13,7 @@ export default function Header() {
         className="rounded-sm ring-sky-500 ring-offset-4 ring-offset-slate-900
           focus:outline-none focus-visible:ring-2 [&.pending]:opacity-60"
         to="/"
-        prefetch="viewport"
+        prefetch="render"
         title="Home"
       >
         <h1 className="mb-0.5 text-2xl font-black leading-none">Trellix</h1>

@@ -1,6 +1,6 @@
 import { MouseEvent, RefObject, useRef } from "react";
 
-export default function useDragScroll(ref: RefObject<HTMLDivElement>) {
+export default function useDragScroll(ref: RefObject<HTMLDivElement | null>) {
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);

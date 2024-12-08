@@ -19,8 +19,8 @@ import exists from "lib/exists";
 export const getCollisionDetectionStrategy = (
   activeId: UniqueIdentifier | null,
   columns: Record<UniqueIdentifier, { items: { id: UniqueIdentifier }[] }>,
-  lastOverId: React.MutableRefObject<UniqueIdentifier | null>,
-  recentlyMovedToNewContainer: React.MutableRefObject<boolean>,
+  lastOverId: React.RefObject<UniqueIdentifier | null>,
+  recentlyMovedToNewContainer: React.RefObject<boolean>,
 ): CollisionDetection => {
   return (args) => {
     if (activeId && activeId in columns) {

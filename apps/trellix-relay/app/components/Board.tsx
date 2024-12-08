@@ -325,7 +325,7 @@ export function Board({ dataRef, scrollToRight }: BoardProps) {
   }
 
   const columnRefs = useRef<
-    Record<UniqueIdentifier, RefObject<HTMLDivElement>>
+    Record<UniqueIdentifier, RefObject<HTMLDivElement | null>>
   >({});
 
   const getColumnRef = (id: UniqueIdentifier) =>

@@ -63,7 +63,7 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
           ring-offset-2 ring-offset-slate-200 focus:outline-none
           focus-visible:ring-2 sm:aspect-video sm:group-hover:shadow-md
           [&.pending]:shadow-md"
-        prefetch="viewport"
+        prefetch="render"
       >
         {({ isPending }) => (
           <>
