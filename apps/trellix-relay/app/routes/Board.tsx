@@ -56,7 +56,7 @@ export default function BoardPage() {
   };
 
   return (
-    <ViewerIdContext.Provider value={fromGlobalId(viewer.id)}>
+    <ViewerIdContext value={fromGlobalId(viewer.id)}>
       <main
         className="flex h-[100dvh] flex-col items-center pt-[74px] sm:pt-[90px]"
       >
@@ -76,6 +76,6 @@ export default function BoardPage() {
           </div>
         </Suspense>
       </main>
-    </ViewerIdContext.Provider>
+    </ViewerIdContext>
   );
 }

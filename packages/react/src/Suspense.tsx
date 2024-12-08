@@ -1,7 +1,7 @@
 import {
   Suspense as ReactSuspense,
   SuspenseProps,
-  useContext,
+  use,
   useEffect,
   useState,
 } from "react";
@@ -17,7 +17,7 @@ export function Suspense({ children, ...rest }: SuspenseProps) {
     }
   }, [mounted]);
 
-  const deferredQuery = useContext(DeferredQueryContext);
+  const deferredQuery = use(DeferredQueryContext);
 
   return mounted ? (
     <ReactSuspense {...rest}>

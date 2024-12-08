@@ -64,7 +64,7 @@ export default function App() {
   const user = useLoaderData<typeof loader>();
 
   return (
-    <UserContext.Provider value={user}>
+    <UserContext value={user}>
       <RemixRelayProvider>
         <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
           <div className="relative mx-auto max-w-3xl p-4 pb-8 sm:p-8">
@@ -87,6 +87,6 @@ export default function App() {
           </div>
         </RelayEnvironmentProvider>
       </RemixRelayProvider>
-    </UserContext.Provider>
+    </UserContext>
   );
 }

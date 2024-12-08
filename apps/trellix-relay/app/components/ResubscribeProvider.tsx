@@ -7,9 +7,5 @@ export function ResubscribeProvider({ children }: { children: ReactNode }) {
 
   useWindowVisible(() => setSignal((key) => key + 1));
 
-  return (
-    <ResubscribeContext.Provider value={signal}>
-      {children}
-    </ResubscribeContext.Provider>
-  );
+  return <ResubscribeContext value={signal}>{children}</ResubscribeContext>;
 }

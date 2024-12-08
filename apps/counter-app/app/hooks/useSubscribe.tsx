@@ -2,7 +2,7 @@ import { isEqual } from "lodash-es";
 import {
   ReactNode,
   createContext,
-  useContext,
+  use,
   useMemo,
   useRef,
   useState,
@@ -18,18 +18,14 @@ export function ResubscribeProvider({ children }: { children: ReactNode }) {
 
   useWindowVisible(() => setSignal((key) => key + 1));
 
-  return (
-    <ResubscribeContext.Provider value={signal}>
-      {children}
-    </ResubscribeContext.Provider>
-  );
+  return <ResubscribeContext value={signal}>{children}</ResubscribeContext>;
 }
 
 export function useSubscribe<T extends OperationType>(
   config: GraphQLSubscriptionConfig<T>,
   requestSubscriptionFn?: Parameters<typeof useSubscription<T>>[1],
 ) {
-  const windowVisibleSignal = useContext(ResubscribeContext);
+  const windowVisibleSignal = use(ResubscribeContext);
   const configRef = useRef(config);
   const signalRef = useRef(0);
 
