@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import { flushSync } from "react-dom";
 import type {
   GraphQLTaggedNode,
@@ -58,7 +58,7 @@ export function useLoaderQuery<TQuery extends OperationType>(
 
   const [deferredResult, setDeferredResult] = useState(preloadedQuery);
 
-  const setDeferredQueries = useContext(SetDeferredQueryContext);
+  const setDeferredQueries = use(SetDeferredQueryContext);
 
   useEffect(() => {
     if (deferredQueries) {

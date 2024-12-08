@@ -12,10 +12,10 @@ export function RemixRelayProvider({ children }: PropsWithChildren) {
   );
 
   return (
-    <SetDeferredQueryContext.Provider value={setDeferredQueries}>
-      <DeferredQueryContext.Provider value={deferredQueries}>
+    <SetDeferredQueryContext value={setDeferredQueries}>
+      <DeferredQueryContext value={deferredQueries}>
         {children}
-      </DeferredQueryContext.Provider>
-    </SetDeferredQueryContext.Provider>
+      </DeferredQueryContext>
+    </SetDeferredQueryContext>
   );
 }

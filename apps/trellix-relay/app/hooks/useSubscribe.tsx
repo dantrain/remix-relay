@@ -1,5 +1,5 @@
 import { isEqual } from "lodash-es";
-import { createContext, useContext, useMemo, useRef } from "react";
+import { createContext, use, useMemo, useRef } from "react";
 import { useSubscription } from "react-relay";
 import { GraphQLSubscriptionConfig, OperationType } from "relay-runtime";
 
@@ -9,7 +9,7 @@ export function useSubscribe<T extends OperationType>(
   config: GraphQLSubscriptionConfig<T>,
   requestSubscriptionFn?: Parameters<typeof useSubscription<T>>[1],
 ) {
-  const windowVisibleSignal = useContext(ResubscribeContext);
+  const windowVisibleSignal = use(ResubscribeContext);
   const configRef = useRef(config);
   const signalRef = useRef(0);
 

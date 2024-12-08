@@ -4,7 +4,7 @@ import exists from "lib/exists";
 import { getNextRank } from "lib/rank";
 import { last, sortBy } from "lodash-es";
 import { PlusIcon } from "lucide-react";
-import { FormEvent, useContext, useRef } from "react";
+import { FormEvent, use, useRef } from "react";
 import { graphql, useMutation } from "react-relay";
 import TextareaAutosize from "react-textarea-autosize";
 import { useMediaQuery, useOnClickOutside } from "usehooks-ts";
@@ -52,7 +52,7 @@ export function CreateItem({
   setIsCreating,
 }: CreateItemProps) {
   const [commit] = useMutation<CreateItemCreateOneItemMutation>(mutation);
-  const viewerId = exists(useContext(ViewerIdContext));
+  const viewerId = exists(use(ViewerIdContext));
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const formRef = useRef<HTMLFormElement>(null);

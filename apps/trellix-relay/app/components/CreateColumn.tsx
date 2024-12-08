@@ -4,7 +4,7 @@ import { toGlobalId } from "graphql-relay";
 import exists from "lib/exists";
 import { getNextRank } from "lib/rank";
 import { PlusIcon } from "lucide-react";
-import { FormEvent, useContext, useRef, useState } from "react";
+import { FormEvent, use, useRef, useState } from "react";
 import { graphql, useMutation } from "react-relay";
 import { useMediaQuery, useOnClickOutside } from "usehooks-ts";
 import { Button } from "@remix-relay/ui";
@@ -54,7 +54,7 @@ export function CreateColumn({
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [isCreating, setIsCreating] = useState(!lastColumn && isDesktop);
   const [commit] = useMutation<CreateColumnCreateOneColumnMutation>(mutation);
-  const viewerId = exists(useContext(ViewerIdContext));
+  const viewerId = exists(use(ViewerIdContext));
 
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
