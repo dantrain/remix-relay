@@ -59,8 +59,10 @@ export function CreateColumn({
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // @ts-expect-error awaiting usehooks-ts React 19 compatibility
   useOnClickOutside(formRef, () => setIsCreating(false), "mousedown");
   useOnClickOutside(
+    // @ts-expect-error awaiting usehooks-ts React 19 compatibility
     formRef,
     () => setIsCreating(false),
     isDesktop ? "focusin" : "touchstart",

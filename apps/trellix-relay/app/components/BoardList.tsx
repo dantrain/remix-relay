@@ -29,7 +29,7 @@ export default function BoardList({ dataRef }: BoardListProps) {
     boardConnection: { edges, __id },
   } = useFragment(fragment, dataRef);
 
-  const refs = useRef<Record<string, RefObject<HTMLLIElement>>>({});
+  const refs = useRef<Record<string, RefObject<HTMLLIElement | null>>>({});
 
   const getRef = (id: string) =>
     (refs.current[id] ??= createRef<HTMLLIElement>());

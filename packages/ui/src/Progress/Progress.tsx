@@ -48,7 +48,7 @@ Bar.displayName = "Bar";
 export function Progress({ isLoading }: { isLoading: boolean }) {
   const [bar, setBar] = useState<{
     key: number;
-    nodeRef: RefObject<HTMLDivElement>;
+    nodeRef: RefObject<HTMLDivElement | null>;
   } | null>(null);
 
   const isLoadingRef = useRef(isLoading);
