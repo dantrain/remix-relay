@@ -1,47 +1,44 @@
 import { useNProgress } from "@tanem/react-nprogress";
-import {
-  RefObject,
-  createRef,
-  forwardRef,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { Ref, RefObject, createRef, useEffect, useRef, useState } from "react";
 import {
   Transition,
   TransitionGroup,
   TransitionStatus,
 } from "react-transition-group";
 
-const Bar = forwardRef<HTMLDivElement, { state: TransitionStatus }>(
-  ({ state }, ref) => {
-    const { animationDuration, isFinished, progress } = useNProgress({
-      isAnimating: state === "entered",
-    });
+function Bar({
+  state,
+  ref,
+}: {
+  state: TransitionStatus;
+  ref?: Ref<HTMLDivElement>;
+}) {
+  const { animationDuration, isFinished, progress } = useNProgress({
+    isAnimating: state === "entered",
+  });
 
-    return (
+  return (
+    <div
+      className="absolute left-0 z-50 h-[2px] w-full"
+      ref={ref}
+      style={{
+        marginLeft: `${(-1 + progress) * 100}%`,
+        opacity:
+          (state === "exiting" || state === "exited") && isFinished ? 0 : 1,
+        transition: `all ${animationDuration}ms linear`,
+      }}
+    >
       <div
-        className="absolute left-0 z-50 h-[2px] w-full"
-        ref={ref}
+        className="absolute right-0 h-full w-28 translate-x-[1px]
+          translate-y-[-4px] rotate-3 bg-white"
         style={{
-          marginLeft: `${(-1 + progress) * 100}%`,
-          opacity:
-            (state === "exiting" || state === "exited") && isFinished ? 0 : 1,
-          transition: `all ${animationDuration}ms linear`,
+          boxShadow: "0 0 10px rgb(255 255 255), 0 0 5px rgb(255 255 255)",
         }}
-      >
-        <div
-          className="absolute right-0 h-full w-28 translate-x-[1px]
-            translate-y-[-4px] rotate-3 bg-white"
-          style={{
-            boxShadow: "0 0 10px rgb(255 255 255), 0 0 5px rgb(255 255 255)",
-          }}
-        />
-        <div className="relative z-10 h-full w-full bg-white" />
-      </div>
-    );
-  },
-);
+      />
+      <div className="relative z-10 h-full w-full bg-white" />
+    </div>
+  );
+}
 
 Bar.displayName = "Bar";
 
