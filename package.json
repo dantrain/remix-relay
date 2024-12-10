@@ -12,7 +12,7 @@
   "devDependencies": {
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.0",
     "prettier": "^3.4.2",
     "prettier-plugin-classnames": "^0.7.5",
     "prettier-plugin-merge": "^0.7.1",
@@ -21,7 +21,7 @@
     "prettier-plugin-tailwindcss": "^0.6.9",
     "turbo": "^2.3.3"
   },
-  "packageManager": "pnpm@9.3.0",
+  "packageManager": "pnpm@9.15.0",
   "engines": {
     "node": ">=20"
   },
