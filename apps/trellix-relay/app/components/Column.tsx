@@ -87,8 +87,7 @@ export function Column({
       style={style}
       className={cx(
         `z-10 flex max-h-full min-h-[140px] w-72 flex-col self-start
-        overflow-hidden rounded-md border border-[#d6dee8] outline-none
-        transition-all duration-200 sm:w-80`,
+        overflow-hidden rounded-md border border-[#d6dee8] outline-none sm:w-80`,
         hover ? "bg-[#e9eef4]" : "bg-slate-100",
         dragOverlay &&
           (isFocusVisible ? "shadow-lg ring-4 ring-sky-500" : "shadow-md"),

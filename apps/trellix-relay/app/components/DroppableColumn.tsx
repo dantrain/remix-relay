@@ -1,5 +1,9 @@
 import { UniqueIdentifier } from "@dnd-kit/core";
-import { defaultAnimateLayoutChanges, useSortable } from "@dnd-kit/sortable";
+import {
+  AnimateLayoutChanges,
+  defaultAnimateLayoutChanges,
+  useSortable,
+} from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Ref } from "react";
 import { Column, ColumnProps } from "./Column";
@@ -9,6 +13,9 @@ export type DroppableColumnProps = ColumnProps & {
   items?: { id: UniqueIdentifier }[];
   ref?: Ref<HTMLDivElement>;
 };
+
+const animateLayoutChanges: AnimateLayoutChanges = (args) =>
+  defaultAnimateLayoutChanges({ ...args, wasDragging: true });
 
 export function DroppableColumn({
   children,
@@ -32,8 +39,7 @@ export function DroppableColumn({
       type: "container",
       children: items,
     },
-    animateLayoutChanges: (args) =>
-      defaultAnimateLayoutChanges({ ...args, wasDragging: true }),
+    animateLayoutChanges,
   });
 
   const isOverContainer = over
@@ -50,7 +56,7 @@ export function DroppableColumn({
         setNodeRef(el);
       }}
       style={{
-        transition,
+        transition: transform ? transition : undefined,
         transform: CSS.Translate.toString(transform),
         visibility: isDragging ? "hidden" : undefined,
       }}
