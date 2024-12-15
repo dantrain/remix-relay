@@ -17,7 +17,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-slot": "^1.1.1",
     "@react-aria/utils": "^3.26.0",
     "@tanem/react-nprogress": "^5.0.53",
     "class-variance-authority": "^0.7.1",
@@ -31,10 +31,10 @@
     "@remix-relay/typescript-config": "workspace:*",
     "@turbo/gen": "^2.3.3",
     "@types/eslint": "^9.6.1",
-    "@types/node": "^22.10.1",
+    "@types/node": "^22.10.2",
     "@types/react": "^19.0.1",
-    "@types/react-dom": "^19.0.1",
-    "@types/react-transition-group": "^4.4.11",
+    "@types/react-dom": "^19.0.2",
+    "@types/react-transition-group": "^4.4.12",
     "eslint": "^8.57.0",
     "postcss": "^8.4.49",
     "react": "^19.0.0",
