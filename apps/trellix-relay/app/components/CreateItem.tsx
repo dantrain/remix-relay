@@ -1,3 +1,4 @@
+import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import { createId } from "@paralleldrive/cuid2";
 import { toGlobalId } from "graphql-relay";
 import exists from "lib/exists";
@@ -6,7 +7,6 @@ import { last, sortBy } from "lodash-es";
 import { PlusIcon } from "lucide-react";
 import { FormEvent, use, useRef } from "react";
 import { graphql, useMutation } from "react-relay";
-import TextareaAutosize from "react-textarea-autosize";
 import { useMediaQuery, useOnClickOutside } from "usehooks-ts";
 import { Button } from "@remix-relay/ui";
 import { ViewerIdContext } from "~/lib/viewer-id-context";

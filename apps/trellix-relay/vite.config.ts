@@ -8,10 +8,10 @@ export default defineConfig(({ command }) => ({
   plugins: [
     tsconfigPaths(),
     cjsInterop({
-      dependencies: ["react-relay"],
+      dependencies: ["react-relay", "@mui/base"],
     }),
     relay,
     reactRouter(),
   ],
-  ssr: command === "build" ? { noExternal: /(relay)/ } : {},
+  ssr: command === "build" ? { noExternal: /(relay|@mui)/ } : {},
 }));
