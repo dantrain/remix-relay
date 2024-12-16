@@ -24,7 +24,7 @@ module.exports = {
     // React
     {
       files: ["**/*.{js,jsx,ts,tsx}"],
-      plugins: ["react", "jsx-a11y"],
+      plugins: ["react", "jsx-a11y", "eslint-plugin-react-compiler"],
       extends: [
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
@@ -44,6 +44,7 @@ module.exports = {
       },
       rules: {
         "react/no-unescaped-entities": ["error", { forbid: [">", "}"] }],
+        "react-compiler/react-compiler": "error",
       },
     },
 

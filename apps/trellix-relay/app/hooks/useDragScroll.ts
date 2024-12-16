@@ -61,6 +61,7 @@ export default function useDragScroll(ref: RefObject<HTMLDivElement | null>) {
     const apply = () => {
       if (!ref.current) return;
 
+      // eslint-disable-next-line react-compiler/react-compiler
       ref.current.scrollLeft -= velocity.current;
       velocity.current *= 0.95; // Damping factor
 

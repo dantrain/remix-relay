@@ -35,6 +35,7 @@ export function useSubscribe<T extends OperationType>(
   }
 
   return useSubscription<T>(
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useMemo(() => config, [signalRef.current + windowVisibleSignal]),
     requestSubscriptionFn,
