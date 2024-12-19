@@ -2,6 +2,7 @@ import formsPlugin from "@tailwindcss/forms";
 import scrollbarPlugin from "tailwind-scrollbar";
 import type { Config } from "tailwindcss";
 import animatePlugin from "tailwindcss-animate";
+import plugin from "tailwindcss/plugin";
 import sharedConfig from "@remix-relay/tailwind-config";
 
 export default {
@@ -35,6 +36,10 @@ export default {
   },
 
   plugins: [
+    plugin(({ addVariant }) => {
+      addVariant("pointer-coarse", "@media (pointer: coarse)");
+      addVariant("pointer-fine", "@media (pointer: fine)");
+    }),
     animatePlugin,
     formsPlugin,
     scrollbarPlugin({

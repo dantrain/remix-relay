@@ -102,7 +102,7 @@ export function Column({
           className={cx(
             "flex sm:gap-1",
             !active && "group-hover:opacity-100",
-            !dragOverlay && "sm:opacity-0",
+            !dragOverlay && "pointer-fine:opacity-0",
             isFocusVisible && "focus-within:opacity-100",
           )}
         >

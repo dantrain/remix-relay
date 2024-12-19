@@ -287,9 +287,9 @@ export const Item = memo(
             <DropdownMenuTrigger asChild>
               <Button
                 className={cx(
-                  `relative mt-1 p-2 group-hover:opacity-100
-                  data-[state=open]:bg-slate-300 data-[state=open]:opacity-100
-                  sm:mt-2 sm:p-1 sm:opacity-0`,
+                  `pointer-fine:mt-2 pointer-fine:p-1 pointer-fine:opacity-0
+                  relative mt-1 p-2 group-hover:opacity-100
+                  data-[state=open]:bg-slate-300 data-[state=open]:opacity-100`,
                   isFocusVisible && "focus:opacity-100",
                 )}
                 variant="ghost"

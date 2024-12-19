@@ -92,9 +92,10 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
         trigger={
           <Button
             className={cx(
-              `absolute right-2 top-2 p-2 leading-none sm:p-1.5 sm:opacity-0
-              sm:group-hover:opacity-100`,
-              isFocusVisible && "sm:focus:opacity-100",
+              `pointer-fine:p-1.5 pointer-fine:opacity-0
+              pointer-fine:group-hover:opacity-100 absolute right-2 top-2 p-2
+              leading-none`,
+              isFocusVisible && "pointer-fine:focus:opacity-100",
             )}
             variant="ghost"
           >
