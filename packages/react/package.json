@@ -61,7 +61,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-relay": "^18.2.0",
-    "react-router": "^7.0.2",
+    "react-router": "^7.1.1",
     "relay-runtime": "^18.2.0",
     "tsup": "^8.3.5",
     "typescript": "~5.7.2"
