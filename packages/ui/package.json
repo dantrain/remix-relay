@@ -23,7 +23,7 @@
     "class-variance-authority": "^0.7.1",
     "react-aria": "^3.36.0",
     "react-transition-group": "^4.4.5",
-    "tailwind-merge": "^2.5.5"
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
     "@remix-relay/eslint-config": "workspace:*",
