@@ -1,11 +1,12 @@
 {
   "name": "@remix-relay/server",
-  "version": "1.0.0",
-  "description": "Provides Relay integration with Remix",
+  "version": "2.0.0",
+  "description": "Provides Relay integration with React Router (Framework)",
   "keywords": [
     "Remix",
     "Relay",
-    "React"
+    "React",
+    "React Router"
   ],
   "homepage": "https://github.com/dantrain/remix-relay#readme",
   "repository": {
