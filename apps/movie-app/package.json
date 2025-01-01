@@ -48,7 +48,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241224.0",
+    "@cloudflare/workers-types": "^4.20241230.0",
     "@paralleldrive/cuid2": "^2.2.2",
     "@react-router/dev": "^7.1.1",
     "@remix-relay/eslint-config": "workspace:*",
