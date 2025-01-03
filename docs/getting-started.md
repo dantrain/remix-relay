@@ -90,7 +90,7 @@ export const app = express();
 +app.use(yoga.graphqlEndpoint, yoga);
 ```
 
-Run the dev server with `pnpm run dev` and navigate to `http://localhost:3000/graphql` to open the playground.
+Run the dev server with `pnpm run dev` and navigate to [http://localhost:3000/graphql](http://localhost:3000/graphql) to open the playground.
 
 Try a query for the fast-loading data:
 
@@ -279,7 +279,7 @@ export function getCurrentEnvironment() {
 }
 ```
 
-Note the use of `fetch()` to request data, and the [meros](https://github.com/maraisr/meros) library to read the multipart response. This enables streaming of client requests.
+Note the use of `fetch` to request data, and the [meros](https://github.com/maraisr/meros) library to read the multipart response. This enables streaming of client requests.
 
 Add providers and a Suspense boundary to `app/root.tsx`.
 
@@ -395,7 +395,7 @@ Add the remix-relay loader and client loader to `app/routes/home.tsx`, and acces
 
 Note that the generated `homeQuery` type is imported and passed to `useLoaderQuery` as a generic parameter. This ensures that `data` is fully typed.
 
-Run the dev server with `pnpm run dev` and navigate to `http://localhost:3000` to open the home page and see the query data displayed.
+Run the dev server with `pnpm run dev` and navigate to [http://localhost:3000](http://localhost:3000) to open the home page and see the query data displayed.
 
 ## Streaming
 
@@ -425,6 +425,7 @@ Back in `app/routes/home.tsx`, add the fragment to the query with the `@defer` d
 ```diff
 -import { useLoaderQuery } from "@remix-relay/react";
 +import { Suspense, useLoaderQuery } from "@remix-relay/react";
++import Slow from "~/components/Slow";
 
 const query = graphql`
   query homeQuery {
@@ -474,3 +475,84 @@ Update the `dev` script in `package.json`:
 ```
 
 This will run the Relay compiler in watch mode and will also watch the `server/graphql-schema.ts` file and run the script to update `schema.graphql`. If you go on to build a schema across multiple files, update the Watchman glob pattern accordingly.
+
+## Item page
+
+Let's create a route that uses a route parameter as a GraphQL query variable.
+
+First, add a field with an input argument to the schema in `server/graphql-schema.ts`.
+
+```diff
+builder.queryType({
+  fields: (t) => ({
+    fast: t.string({
+      resolve: () => "Alright mate?",
+    }),
+    slow: t.string({
+      resolve: async () => {
+        await setTimeout(1000);
+        return "Hello geezer, I'm pleased to see you!";
+      },
+    }),
++   item: t.string({
++     args: {
++       id: t.arg.string({ required: true }),
++     },
++     resolve: (_parent, { id }) => `Item #${id}`,
++   }),
+  }),
+});
+```
+
+Next add an `app/routes/item.tsx` file.
+
+```typescript
+import { metaQuery, useLoaderQuery } from "@remix-relay/react";
+import { graphql } from "react-relay";
+import { clientLoaderQuery } from "~/lib/client-loader-query";
+import { loaderQuery } from "~/lib/loader-query.server";
+import type { Route } from "./+types/item";
+import { itemQuery } from "./__generated__/itemQuery.graphql";
+
+const query = graphql`
+  query itemQuery($id: String!) {
+    item(id: $id)
+  }
+`;
+
+export const meta = metaQuery<itemQuery>(({ data }) => [
+  { title: `${data.item} | New React Router App` },
+]);
+
+export const loader = (args: Route.LoaderArgs) => loaderQuery<itemQuery>(args, query, args.params);
+
+export const clientLoader = (args: Route.ClientLoaderArgs) => clientLoaderQuery<itemQuery>(query, args.params);
+
+export default function Item() {
+  const [data] = useLoaderQuery<itemQuery>(query);
+
+  return <p>{data.item}</p>;
+}
+```
+
+Note the use of `metaQuery` from `@remix-relay/react` to define the document title using the query data. 
+
+Add the route to `app/routes.ts`:
+
+```diff
+-import { type RouteConfig, index } from "@react-router/dev/routes";
++import { type RouteConfig, index, route } from "@react-router/dev/routes";
+
+export default [
+  index("routes/home.tsx"),
++ route("item/:id", "routes/item.tsx"),
+] satisfies RouteConfig;
+```
+
+Note that the `:id` route parameter name matches the `$id` query variable. If it doesn't match, TypeScript will complain.
+
+Run the dev server and navigate to [http://localhost:3000/item/1](http://localhost:3000/item/1) to see "Item #1" reflected back on both the page and document title.
+
+## Client navigation
+
+Let's add some nav links to test out client navigation.
