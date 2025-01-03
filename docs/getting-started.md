@@ -184,7 +184,7 @@ Update `vite.config.ts`.
 
 Relay uses an `Environment` to manage GraphQL data. During SSR we will load data from remix-relay, on the client we will fetch data from the `/graphql` endpoint.
 
-Add a `app/lib/relay-environment.ts` file.
+Add an `app/lib/relay-environment.ts` file.
 
 ```typescript
 import { getCachedResponse } from "@remix-relay/react";
@@ -277,7 +277,7 @@ export function getCurrentEnvironment() {
 
 Note the use of `fetch()` to request data, and the [meros](https://github.com/maraisr/meros) library to read the multipart response. This enables streaming of client requests.
 
-Add providers and Suspense boundary to `app/root.tsx`.
+Add providers and a Suspense boundary to `app/root.tsx`.
 
 ```diff
 +import { RemixRelayProvider } from "@remix-relay/react";
@@ -305,14 +305,14 @@ export default function App() {
 Add an `app/lib/loader-query.server.ts` file.
 
 ```typescript
-import { getLoaderQuery } from "@remix-relay/server";
+import { getLoaderQuery, LoaderQueryArgs } from "@remix-relay/server";
 import { LoaderFunctionArgs } from "react-router";
 import { OperationType } from "relay-runtime";
 import { schema } from "server/graphql-schema";
 
 export const loaderQuery = <TQuery extends OperationType>(
   _args: LoaderFunctionArgs,
-  ...rest: Parameters<ReturnType<typeof getLoaderQuery>>
+  ...rest: LoaderQueryArgs<TQuery>
 ) => {
   return getLoaderQuery(schema)<TQuery>(...rest);
 };

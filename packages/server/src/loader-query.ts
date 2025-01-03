@@ -29,40 +29,46 @@ export type SerializablePreloadedQuery<
   response: TResponse;
 };
 
-export function getLoaderQuery<TContext>(
-  schema: GraphQLSchema,
-  context?: TContext,
-) {
-  return async <TQuery extends OperationType>(
-    node: GraphQLTaggedNode,
-    variables: VariablesOf<TQuery>,
-  ): Promise<
-    | {
-        preloadedQuery: SerializablePreloadedQuery<
+export type LoaderQueryArgs<TQuery extends OperationType> = [
+  node: GraphQLTaggedNode,
+  variables: VariablesOf<TQuery>,
+];
+
+type LoaderQuery = <TQuery extends OperationType>(
+  ...args: LoaderQueryArgs<TQuery>
+) => Promise<
+  | {
+      preloadedQuery: SerializablePreloadedQuery<
+        TQuery,
+        FormattedExecutionResult<TQuery["response"], PayloadExtensions>
+      >;
+      deferredQueries: null;
+    }
+  | {
+      preloadedQuery: SerializablePreloadedQuery<
+        TQuery,
+        InitialIncrementalExecutionResult<TQuery["response"], PayloadExtensions>
+      >;
+      deferredQueries: Promise<
+        SerializablePreloadedQuery<
           TQuery,
-          FormattedExecutionResult<TQuery["response"], PayloadExtensions>
-        >;
-        deferredQueries: null;
-      }
-    | {
-        preloadedQuery: SerializablePreloadedQuery<
-          TQuery,
-          InitialIncrementalExecutionResult<
+          SubsequentIncrementalExecutionResult<
             TQuery["response"],
             PayloadExtensions
           >
-        >;
-        deferredQueries: Promise<
-          SerializablePreloadedQuery<
-            TQuery,
-            SubsequentIncrementalExecutionResult<
-              TQuery["response"],
-              PayloadExtensions
-            >
-          >[]
-        >;
-      }
-  > => {
+        >[]
+      >;
+    }
+>;
+
+export const getLoaderQuery = <TContext>(
+  schema: GraphQLSchema,
+  context?: TContext,
+): LoaderQuery => {
+  return async <TQuery extends OperationType>(
+    ...args: LoaderQueryArgs<TQuery>
+  ) => {
+    const [node, variables] = args;
     invariant(isConcreteRequest(node), "Expected a ConcreteRequest");
 
     const document = parse(node.params.text!);
@@ -116,4 +122,4 @@ export function getLoaderQuery<TContext>(
 
     return { preloadedQuery, deferredQueries };
   };
-}
+};

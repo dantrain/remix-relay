@@ -1,1 +1,1 @@
-export { getLoaderQuery } from "./loader-query";
+export { type LoaderQueryArgs, getLoaderQuery } from "./loader-query";
