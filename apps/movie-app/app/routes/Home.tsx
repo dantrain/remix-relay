@@ -23,9 +23,9 @@ const query = graphql`
 export const meta: MetaFunction = () => [{ title: "Movie App" }];
 
 export const loader = async (args: Route.LoaderArgs) =>
-  loaderQuery(args, query, {});
+  loaderQuery<HomeQuery>(args, query, {});
 
-export const clientLoader = () => clientLoaderQuery(query, {});
+export const clientLoader = () => clientLoaderQuery<HomeQuery>(query, {});
 
 export default function Index() {
   const [data] = useLoaderQuery<HomeQuery>(query);

@@ -18,9 +18,9 @@ const query = graphql`
 export const meta = () => [{ title: "Trellix Relay" }];
 
 export const loader = ({ context }: Route.LoaderArgs) =>
-  loaderQuery(context, query, {});
+  loaderQuery<HomeQuery>(context, query, {});
 
-export const clientLoader = () => clientLoaderQuery(query, {});
+export const clientLoader = () => clientLoaderQuery<HomeQuery>(query, {});
 
 export default function HomePage() {
   const [data] = useLoaderQuery<HomeQuery>(query);

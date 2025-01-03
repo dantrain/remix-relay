@@ -21,9 +21,9 @@ const query = graphql`
 export const meta: MetaFunction = () => [{ title: "Counter App" }];
 
 export const loader = ({ context }: Route.LoaderArgs) =>
-  loaderQuery(context, query, {});
+  loaderQuery<IndexQuery>(context, query, {});
 
-export const clientLoader = () => clientLoaderQuery(query, {});
+export const clientLoader = () => clientLoaderQuery<IndexQuery>(query, {});
 
 export default function Index() {
   const [data, refetch] = useLoaderQuery<IndexQuery>(query);
