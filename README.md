@@ -4,10 +4,10 @@
 
 <h1 align="center">remix-relay</h1>
 
-A small library providing integration between the [React Router v7](https://reactrouter.com/) framework (formerly [Remix](https://remix.run/)) and the [Relay](https://relay.dev/) GraphQL client, consisting of two packages:
+A small library providing integration between the [React Router v7](https://reactrouter.com/) framework (formerly [Remix](https://remix.run/)) and the [Relay](https://relay.dev/) GraphQL client.
 
-- `@remix-relay/react` ![NPM Version](https://img.shields.io/npm/v/%40remix-relay%2Freact)
-- `@remix-relay/server` ![NPM Version](https://img.shields.io/npm/v/%40remix-relay%2Fserver)
+<a href="https://www.npmjs.com/package/@remix-relay/react"><img alt="NPM Version" src="https://img.shields.io/npm/v/%40remix-relay%2Freact?label=%40remix-relay%2Freact"></a>
+<a href="https://www.npmjs.com/package/@remix-relay/server"><img alt="NPM Version" src="https://img.shields.io/npm/v/%40remix-relay%2Fserver?label=%40remix-relay%2Fserver"  hspace="10"></a>
 
 ## Docs
 
