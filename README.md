@@ -4,18 +4,20 @@
 
 <h1 align="center">remix-relay</h1>
 
-![NPM Version](https://img.shields.io/npm/v/%40remix-relay%2Fserver)
-![NPM Version](https://img.shields.io/npm/v/%40remix-relay%2Freact)
+A small library providing integration between the [React Router v7](https://reactrouter.com/) framework (formerly [Remix](https://remix.run/)) and the [Relay](https://relay.dev/) GraphQL client, consisting of two packages:
 
-## Examples
+- `@remix-relay/react` ![NPM Version](https://img.shields.io/npm/v/%40remix-relay%2Freact)
+- `@remix-relay/server` ![NPM Version](https://img.shields.io/npm/v/%40remix-relay%2Fserver)
+
+## Docs
+
+[Getting started guide](docs/getting-started.md)
+
+## Example apps
 
 - [Movie app](https://dans-movie-app.pages.dev/)
 - [Counter app](https://dans-counter-app.fly.dev/)
 - [Trellix](https://trellix-relay.fly.dev/)
-
-## Installation
-
-- `npm install @remix-relay/react @remix-relay/server react-relay relay-runtime graphql@17.0.0-alpha.2`
 
 ## Sequence diagrams
 
