@@ -193,13 +193,11 @@ Add an `app/lib/relay-environment.ts` file.
 ```typescript
 import { getCachedResponse } from "@remix-relay/react";
 import { meros } from "meros/browser";
-import type {
-  CacheConfig,
-  FetchFunction,
-  RequestParameters,
-  Variables,
-} from "relay-runtime";
 import {
+  type CacheConfig,
+  type FetchFunction,
+  type RequestParameters,
+  type Variables,
   Environment,
   Network,
   Observable,
@@ -309,9 +307,9 @@ export default function App() {
 Add an `app/lib/loader-query.server.ts` file.
 
 ```typescript
-import { getLoaderQuery, LoaderQueryArgs } from "@remix-relay/server";
-import { LoaderFunctionArgs } from "react-router";
-import { OperationType } from "relay-runtime";
+import { type LoaderQueryArgs, getLoaderQuery } from "@remix-relay/server";
+import type { LoaderFunctionArgs } from "react-router";
+import type { OperationType } from "relay-runtime";
 import { schema } from "server/graphql-schema";
 
 export const loaderQuery = <TQuery extends OperationType>(
@@ -372,7 +370,7 @@ Add the remix-relay loader and client loader to `app/routes/home.tsx`, and acces
 +import { useLoaderQuery } from "@remix-relay/react";
 +import { loaderQuery } from "~/lib/loader-query.server";
 +import { clientLoaderQuery } from "~/lib/client-loader-query";
-+import { homeQuery } from "./__generated__/homeQuery.graphql";
++import type { homeQuery } from "./__generated__/homeQuery.graphql";
 
 // ...
 
@@ -403,7 +401,7 @@ Let's make a component to display the slow-loading data. Add an `app/components/
 
 ```typescript
 import { graphql, useFragment } from "react-relay";
-import { SlowFragment$key } from "./__generated__/SlowFragment.graphql";
+import type { SlowFragment$key } from "./__generated__/SlowFragment.graphql";
 
 const fragment = graphql`
   fragment SlowFragment on Query {
@@ -455,7 +453,7 @@ Note that `Suspense` is imported from `@remix-relay/react` rather than `react`. 
 
 Run the Relay compiler once more with `pnpm run relay` to regenerate the types.
 
-Run the dev server again and observe that the slow-loading data streams in after the fast-loading data is displayed.
+Run the dev server again and observe that the slow-loading data streams in after the fast-loading data is displayed. Use the browser dev tools network panel to confirm that all the data is streamed in through the initial document request, and no Fetch/XHR requests are made.
 
 ## Watch for file changes
 
@@ -512,7 +510,7 @@ import { graphql } from "react-relay";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
 import type { Route } from "./+types/item";
-import { itemQuery } from "./__generated__/itemQuery.graphql";
+import type { itemQuery } from "./__generated__/itemQuery.graphql";
 
 const query = graphql`
   query itemQuery($id: String!) {
@@ -556,3 +554,62 @@ Run the dev server and navigate to [http://localhost:3000/item/1](http://localho
 ## Client navigation
 
 Let's add some nav links to test out client navigation.
+
+Add an `app/components/Layout.tsx` file.
+
+```typescript
+import { type NavLinkProps, NavLink, Outlet } from "react-router";
+
+function Link(props: NavLinkProps) {
+  return (
+    <NavLink
+      className="hover:underline [&.active]:font-bold [&.pending]:text-gray-500"
+      prefetch="render"
+      {...props}
+    />
+  );
+}
+
+export default function Layout() {
+  return (
+    <div className="m-4">
+      <header className="mb-4">
+        <nav>
+          <ul className="flex gap-4">
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/item/1">Item #1</Link>
+            </li>
+            <li>
+              <Link to="/item/2">Item #2</Link>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <Outlet />
+      </main>
+    </div>
+  );
+}
+```
+
+Setting `prefetch="render"` on `NavLink` will eagerly load the code for the linked route.
+
+Update the `routes.ts` file to use this component as a [layout](https://reactrouter.com/start/framework/routing#layout-routes).
+
+```diff
+-import { type RouteConfig, index, route } from "@react-router/dev/routes";
++import { type RouteConfig, index, layout, route } from "@react-router/dev/routes";
+
+export default [
++  layout("components/Layout.tsx", [
+    index("routes/home.tsx"),
+    route("item/:id", "routes/item.tsx"),
++  ]),
+] satisfies RouteConfig;
+```
+
+Run the dev server and navigate between pages using the links. Use the browser dev tools network panel to confirm that client navigations fetch data from the `/graphql` endpoint, and that no network requests are made if the data is already present in the Relay store.
