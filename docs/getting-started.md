@@ -375,9 +375,10 @@ Add the remix-relay loader and client loader to `app/routes/home.tsx`, and acces
 -export function loader({ context }: Route.LoaderArgs) {
 -  return { message: context.VALUE_FROM_EXPRESS };
 -}
-+export const loader = (args: Route.LoaderArgs) => loaderQuery(args, query, {});
++export const loader = (args: Route.LoaderArgs) =>
++  loaderQuery<homeQuery>(args, query, {});
 +
-+export const clientLoader = () => clientLoaderQuery(query, {});
++export const clientLoader = () => clientLoaderQuery<homeQuery>(query, {});
 
 -export default function Home({ loaderData }: Route.ComponentProps) {
 -  return <Welcome message={loaderData.message} />;
