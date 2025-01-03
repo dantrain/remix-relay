@@ -86,7 +86,7 @@ export const app = express();
 +app.use(yoga.graphqlEndpoint, yoga);
 ```
 
-Run the dev server with `pnpm run dev` and navigate to `http://localhost/graphql` to open the playground.
+Run the dev server with `pnpm run dev` and navigate to `http://localhost:3000/graphql` to open the playground.
 
 Try a query for the fast-loading data:
 
@@ -300,6 +300,39 @@ export default function App() {
 }
 ```
 
+### Loaders set up
+
+Add an `app/lib/loader-query.server.ts` file.
+
+```typescript
+import { getLoaderQuery } from "@remix-relay/server";
+import { LoaderFunctionArgs } from "react-router";
+import { OperationType } from "relay-runtime";
+import { schema } from "server/graphql-schema";
+
+export const loaderQuery = <TQuery extends OperationType>(
+  _args: LoaderFunctionArgs,
+  ...rest: Parameters<ReturnType<typeof getLoaderQuery>>
+) => {
+  return getLoaderQuery(schema)<TQuery>(...rest);
+};
+```
+
+This is where you can check the request e.g. for auth, pass data from the loader context into the GraphQL resolver context etc.
+
+Note the `.server` in the filename, this [explicitly marks the module as server-only](https://reactrouter.com/explanation/special-files#server-modules).
+
+Add an `app/lib/client-loader-query.ts` file.
+
+```typescript
+import { getClientLoaderQuery } from "@remix-relay/react";
+import { getCurrentEnvironment } from "./relay-environment";
+
+export const clientLoaderQuery = getClientLoaderQuery(getCurrentEnvironment());
+```
+
+This returns a [client loader](https://reactrouter.com/start/framework/data-loading#client-data-loading) for client navigations using the Relay cache.
+
 ### Home page query
 
 Add a query to `app/routes/home.tsx`.
@@ -326,3 +359,38 @@ Run the script with `pnpm run relay`. You should see an `app/routes/__generated_
 
 > [!TIP]
 > If you don't want to commit these generated files, add `__generated__/` to the `.gitignore` file to ignore these folders.
+
+### Home page loaders
+
+Add the remix-relay loader and client loader to `app/routes/home.tsx`, and access the data with the `useLoaderQuery` hook.
+
+```diff
++import { useLoaderQuery } from "@remix-relay/react";
++import { loaderQuery } from "~/lib/loader-query.server";
++import { clientLoaderQuery } from "~/lib/client-loader-query";
++import { homeQuery } from "./__generated__/homeQuery.graphql";
+
+// ...
+
+-export function loader({ context }: Route.LoaderArgs) {
+-  return { message: context.VALUE_FROM_EXPRESS };
+-}
++export const loader = (args: Route.LoaderArgs) => loaderQuery(args, query, {});
++
++export const clientLoader = () => clientLoaderQuery(query, {});
+
+-export default function Home({ loaderData }: Route.ComponentProps) {
+-  return <Welcome message={loaderData.message} />;
+-}
++export default function Home() {
++  const [data] = useLoaderQuery<homeQuery>(query);
++
++  return (
++    <p>{data.fast}</p>
++  );
++}
+```
+
+Note that the generated `homeQuery` type is imported and passed to `useLoaderQuery` as a generic parameter. This ensures that `data` is fully typed.
+
+Run the dev server with `pnpm run dev` and navigate to `http://localhost:3000` to open the home page and see the query data displayed.
