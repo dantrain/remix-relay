@@ -4,20 +4,20 @@
 
 <h1 align="center">remix-relay</h1>
 
-A small library providing integration between the [React Router v7](https://reactrouter.com/) framework (formerly [Remix](https://remix.run/)) and the [Relay](https://relay.dev/) GraphQL client.
-
 <a href="https://www.npmjs.com/package/@remix-relay/react"><img alt="NPM Version" src="https://img.shields.io/npm/v/%40remix-relay%2Freact?label=%40remix-relay%2Freact"></a>
 <a href="https://www.npmjs.com/package/@remix-relay/server"><img alt="NPM Version" src="https://img.shields.io/npm/v/%40remix-relay%2Fserver?label=%40remix-relay%2Fserver"  hspace="10"></a>
+
+A small library providing integration between the [React Router v7](https://reactrouter.com/) framework (formerly [Remix](https://remix.run/)) and the [Relay](https://relay.dev/) GraphQL client.
 
 ## Docs
 
 [Getting started guide](docs/getting-started.md)
 
-## Example apps
+## Examples
 
-- [Movie app](https://dans-movie-app.pages.dev/)
-- [Counter app](https://dans-counter-app.fly.dev/)
-- [Trellix](https://trellix-relay.fly.dev/)
+| [Movie app](https://dans-movie-app.pages.dev/) | [Counter app](https://dans-counter-app.fly.dev/) | [Trellix](https://trellix-relay.fly.dev/) |
+| :---: | :---: | :---: |
+| [<img alt="Movie app" src="https://github.com/user-attachments/assets/b4a9d786-9795-4b9a-88e0-2cd2b308e06e">](https://dans-movie-app.pages.dev/) | [<img alt="Counter app" src="https://github.com/user-attachments/assets/d283529f-c938-4fd5-b49e-9823982d12c6">](https://dans-counter-app.fly.dev/) | [<img alt="Trellix" src="https://github.com/user-attachments/assets/fb56b4ec-bc69-424f-9f97-981a67af3a04">](https://trellix-relay.fly.dev/) |
 
 ## Sequence diagrams
 
