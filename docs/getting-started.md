@@ -30,6 +30,9 @@ For this guide we'll use [Pothos](https://pothos-graphql.dev/) to create the Gra
 pnpm add @pothos/core @pothos/plugin-relay graphql@17.0.0-alpha.2
 ```
 
+> [!NOTE]
+> This pre-release version of the [graphql](https://github.com/graphql/graphql-js) package includes support for the `@defer` directive.
+
 Add a `server/graphql-schema.ts` file.
 
 ```typescript
