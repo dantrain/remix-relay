@@ -7,7 +7,7 @@ import type {
 } from "react-relay";
 import relay from "react-relay";
 import type { useQueryLoaderHookType } from "react-relay/relay-hooks/useQueryLoader";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useRouteLoaderData } from "react-router";
 import type {
   ConcreteRequest,
   GraphQLResponse,
@@ -26,24 +26,22 @@ export type SerializablePreloadedQuery<TQuery extends OperationType> = {
   response: GraphQLResponse;
 };
 
-export function useLoaderQuery<TQuery extends OperationType>(
+type LoaderData<TQuery extends OperationType> =
+  | {
+      preloadedQuery: SerializablePreloadedQuery<TQuery>;
+      deferredQueries: Promise<SerializablePreloadedQuery<TQuery>[]>;
+    }
+  | { queryRef: PreloadedQuery<TQuery> };
+
+function useCommonLoaderQuery<TQuery extends OperationType>(
   query: GraphQLTaggedNode,
-  fetchPolicy: PreloadFetchPolicy = "network-only",
+  fetchPolicy: PreloadFetchPolicy,
+  loaderData: LoaderData<TQuery>,
 ): [
   TQuery["response"],
   useQueryLoaderHookType<TQuery>[1],
   useQueryLoaderHookType<TQuery>[2],
 ] {
-  const loaderData = useLoaderData<
-    () => Promise<
-      | {
-          preloadedQuery: SerializablePreloadedQuery<TQuery>;
-          deferredQueries: Promise<SerializablePreloadedQuery<TQuery>[]>;
-        }
-      | { queryRef: PreloadedQuery<TQuery> }
-    >
-  >();
-
   const preloadedQuery =
     "preloadedQuery" in loaderData
       ? (loaderData.preloadedQuery as unknown as SerializablePreloadedQuery<TQuery>)
@@ -118,6 +116,26 @@ export function useLoaderQuery<TQuery extends OperationType>(
   const data = usePreloadedQuery<TQuery>(query, ref);
 
   return [data, reloadQuery, disposeQuery];
+}
+
+export function useLoaderQuery<TQuery extends OperationType>(
+  query: GraphQLTaggedNode,
+  fetchPolicy: PreloadFetchPolicy = "network-only",
+) {
+  const loaderData: LoaderData<TQuery> = useLoaderData();
+  return useCommonLoaderQuery(query, fetchPolicy, loaderData);
+}
+
+export function useRouteLoaderQuery<TQuery extends OperationType>(
+  routeId: string,
+  query: GraphQLTaggedNode,
+  fetchPolicy: PreloadFetchPolicy = "network-only",
+) {
+  const loaderData: LoaderData<TQuery> | undefined =
+    useRouteLoaderData(routeId);
+
+  invariant(loaderData, `Missing loader data for routeId ${routeId}`);
+  return useCommonLoaderQuery(query, fetchPolicy, loaderData);
 }
 
 function writePreloadedQueryToCache<TQuery extends OperationType>(
