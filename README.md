@@ -11,7 +11,7 @@
 <a href="https://www.npmjs.com/package/@remix-relay/react"><img alt="NPM Version" src="https://img.shields.io/npm/v/%40remix-relay%2Freact?label=%40remix-relay%2Freact"></a>
 <a href="https://www.npmjs.com/package/@remix-relay/server"><img alt="NPM Version" src="https://img.shields.io/npm/v/%40remix-relay%2Fserver?label=%40remix-relay%2Fserver"  hspace="10"></a>
 
-A small library providing integration between the [React Router v7](https://reactrouter.com/) framework (formerly [Remix](https://remix.run/)) and the [Relay](https://relay.dev/) GraphQL client.
+A small library providing integration between the [React Router v7](https://reactrouter.com/) framework (formerly [Remix](https://remix.run/)) and the [Relay](https://relay.dev/) GraphQL client, enabling streaming with the `@defer` directive.
 
 ## Docs
 
