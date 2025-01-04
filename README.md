@@ -9,9 +9,48 @@
 <h1 align="center">remix-relay</h1>
 
 <a href="https://www.npmjs.com/package/@remix-relay/react"><img alt="NPM Version" src="https://img.shields.io/npm/v/%40remix-relay%2Freact?label=%40remix-relay%2Freact"></a>
-<a href="https://www.npmjs.com/package/@remix-relay/server"><img alt="NPM Version" src="https://img.shields.io/npm/v/%40remix-relay%2Fserver?label=%40remix-relay%2Fserver"  hspace="10"></a>
+<a href="https://www.npmjs.com/package/@remix-relay/server"><img alt="NPM Version" src="https://img.shields.io/npm/v/%40remix-relay%2Fserver?label=%40remix-relay%2Fserver"></a>
 
 A small library providing integration between the [React Router v7](https://reactrouter.com/) framework (formerly [Remix](https://remix.run/)) and the [Relay](https://relay.dev/) GraphQL client, enabling streaming with the `@defer` directive.
+
+## What does it look like?
+
+<a href="https://dans-movie-app.pages.dev/movie/black_panther_2018"><img align="right" width="30%" src="https://github.com/user-attachments/assets/cae0c8c1-e2ca-4224-81bb-65c47f6efede"></a>
+
+```typescript
+const query = graphql`
+  query MovieQuery($slug: String!) {
+    movie(slug: $slug) {
+      title
+      ...MovieDetailFragment
+      ...MovieReviewsListFragment @defer
+    }
+  }
+`;
+
+export const meta = metaQuery<MovieQuery>(({ data }) => [
+  { title: `${data.movie.title} - Movie App` },
+]);
+
+export const loader = (args: Route.LoaderArgs) =>
+  loaderQuery<MovieQuery>(args, query, args.params);
+
+export const clientLoader = (args: Route.ClientLoaderArgs) =>
+  clientLoaderQuery<MovieQuery>(query, args.params);
+
+export default function Movie() {
+  const [data] = useLoaderQuery<MovieQuery>(query);
+
+  return (
+    <main>
+      <MovieDetail dataRef={data.movie} />
+      <Suspense fallback={<Spinner />}>
+        <MovieReviewsList dataRef={data.movie} />
+      </Suspense>
+    </main>
+  );
+}
+```
 
 ## Docs
 

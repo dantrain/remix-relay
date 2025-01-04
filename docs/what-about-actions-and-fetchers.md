@@ -8,7 +8,7 @@ Only one action can be defined per route, so [multiple switch cases](https://git
 
 GraphQL mutations include a query so that updated data can be returned in a single round-trip, and Relay takes care of updating the store and triggering a re-render of the UI. Relay makes it easy to implement optimistic UI, show pending states etc.
 
-You can define any number of mutations independent of routes. For example you could define a mutation within a LikeButton component, and include that component in multiple routes.
+You can define any number of mutations independent of routes. For example you could define a mutation within a `LikeButton` component, and include that component in multiple routes.
 
 The caveat is you must take care writing the queries for updated data, for instance when adding/removing items from lists or updating an item count. This is the trade-off compared to revalidating everything.
 
