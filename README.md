@@ -15,7 +15,8 @@ A small library providing integration between the [React Router v7](https://reac
 
 ## Docs
 
-[Getting started guide](docs/getting-started.md)
+- [Getting started guide](docs/getting-started.md)
+- [What about actions and fetchers?](docs/what-about-actions-and-fetchers.md)
 
 ## Examples
 
