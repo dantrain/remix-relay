@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="https://github.com/dantrain/remix-relay/assets/1765203/c2ab83b9-7e23-445d-b6cb-de4b3aff5d2e" width="400"/>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/adf6eedb-2c9e-4680-b058-dab4e6d1ea55">
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/dantrain/remix-relay/assets/1765203/c2ab83b9-7e23-445d-b6cb-de4b3aff5d2e">
+    <img alt="remix-relay logo" width="400" src="https://github.com/dantrain/remix-relay/assets/1765203/c2ab83b9-7e23-445d-b6cb-de4b3aff5d2e">
+  </picture>
 </p>
 
 <h1 align="center">remix-relay</h1>
