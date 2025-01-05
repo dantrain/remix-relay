@@ -1,60 +1,61 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import * as React from "react";
-import { type ReactNode } from "react";
+import type { ReactNode, HTMLAttributes, ComponentProps } from "react";
 import { useIsClient, useMediaQuery } from "usehooks-ts";
 import { Drawer as DrawerPrimitive } from "vaul";
 import { cn } from "~/lib/cn";
 
-const DialogOverlay = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
->(({ className, ...props }, ref) => (
-  <DialogPrimitive.Overlay
-    ref={ref}
-    className={cn(
-      `data-[state=open]:animate-in data-[state=closed]:animate-out
-      data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0
-      z-50 grid grid-cols-[minmax(1rem,1fr)_auto_minmax(1rem,1fr)]
-      grid-rows-[minmax(1rem,1fr)_auto_minmax(1rem,3fr)] justify-center
-      overflow-y-auto bg-black/40`,
-      className,
-    )}
-    {...props}
-  />
-));
-DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
-
-const DialogContent = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-  <DialogPrimitive.Portal>
-    <DialogOverlay>
-      <DialogPrimitive.Content
-        ref={ref}
-        className={cn(
-          `data-[state=open]:animate-in data-[state=closed]:animate-out
-          data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0
-          data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95
-          data-[state=closed]:slide-out-to-top-[5%]
-          data-[state=open]:slide-in-from-top-[5%] col-start-2 row-start-2
-          w-screen max-w-md rounded-md border border-slate-400 bg-white p-6
-          shadow-lg`,
-          className,
-        )}
-        {...props}
-      >
-        {children}
-      </DialogPrimitive.Content>
-    </DialogOverlay>
-  </DialogPrimitive.Portal>
-));
-DialogContent.displayName = DialogPrimitive.Content.displayName;
-
-function DialogHeader({
+function DialogOverlay({
+  ref,
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: ComponentProps<typeof DialogPrimitive.Overlay>) {
+  return (
+    <DialogPrimitive.Overlay
+      ref={ref}
+      className={cn(
+        `data-[state=open]:animate-in data-[state=closed]:animate-out
+        data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0
+        z-50 grid grid-cols-[minmax(1rem,1fr)_auto_minmax(1rem,1fr)]
+        grid-rows-[minmax(1rem,1fr)_auto_minmax(1rem,3fr)] justify-center
+        overflow-y-auto bg-black/40`,
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+function DialogContent({
+  ref,
+  className,
+  children,
+  ...props
+}: ComponentProps<typeof DialogPrimitive.Content>) {
+  return (
+    <DialogPrimitive.Portal>
+      <DialogOverlay>
+        <DialogPrimitive.Content
+          ref={ref}
+          className={cn(
+            `data-[state=open]:animate-in data-[state=closed]:animate-out
+            data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0
+            data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95
+            data-[state=closed]:slide-out-to-top-[5%]
+            data-[state=open]:slide-in-from-top-[5%] col-start-2 row-start-2
+            w-screen max-w-md rounded-md border border-slate-400 bg-white p-6
+            shadow-lg`,
+            className,
+          )}
+          {...props}
+        >
+          {children}
+        </DialogPrimitive.Content>
+      </DialogOverlay>
+    </DialogPrimitive.Portal>
+  );
+}
+
+function DialogHeader({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn(
@@ -65,39 +66,42 @@ function DialogHeader({
     />
   );
 }
-DialogHeader.displayName = "DialogHeader";
 
-const DialogTitle = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
->(({ className, ...props }, ref) => (
-  <DialogPrimitive.Title
-    ref={ref}
-    className={cn(
-      "text-lg font-semibold leading-none tracking-tight",
-      className,
-    )}
-    {...props}
-  />
-));
-DialogTitle.displayName = DialogPrimitive.Title.displayName;
+function DialogTitle({
+  ref,
+  className,
+  ...props
+}: ComponentProps<typeof DialogPrimitive.Title>) {
+  return (
+    <DialogPrimitive.Title
+      ref={ref}
+      className={cn(
+        "text-lg font-semibold leading-none tracking-tight",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
-const DialogDescription = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
->(({ className, ...props }, ref) => (
-  <DialogPrimitive.Description
-    ref={ref}
-    className={cn("text-muted-foreground text-sm", className)}
-    {...props}
-  />
-));
-DialogDescription.displayName = DialogPrimitive.Description.displayName;
+function DialogDescription({
+  ref,
+  className,
+  ...props
+}: ComponentProps<typeof DialogPrimitive.Description>) {
+  return (
+    <DialogPrimitive.Description
+      ref={ref}
+      className={cn("text-muted-foreground text-sm", className)}
+      {...props}
+    />
+  );
+}
 
 function Drawer({
   shouldScaleBackground = true,
   ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Root>) {
+}: ComponentProps<typeof DrawerPrimitive.Root>) {
   return (
     <DrawerPrimitive.Root
       shouldScaleBackground={shouldScaleBackground}
@@ -105,50 +109,51 @@ function Drawer({
     />
   );
 }
-Drawer.displayName = "Drawer";
 
-const DrawerOverlay = React.forwardRef<
-  React.ElementRef<typeof DrawerPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
->(({ className, ...props }, ref) => (
-  <DrawerPrimitive.Overlay
-    ref={ref}
-    className={cn("fixed inset-0 z-50 bg-black/40", className)}
-    {...props}
-  />
-));
-DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
-
-const DrawerContent = React.forwardRef<
-  React.ElementRef<typeof DrawerPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-  <DrawerPrimitive.Portal>
-    <DrawerOverlay />
-    <DrawerPrimitive.Content
-      ref={ref}
-      className={cn(
-        `fixed inset-x-0 bottom-0 z-50 flex max-h-[96dvh] flex-col border-t
-        border-slate-400 bg-white outline-none`,
-        className,
-      )}
-      {...props}
-    >
-      <div className="overflow-y-auto px-6 pb-8">
-        <div
-          className="mx-auto mb-6 mt-4 h-2 w-[100px] rounded-full bg-black/10"
-        />
-        {children}
-      </div>
-    </DrawerPrimitive.Content>
-  </DrawerPrimitive.Portal>
-));
-DrawerContent.displayName = "DrawerContent";
-
-function DrawerHeader({
+function DrawerOverlay({
+  ref,
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: ComponentProps<typeof DrawerPrimitive.Overlay>) {
+  return (
+    <DrawerPrimitive.Overlay
+      ref={ref}
+      className={cn("fixed inset-0 z-50 bg-black/40", className)}
+      {...props}
+    />
+  );
+}
+
+function DrawerContent({
+  ref,
+  className,
+  children,
+  ...props
+}: ComponentProps<typeof DrawerPrimitive.Content>) {
+  return (
+    <DrawerPrimitive.Portal>
+      <DrawerOverlay />
+      <DrawerPrimitive.Content
+        ref={ref}
+        className={cn(
+          `fixed inset-x-0 bottom-0 z-50 flex max-h-[96dvh] flex-col border-t
+          border-slate-400 bg-white outline-none`,
+          className,
+        )}
+        {...props}
+      >
+        <div className="overflow-y-auto px-6 pb-8">
+          <div
+            className="mx-auto mb-6 mt-4 h-2 w-[100px] rounded-full bg-black/10"
+          />
+          {children}
+        </div>
+      </DrawerPrimitive.Content>
+    </DrawerPrimitive.Portal>
+  );
+}
+
+function DrawerHeader({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn("mb-6 grid gap-4 text-center sm:text-left", className)}
@@ -156,34 +161,37 @@ function DrawerHeader({
     />
   );
 }
-DrawerHeader.displayName = "DrawerHeader";
 
-const DrawerTitle = React.forwardRef<
-  React.ElementRef<typeof DrawerPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title>
->(({ className, ...props }, ref) => (
-  <DrawerPrimitive.Title
-    ref={ref}
-    className={cn(
-      "text-lg font-semibold leading-none tracking-tight",
-      className,
-    )}
-    {...props}
-  />
-));
-DrawerTitle.displayName = DrawerPrimitive.Title.displayName;
+function DrawerTitle({
+  ref,
+  className,
+  ...props
+}: ComponentProps<typeof DrawerPrimitive.Title>) {
+  return (
+    <DrawerPrimitive.Title
+      ref={ref}
+      className={cn(
+        "text-lg font-semibold leading-none tracking-tight",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
-const DrawerDescription = React.forwardRef<
-  React.ElementRef<typeof DrawerPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>
->(({ className, ...props }, ref) => (
-  <DrawerPrimitive.Description
-    ref={ref}
-    className={cn("text-muted-foreground text-sm", className)}
-    {...props}
-  />
-));
-DrawerDescription.displayName = DrawerPrimitive.Description.displayName;
+function DrawerDescription({
+  ref,
+  className,
+  ...props
+}: ComponentProps<typeof DrawerPrimitive.Description>) {
+  return (
+    <DrawerPrimitive.Description
+      ref={ref}
+      className={cn("text-muted-foreground text-sm", className)}
+      {...props}
+    />
+  );
+}
 
 type ResponsiveDialogProps = {
   open: boolean;
@@ -243,14 +251,13 @@ export function ResponsiveDialog({
     </Drawer>
   );
 }
-ResponsiveDialog.displayName = "ResponsiveDialog";
 
 export const ResponsiveDialogClose = DialogPrimitive.Close;
 
 export function ResponsiveDialogFooter({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn("flex flex-col gap-3 sm:flex-row-reverse", className)}
@@ -258,4 +265,3 @@ export function ResponsiveDialogFooter({
     />
   );
 }
-ResponsiveDialogFooter.displayName = "ResponsiveDialogFooter";

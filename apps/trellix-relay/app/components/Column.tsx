@@ -141,5 +141,3 @@ export function Column({
     </div>
   );
 }
-
-Column.displayName = "Container";

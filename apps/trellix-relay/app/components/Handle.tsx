@@ -39,5 +39,3 @@ export function Handle({ dragOverlay, ref, ...rest }: HandleProps) {
     </button>
   );
 }
-
-Handle.displayName = "Handle";

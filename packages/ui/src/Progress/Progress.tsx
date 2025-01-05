@@ -40,8 +40,6 @@ function Bar({
   );
 }
 
-Bar.displayName = "Bar";
-
 export function Progress({ isLoading }: { isLoading: boolean }) {
   const [bar, setBar] = useState<{
     key: number;

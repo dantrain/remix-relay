@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import AnimateHeight, { AnimateHeightProps } from "react-animate-height";
 
-function AutoHeight({
+export default function AutoHeight({
   children,
   ...props
 }: Omit<AnimateHeightProps, "height" | "contentRef">) {
@@ -31,7 +31,3 @@ function AutoHeight({
     </AnimateHeight>
   );
 }
-
-AutoHeight.displayName = "AutoHeight";
-
-export default AutoHeight;

@@ -24,7 +24,7 @@ type ButtonProps = {
   ref?: Ref<HTMLButtonElement>;
 } & (({ asChild?: false } & AriaButtonOptions<"button">) | { asChild: true });
 
-function Button({
+export function Button({
   asChild,
   className,
   variant = "slate",
@@ -187,7 +187,3 @@ function Button({
     </Comp>
   );
 }
-
-Button.displayName = "Button";
-
-export { Button };

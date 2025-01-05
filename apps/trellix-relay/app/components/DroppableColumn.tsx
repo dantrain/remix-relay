@@ -71,5 +71,3 @@ export function DroppableColumn({
     </Column>
   );
 }
-
-DroppableColumn.displayName = "DroppableColumn";
