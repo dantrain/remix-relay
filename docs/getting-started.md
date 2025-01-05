@@ -27,7 +27,7 @@ pnpm create react-router@latest --template remix-run/react-router-templates/node
 For this guide we'll use [Pothos](https://pothos-graphql.dev/) to create the GraphQL schema.
 
 ```shell
-pnpm add @pothos/core @pothos/plugin-relay graphql@17.0.0-alpha.2
+pnpm add @pothos/core graphql@17.0.0-alpha.2
 ```
 
 > [!NOTE]
@@ -37,14 +37,10 @@ Add a `server/graphql-schema.ts` file.
 
 ```typescript
 import SchemaBuilder from "@pothos/core";
-import RelayPlugin from "@pothos/plugin-relay";
 import { GraphQLDeferDirective } from "graphql";
 import { setTimeout } from "node:timers/promises";
 
-const builder = new SchemaBuilder({
-  plugins: [RelayPlugin],
-  relay: {},
-});
+const builder = new SchemaBuilder({});
 
 builder.queryType({
   fields: (t) => ({
@@ -208,8 +204,6 @@ import {
   Store,
 } from "relay-runtime";
 
-const isServer = typeof document === "undefined";
-
 const fetchFn: FetchFunction = (
   params: RequestParameters,
   variables: Variables,
@@ -244,20 +238,12 @@ const fetchFn: FetchFunction = (
               });
             }
           }
-        } catch (err) {
-          if (!isServer) {
-            console.error(
-              err instanceof Error ? err.message : "Something went wrong"
-            );
-          }
-
-          throw err;
         } finally {
           sink.complete();
         }
       };
 
-      setTimeout(() => fetchGraphQL(), 0);
+      fetchGraphQL();
     })
   );
 };
@@ -266,13 +252,12 @@ const createEnvironment = () =>
   new Environment({
     network: Network.create(fetchFn),
     store: new Store(RecordSource.create()),
-    isServer,
   });
 
 let environment: Environment;
 
 export function getCurrentEnvironment() {
-  if (isServer) {
+  if (typeof document === "undefined") {
     return createEnvironment();
   }
 
