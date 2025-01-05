@@ -15,7 +15,7 @@ A small library providing integration between the [React Router v7](https://reac
 
 ## What does it look like?
 
-<a href="https://dans-movie-app.pages.dev/movie/black_panther_2018"><img align="right" width="30%" src="https://github.com/user-attachments/assets/cae0c8c1-e2ca-4224-81bb-65c47f6efede"></a>
+<a href="https://dans-movie-app.pages.dev/movie/black_panther_2018"><picture><source media="(min-width: 1281px)" srcset="https://github.com/user-attachments/assets/bd348bbb-5a59-4480-b964-2a32c0d08cc4"><source media="(max-width: 1280px)" srcset="https://github.com/user-attachments/assets/e0b86873-d276-4fa6-a0ab-6e8439e20ef1"><img alt="Movie app screenshot" align="right" src="https://github.com/user-attachments/assets/e0b86873-d276-4fa6-a0ab-6e8439e20ef1"></picture></a>
 
 ```typescript
 const query = graphql`
