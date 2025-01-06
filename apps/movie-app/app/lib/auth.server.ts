@@ -97,7 +97,7 @@ export async function authenticate(request: Request, context: AppLoadContext) {
     request.headers.get("cookie"),
   );
 
-  const user = session.get("user");
+  const user: User | undefined = session.get("user");
 
   if (user) {
     return user;

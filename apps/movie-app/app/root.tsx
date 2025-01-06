@@ -1,4 +1,4 @@
-import { Suspense, createContext } from "react";
+import { Suspense } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
 import {
   Form,
@@ -10,14 +10,13 @@ import {
   Scripts,
   ScrollRestoration,
   redirect,
-  useLoaderData,
   useLocation,
+  useRouteLoaderData,
 } from "react-router";
 import { RemixRelayProvider } from "@remix-relay/react";
 import { Button, Spinner } from "@remix-relay/ui";
 import { authenticate, getSessionStorage } from "./lib/auth.server";
 import { getCurrentEnvironment } from "./lib/relay-environment";
-import { User } from "./schema/types/User";
 import styles from "./tailwind.css?url";
 import { Route } from ".react-router/types/app/+types/root";
 
@@ -26,6 +25,8 @@ export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 export async function loader({ request, context }: Route.LoaderArgs) {
   return authenticate(request, context);
 }
+
+export const useUser = () => useRouteLoaderData<typeof loader>("root");
 
 export async function action({ request, context }: Route.ActionArgs) {
   const sessionStorage = getSessionStorage(context);
@@ -38,8 +39,6 @@ export async function action({ request, context }: Route.ActionArgs) {
     headers: { "Set-Cookie": await sessionStorage.destroySession(session) },
   });
 }
-
-export const UserContext = createContext<User | null>(null);
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -59,34 +58,31 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function App() {
+export default function App({ loaderData: user }: Route.ComponentProps) {
   const location = useLocation();
-  const user = useLoaderData<typeof loader>();
 
   return (
-    <UserContext value={user}>
-      <RemixRelayProvider>
-        <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
-          <div className="relative mx-auto max-w-3xl p-4 pb-8 sm:p-8">
-            <div className="absolute right-4 sm:right-8">
-              {user ? (
-                <Form method="post">
-                  <Button className="text-2xl" type="submit">
-                    🔓
-                  </Button>
-                </Form>
-              ) : location.pathname !== "/signin" ? (
-                <Button className="text-2xl" asChild>
-                  <Link to="/signin">🔐</Link>
+    <RemixRelayProvider>
+      <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
+        <div className="relative mx-auto max-w-3xl p-4 pb-8 sm:p-8">
+          <div className="absolute right-4 sm:right-8">
+            {user ? (
+              <Form method="post">
+                <Button className="text-2xl" type="submit">
+                  🔓
                 </Button>
-              ) : null}
-            </div>
-            <Suspense fallback={<Spinner className="h-36" />}>
-              <Outlet />
-            </Suspense>
+              </Form>
+            ) : location.pathname !== "/signin" ? (
+              <Button className="text-2xl" asChild>
+                <Link to="/signin">🔐</Link>
+              </Button>
+            ) : null}
           </div>
-        </RelayEnvironmentProvider>
-      </RemixRelayProvider>
-    </UserContext>
+          <Suspense fallback={<Spinner className="h-36" />}>
+            <Outlet />
+          </Suspense>
+        </div>
+      </RelayEnvironmentProvider>
+    </RemixRelayProvider>
   );
 }

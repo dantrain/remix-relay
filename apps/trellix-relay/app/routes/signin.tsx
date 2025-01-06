@@ -1,7 +1,7 @@
 import { createBrowserClient } from "@supabase/ssr";
 import type { Provider } from "@supabase/supabase-js";
 import { useState } from "react";
-import { redirect, useLoaderData } from "react-router";
+import { redirect } from "react-router";
 import { Button } from "@remix-relay/ui";
 import Anchor from "~/components/Anchor";
 import { GitHubIcon } from "~/components/Icons";
@@ -27,9 +27,9 @@ export const loader = ({ context }: Route.LoaderArgs) => {
   };
 };
 
-export default function SignInPage() {
-  const { SUPABASE_URL, SUPABASE_ANON_KEY } = useLoaderData<typeof loader>();
-
+export default function SignInPage({
+  loaderData: { SUPABASE_URL, SUPABASE_ANON_KEY },
+}: Route.ComponentProps) {
   // eslint-disable-next-line react/hook-use-state
   const [supabase] = useState(() =>
     createBrowserClient(SUPABASE_URL, SUPABASE_ANON_KEY),

@@ -1,8 +1,7 @@
 import { cx } from "class-variance-authority";
-import { use } from "react";
 import { graphql, useFragment, useMutation } from "react-relay";
 import { Button } from "@remix-relay/ui";
-import { UserContext } from "~/root";
+import { useUser } from "~/root";
 import { LikeButtonFragment$key } from "./__generated__/LikeButtonFragment.graphql";
 import { LikeButtonMutation } from "./__generated__/LikeButtonMutation.graphql";
 
@@ -27,8 +26,8 @@ type LikeButtonProps = {
 };
 
 export default function LikeButton({ dataRef }: LikeButtonProps) {
-  const user = use(UserContext);
   const { id, likedByViewer } = useFragment(fragment, dataRef);
+  const user = useUser();
 
   const [commit] = useMutation<LikeButtonMutation>(mutation);
 
