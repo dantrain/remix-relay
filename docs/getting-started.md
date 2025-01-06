@@ -406,11 +406,11 @@ export default function Slow({ dataRef }: { dataRef: SlowFragment$key }) {
 
 Run the Relay compiler again with `pnpm run relay` to generate the types for the fragment.
 
-Back in `app/routes/home.tsx`, add the fragment to the query with the `@defer` directive and render the new component in a Suspense boundary.
+Back in `app/routes/home.tsx`, add the fragment to the query with the `@defer` directive and render the new component.
 
 ```diff
 -import { useLoaderQuery } from "@remix-relay/react";
-+import { Suspense, useLoaderQuery } from "@remix-relay/react";
++import { Deferred, useLoaderQuery } from "@remix-relay/react";
 +import Slow from "~/components/Slow";
 
 const query = graphql`
@@ -429,15 +429,15 @@ export default function Home() {
 + return (
 +   <>
 +     <p>{data.fast}</p>
-+     <Suspense fallback={<p>...</p>}>
++     <Deferred fallback={<p>...</p>}>
 +       <Slow dataRef={data} />
-+     </Suspense>
++     </Deferred>
 +   </>
 + );
 }
 ```
 
-Note that `Suspense` is imported from `@remix-relay/react` rather than `react`. This wrapped version of `Suspense` works with the `RemixRelayProvider` to enable streaming.
+The `Deferred` component acts as a Suspense boundary and works with the `RemixRelayProvider` to enable streaming. 
 
 Run the Relay compiler once more with `pnpm run relay` to regenerate the types.
 

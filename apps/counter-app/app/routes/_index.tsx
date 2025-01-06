@@ -1,6 +1,6 @@
 import { graphql } from "react-relay";
 import type { MetaFunction } from "react-router";
-import { Suspense, useLoaderQuery } from "@remix-relay/react";
+import { Deferred, useLoaderQuery } from "@remix-relay/react";
 import { Button, Spinner } from "@remix-relay/ui";
 import CounterList from "~/components/CounterList";
 import { SignOutIcon } from "~/components/Icons";
@@ -41,11 +41,11 @@ export default function Index() {
           </a>
         </Button>
       </div>
-      <Suspense
+      <Deferred
         fallback={<Spinner className="animate-fade h-16 max-w-[260px]" />}
       >
         <CounterList dataRef={data.viewer} />
-      </Suspense>
+      </Deferred>
     </main>
   );
 }

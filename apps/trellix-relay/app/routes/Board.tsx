@@ -3,7 +3,7 @@ import { fromGlobalId } from "lib/global-id";
 import { useRef } from "react";
 import { graphql } from "react-relay";
 import { useParams } from "react-router";
-import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
+import { Deferred, metaQuery, useLoaderQuery } from "@remix-relay/react";
 import { Board } from "~/components/Board";
 import { BoardTitle } from "~/components/BoardTitle";
 import LoadingScreen from "~/components/LoadingScreen";
@@ -60,7 +60,7 @@ export default function BoardPage() {
       <main
         className="flex h-[100dvh] flex-col items-center pt-[74px] sm:pt-[90px]"
       >
-        <Suspense fallback={<LoadingScreen />}>
+        <Deferred fallback={<LoadingScreen />}>
           <div
             className="flex min-w-[min(100dvw,1280px)] max-w-[100dvw] flex-1
               flex-col overflow-x-auto"
@@ -74,7 +74,7 @@ export default function BoardPage() {
             <div className="h-[54px] sm:h-[62px]" />
             <Board dataRef={board} scrollToRight={scrollToRight} />
           </div>
-        </Suspense>
+        </Deferred>
       </main>
     </ViewerIdContext>
   );

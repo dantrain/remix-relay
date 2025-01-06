@@ -1,5 +1,5 @@
 import { graphql } from "react-relay";
-import { Suspense, metaQuery, useLoaderQuery } from "@remix-relay/react";
+import { Deferred, metaQuery, useLoaderQuery } from "@remix-relay/react";
 import { Spinner } from "@remix-relay/ui";
 import BackLink from "~/components/BackLink";
 import MovieDetail from "~/components/MovieDetail";
@@ -39,9 +39,9 @@ export default function Movie() {
       </nav>
       <main>
         <MovieDetail className="sm:mb-10" dataRef={data.movie} />
-        <Suspense fallback={<Spinner className="h-28" />}>
+        <Deferred fallback={<Spinner className="h-28" />}>
           <MovieReviewsList dataRef={data.movie} />
-        </Suspense>
+        </Deferred>
       </main>
     </>
   );

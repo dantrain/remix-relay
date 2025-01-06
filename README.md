@@ -44,9 +44,9 @@ export default function Movie() {
   return (
     <main>
       <MovieDetail dataRef={data.movie} />
-      <Suspense fallback={<Spinner />}>
+      <Deferred fallback={<Spinner />}>
         <MovieReviewsList dataRef={data.movie} />
-      </Suspense>
+      </Deferred>
     </main>
   );
 }

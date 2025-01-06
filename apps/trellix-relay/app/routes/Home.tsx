@@ -1,5 +1,5 @@
 import { graphql } from "react-relay";
-import { Suspense, useLoaderQuery } from "@remix-relay/react";
+import { Deferred, useLoaderQuery } from "@remix-relay/react";
 import BoardList from "~/components/BoardList";
 import LoadingScreen from "~/components/LoadingScreen";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
@@ -30,7 +30,7 @@ export default function HomePage() {
       className="flex min-h-[100dvh] justify-center overflow-y-auto pt-[74px]
         sm:pt-[90px]"
     >
-      <Suspense fallback={<LoadingScreen />}>
+      <Deferred fallback={<LoadingScreen />}>
         <main className="w-full max-w-7xl p-4 pt-5 sm:py-8">
           <h2 className="mb-4 text-lg font-bold uppercase text-slate-500">
             Your Boards
@@ -38,7 +38,7 @@ export default function HomePage() {
 
           <BoardList dataRef={data.viewer} />
         </main>
-      </Suspense>
+      </Deferred>
     </div>
   );
 }

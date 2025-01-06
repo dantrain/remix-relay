@@ -1,6 +1,6 @@
 import { graphql, useFragment } from "react-relay";
 import { twMerge } from "tailwind-merge";
-import { Suspense } from "@remix-relay/react";
+import { Deferred } from "@remix-relay/react";
 import LikeButton from "./LikeButton";
 import type { MovieDetailFragment$key } from "./__generated__/MovieDetailFragment.graphql";
 
@@ -32,9 +32,9 @@ export default function MovieDetail({ className, dataRef }: MovieDetailProps) {
       <div className="flex-grow py-2">
         <div className="mb-4 flex items-start justify-between gap-4">
           <h1 className="my-[1px] text-2xl font-bold">{title}</h1>
-          <Suspense>
+          <Deferred>
             <LikeButton dataRef={movie} />
-          </Suspense>
+          </Deferred>
         </div>
         <hr className="mb-4 border-slate-700" />
         <dl className="mb-4">

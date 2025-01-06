@@ -1,14 +1,8 @@
-import {
-  Suspense as ReactSuspense,
-  SuspenseProps,
-  use,
-  useEffect,
-  useState,
-} from "react";
+import { Suspense, SuspenseProps, use, useEffect, useState } from "react";
 import { Await } from "react-router";
 import { DeferredQueryContext } from "./deferred-query-context";
 
-export function Suspense({ children, ...rest }: SuspenseProps) {
+export function Deferred({ children, ...rest }: SuspenseProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -20,13 +14,13 @@ export function Suspense({ children, ...rest }: SuspenseProps) {
   const deferredQuery = use(DeferredQueryContext);
 
   return mounted ? (
-    <ReactSuspense {...rest}>
+    <Suspense {...rest}>
       {deferredQuery ? (
         <Await resolve={deferredQuery}>{children}</Await>
       ) : (
         children
       )}
-    </ReactSuspense>
+    </Suspense>
   ) : (
     <>{rest.fallback}</>
   );
