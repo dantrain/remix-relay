@@ -92,16 +92,13 @@ export function getAuthenticator(context: AppLoadContext) {
   return authenticator;
 }
 
-export async function authenticate(request: Request, context: AppLoadContext) {
+export async function authenticate(
+  request: Request,
+  context: AppLoadContext,
+): Promise<User | undefined> {
   const session = await getSessionStorage(context).getSession(
     request.headers.get("cookie"),
   );
 
-  const user: User | undefined = session.get("user");
-
-  if (user) {
-    return user;
-  }
-
-  return null;
+  return session.get("user");
 }
