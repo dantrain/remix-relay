@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import "express-async-errors";
-import { useServer } from "graphql-ws/lib/use/ws";
+import { useServer } from "graphql-ws/use/ws";
 import { createServer } from "http";
 import path from "path";
 import invariant from "tiny-invariant";
@@ -87,7 +87,7 @@ const pubsub = new PubSub();
 const serverCleanup = useServer(
   {
     schema,
-    context: async (ctx, { payload }) => {
+    context: async (ctx, _id, payload) => {
       const supabase = createSupabaseClient(ctx.extra.request, null, {
         writeCookies: false,
       });

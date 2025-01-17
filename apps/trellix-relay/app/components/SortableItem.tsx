@@ -17,7 +17,8 @@ export function SortableItem({ id, ...rest }: SortableItemProps) {
     <Item
       ref={setNodeRef}
       dragging={isDragging}
-      transition={transform ? transition : undefined}
+      // transition={transform ? transition : undefined}
+      transition={transition}
       transform={transform}
       listeners={listeners}
       {...rest}

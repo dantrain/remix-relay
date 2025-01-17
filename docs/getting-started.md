@@ -2,10 +2,10 @@
 
 Follow this guide to build a basic web app with remix-relay and learn how it works. You will:
 
- - Server side render a Home page with fast-loading data from a GraphQL API.
- - Stream in slow-loading data with `@defer`.
- - Server side render an Item page, using a route parameter as a query variable.
- - Use the Relay cache for client navigations.
+- Server side render a Home page with fast-loading data from a GraphQL API.
+- Stream in slow-loading data with `@defer`.
+- Server side render an Item page, using a route parameter as a query variable.
+- Use the Relay cache for client navigations.
 
 ## Prerequisites
 
@@ -52,7 +52,7 @@ builder.queryType({
         await setTimeout(1000);
         return "Hello geezer, I'm pleased to see you!";
       },
-    })
+    }),
   }),
 });
 
@@ -71,8 +71,7 @@ For this guide we'll use [GraphQL Yoga](https://the-guild.dev/graphql/yoga-serve
 pnpm add graphql-yoga
 ```
 
-> [!NOTE]
-> [Apollo Server]() also works well.
+> [!NOTE] > [Apollo Server]() also works well.
 
 Add a GraphQL endpoint in `server/app.ts`.
 
@@ -190,7 +189,6 @@ Relay uses an `Environment` to manage GraphQL data. During SSR we will load data
 Add an `app/lib/relay-environment.ts` file.
 
 ```typescript
-import { getCachedResponse } from "@remix-relay/react";
 import { meros } from "meros/browser";
 import {
   type CacheConfig,
@@ -203,11 +201,12 @@ import {
   RecordSource,
   Store,
 } from "relay-runtime";
+import { getCachedResponse } from "@remix-relay/react";
 
 const fetchFn: FetchFunction = (
   params: RequestParameters,
   variables: Variables,
-  cacheConfig: CacheConfig
+  cacheConfig: CacheConfig,
 ) => {
   return (
     getCachedResponse(params, variables, cacheConfig) ??
@@ -295,10 +294,10 @@ export default function App() {
 Add an `app/lib/loader-query.server.ts` file.
 
 ```typescript
-import { type LoaderQueryArgs, getLoaderQuery } from "@remix-relay/server";
 import type { LoaderFunctionArgs } from "react-router";
 import type { OperationType } from "relay-runtime";
 import { schema } from "server/graphql-schema";
+import { type LoaderQueryArgs, getLoaderQuery } from "@remix-relay/server";
 
 export const loaderQuery = <TQuery extends OperationType>(
   _args: LoaderFunctionArgs,
@@ -437,7 +436,7 @@ export default function Home() {
 }
 ```
 
-The `Deferred` component acts as a Suspense boundary and works with the `RemixRelayProvider` to enable streaming. 
+The `Deferred` component acts as a Suspense boundary and works with the `RemixRelayProvider` to enable streaming.
 
 Run the Relay compiler once more with `pnpm run relay` to regenerate the types.
 
@@ -450,6 +449,7 @@ It's tedious having to manually run the `write-graphql-schema` and `relay` scrip
 ```shell
 pnpm add -D concurrently
 ```
+
 > [!IMPORTANT]
 > Follow the [official documentation](https://facebook.github.io/watchman/docs/install) to install Watchman.
 
@@ -493,8 +493,8 @@ builder.queryType({
 Next add an `app/routes/item.tsx` file.
 
 ```typescript
-import { metaQuery, useLoaderQuery } from "@remix-relay/react";
 import { graphql } from "react-relay";
+import { metaQuery, useLoaderQuery } from "@remix-relay/react";
 import { clientLoaderQuery } from "~/lib/client-loader-query";
 import { loaderQuery } from "~/lib/loader-query.server";
 import type { Route } from "./+types/item";
@@ -510,9 +510,11 @@ export const meta = metaQuery<itemQuery>(({ data }) => [
   { title: `${data.item} | New React Router App` },
 ]);
 
-export const loader = (args: Route.LoaderArgs) => loaderQuery<itemQuery>(args, query, args.params);
+export const loader = (args: Route.LoaderArgs) =>
+  loaderQuery<itemQuery>(args, query, args.params);
 
-export const clientLoader = (args: Route.ClientLoaderArgs) => clientLoaderQuery<itemQuery>(query, args.params);
+export const clientLoader = (args: Route.ClientLoaderArgs) =>
+  clientLoaderQuery<itemQuery>(query, args.params);
 
 export default function Item() {
   const [data] = useLoaderQuery<itemQuery>(query);
@@ -521,7 +523,7 @@ export default function Item() {
 }
 ```
 
-Note the use of `metaQuery` from `@remix-relay/react` to define the document title using the query data. 
+Note the use of `metaQuery` from `@remix-relay/react` to define the document title using the query data.
 
 Add the route to `app/routes.ts`:
 

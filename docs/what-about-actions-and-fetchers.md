@@ -19,6 +19,7 @@ One other advantage of Route actions is they can work with the native HTML form 
 In a vanilla React Router app, [fetchers](https://reactrouter.com/how-to/fetchers) are used to load data without causing a navigation.
 
 Relay provides many ways to do this, see:
+
 - [Queries for Interactions](https://relay.dev/docs/tutorial/queries-2/)
 - [Refetchable Fragments](https://relay.dev/docs/tutorial/refetchable-fragments/)
 - [Connections & Pagination](https://relay.dev/docs/tutorial/connections-pagination/)

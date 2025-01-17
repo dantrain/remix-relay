@@ -3,8 +3,6 @@
   "display": "Remix",
   "extends": "./base.json",
   "compilerOptions": {
-    "declaration": false,
-    "declarationMap": false,
     "jsx": "react-jsx",
     "module": "ESNext",
     "moduleResolution": "Bundler",
