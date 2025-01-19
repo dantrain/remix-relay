@@ -1,6 +1,6 @@
 {
   "name": "@remix-relay/server",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Provides Relay integration with React Router (Framework)",
   "keywords": [
     "Remix",
@@ -63,6 +63,6 @@
   },
   "peerDependencies": {
     "graphql": "17.0.0-alpha.2",
-    "relay-runtime": "^16.1.0"
+    "relay-runtime": ">=16"
   }
 }
