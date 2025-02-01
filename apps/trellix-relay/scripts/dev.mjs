@@ -1,7 +1,6 @@
 #!/usr/bin/env zx
-
 /* eslint-disable turbo/no-undeclared-env-vars */
-import "dotenv/config";
+import "@dotenvx/dotenvx/config";
 import { throttle } from "lodash-es";
 import { $ } from "zx";
 

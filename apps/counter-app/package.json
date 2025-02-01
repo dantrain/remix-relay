@@ -30,7 +30,6 @@
     "class-variance-authority": "^0.7.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-async-errors": "^3.1.1",
     "graphql": "17.0.0-alpha.2",
