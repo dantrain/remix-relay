@@ -53,12 +53,12 @@
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
     "@types/eslint": "^9.6.1",
-    "@types/node": "^22.10.7",
-    "@types/relay-runtime": "^18.2.4",
+    "@types/node": "^22.13.0",
+    "@types/relay-runtime": "^18.2.5",
     "eslint": "^8.57.0",
     "graphql": "17.0.0-alpha.2",
     "relay-runtime": "^18.2.0",
-    "tsup": "^8.3.5",
+    "tsup": "^8.3.6",
     "typescript": "~5.7.3"
   },
   "peerDependencies": {
