@@ -5,7 +5,7 @@ import exists from "lib/exists";
 import { getNextRank } from "lib/rank";
 import { last, sortBy } from "lodash-es";
 import { PlusIcon } from "lucide-react";
-import { FormEvent, use, useRef } from "react";
+import { Dispatch, FormEvent, SetStateAction, use, useRef } from "react";
 import { graphql, useMutation } from "react-relay";
 import { useMediaQuery, useOnClickOutside } from "usehooks-ts";
 import { Button } from "@remix-relay/ui";
@@ -40,7 +40,7 @@ type CreateItemProps = {
   itemEdges: readonly { node: { rank: string } }[];
   scrollToBottom: () => void;
   isCreating: boolean;
-  setIsCreating: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsCreating: Dispatch<SetStateAction<boolean>>;
 };
 
 export function CreateItem({

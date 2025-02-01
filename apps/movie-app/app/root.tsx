@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { ReactNode, Suspense } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
 import {
   Form,
@@ -40,7 +40,7 @@ export async function action({ request, context }: Route.ActionArgs) {
   });
 }
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>

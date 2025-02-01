@@ -1,10 +1,11 @@
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
+import { RefObject } from "react";
 import { Item, ItemProps } from "./Item";
 
 export type SortableItemProps = {
   id: UniqueIdentifier;
-  recentlyMovedToNewContainer: React.RefObject<boolean>;
+  recentlyMovedToNewContainer: RefObject<boolean>;
 } & Omit<ItemProps, "dragging" | "transition" | "transform" | "listeners">;
 
 export function SortableItem({

@@ -7,6 +7,7 @@ import {
   rectIntersection,
 } from "@dnd-kit/core";
 import exists from "lib/exists";
+import { RefObject } from "react";
 
 /**
  * Custom collision detection strategy optimized for multiple containers
@@ -19,8 +20,8 @@ import exists from "lib/exists";
 export const getCollisionDetectionStrategy = (
   activeId: UniqueIdentifier | null,
   columns: Record<UniqueIdentifier, { items: { id: UniqueIdentifier }[] }>,
-  lastOverId: React.RefObject<UniqueIdentifier | null>,
-  recentlyMovedToNewContainer: React.RefObject<boolean>,
+  lastOverId: RefObject<UniqueIdentifier | null>,
+  recentlyMovedToNewContainer: RefObject<boolean>,
 ): CollisionDetection => {
   return (args) => {
     if (activeId && activeId in columns) {
