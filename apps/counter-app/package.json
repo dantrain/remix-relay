@@ -10,6 +10,7 @@
     "generate-types": "supabase gen types typescript --project-id sircazunpagzuyjbvzov > server/__generated__/database.types.ts",
     "lint": "eslint . --max-warnings 0 --ignore-path ../../.gitignore",
     "start": "NODE_ENV=production node ./build/server/index.js",
+    "start-local": "dotenvx run --env NODE_ENV=production -- node ./build/server/index.js",
     "typecheck": "tsc --noEmit",
     "write-graphql-schema": "tsx ./scripts/write-graphql-schema.ts"
   },
@@ -52,6 +53,7 @@
   },
   "devDependencies": {
     "@ast-grep/napi": "^0.34.3",
+    "@dotenvx/dotenvx": "^1.34.0",
     "@react-router/dev": "^7.1.5",
     "@react-router/fs-routes": "^7.1.5",
     "@remix-relay/eslint-config": "workspace:*",
