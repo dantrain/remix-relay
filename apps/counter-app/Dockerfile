@@ -19,17 +19,15 @@ RUN corepack enable
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
-# Copy manifest
-COPY --link package.json ./
+# Copy application code
+COPY --link . .
 
 # Remove the workspace imports, they are already bundled
 RUN sed -i '/workspace:*/d' package.json
 
 # Install node modules
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
-# Copy application code
-COPY --link . .
 
 # Final stage for app image
 FROM base
