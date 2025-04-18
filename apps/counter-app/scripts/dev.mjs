@@ -1,4 +1,5 @@
 #!/usr/bin/env zx
+import "@dotenvx/dotenvx/config";
 import { $ } from "zx";
 
 process.on("SIGTERM", () => {
