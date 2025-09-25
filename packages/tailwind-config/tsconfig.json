@@ -1,4 +1,0 @@
-{
-  "extends": "@remix-relay/typescript-config/base.json",
-  "include": ["."]
-}

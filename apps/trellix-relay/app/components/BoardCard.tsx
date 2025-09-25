@@ -58,7 +58,7 @@ export default function BoardCard({ dataRef, connectionId }: BoardCardProps) {
     <div className="group relative">
       <NavLink
         to={`/board/${fromGlobalId(id)}`}
-        className="ring-offset-3 flex aspect-[3/1] select-none items-start gap-3
+        className="ring-offset-3 flex aspect-3/1 select-none items-start gap-3
           rounded-md bg-slate-100 p-3 font-bold shadow-sm ring-sky-500
           ring-offset-2 ring-offset-slate-200 focus:outline-none
           focus-visible:ring-2 sm:aspect-video sm:group-hover:shadow-md

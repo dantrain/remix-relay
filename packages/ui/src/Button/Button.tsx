@@ -75,8 +75,7 @@ export function Button({
     <Comp
       className={twMerge(
         cva(
-          `inline-block cursor-pointer select-none rounded-md px-2 py-1
-          focus:outline-none max-sm:transition-colors`,
+          `inline-block cursor-pointer select-none rounded-md px-2 py-1 focus:outline-none max-sm:transition-colors`,
           {
             variants: {
               variant: {
@@ -127,8 +126,7 @@ export function Button({
                 disabled: false,
                 variant: "slate",
                 className: [
-                  `border-slate-600 bg-slate-800 sm:border-slate-500
-                  sm:bg-slate-700`,
+                  `border-slate-600 bg-slate-800 sm:border-slate-500 sm:bg-slate-700`,
                 ],
               },
               {

@@ -1,4 +1,5 @@
 import { reactRouter } from "@react-router/dev/vite";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import babel from "vite-plugin-babel";
 import { cjsInterop } from "vite-plugin-cjs-interop";
@@ -11,6 +12,7 @@ export default defineConfig(({ command }) => ({
     cjsInterop({
       dependencies: ["react-relay", "@mui/base"],
     }),
+    tailwindcss(),
     relay,
     reactRouter(),
     babel({

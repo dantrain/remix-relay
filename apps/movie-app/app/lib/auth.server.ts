@@ -8,7 +8,7 @@ import { User, users } from "~/schema/types/User";
 import exists from "./exists";
 
 const envSchema = z.object({
-  ROOT_URL: z.string().url(),
+  ROOT_URL: z.url(),
   COOKIE_SECRETS: z.string().min(1),
   GITHUB_CLIENT_ID: z.string().min(1),
   GITHUB_CLIENT_SECRET: z.string().min(1),

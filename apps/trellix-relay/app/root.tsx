@@ -72,7 +72,7 @@ export function ErrorBoundary() {
 
   return (
     <main
-      className="grid min-h-[100dvh]
+      className="grid min-h-dvh
         grid-cols-[minmax(1rem,1fr)_auto_minmax(1rem,1fr)]
         grid-rows-[minmax(1rem,1fr)_auto_minmax(1rem,3fr)] justify-center"
     >

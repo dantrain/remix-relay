@@ -54,7 +54,7 @@ export default function SignInPage({
 
   return (
     <main
-      className="grid h-[100dvh] grid-cols-[1fr_minmax(auto,32rem)_1fr]
+      className="grid h-dvh grid-cols-[1fr_minmax(auto,32rem)_1fr]
         grid-rows-[minmax(60px,1fr)_auto_3fr] bg-slate-900 text-lg
         text-slate-100"
     >

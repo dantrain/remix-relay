@@ -23,17 +23,15 @@ export default function MovieLink({ dataRef }: MovieLinkProps) {
   );
 
   return (
-    <Button asChild>
-      <NavLink
-        className="group flex items-center gap-4 px-4 py-3
-          [&.pending]:scale-[.99] [&.pending]:border-slate-600
-          [&.pending]:bg-slate-800"
-        to={`/movie/${slug}`}
-        prefetch="render"
-      >
+    <Button
+      className="group flex items-center gap-4 px-4 py-3 [&.pending]:scale-[.99]
+        [&.pending]:border-slate-600 [&.pending]:bg-slate-800"
+      asChild
+    >
+      <NavLink to={`/movie/${slug}`} prefetch="render">
         {({ isPending }) => (
           <>
-            <div className="flex flex-grow items-center gap-4">
+            <div className="flex grow items-center gap-4">
               <div className="text-2xl">{criticScore >= 60 ? "🍅" : "🤢"}</div>
               <div>
                 <h3 className="text-md text-xl font-bold">{title}</h3>

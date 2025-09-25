@@ -8,24 +8,16 @@ export function createSupabaseClient(
   res: Response | null,
   { writeCookies }: { writeCookies: boolean } = { writeCookies: true },
 ) {
-  const reqCookies = (req as Request)?.cookies
-    ? Object.entries((req as Request)?.cookies).map(([name, value]) => ({
-        name,
-        value,
-      }))
-    : null;
-
   let cookiesSetThisRequest: { name: string; value: string }[] | undefined;
 
   const supabase = createServerClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
     cookies: {
-      getAll: () => {
-        return (
-          cookiesSetThisRequest ??
-          reqCookies ??
-          parseCookieHeader(req.headers.cookie ?? "")
-        );
-      },
+      getAll: () =>
+        cookiesSetThisRequest ??
+        parseCookieHeader(req.headers.cookie ?? "").map(({ name, value }) => ({
+          name,
+          value: value ?? "",
+        })),
       setAll: writeCookies
         ? (cookiesToSet) => {
             if (!res || res.headersSent) {
@@ -36,12 +28,16 @@ export function createSupabaseClient(
             }
 
             for (const { name, value, options } of cookiesToSet) {
-              res.cookie(name, value, {
-                ...options,
-                sameSite: "lax",
-                httpOnly: true,
-                maxAge: options.maxAge ? 365 * 24 * 60 * 60 * 1000 : 0,
-              });
+              // Don't set the auth-token-code-verifier cookie as HttpOnly
+              // so it can be cleared by the client before social sign in
+              if (!name.endsWith("auth-token-code-verifier")) {
+                res.cookie(name, value, {
+                  ...options,
+                  sameSite: "lax",
+                  httpOnly: true,
+                  maxAge: options.maxAge ? 365 * 24 * 60 * 60 * 1000 : 0,
+                });
+              }
             }
 
             cookiesSetThisRequest = cookiesToSet;

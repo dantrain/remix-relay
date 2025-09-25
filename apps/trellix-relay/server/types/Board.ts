@@ -68,7 +68,7 @@ builder.queryField("board", (t) =>
     args: {
       id: t.arg.id({
         required: true,
-        validate: { schema: z.string().cuid2() },
+        validate: { schema: z.cuid2() },
       }),
     },
     resolve: async (_parent, args, { db, user }) =>
@@ -93,7 +93,7 @@ builder.mutationFields((t) => ({
     args: {
       id: t.arg.id({
         required: true,
-        validate: { schema: z.string().cuid2() },
+        validate: { schema: z.cuid2() },
       }),
       title: t.arg.string({
         required: true,

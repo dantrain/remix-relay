@@ -5,8 +5,8 @@ const envSchema = z.object({
   NODE_ENV: z
     .enum(["development", "production", "test"])
     .default("development"),
-  DATABASE_URL: z.string().url(),
-  SUPABASE_URL: z.string().url(),
+  DATABASE_URL: z.url(),
+  SUPABASE_URL: z.url(),
   SUPABASE_ANON_KEY: z.string().min(1),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
 });

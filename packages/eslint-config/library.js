@@ -9,7 +9,7 @@ module.exports = {
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "eslint-config-turbo",
+    "plugin:turbo/recommended",
   ],
   plugins: ["only-warn"],
   globals: {

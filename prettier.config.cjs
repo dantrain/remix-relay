@@ -10,5 +10,4 @@ module.exports = {
   importOrder: ["^@remix-relay/(.*)$", "^~", "^\\."],
   tailwindFunctions: ["cva", "cx", "twMerge"],
   customFunctions: ["cva", "cx", "twMerge"],
-  endingPosition: "absolute-with-indent",
 };

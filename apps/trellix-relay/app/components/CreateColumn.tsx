@@ -188,7 +188,7 @@ export function CreateColumn({
     >
       <Button
         className={cx(
-          "flex w-[max-content] items-center gap-1 px-4 py-2",
+          "flex w-max items-center gap-1 px-4 py-2",
           !lastColumn && "m-2",
         )}
         variant={lastColumn ? "ghost" : "sky"}

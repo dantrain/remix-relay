@@ -1,13 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { ApolloServer } from "@apollo/server";
-import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+import { expressMiddleware } from "@as-integrations/express5";
 import { createRequestHandler } from "@react-router/express";
 import { SupabaseClient, User } from "@supabase/supabase-js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
-import "express-async-errors";
 import { useServer } from "graphql-ws/use/ws";
 import { createServer } from "http";
 import path from "path";
@@ -184,7 +183,7 @@ app.use(
 );
 
 app.all(
-  "*",
+  /.*/,
   createRequestHandler({
     build: viteDevServer
       ? () => viteDevServer.ssrLoadModule("virtual:react-router/server-build")

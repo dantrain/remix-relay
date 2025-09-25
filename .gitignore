@@ -51,3 +51,6 @@ vite.config.ts.*
 
 # React Router
 .react-router
+
+# TypeScript
+*.tsbuildinfo

@@ -27,7 +27,7 @@ export default function HomePage() {
 
   return (
     <div
-      className="flex min-h-[100dvh] justify-center overflow-y-auto pt-[74px]
+      className="flex min-h-dvh justify-center overflow-y-auto pt-[74px]
         sm:pt-[90px]"
     >
       <Deferred fallback={<LoadingScreen />}>

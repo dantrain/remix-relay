@@ -58,11 +58,11 @@ export default function BoardPage() {
   return (
     <ViewerIdContext value={fromGlobalId(viewer.id)}>
       <main
-        className="flex h-[100dvh] flex-col items-center pt-[74px] sm:pt-[90px]"
+        className="flex h-dvh flex-col items-center pt-[74px] sm:pt-[90px]"
       >
         <Deferred fallback={<LoadingScreen />}>
           <div
-            className="flex min-w-[min(100dvw,1280px)] max-w-[100dvw] flex-1
+            className="flex min-w-[min(100dvw,1280px)] max-w-dvw flex-1
               flex-col overflow-x-auto"
             ref={ref}
             {...dragHandlers}

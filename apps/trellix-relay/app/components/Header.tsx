@@ -27,8 +27,8 @@ export default function Header() {
             <span className="sr-only">GitHub repo</span>
           </a>
         </Button>
-        <Button asChild className="px-3">
-          <a className="flex items-center gap-2" href="/auth/signout">
+        <Button className="flex items-center gap-2 px-3" asChild>
+          <a href="/auth/signout">
             <LogOutIcon className="w-4" />
             Sign out
           </a>
