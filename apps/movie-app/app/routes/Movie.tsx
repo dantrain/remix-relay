@@ -38,9 +38,9 @@ export default function Movie() {
         <BackLink />
       </nav>
       <main>
-        <MovieDetail className="sm:mb-10" dataRef={data.movie} />
+        <MovieDetail className="sm:mb-10" movieRef={data.movie} />
         <Deferred fallback={<Spinner className="h-28" />}>
-          <MovieReviewsList dataRef={data.movie} />
+          <MovieReviewsList movieRef={data.movie} />
         </Deferred>
       </main>
     </>

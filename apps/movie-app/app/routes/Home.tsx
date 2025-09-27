@@ -36,7 +36,7 @@ export default function Index() {
       <ul className="grid gap-4">
         {data.movies.edges.map(({ node }) => (
           <li key={node.id}>
-            <MovieLink dataRef={node} />
+            <MovieLink movieRef={node} />
           </li>
         ))}
       </ul>

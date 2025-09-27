@@ -11,13 +11,13 @@ const fragment = graphql`
 `;
 
 type MovieReviewProps = {
-  dataRef: MovieReviewFragment$key;
+  reviewRef: MovieReviewFragment$key;
 };
 
-export function MovieReview({ dataRef }: MovieReviewProps) {
+export function MovieReview({ reviewRef }: MovieReviewProps) {
   const { fresh, quote, criticName, criticSource } = useFragment(
     fragment,
-    dataRef,
+    reviewRef,
   );
 
   return (

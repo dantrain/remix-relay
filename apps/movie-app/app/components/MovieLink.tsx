@@ -13,13 +13,13 @@ const fragment = graphql`
 `;
 
 type MovieLinkProps = {
-  dataRef: MovieLinkFragment$key;
+  movieRef: MovieLinkFragment$key;
 };
 
-export default function MovieLink({ dataRef }: MovieLinkProps) {
+export default function MovieLink({ movieRef }: MovieLinkProps) {
   const { slug, title, criticScore, boxOffice } = useFragment(
     fragment,
-    dataRef,
+    movieRef,
   );
 
   return (

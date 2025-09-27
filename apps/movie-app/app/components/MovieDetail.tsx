@@ -17,11 +17,11 @@ const fragment = graphql`
 
 type MovieDetailProps = {
   className?: string;
-  dataRef: MovieDetailFragment$key;
+  movieRef: MovieDetailFragment$key;
 };
 
-export default function MovieDetail({ className, dataRef }: MovieDetailProps) {
-  const movie = useFragment(fragment, dataRef);
+export default function MovieDetail({ className, movieRef }: MovieDetailProps) {
+  const movie = useFragment(fragment, movieRef);
   const { title, criticScore, audienceScore, criticsConsensus, imgUrl } = movie;
 
   return (
@@ -33,7 +33,7 @@ export default function MovieDetail({ className, dataRef }: MovieDetailProps) {
         <div className="mb-4 flex items-start justify-between gap-4">
           <h1 className="my-px text-2xl font-bold">{title}</h1>
           <Deferred>
-            <LikeButton dataRef={movie} />
+            <LikeButton movieRef={movie} />
           </Deferred>
         </div>
         <hr className="mb-4 border-slate-700" />

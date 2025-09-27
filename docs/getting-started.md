@@ -396,8 +396,8 @@ const fragment = graphql`
   }
 `;
 
-export default function Slow({ dataRef }: { dataRef: SlowFragment$key }) {
-  const data = useFragment(fragment, dataRef);
+export default function Slow({ queryRef }: { queryRef: SlowFragment$key }) {
+  const data = useFragment(fragment, queryRef);
 
   return <p>{data.slow}</p>;
 }
@@ -429,7 +429,7 @@ export default function Home() {
 +   <>
 +     <p>{data.fast}</p>
 +     <Deferred fallback={<p>...</p>}>
-+       <Slow dataRef={data} />
++       <Slow queryRef={data} />
 +     </Deferred>
 +   </>
 + );

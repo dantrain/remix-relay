@@ -23,23 +23,23 @@ const fragment = graphql`
 `;
 
 type MovieReviewsListProps = {
-  dataRef: MovieReviewsListFragment$key;
+  movieRef: MovieReviewsListFragment$key;
 };
 
-export default function MovieReviewsList({ dataRef }: MovieReviewsListProps) {
+export default function MovieReviewsList({ movieRef }: MovieReviewsListProps) {
   const {
     data: { reviews },
     loadNext,
     hasNext,
     isLoadingNext,
-  } = usePaginationFragment(fragment, dataRef);
+  } = usePaginationFragment(fragment, movieRef);
 
   return (
     <>
       <ul className="mb-8">
         {reviews.edges.map(({ node }) => (
           <li className="mb-4" key={node.id}>
-            <MovieReview dataRef={node} />
+            <MovieReview reviewRef={node} />
           </li>
         ))}
       </ul>

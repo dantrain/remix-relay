@@ -22,11 +22,11 @@ const mutation = graphql`
 `;
 
 type LikeButtonProps = {
-  dataRef: LikeButtonFragment$key;
+  movieRef: LikeButtonFragment$key;
 };
 
-export default function LikeButton({ dataRef }: LikeButtonProps) {
-  const { id, likedByViewer } = useFragment(fragment, dataRef);
+export default function LikeButton({ movieRef }: LikeButtonProps) {
+  const { id, likedByViewer } = useFragment(fragment, movieRef);
   const user = useUser();
 
   const [commit] = useMutation<LikeButtonMutation>(mutation);
