@@ -1,5 +1,6 @@
 /**
- * @generated SignedSource<<a42a4b545479c0a330a87dec480aa098>>
+ * @generated SignedSource<<16932413e256f72e2bebfa96163e3238>>
+ * @relayHash dc77b77038094a591db7b65d9215a146
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -7,6 +8,8 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
+
+// @relayRequestID dc77b77038094a591db7b65d9215a146
 
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
@@ -281,12 +284,11 @@ return {
     ]
   },
   "params": {
-    "cacheID": "dc77b77038094a591db7b65d9215a146",
-    "id": null,
+    "id": "dc77b77038094a591db7b65d9215a146",
     "metadata": {},
     "name": "MovieQuery",
     "operationKind": "query",
-    "text": "query MovieQuery(\n  $slug: String!\n) {\n  movie(slug: $slug) {\n    title\n    ...MovieDetailFragment\n    ...MovieReviewsListFragment @defer(label: \"MovieQuery$defer$MovieReviewsListFragment\")\n    id\n  }\n}\n\nfragment LikeButtonFragment on Movie {\n  id\n  likedByViewer\n}\n\nfragment MovieDetailFragment on Movie {\n  title\n  criticScore\n  audienceScore\n  criticsConsensus\n  imgUrl\n  ...LikeButtonFragment @defer(label: \"MovieDetailFragment$defer$LikeButtonFragment\")\n}\n\nfragment MovieReviewFragment on Review {\n  quote\n  fresh\n  criticName\n  criticSource\n}\n\nfragment MovieReviewsListFragment on Movie {\n  reviews(first: 5) {\n    edges {\n      node {\n        id\n        ...MovieReviewFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
+    "text": null
   }
 };
 })();

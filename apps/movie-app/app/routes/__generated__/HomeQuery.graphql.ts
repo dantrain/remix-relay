@@ -1,5 +1,6 @@
 /**
- * @generated SignedSource<<5202fe389262e0d8028ac7324674a8ae>>
+ * @generated SignedSource<<0a61bc35f6d5c3176fa18daf69d260cb>>
+ * @relayHash e70821ba395880a2c188262b4016a317
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -7,6 +8,8 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
+
+// @relayRequestID e70821ba395880a2c188262b4016a317
 
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
@@ -155,12 +158,11 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e70821ba395880a2c188262b4016a317",
-    "id": null,
+    "id": "e70821ba395880a2c188262b4016a317",
     "metadata": {},
     "name": "HomeQuery",
     "operationKind": "query",
-    "text": "query HomeQuery {\n  movies {\n    edges {\n      node {\n        id\n        ...MovieLinkFragment\n      }\n    }\n  }\n}\n\nfragment MovieLinkFragment on Movie {\n  slug\n  title\n  criticScore\n  boxOffice\n}\n"
+    "text": null
   }
 };
 })();

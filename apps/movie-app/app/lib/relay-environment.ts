@@ -33,7 +33,7 @@ const fetchFn: FetchFunction = (
               Accept: "multipart/mixed; deferSpec=20220824, application/json",
             },
             body: JSON.stringify({
-              query: params.text,
+              doc_id: params.id,
               variables,
             }),
           });

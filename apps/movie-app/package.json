@@ -21,6 +21,7 @@
   "dependencies": {
     "@graphql-tools/executor": "^1.4.9",
     "@graphql-yoga/plugin-defer-stream": "^3.16.0",
+    "@graphql-yoga/plugin-persisted-operations": "^3.16.0",
     "@pothos/core": "^4.9.1",
     "@pothos/plugin-relay": "^4.6.2",
     "@react-router/cloudflare": "^7.9.2",

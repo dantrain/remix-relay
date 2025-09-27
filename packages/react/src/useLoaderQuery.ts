@@ -12,6 +12,7 @@ import type {
   ConcreteRequest,
   GraphQLResponse,
   OperationType,
+  RequestParameters,
   VariablesOf,
 } from "relay-runtime";
 import invariant from "tiny-invariant";
@@ -141,8 +142,12 @@ export function useRouteLoaderQuery<TQuery extends OperationType>(
 function writePreloadedQueryToCache<TQuery extends OperationType>(
   preloadedQueryObject: SerializablePreloadedQuery<TQuery>,
 ) {
-  let cacheKey =
-    preloadedQueryObject.params.id ?? preloadedQueryObject.params.cacheID;
+  const params = preloadedQueryObject.params as RequestParameters & {
+    cacheID?: string;
+  };
+
+  const cacheKey = params.cacheID ?? params.id;
+  invariant(cacheKey, "Missing cacheKey");
 
   responseCache?.set(
     cacheKey,

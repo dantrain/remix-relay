@@ -64,6 +64,7 @@ type LoaderQuery = <TQuery extends OperationType>(
 export const getLoaderQuery = <TContext>(
   schema: GraphQLSchema,
   context?: TContext,
+  queryMap?: Record<string, string>,
 ): LoaderQuery => {
   return async <TQuery extends OperationType>(
     ...args: LoaderQueryArgs<TQuery>
@@ -71,7 +72,12 @@ export const getLoaderQuery = <TContext>(
     const [node, variables] = args;
     invariant(isConcreteRequest(node), "Expected a ConcreteRequest");
 
-    const document = parse(node.params.text!);
+    const queryString =
+      node.params.text ?? (node.params.id && queryMap?.[node.params.id]);
+
+    invariant(queryString, "Expected a query string");
+
+    const document = parse(queryString);
 
     const result = await execute<TQuery["response"], PayloadExtensions>({
       schema,

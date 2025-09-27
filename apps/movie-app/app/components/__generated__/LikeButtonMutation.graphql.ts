@@ -1,5 +1,6 @@
 /**
- * @generated SignedSource<<80a93ee7bca8d251ea73b45c559ad976>>
+ * @generated SignedSource<<5b413212dedaff157db6bf489c04cd23>>
+ * @relayHash c96d60584bac1acda979b09546ab816b
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -7,6 +8,8 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
+
+// @relayRequestID c96d60584bac1acda979b09546ab816b
 
 import { ConcreteRequest } from 'relay-runtime';
 export type LikeButtonMutation$variables = {
@@ -93,12 +96,11 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "c96d60584bac1acda979b09546ab816b",
-    "id": null,
+    "id": "c96d60584bac1acda979b09546ab816b",
     "metadata": {},
     "name": "LikeButtonMutation",
     "operationKind": "mutation",
-    "text": "mutation LikeButtonMutation(\n  $id: ID!\n  $liked: Boolean!\n) {\n  setLikedMovie(id: $id, liked: $liked) {\n    id\n    likedByViewer\n  }\n}\n"
+    "text": null
   }
 };
 })();
