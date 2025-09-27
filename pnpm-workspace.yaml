@@ -3,4 +3,5 @@ packages:
   - packages/*
 onlyBuiltDependencies:
   - '@tailwindcss/oxide'
+  - core-js-pure
   - supabase

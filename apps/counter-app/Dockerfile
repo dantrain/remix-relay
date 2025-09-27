@@ -2,7 +2,7 @@
 
 # Adjust NODE_VERSION as desired
 ARG NODE_VERSION=20.11.0
-FROM node:${NODE_VERSION}-slim as base
+FROM node:${NODE_VERSION}-slim AS base
 
 LABEL fly_launch_runtime="Remix"
 
@@ -17,7 +17,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
 # Throw-away build stage to reduce size of final image
-FROM base as build
+FROM base AS build
 
 # Copy application code
 COPY --link . .

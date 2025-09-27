@@ -9,7 +9,7 @@
     "dev": "zx ./scripts/dev.mjs",
     "generate-types": "supabase gen types typescript --project-id sircazunpagzuyjbvzov > server/__generated__/database.types.ts",
     "lint": "eslint . --max-warnings 0 --ignore-path ../../.gitignore",
-    "make-dedicated-lockfile": "make-dedicated-lockfile",
+    "make-dedicated-lockfile": "make-dedicated-lockfile || true",
     "start": "NODE_ENV=production node ./build/server/index.js",
     "start-local": "dotenvx run --env NODE_ENV=production -- node ./build/server/index.js",
     "typecheck": "tsc -b --noEmit",

@@ -2,7 +2,7 @@
 
 # Adjust NODE_VERSION as desired
 ARG NODE_VERSION=20.11.0
-FROM node:${NODE_VERSION}-slim as base
+FROM node:${NODE_VERSION}-slim AS base
 
 LABEL fly_launch_runtime="Remix"
 
@@ -17,19 +17,16 @@ ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
 # Throw-away build stage to reduce size of final image
-FROM base as build
+FROM base AS build
 
-# Copy manifest
-COPY --link package.json ./
+# Copy application code
+COPY --link . .
 
 # Remove the workspace imports, they are already bundled
 RUN sed -i '/workspace:*/d' package.json
 
 # Install node modules
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod
-
-# Copy application code
-COPY --link . .
 
 # Final stage for app image
 FROM base

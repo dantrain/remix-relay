@@ -9,6 +9,7 @@
     "dev": "zx ./scripts/dev.mjs",
     "generate-types": "supabase gen types typescript --local > server/__generated__/database.types.ts",
     "lint": "eslint . --max-warnings 0 --ignore-path ../../.gitignore",
+    "make-dedicated-lockfile": "make-dedicated-lockfile || true",
     "migrate-drizzle": "zx ./scripts/migrate-drizzle.mjs",
     "migrate-supabase": "zx ./scripts/migrate-supabase.mjs",
     "start": "NODE_ENV=production node ./build/server/index.js",
@@ -77,6 +78,7 @@
   "devDependencies": {
     "@ast-grep/napi": "^0.39.5",
     "@dotenvx/dotenvx": "^1.51.0",
+    "@pnpm/make-dedicated-lockfile": "^1000.0.25",
     "@react-router/dev": "^7.9.2",
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
