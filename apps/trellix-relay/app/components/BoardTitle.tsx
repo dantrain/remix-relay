@@ -20,8 +20,8 @@ const mutation = graphql`
   }
 `;
 
-export function BoardTitle({ dataRef }: { dataRef: BoardTitleFragment$key }) {
-  const { id, title } = useFragment(fragment, dataRef);
+export function BoardTitle({ boardRef }: { boardRef: BoardTitleFragment$key }) {
+  const { id, title } = useFragment(fragment, boardRef);
   const [isEditing, setIsEditing] = useState(false);
   const [commit] = useMutation<BoardTitleUpdateOneBoardMutation>(mutation);
 

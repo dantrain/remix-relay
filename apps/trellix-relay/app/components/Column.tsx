@@ -38,7 +38,7 @@ const subscription = graphql`
 `;
 
 export type ColumnProps = {
-  dataRef: ColumnFragment$key;
+  columnRef: ColumnFragment$key;
   connectionId: string;
   children: ReactNode;
   style?: CSSProperties;
@@ -49,7 +49,7 @@ export type ColumnProps = {
 };
 
 export function Column({
-  dataRef,
+  columnRef,
   connectionId,
   children,
   handleProps,
@@ -59,7 +59,7 @@ export function Column({
   ref,
   ...props
 }: ColumnProps) {
-  const data = useFragment(fragment, dataRef);
+  const data = useFragment(fragment, columnRef);
   const { id, title, itemConnection } = data;
 
   useSubscribe({ subscription, variables: { id } });
@@ -97,7 +97,7 @@ export function Column({
       <div
         className="group flex items-center justify-between gap-2 py-1 pl-1 pr-2"
       >
-        <ColumnTitle dataRef={data} />
+        <ColumnTitle columnRef={data} />
         <div
           className={cx(
             "flex sm:gap-1",

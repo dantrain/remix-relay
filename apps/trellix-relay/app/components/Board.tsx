@@ -156,23 +156,23 @@ const dropAnimation: DropAnimation = {
 type Columns = Record<
   UniqueIdentifier,
   {
-    items: { id: UniqueIdentifier; rank: string; dataRef: ItemFragment$key }[];
+    items: { id: UniqueIdentifier; rank: string; itemRef: ItemFragment$key }[];
     rank: string;
     itemConnectionId: string;
-    dataRef: ColumnFragment$key;
+    columnRef: ColumnFragment$key;
   }
 >;
 
 type BoardProps = {
-  dataRef: BoardFragment$key;
+  boardRef: BoardFragment$key;
   scrollToRight: () => void;
 };
 
-export function Board({ dataRef, scrollToRight }: BoardProps) {
+export function Board({ boardRef, scrollToRight }: BoardProps) {
   const isClient = useIsClient();
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  const { id: boardId, columnConnection } = useFragment(fragment, dataRef);
+  const { id: boardId, columnConnection } = useFragment(fragment, boardRef);
 
   useSubscribe({
     subscription: columnCreatedSubscription,
@@ -229,11 +229,11 @@ export function Board({ dataRef, scrollToRight }: BoardProps) {
         ...acc,
         [node.id]: {
           items: sortBy(node.itemConnection.edges, "node.rank").map(
-            ({ node }) => ({ id: node.id, rank: node.rank, dataRef: node }),
+            ({ node }) => ({ id: node.id, rank: node.rank, itemRef: node }),
           ),
           rank: node.rank,
           itemConnectionId: node.itemConnection.__id,
-          dataRef: node,
+          columnRef: node,
         },
       }),
       {},
@@ -252,11 +252,11 @@ export function Board({ dataRef, scrollToRight }: BoardProps) {
         ...acc,
         [node.id]: {
           items: sortBy(node.itemConnection.edges, "node.rank").map(
-            ({ node }) => ({ id: node.id, rank: node.rank, dataRef: node }),
+            ({ node }) => ({ id: node.id, rank: node.rank, itemRef: node }),
           ),
           rank: node.rank,
           itemConnectionId: node.itemConnection.__id,
-          dataRef: node,
+          columnRef: node,
         },
       }),
       {},
@@ -303,7 +303,7 @@ export function Board({ dataRef, scrollToRight }: BoardProps) {
     return (
       <Item
         dragOverlay
-        dataRef={item.dataRef}
+        itemRef={item.itemRef}
         connectionId={column?.itemConnectionId}
       />
     );
@@ -312,11 +312,14 @@ export function Board({ dataRef, scrollToRight }: BoardProps) {
   function renderContainerDragOverlay(containerId: UniqueIdentifier) {
     const container = exists(columns[containerId]);
     return (
-      <Column dataRef={container.dataRef} connectionId={columnConnection.__id}>
+      <Column
+        columnRef={container.columnRef}
+        connectionId={columnConnection.__id}
+      >
         {exists(container.items).map((item) => (
           <Item
             key={item.id}
-            dataRef={item.dataRef}
+            itemRef={item.itemRef}
             connectionId={container.itemConnectionId}
           />
         ))}
@@ -554,7 +557,7 @@ export function Board({ dataRef, scrollToRight }: BoardProps) {
                         id={containerId}
                         ref={getColumnRef(containerId)}
                         items={container.items}
-                        dataRef={container.dataRef}
+                        columnRef={container.columnRef}
                         connectionId={columnConnection.__id}
                         hidden={state === "exiting"}
                       >
@@ -570,7 +573,7 @@ export function Board({ dataRef, scrollToRight }: BoardProps) {
                                 recentlyMovedToNewContainer={
                                   recentlyMovedToNewContainer
                                 }
-                                dataRef={item.dataRef}
+                                itemRef={item.itemRef}
                                 connectionId={container.itemConnectionId}
                               />
                             );

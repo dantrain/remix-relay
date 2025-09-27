@@ -57,22 +57,20 @@ export default function BoardPage() {
 
   return (
     <ViewerIdContext value={fromGlobalId(viewer.id)}>
-      <main
-        className="flex h-dvh flex-col items-center pt-[74px] sm:pt-[90px]"
-      >
+      <main className="flex h-dvh flex-col items-center pt-[74px] sm:pt-[90px]">
         <Deferred fallback={<LoadingScreen />}>
           <div
-            className="flex min-w-[min(100dvw,1280px)] max-w-dvw flex-1
-              flex-col overflow-x-auto"
+            className="max-w-dvw flex min-w-[min(100dvw,1280px)] flex-1 flex-col
+              overflow-x-auto"
             ref={ref}
             {...dragHandlers}
             onContextMenu={(e) => e.preventDefault()} // Prevent context menu on right-click
           >
             <div className="absolute self-start px-2 pt-3 sm:px-4 sm:pt-5">
-              <BoardTitle dataRef={board} />
+              <BoardTitle boardRef={board} />
             </div>
             <div className="h-[54px] sm:h-[62px]" />
-            <Board dataRef={board} scrollToRight={scrollToRight} />
+            <Board boardRef={board} scrollToRight={scrollToRight} />
           </div>
         </Deferred>
       </main>

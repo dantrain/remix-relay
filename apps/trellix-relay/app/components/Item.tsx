@@ -71,7 +71,7 @@ const deleteOneItemMutation = graphql`
 `;
 
 export type ItemProps = {
-  dataRef: ItemFragment$key;
+  itemRef: ItemFragment$key;
   connectionId: string;
   dragOverlay?: boolean;
   dragging?: boolean;
@@ -83,7 +83,7 @@ export type ItemProps = {
 
 export const Item = memo(
   ({
-    dataRef,
+    itemRef,
     connectionId,
     dragOverlay = false,
     dragging,
@@ -93,7 +93,7 @@ export const Item = memo(
     ref,
     ...props
   }: ItemProps) => {
-    const { id, title, columnId } = useFragment(fragment, dataRef);
+    const { id, title, columnId } = useFragment(fragment, itemRef);
 
     useSubscribe<ItemSubscription>({
       subscription,
@@ -204,8 +204,7 @@ export const Item = memo(
       >
         <div
           className={cva(
-            `item group flex grow touch-manipulation select-none
-            items-start rounded-md border pr-1 outline-none sm:pr-2`,
+            `item group flex grow touch-manipulation select-none items-start rounded-md border pr-1 outline-none sm:pr-2`,
             {
               variants: {
                 dragging: { true: "invisible" },

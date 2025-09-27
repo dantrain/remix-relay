@@ -21,13 +21,13 @@ const fragment = graphql`
 `;
 
 type BoardListProps = {
-  dataRef: BoardListFragment$key;
+  userRef: BoardListFragment$key;
 };
 
-export default function BoardList({ dataRef }: BoardListProps) {
+export default function BoardList({ userRef }: BoardListProps) {
   const {
     boardConnection: { edges, __id },
-  } = useFragment(fragment, dataRef);
+  } = useFragment(fragment, userRef);
 
   const refs = useRef<Record<string, RefObject<HTMLLIElement | null>>>({});
 
@@ -37,8 +37,8 @@ export default function BoardList({ dataRef }: BoardListProps) {
   return (
     <ul className="grid grid-cols-[repeat(auto-fill,minmax(14rem,1fr))] gap-4">
       <li
-        className="flex aspect-3/1 items-center justify-center rounded-md
-          border border-dashed border-slate-400 text-center sm:aspect-video"
+        className="aspect-3/1 flex items-center justify-center rounded-md border
+          border-dashed border-slate-400 text-center sm:aspect-video"
       >
         <CreateBoard connectionId={__id} />
       </li>
@@ -58,7 +58,7 @@ export default function BoardList({ dataRef }: BoardListProps) {
                 )}
                 ref={getRef(node.id)}
               >
-                <BoardCard dataRef={node} connectionId={__id} />
+                <BoardCard boardRef={node} connectionId={__id} />
               </li>
             )}
           </Transition>

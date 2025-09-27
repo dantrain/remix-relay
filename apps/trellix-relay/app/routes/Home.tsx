@@ -36,7 +36,7 @@ export default function HomePage() {
             Your Boards
           </h2>
 
-          <BoardList dataRef={data.viewer} />
+          <BoardList userRef={data.viewer} />
         </main>
       </Deferred>
     </div>

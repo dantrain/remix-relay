@@ -21,11 +21,11 @@ const mutation = graphql`
 `;
 
 type ColumnTitleProps = {
-  dataRef: ColumnTitleFragment$key;
+  columnRef: ColumnTitleFragment$key;
 };
 
-export function ColumnTitle({ dataRef }: ColumnTitleProps) {
-  const { id, title } = useFragment(fragment, dataRef);
+export function ColumnTitle({ columnRef }: ColumnTitleProps) {
+  const { id, title } = useFragment(fragment, columnRef);
   const [isEditing, setIsEditing] = useState(false);
   const [commit] = useMutation<ColumnTitleUpdateOneColumnMutation>(mutation);
 
