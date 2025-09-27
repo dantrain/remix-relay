@@ -53,7 +53,7 @@
     "@remix-relay/typescript-config": "workspace:*",
     "@types/eslint": "^9.6.1",
     "@types/node": "^24.5.2",
-    "@types/react": "^19.1.13",
+    "@types/react": "^19.1.14",
     "@types/react-dom": "^19.1.9",
     "@types/react-relay": "^18.2.1",
     "@types/relay-runtime": "^19.0.2",
@@ -62,7 +62,7 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-relay": "^20.1.1",
-    "react-router": "^7.9.2",
+    "react-router": "^7.9.3",
     "relay-runtime": "^20.1.1",
     "tsup": "^8.5.0",
     "typescript": "~5.9.2"
