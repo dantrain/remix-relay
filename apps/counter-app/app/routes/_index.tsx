@@ -44,7 +44,7 @@ export default function Index() {
       <Deferred
         fallback={<Spinner className="animate-fade h-16 max-w-[260px]" />}
       >
-        <CounterList dataRef={data.viewer} />
+        <CounterList userRef={data.viewer} />
       </Deferred>
     </main>
   );

@@ -37,12 +37,12 @@ const deleteOneCounterMutation = graphql`
 `;
 
 type CounterProps = {
-  dataRef: CounterFragment$key;
+  counterRef: CounterFragment$key;
   connectionId: string;
 };
 
-export default function Counter({ dataRef, connectionId }: CounterProps) {
-  const { id, count } = useFragment(fragment, dataRef);
+export default function Counter({ counterRef, connectionId }: CounterProps) {
+  const { id, count } = useFragment(fragment, counterRef);
 
   useSubscribe({ subscription, variables: { id } });
 

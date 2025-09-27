@@ -57,11 +57,11 @@ const mutation = graphql`
 `;
 
 type CounterListProps = {
-  dataRef: CounterListFragment$key;
+  userRef: CounterListFragment$key;
 };
 
-export default function CounterList({ dataRef }: CounterListProps) {
-  const { counterConnection, id: userId } = useFragment(fragment, dataRef);
+export default function CounterList({ userRef }: CounterListProps) {
+  const { counterConnection, id: userId } = useFragment(fragment, userRef);
 
   useSubscribe({
     subscription: counterCreatedSubscription,
@@ -95,7 +95,7 @@ export default function CounterList({ dataRef }: CounterListProps) {
       <ul className="inline-flex flex-col gap-5">
         {counterConnection.edges.map(({ node }) => (
           <li key={node.id}>
-            <Counter connectionId={counterConnection.__id} dataRef={node} />
+            <Counter connectionId={counterConnection.__id} counterRef={node} />
           </li>
         ))}
       </ul>
