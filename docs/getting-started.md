@@ -71,7 +71,8 @@ For this guide we'll use [GraphQL Yoga](https://the-guild.dev/graphql/yoga-serve
 pnpm add graphql-yoga
 ```
 
-> [!NOTE] > [Apollo Server]() also works well.
+> [!NOTE]
+> [Apollo Server]() also works well.
 
 Add a GraphQL endpoint in `server/app.ts`.
 
