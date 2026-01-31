@@ -1,8 +1,8 @@
 # Movie App
 
-https://dans-movie-app.pages.dev/
+https://dans-movie-app.dantrain.workers.dev/
 
-Example content app using CloudFlare Pages.
+Example content app using Cloudflare Workers.
 
 ### Getting started
 

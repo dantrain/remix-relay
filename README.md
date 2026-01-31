@@ -15,7 +15,7 @@ A small library providing integration between the [React Router v7](https://reac
 
 ## What does it look like?
 
-<a href="https://dans-movie-app.pages.dev/movie/black_panther_2018"><picture><source media="(min-width: 1281px)" srcset="https://github.com/user-attachments/assets/bd348bbb-5a59-4480-b964-2a32c0d08cc4"><source media="(max-width: 1280px)" srcset="https://github.com/user-attachments/assets/e0b86873-d276-4fa6-a0ab-6e8439e20ef1"><img alt="Movie app screenshot" align="right" src="https://github.com/user-attachments/assets/e0b86873-d276-4fa6-a0ab-6e8439e20ef1"></picture></a>
+<a href="https://dans-movie-app.dantrain.workers.dev/movie/black_panther_2018"><picture><source media="(min-width: 1281px)" srcset="https://github.com/user-attachments/assets/bd348bbb-5a59-4480-b964-2a32c0d08cc4"><source media="(max-width: 1280px)" srcset="https://github.com/user-attachments/assets/e0b86873-d276-4fa6-a0ab-6e8439e20ef1"><img alt="Movie app screenshot" align="right" src="https://github.com/user-attachments/assets/e0b86873-d276-4fa6-a0ab-6e8439e20ef1"></picture></a>
 
 ```typescript
 const query = graphql`
@@ -59,9 +59,9 @@ export default function Movie() {
 
 ## Examples
 
-|                                                  [Movie app](https://dans-movie-app.pages.dev/)                                                  |                                                  [Counter app](https://dans-counter-app.fly.dev/)                                                  |                                                  [Trellix](https://trellix-relay.fly.dev/)                                                  |
-| :----------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img alt="Movie app" src="https://github.com/user-attachments/assets/b4a9d786-9795-4b9a-88e0-2cd2b308e06e">](https://dans-movie-app.pages.dev/) | [<img alt="Counter app" src="https://github.com/user-attachments/assets/d283529f-c938-4fd5-b49e-9823982d12c6">](https://dans-counter-app.fly.dev/) | [<img alt="Trellix" src="https://github.com/user-attachments/assets/fb56b4ec-bc69-424f-9f97-981a67af3a04">](https://trellix-relay.fly.dev/) |
+|                                                  [Movie app](https://dans-movie-app.dantrain.workers.dev/)                                                  |                                                  [Counter app](https://dans-counter-app.fly.dev/)                                                  |                                                  [Trellix](https://trellix-relay.fly.dev/)                                                  |
+| :---------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img alt="Movie app" src="https://github.com/user-attachments/assets/b4a9d786-9795-4b9a-88e0-2cd2b308e06e">](https://dans-movie-app.dantrain.workers.dev/) | [<img alt="Counter app" src="https://github.com/user-attachments/assets/d283529f-c938-4fd5-b49e-9823982d12c6">](https://dans-counter-app.fly.dev/) | [<img alt="Trellix" src="https://github.com/user-attachments/assets/fb56b4ec-bc69-424f-9f97-981a67af3a04">](https://trellix-relay.fly.dev/) |
 
 ## Sequence diagrams
 
