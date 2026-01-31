@@ -17,6 +17,7 @@ import {
 import { graphql, useMutation } from "react-relay";
 import { useMediaQuery, useOnClickOutside } from "usehooks-ts";
 import { Button } from "@remix-relay/ui";
+import { cn } from "~/lib/cn";
 import { ViewerIdContext } from "~/lib/viewer-id-context";
 import { CreateItemCreateOneItemMutation } from "./__generated__/CreateItemCreateOneItemMutation.graphql";
 
@@ -74,8 +75,10 @@ export function CreateItem({
       // Double rAF ensures card has painted before clearing input
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
+          // Set height before clearing to prevent layout shift
+          // Height = leading-6 (24px) + py-2 (16px) = 40px
+          textAreaRef.current?.style.setProperty("height", "40px");
           setValue("");
-          textAreaRef.current?.style.setProperty("height", "42px");
           scrollToBottom();
           textAreaRef.current?.focus();
         });
@@ -151,7 +154,14 @@ export function CreateItem({
   };
 
   return isCreating ? (
-    <form className="relative" ref={formRef} onSubmit={handleSubmit}>
+    <form
+      className={cn(
+        "relative",
+        isDesktop && !itemEdges.length && "-translate-y-0.5",
+      )}
+      ref={formRef}
+      onSubmit={handleSubmit}
+    >
       <label className="sr-only" htmlFor="createItemInput-title">
         Text
       </label>
@@ -163,7 +173,7 @@ export function CreateItem({
           ref={textAreaRef}
           name="title"
           className="block w-full resize-none border-none bg-transparent py-2
-            pr-10 pl-3 focus:ring-0"
+            pr-10 pl-3 leading-6 focus:ring-0"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={(event) => {

@@ -263,8 +263,8 @@ export const Item = memo(
                 ref={textAreaRef}
                 name="title"
                 className="block w-full resize-none rounded-[4px] border-none
-                  bg-white px-2 py-1 shadow-[inset_0_0_0_1px] shadow-slate-500
-                  focus:ring-0"
+                  bg-white px-2 py-1 leading-6 shadow-[inset_0_0_0_1px]
+                  shadow-slate-500 focus:ring-0"
                 onKeyDown={(event) => {
                   if (event.key === "Enter") {
                     event.preventDefault();
@@ -280,7 +280,9 @@ export const Item = memo(
               />
             </form>
           ) : (
-            <div className="flex-1 self-center py-2 pl-3">{title}</div>
+            <div className="flex-1 self-center py-2 pl-3 leading-6">
+              {title}
+            </div>
           )}
           <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <DropdownMenuTrigger asChild>

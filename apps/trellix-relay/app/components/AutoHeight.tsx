@@ -9,16 +9,17 @@ export default function AutoHeight({
   const contentDiv = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const element = contentDiv.current as HTMLDivElement;
+    const element = contentDiv.current;
+    if (!element) return;
 
     const resizeObserver = new ResizeObserver(() => {
-      setHeight(element.clientHeight);
+      setHeight(Math.round(element.clientHeight));
     });
 
     resizeObserver.observe(element);
 
     return () => resizeObserver.disconnect();
-  }, [height]);
+  }, []);
 
   return (
     <AnimateHeight
