@@ -191,65 +191,24 @@ Add an `app/lib/relay-environment.ts` file.
 
 ```typescript
 import { meros } from "meros/browser";
+import type { FetchFunction } from "relay-runtime";
 import {
-  type CacheConfig,
-  type FetchFunction,
-  type RequestParameters,
-  type Variables,
   Environment,
   Network,
   Observable,
   RecordSource,
   Store,
 } from "relay-runtime";
-import { getCachedResponse } from "@remix-relay/react";
+import {
+  getCachedResponse,
+  processMultipartResponse,
+} from "@remix-relay/react";
 
-// Types for incremental delivery format
-interface PendingResult {
-  id: string;
-  path: ReadonlyArray<string | number>;
-  label?: string;
-}
-
-interface IncrementalResult {
-  id: string;
-  data?: Record<string, unknown>;
-  subPath?: ReadonlyArray<string | number>;
-}
-
-interface IncrementalResponse {
-  data?: Record<string, unknown>;
-  pending?: PendingResult[];
-  incremental?: IncrementalResult[];
-  completed?: { id: string }[];
-  hasNext?: boolean;
-}
-
-// Helper to get an object at a given path in the data tree
-function getAtPath(
-  data: Record<string, unknown>,
-  path: ReadonlyArray<string | number>,
-): Record<string, unknown> | undefined {
-  let current: unknown = data;
-  for (const key of path) {
-    if (current === null || current === undefined) return undefined;
-    current = (current as Record<string | number, unknown>)[key];
-  }
-  return current as Record<string, unknown> | undefined;
-}
-
-const fetchFn: FetchFunction = (
-  params: RequestParameters,
-  variables: Variables,
-  cacheConfig: CacheConfig,
-) => {
+const fetchFn: FetchFunction = (params, variables, cacheConfig) => {
   return (
     getCachedResponse(params, variables, cacheConfig) ??
     Observable.create((sink) => {
       const fetchGraphQL = async () => {
-        const pendingById = new Map<string, PendingResult>();
-        let initialData: Record<string, unknown> | undefined;
-
         try {
           const response = await fetch("/graphql", {
             method: "POST",
@@ -257,54 +216,13 @@ const fetchFn: FetchFunction = (
               "Content-Type": "application/json",
               Accept: "multipart/mixed; incrementalSpec=v0.2, application/json",
             },
-            body: JSON.stringify({
-              query: params.text,
-              variables,
-            }),
+            body: JSON.stringify({ query: params.text, variables }),
           });
 
           const parts = await meros(response);
 
-          if (parts instanceof Response) {
-            sink.next(await parts.json());
-          } else {
-            for await (const part of parts) {
-              const body = part.body as IncrementalResponse;
-
-              if (body.pending) {
-                for (const pending of body.pending) {
-                  pendingById.set(pending.id, pending);
-                }
-              }
-
-              if (body.incremental && body.incremental.length > 0) {
-                for (const inc of body.incremental) {
-                  const pending = pendingById.get(inc.id);
-                  const basePath = pending?.path ?? [];
-                  const subPath = inc.subPath ?? [];
-                  const fullPath = [...basePath, ...subPath];
-
-                  // Merge parent's id for Relay normalization
-                  let mergedData = inc.data;
-                  if (initialData && inc.data) {
-                    const parentData = getAtPath(initialData, fullPath);
-                    if (parentData?.id !== undefined && !("id" in inc.data)) {
-                      mergedData = { id: parentData.id, ...inc.data };
-                    }
-                  }
-
-                  sink.next({
-                    data: mergedData,
-                    path: fullPath,
-                    label: pending?.label,
-                    hasNext: body.hasNext,
-                  } as Parameters<typeof sink.next>[0]);
-                }
-              } else if (body.data !== undefined) {
-                initialData = body.data;
-                sink.next(body as Parameters<typeof sink.next>[0]);
-              }
-            }
+          for await (const payload of processMultipartResponse(parts)) {
+            sink.next(payload);
           }
         } finally {
           sink.complete();
@@ -333,7 +251,7 @@ export function getCurrentEnvironment() {
 }
 ```
 
-Note the use of `fetch` to request data, and the [meros](https://github.com/maraisr/meros) library to read the multipart response. This enables streaming of client requests.
+Note the use of `fetch` to request data, and the [meros](https://github.com/maraisr/meros) library to read the multipart response. The `processMultipartResponse` utility from `@remix-relay/react` handles the incremental delivery format used by `@defer`.
 
 Add providers and a Suspense boundary to `app/root.tsx`.
 
