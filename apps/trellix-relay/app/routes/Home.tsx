@@ -31,7 +31,10 @@ export default function HomePage() {
         sm:pt-[90px]"
     >
       <Deferred fallback={<LoadingScreen />}>
-        <main className="w-full max-w-7xl p-4 pt-5 sm:py-8">
+        <main
+          className="w-full max-w-7xl p-4 pt-5
+            pb-[calc(1rem+env(safe-area-inset-bottom))] sm:py-8"
+        >
           <h2 className="mb-4 text-lg font-bold text-slate-500 uppercase">
             Your Boards
           </h2>
