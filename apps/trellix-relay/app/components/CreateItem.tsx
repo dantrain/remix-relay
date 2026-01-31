@@ -134,29 +134,32 @@ export function CreateItem({
       <label className="sr-only" htmlFor="createItemInput-title">
         Text
       </label>
-      <TextareaAutosize
-        id="createItemInput-title"
-        ref={textAreaRef}
-        name="title"
-        className="mb-2 block w-full resize-none rounded-md border
-          border-slate-200 bg-white pr-10 shadow-sm focus:border-slate-200
-          focus:ring-0"
-        onKeyDown={(event) => {
-          if (event.key === "Enter") {
-            event.preventDefault();
-            formRef.current?.requestSubmit();
-          }
-          if (event.key === "Escape") {
-            setIsCreating(false);
-          }
-        }}
-        placeholder="Enter a title"
-        autoComplete="off"
-        maxLength={100}
-        // eslint-disable-next-line jsx-a11y/no-autofocus
-        autoFocus
-        required
-      />
+      <div
+        className="mb-2 rounded-md border border-slate-200 bg-white shadow-sm"
+      >
+        <TextareaAutosize
+          id="createItemInput-title"
+          ref={textAreaRef}
+          name="title"
+          className="block w-full resize-none border-none bg-transparent py-2
+            pr-10 pl-3 focus:ring-0"
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              formRef.current?.requestSubmit();
+            }
+            if (event.key === "Escape") {
+              setIsCreating(false);
+            }
+          }}
+          placeholder="Enter a title"
+          autoComplete="off"
+          maxLength={100}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
+          autoFocus
+          required
+        />
+      </div>
       <div className="flex flex-row-reverse justify-start gap-2 sm:py-1">
         <Button
           className="px-4 py-2 sm:px-3 sm:py-1"
