@@ -1,15 +1,17 @@
-import { Suspense, SuspenseProps, use, useEffect, useState } from "react";
+import { Suspense, SuspenseProps, use, useSyncExternalStore } from "react";
 import { Await } from "react-router";
 import { DeferredQueryContext } from "./deferred-query-context";
 
-export function Deferred({ children, ...rest }: SuspenseProps) {
-  const [mounted, setMounted] = useState(false);
+function useIsMounted() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+}
 
-  useEffect(() => {
-    if (!mounted && typeof window !== "undefined") {
-      setMounted(true);
-    }
-  }, [mounted]);
+export function Deferred({ children, ...rest }: SuspenseProps) {
+  const mounted = useIsMounted();
 
   const deferredQuery = use(DeferredQueryContext);
 
