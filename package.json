@@ -28,7 +28,7 @@
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {
-        "graphql": "17.0.0-alpha.2"
+        "graphql": "17.0.0-alpha.9"
       }
     }
   }

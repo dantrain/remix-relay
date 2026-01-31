@@ -26,6 +26,46 @@ import { trackPromise } from "~/components/Progress";
 const isServer = typeof document === "undefined";
 const tabId = isServer ? null : createId();
 
+// Types for new June 2023 incremental delivery format
+interface PendingResult {
+  id: string;
+  path: ReadonlyArray<string | number>;
+  label?: string;
+}
+
+interface IncrementalResult {
+  id: string;
+  data?: Record<string, unknown>;
+  items?: unknown[];
+  subPath?: ReadonlyArray<string | number>;
+  errors?: unknown[];
+}
+
+interface IncrementalResponse {
+  data?: Record<string, unknown>;
+  pending?: PendingResult[];
+  incremental?: IncrementalResult[];
+  completed?: { id: string }[];
+  hasNext?: boolean;
+  errors?: { message: string }[];
+  // Old format fields
+  path?: ReadonlyArray<string | number>;
+  label?: string;
+}
+
+// Helper to get an object at a given path in the data tree
+function getAtPath(
+  data: Record<string, unknown>,
+  path: ReadonlyArray<string | number>,
+): Record<string, unknown> | undefined {
+  let current: unknown = data;
+  for (const key of path) {
+    if (current === null || current === undefined) return undefined;
+    current = (current as Record<string | number, unknown>)[key];
+  }
+  return current as Record<string, unknown> | undefined;
+}
+
 const fetchFn: FetchFunction = (
   params: RequestParameters,
   variables: Variables,
@@ -35,12 +75,17 @@ const fetchFn: FetchFunction = (
     getCachedResponse(params, variables, cacheConfig) ??
     Observable.create((sink) => {
       const fetchGraphQL = async () => {
+        // Track pending items by id for new format
+        const pendingById = new Map<string, PendingResult>();
+        // Store initial data for merging id into incremental results
+        let initialData: Record<string, unknown> | undefined;
+
         try {
           const response = await fetch("/graphql", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Accept: "multipart/mixed; deferSpec=20220824, application/json",
+              Accept: "multipart/mixed; incrementalSpec=v0.2, application/json",
             },
             body: JSON.stringify({
               query: params.text,
@@ -65,14 +110,74 @@ const fetchFn: FetchFunction = (
             sink.next(result);
           } else {
             for await (const part of parts) {
-              if (part.body.errors) {
-                throw new Error(part.body.errors?.[0]?.message);
+              const body = part.body as IncrementalResponse;
+
+              if (body.errors) {
+                throw new Error(body.errors?.[0]?.message);
               }
 
-              sink.next({
-                ...part.body,
-                ...part.body?.incremental?.[0],
-              });
+              // Check if this is new format (has pending array)
+              if (body.pending) {
+                // Track pending items for later path resolution
+                for (const pending of body.pending) {
+                  pendingById.set(pending.id, pending);
+                }
+              }
+
+              // Handle incremental results
+              if (body.incremental && body.incremental.length > 0) {
+                for (const inc of body.incremental) {
+                  // Support both old format (path directly on inc) and new format (id + pending lookup)
+                  type OldFormatInc = IncrementalResult & {
+                    path?: ReadonlyArray<string | number>;
+                    label?: string;
+                  };
+                  const oldInc = inc as OldFormatInc;
+
+                  let fullPath: ReadonlyArray<string | number>;
+                  let label: string | undefined;
+
+                  if (oldInc.path !== undefined) {
+                    // Old format - path and label are directly on the incremental result
+                    fullPath = oldInc.path;
+                    label = oldInc.label;
+                  } else {
+                    // New format - look up path from pending by id
+                    const pending = pendingById.get(inc.id);
+                    const basePath = pending?.path ?? [];
+                    const subPath = inc.subPath ?? [];
+                    fullPath = [...basePath, ...subPath];
+                    label = pending?.label;
+                  }
+
+                  // Relay needs the parent object's `id` to properly normalize deferred data.
+                  // GraphQL-js de-duplicates fields, so `id` may only be in the initial response.
+                  // We merge the parent's `id` from the initial data into the incremental result.
+                  let mergedData = inc.data;
+                  if (initialData && inc.data) {
+                    const parentData = getAtPath(initialData, fullPath);
+                    if (parentData?.id !== undefined && !("id" in inc.data)) {
+                      mergedData = { id: parentData.id, ...inc.data };
+                    }
+                  }
+
+                  // Transform to Relay-compatible format with path
+                  sink.next({
+                    data: mergedData,
+                    path: [...fullPath],
+                    label,
+                    hasNext: body.hasNext,
+                  } as Parameters<typeof sink.next>[0]);
+                }
+              } else if (body.data !== undefined) {
+                // Initial response - store data for later id merging
+                initialData = body.data;
+                // Pass through to Relay
+                sink.next(body as Parameters<typeof sink.next>[0]);
+              } else if (body.path !== undefined) {
+                // Old format incremental result - pass through
+                sink.next(body as Parameters<typeof sink.next>[0]);
+              }
             }
           }
         } catch (err) {
