@@ -1,4 +1,15 @@
 import type { Linter } from "eslint";
 import config from "@remix-relay/eslint-config/node";
 
-export default config satisfies Linter.Config[];
+const eslintConfig: Linter.Config[] = [
+  ...config,
+  {
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+];
+
+export default eslintConfig;
