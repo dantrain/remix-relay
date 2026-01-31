@@ -54,3 +54,7 @@ vite.config.ts.*
 
 # TypeScript
 *.tsbuildinfo
+
+# Ignoring Claude for now
+.claude
+CLAUDE.md
