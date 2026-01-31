@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dans-movie-app",
+  "main": "./workers/app.ts",
+  "compatibility_date": "2026-01-31",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "DB",
+      "database_id": "57c2f9ff-f5ee-4d31-b161-a987b174b146"
+    }
+  ],
+  "env": {
+    "production": {
+      "vars": {
+        "ROOT_URL": "https://dans-movie-app.dantrain.workers.dev",
+        "GITHUB_CLIENT_ID": "6ebdc16071f2b606e701"
+      }
+    }
+  }
+}

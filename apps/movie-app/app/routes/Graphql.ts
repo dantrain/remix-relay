@@ -39,5 +39,21 @@ export async function action({ request, context }: Route.ActionArgs) {
     await getSessionStorage(context).getSession(request.headers.get("cookie"))
   ).get("user");
 
-  return yoga.handleRequest(request, { db, user });
+  const yogaResponse = await yoga.handleRequest(request, { db, user });
+
+  // Use a TransformStream to properly pass through the body
+  // This is needed because the yoga Response body might be from a different realm
+  const { readable, writable } = new TransformStream();
+
+  if (yogaResponse.body) {
+    yogaResponse.body.pipeTo(writable);
+  } else {
+    writable.close();
+  }
+
+  return new Response(readable, {
+    status: yogaResponse.status,
+    statusText: yogaResponse.statusText,
+    headers: yogaResponse.headers,
+  });
 }

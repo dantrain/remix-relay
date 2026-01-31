@@ -4,7 +4,6 @@ import {
   Form,
   Link,
   Links,
-  LinksFunction,
   Meta,
   Outlet,
   Scripts,
@@ -17,10 +16,8 @@ import { RemixRelayProvider } from "@remix-relay/react";
 import { Button, Spinner } from "@remix-relay/ui";
 import { authenticate, getSessionStorage } from "./lib/auth.server";
 import { getCurrentEnvironment } from "./lib/relay-environment";
-import styles from "./tailwind.css?url";
+import "./tailwind.css";
 import { Route } from ".react-router/types/app/+types/root";
-
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   return authenticate(request, context);

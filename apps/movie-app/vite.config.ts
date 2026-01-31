@@ -1,18 +1,16 @@
+import { cloudflare } from "@cloudflare/vite-plugin";
 import { reactRouter } from "@react-router/dev/vite";
-import { cloudflareDevProxy } from "@react-router/dev/vite/cloudflare";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import babel from "vite-plugin-babel";
-import { cjsInterop } from "vite-plugin-cjs-interop";
 import relay from "vite-plugin-relay";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [
     tsconfigPaths(),
-    cloudflareDevProxy(),
-    cjsInterop({
-      dependencies: ["react-relay"],
-    }),
+    cloudflare({ viteEnvironment: { name: "ssr" } }),
+    tailwindcss(),
     relay,
     reactRouter(),
     babel({
@@ -23,4 +21,21 @@ export default defineConfig({
       },
     }),
   ],
+  ssr: {
+    resolve: {
+      conditions: ["workerd", "worker", "browser"],
+    },
+    optimizeDeps: {
+      include: [
+        "react",
+        "react/jsx-runtime",
+        "react/jsx-dev-runtime",
+        "react/compiler-runtime",
+        "react-dom",
+        "react-dom/server",
+        "react-relay",
+        "relay-runtime",
+      ],
+    },
+  },
 });

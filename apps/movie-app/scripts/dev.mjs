@@ -17,6 +17,6 @@ process.on("uncaughtException", () => {
   process.exit(0);
 });
 
-$`react-router dev --port 4000 --strictPort --host`.pipe(process.stdout);
+$`vite dev --port 4000 --strictPort --host`.pipe(process.stdout);
 $`watchman-make -p 'app/schema/**/*.ts' --run 'pnpm write-graphql-schema'`;
 $`relay-compiler --watch`;

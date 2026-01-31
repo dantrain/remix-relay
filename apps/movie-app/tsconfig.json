@@ -1,13 +1,13 @@
 {
   "extends": "@remix-relay/typescript-config/remix.json",
   "compilerOptions": {
-    "types": ["@react-router/cloudflare", "vite/client"],
+    "types": ["@react-router/cloudflare", "@cloudflare/workers-types", "vite/client"],
     "baseUrl": ".",
     "rootDirs": [".", "./.react-router/types"],
     "paths": {
       "~/*": ["./app/*"]
     }
   },
-  "include": ["env.d.ts", "**/*.ts", "**/*.tsx", ".react-router/types/**/*"],
+  "include": ["env.d.ts", "worker-configuration.d.ts", "**/*.ts", "**/*.tsx", ".react-router/types/**/*"],
   "exclude": ["eslint.config.ts"]
 }

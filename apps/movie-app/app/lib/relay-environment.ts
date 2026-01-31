@@ -40,14 +40,22 @@ const fetchFn: FetchFunction = (
 
           const parts = await meros(response);
 
-          if (parts instanceof Response) {
-            sink.next(await parts.json());
+          // Check if it's a Response-like object (has .json method)
+          if (parts && typeof (parts as Response).json === "function") {
+            sink.next(await (parts as Response).json());
           } else {
-            for await (const part of parts) {
-              sink.next({
-                ...part.body,
-                ...part.body?.incremental?.[0],
-              });
+            for await (const part of parts as AsyncIterable<{
+              json: boolean;
+              body: unknown;
+            }>) {
+              const data = part.json
+                ? {
+                    ...(part.body as object),
+                    ...((part.body as { incremental?: object[] })
+                      ?.incremental?.[0] ?? {}),
+                  }
+                : JSON.parse(part.body as string);
+              sink.next(data);
             }
           }
         } catch (err) {
@@ -75,12 +83,19 @@ const createEnvironment = () =>
     isServer: typeof document === "undefined",
   });
 
-let environment: Environment;
+declare global {
+  interface Window {
+    __RELAY_ENVIRONMENT__?: Environment;
+  }
+}
 
 export function getCurrentEnvironment() {
   if (typeof document === "undefined") {
     return createEnvironment();
   }
 
-  return (environment ??= createEnvironment());
+  if (!window.__RELAY_ENVIRONMENT__) {
+    window.__RELAY_ENVIRONMENT__ = createEnvironment();
+  }
+  return window.__RELAY_ENVIRONMENT__;
 }

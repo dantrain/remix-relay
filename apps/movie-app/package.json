@@ -6,16 +6,16 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "deploy": "wrangler pages deploy ./build/client",
+    "deploy": "wrangler deploy",
     "dev": "zx ./scripts/dev.mjs",
     "lint": "eslint . --max-warnings 0",
     "migrate:drizzle": "zx ./scripts/migrate-drizzle.mjs",
     "migrate:local": "wrangler d1 migrations apply DB --local",
     "migrate:prod": "wrangler d1 migrations apply DB --remote",
     "seed:local": "tsx ./scripts/seed.ts",
-    "start": "wrangler pages dev ./build/client",
+    "start": "wrangler dev",
     "typecheck": "tsc -b --noEmit",
-    "typegen": "wrangler types",
+    "typegen": "wrangler types --include-runtime=false",
     "write-graphql-schema": "tsx ./scripts/write-graphql-schema.ts"
   },
   "dependencies": {
@@ -49,12 +49,14 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.22.1",
     "@cloudflare/workers-types": "^4.20260131.0",
     "@paralleldrive/cuid2": "^3.3.0",
     "@react-router/dev": "^7.13.0",
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4.1.18",
+    "@tailwindcss/vite": "^4.1.18",
     "@types/better-sqlite3": "^7.6.13",
     "@types/lodash-es": "^4.17.12",
     "@types/react": "^19.2.10",
