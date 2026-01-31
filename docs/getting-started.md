@@ -27,7 +27,7 @@ pnpm create react-router@latest --template remix-run/react-router-templates/node
 For this guide we'll use [Pothos](https://pothos-graphql.dev/) to create the GraphQL schema.
 
 ```shell
-pnpm add @pothos/core graphql@17.0.0-alpha.2
+pnpm add @pothos/core graphql@17.0.0-alpha.9
 ```
 
 > [!NOTE]
@@ -204,6 +204,40 @@ import {
 } from "relay-runtime";
 import { getCachedResponse } from "@remix-relay/react";
 
+// Types for incremental delivery format
+interface PendingResult {
+  id: string;
+  path: ReadonlyArray<string | number>;
+  label?: string;
+}
+
+interface IncrementalResult {
+  id: string;
+  data?: Record<string, unknown>;
+  subPath?: ReadonlyArray<string | number>;
+}
+
+interface IncrementalResponse {
+  data?: Record<string, unknown>;
+  pending?: PendingResult[];
+  incremental?: IncrementalResult[];
+  completed?: { id: string }[];
+  hasNext?: boolean;
+}
+
+// Helper to get an object at a given path in the data tree
+function getAtPath(
+  data: Record<string, unknown>,
+  path: ReadonlyArray<string | number>,
+): Record<string, unknown> | undefined {
+  let current: unknown = data;
+  for (const key of path) {
+    if (current === null || current === undefined) return undefined;
+    current = (current as Record<string | number, unknown>)[key];
+  }
+  return current as Record<string, unknown> | undefined;
+}
+
 const fetchFn: FetchFunction = (
   params: RequestParameters,
   variables: Variables,
@@ -213,12 +247,15 @@ const fetchFn: FetchFunction = (
     getCachedResponse(params, variables, cacheConfig) ??
     Observable.create((sink) => {
       const fetchGraphQL = async () => {
+        const pendingById = new Map<string, PendingResult>();
+        let initialData: Record<string, unknown> | undefined;
+
         try {
           const response = await fetch("/graphql", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Accept: "multipart/mixed; deferSpec=20220824, application/json",
+              Accept: "multipart/mixed; incrementalSpec=v0.2, application/json",
             },
             body: JSON.stringify({
               query: params.text,
@@ -232,10 +269,41 @@ const fetchFn: FetchFunction = (
             sink.next(await parts.json());
           } else {
             for await (const part of parts) {
-              sink.next({
-                ...part.body,
-                ...part.body?.incremental?.[0],
-              });
+              const body = part.body as IncrementalResponse;
+
+              if (body.pending) {
+                for (const pending of body.pending) {
+                  pendingById.set(pending.id, pending);
+                }
+              }
+
+              if (body.incremental && body.incremental.length > 0) {
+                for (const inc of body.incremental) {
+                  const pending = pendingById.get(inc.id);
+                  const basePath = pending?.path ?? [];
+                  const subPath = inc.subPath ?? [];
+                  const fullPath = [...basePath, ...subPath];
+
+                  // Merge parent's id for Relay normalization
+                  let mergedData = inc.data;
+                  if (initialData && inc.data) {
+                    const parentData = getAtPath(initialData, fullPath);
+                    if (parentData?.id !== undefined && !("id" in inc.data)) {
+                      mergedData = { id: parentData.id, ...inc.data };
+                    }
+                  }
+
+                  sink.next({
+                    data: mergedData,
+                    path: fullPath,
+                    label: pending?.label,
+                    hasNext: body.hasNext,
+                  } as Parameters<typeof sink.next>[0]);
+                }
+              } else if (body.data !== undefined) {
+                initialData = body.data;
+                sink.next(body as Parameters<typeof sink.next>[0]);
+              }
             }
           }
         } finally {
