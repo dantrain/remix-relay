@@ -5,7 +5,15 @@ import exists from "lib/exists";
 import { getNextRank } from "lib/rank";
 import { last, sortBy } from "lodash-es";
 import { PlusIcon } from "lucide-react";
-import { Dispatch, FormEvent, SetStateAction, use, useRef } from "react";
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  use,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { graphql, useMutation } from "react-relay";
 import { useMediaQuery, useOnClickOutside } from "usehooks-ts";
 import { Button } from "@remix-relay/ui";
@@ -57,6 +65,44 @@ export function CreateItem({
 
   const formRef = useRef<HTMLFormElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const [value, setValue] = useState("");
+  const prevItemCountRef = useRef(itemEdges.length);
+
+  // Clear input after new card appears (prevents placeholder flicker)
+  useEffect(() => {
+    if (itemEdges.length > prevItemCountRef.current) {
+      // Double rAF ensures card has painted before clearing input
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setValue("");
+          textAreaRef.current?.style.setProperty("height", "42px");
+          scrollToBottom();
+          textAreaRef.current?.focus();
+        });
+      });
+    }
+    prevItemCountRef.current = itemEdges.length;
+  }, [itemEdges.length, scrollToBottom]);
+
+  // Keep keyboard open on mobile by temporarily focusing a hidden input
+  const keepMobileKeyboardOpen = () => {
+    if (isDesktop) return;
+
+    const tempInputEl = document.createElement("input");
+    tempInputEl.style.position = "absolute";
+    tempInputEl.style.top = "0";
+    tempInputEl.style.left = "0";
+    tempInputEl.style.height = "0";
+    tempInputEl.style.opacity = "0";
+    document.body.appendChild(tempInputEl);
+    tempInputEl.focus();
+
+    setTimeout(() => {
+      textAreaRef.current?.focus();
+      textAreaRef.current?.click();
+      document.body.removeChild(tempInputEl);
+    }, 100);
+  };
 
   // @ts-expect-error awaiting usehooks-ts React 19 compatibility
   useOnClickOutside(formRef, () => setIsCreating(false), "mousedown");
@@ -70,12 +116,19 @@ export function CreateItem({
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target as HTMLFormElement);
-    const title = (formData.get("title") as string).trim();
+    const title = value.trim();
 
     if (title) {
       const id = `${viewerId}:${createId()}`;
       const rank = getNextRank(last(sortBy(itemEdges, "node.rank"))?.node);
+
+      keepMobileKeyboardOpen();
+
+      if (isDesktop) {
+        requestIdleCallback(() => {
+          scrollToBottom();
+        });
+      }
 
       commit({
         variables: {
@@ -94,38 +147,6 @@ export function CreateItem({
           },
         },
       });
-
-      let tempInputEl: HTMLInputElement | undefined;
-
-      if (isDesktop) {
-        requestIdleCallback(() => {
-          scrollToBottom();
-        });
-      } else {
-        tempInputEl = document.createElement("input");
-        tempInputEl.style.position = "absolute";
-        tempInputEl.style.top = "0";
-        tempInputEl.style.left = "0";
-        tempInputEl.style.height = "0";
-        tempInputEl.style.opacity = "0";
-        document.body.appendChild(tempInputEl);
-        tempInputEl.focus();
-      }
-
-      setTimeout(
-        () => {
-          scrollToBottom();
-          formRef.current?.reset();
-          textAreaRef.current?.style.setProperty("height", "42px");
-          textAreaRef.current?.focus();
-
-          if (tempInputEl) {
-            textAreaRef.current?.click();
-            document.body.removeChild(tempInputEl);
-          }
-        },
-        isDesktop ? 0 : 100,
-      );
     }
   };
 
@@ -143,6 +164,8 @@ export function CreateItem({
           name="title"
           className="block w-full resize-none border-none bg-transparent py-2
             pr-10 pl-3 focus:ring-0"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
           onKeyDown={(event) => {
             if (event.key === "Enter") {
               event.preventDefault();
