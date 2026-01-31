@@ -2,23 +2,27 @@
   "name": "@remix-relay/eslint-config",
   "version": "0.0.0",
   "private": true,
-  "files": [
-    "library.js",
-    "remix.js",
-    "react-library.js"
-  ],
+  "type": "module",
+  "exports": {
+    "./base": "./base.ts",
+    "./node": "./node.ts",
+    "./react": "./react.ts",
+    "./remix": "./remix.ts"
+  },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.54.0",
-    "@typescript-eslint/parser": "^8.54.0",
-    "@vercel/style-guide": "^6.0.0",
+    "@eslint/js": "^9.39.0",
+    "@remix-relay/typescript-config": "workspace:*",
+    "eslint": "^9.39.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-config-turbo": "^2.8.1",
-    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "typescript": "~5.9.3"
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-turbo": "^2.8.1",
+    "globals": "^17.1.0",
+    "jiti": "^2.6.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.53.0"
   }
 }

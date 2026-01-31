@@ -27,7 +27,6 @@ export const loader = ({ context }: Route.LoaderArgs) => {
 export default function SignIn({
   loaderData: { SUPABASE_URL, SUPABASE_ANON_KEY },
 }: Route.ComponentProps) {
-  // eslint-disable-next-line react/hook-use-state
   const [supabase] = useState(() =>
     createBrowserClient(SUPABASE_URL, SUPABASE_ANON_KEY),
   );

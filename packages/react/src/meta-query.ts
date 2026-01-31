@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import type { MetaFunction } from "react-router";
 import type { OperationType } from "relay-runtime";
 

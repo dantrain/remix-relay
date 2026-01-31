@@ -1,5 +1,4 @@
 #!/usr/bin/env zx
-/* eslint-disable no-undef */
 import { argv, path } from "zx";
 import { ts } from "@ast-grep/napi";
 

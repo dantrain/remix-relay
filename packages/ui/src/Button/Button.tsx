@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Slot } from "@radix-ui/react-slot";
 import { mergeProps, useObjectRef } from "@react-aria/utils";
 import { cva } from "class-variance-authority";
