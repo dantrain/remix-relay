@@ -16,7 +16,7 @@ export default function Header() {
         prefetch="render"
         title="Home"
       >
-        <h1 className="mb-0.5 text-2xl font-black leading-none">Trellix</h1>
+        <h1 className="mb-0.5 text-2xl leading-none font-black">Trellix</h1>
         <p className="leading-none text-slate-500">a remix-relay demo</p>
       </NavLink>
 

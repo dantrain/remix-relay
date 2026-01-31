@@ -75,7 +75,7 @@ export function Button({
     <Comp
       className={twMerge(
         cva(
-          `inline-block cursor-pointer select-none rounded-md px-2 py-1 focus:outline-none max-sm:transition-colors`,
+          `inline-block cursor-pointer rounded-md px-2 py-1 select-none focus:outline-none max-sm:transition-colors`,
           {
             variants: {
               variant: {

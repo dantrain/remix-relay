@@ -95,7 +95,7 @@ export function Column({
       )}
     >
       <div
-        className="group flex items-center justify-between gap-2 py-1 pl-1 pr-2"
+        className="group flex items-center justify-between gap-2 py-1 pr-2 pl-1"
       >
         <ColumnTitle columnRef={data} />
         <div

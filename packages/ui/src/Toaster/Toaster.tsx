@@ -27,7 +27,7 @@ export function Toaster({ variant = "dark", ...props }: ToasterProps) {
           )({ variant }),
           title: cx("leading-4!"),
           closeButton: cva(
-            "absolute -right-2 -top-2 flex size-5 items-center justify-center rounded-full",
+            "absolute -top-2 -right-2 flex size-5 items-center justify-center rounded-full",
             {
               variants: {
                 variant: {

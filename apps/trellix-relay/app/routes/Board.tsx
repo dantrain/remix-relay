@@ -60,7 +60,7 @@ export default function BoardPage() {
       <main className="flex h-dvh flex-col items-center pt-[74px] sm:pt-[90px]">
         <Deferred fallback={<LoadingScreen />}>
           <div
-            className="max-w-dvw flex min-w-[min(100dvw,1280px)] flex-1 flex-col
+            className="flex max-w-dvw min-w-[min(100dvw,1280px)] flex-1 flex-col
               overflow-x-auto"
             ref={ref}
             {...dragHandlers}

@@ -26,7 +26,7 @@ export function Handle({ dragOverlay, ref, ...rest }: HandleProps) {
   return (
     <button
       className={cx(
-        `select-none rounded-md px-2 outline-none focus-visible:ring-2
+        `rounded-md px-2 outline-none select-none focus-visible:ring-2
         focus-visible:ring-sky-500 sm:px-1`,
         dragOverlay ? "cursor-[inherit]" : "cursor-grab",
       )}

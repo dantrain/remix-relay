@@ -40,7 +40,7 @@ export default function MovieDetail({ className, movieRef }: MovieDetailProps) {
         <dl className="mb-4">
           <div className="mb-4 flex gap-8">
             <div>
-              <dt className="mb-1 text-xs font-bold uppercase text-slate-400">
+              <dt className="mb-1 text-xs font-bold text-slate-400 uppercase">
                 Tomatometer
               </dt>
               <dd className="text-2xl font-bold">
@@ -51,7 +51,7 @@ export default function MovieDetail({ className, movieRef }: MovieDetailProps) {
               </dd>
             </div>
             <div>
-              <dt className="mb-1 text-xs font-bold uppercase text-slate-400">
+              <dt className="mb-1 text-xs font-bold text-slate-400 uppercase">
                 Audience
               </dt>
               <dd className="text-2xl font-bold">
@@ -63,7 +63,7 @@ export default function MovieDetail({ className, movieRef }: MovieDetailProps) {
             </div>
           </div>
           <div>
-            <dt className="mb-2 text-xs font-bold uppercase text-slate-400">
+            <dt className="mb-2 text-xs font-bold text-slate-400 uppercase">
               Critics Consensus
             </dt>
             <dd>{criticsConsensus}</dd>

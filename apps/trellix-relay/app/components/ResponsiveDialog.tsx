@@ -76,7 +76,7 @@ function DialogTitle({
     <DialogPrimitive.Title
       ref={ref}
       className={cn(
-        "text-lg font-semibold leading-none tracking-tight",
+        "text-lg leading-none font-semibold tracking-tight",
         className,
       )}
       {...props}
@@ -144,7 +144,7 @@ function DrawerContent({
       >
         <div className="overflow-y-auto px-6 pb-8">
           <div
-            className="mx-auto mb-6 mt-4 h-2 w-[100px] rounded-full bg-black/10"
+            className="mx-auto mt-4 mb-6 h-2 w-[100px] rounded-full bg-black/10"
           />
           {children}
         </div>
@@ -171,7 +171,7 @@ function DrawerTitle({
     <DrawerPrimitive.Title
       ref={ref}
       className={cn(
-        "text-lg font-semibold leading-none tracking-tight",
+        "text-lg leading-none font-semibold tracking-tight",
         className,
       )}
       {...props}

@@ -24,9 +24,8 @@ function DropdownMenuContent({
           data-[side=bottom]:slide-in-from-top-2
           data-[side=left]:slide-in-from-right-2
           data-[side=right]:slide-in-from-left-2
-          data-[side=top]:slide-in-from-bottom-2 z-50 min-w-32
-          overflow-hidden rounded-md border border-[#d6dee8] bg-white p-1
-          shadow-lg`,
+          data-[side=top]:slide-in-from-bottom-2 z-50 min-w-32 overflow-hidden
+          rounded-md border border-[#d6dee8] bg-white p-1 shadow-lg`,
           className,
         )}
         {...props}
@@ -44,7 +43,7 @@ function DropdownMenuItem({
     <DropdownMenuPrimitive.Item
       ref={ref}
       className={cn(
-        `relative flex select-none items-center rounded-sm text-sm outline-none
+        `relative flex items-center rounded-sm text-sm outline-none select-none
         data-disabled:pointer-events-none data-disabled:opacity-50`,
         className,
       )}

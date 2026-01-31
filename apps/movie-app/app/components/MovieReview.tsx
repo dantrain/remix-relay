@@ -28,7 +28,7 @@ export function MovieReview({ reviewRef }: MovieReviewProps) {
       <div className="text-2xl">{fresh ? "🍅" : "🤢"}</div>
       <blockquote className="break-words">
         <p className="mb-2">{quote}</p>
-        <cite className="not-italic text-slate-400">
+        <cite className="text-slate-400 not-italic">
           {criticName}, {criticSource}
         </cite>
       </blockquote>

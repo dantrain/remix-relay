@@ -32,7 +32,7 @@ export default function Index() {
 
   return (
     <main>
-      <h1 className="mb-8 mt-2 text-2xl font-bold">Top Box Office 🍿</h1>
+      <h1 className="mt-2 mb-8 text-2xl font-bold">Top Box Office 🍿</h1>
       <ul className="grid gap-4">
         {data.movies.edges.map(({ node }) => (
           <li key={node.id}>

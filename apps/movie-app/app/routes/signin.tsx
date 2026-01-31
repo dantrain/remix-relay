@@ -25,7 +25,7 @@ export default function SignIn() {
       method="post"
     >
       <Button
-        className="py-3 pl-5 pr-6"
+        className="py-3 pr-6 pl-5"
         type="submit"
         disabled={navigation.state !== "idle"}
       >

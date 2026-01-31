@@ -58,10 +58,10 @@ export default function BoardCard({ boardRef, connectionId }: BoardCardProps) {
     <div className="group relative">
       <NavLink
         to={`/board/${fromGlobalId(id)}`}
-        className="aspect-3/1 flex select-none items-start gap-3 rounded-md
-          bg-slate-100 p-3 font-bold shadow-sm ring-sky-500 ring-offset-2
-          ring-offset-slate-200 focus:outline-none focus-visible:ring-2
-          sm:aspect-video sm:group-hover:shadow-md [&.pending]:shadow-md"
+        className="flex aspect-3/1 items-start gap-3 rounded-md bg-slate-100 p-3
+          font-bold shadow-sm ring-sky-500 ring-offset-2 ring-offset-slate-200
+          select-none focus:outline-none focus-visible:ring-2 sm:aspect-video
+          sm:group-hover:shadow-md [&.pending]:shadow-md"
         prefetch="render"
       >
         {({ isPending }) => (
@@ -91,9 +91,8 @@ export default function BoardCard({ boardRef, connectionId }: BoardCardProps) {
         trigger={
           <Button
             className={cx(
-              `pointer-fine:p-1.5 pointer-fine:opacity-0
-              pointer-fine:group-hover:opacity-100 absolute right-2 top-2 p-2
-              leading-none`,
+              `absolute top-2 right-2 p-2 leading-none pointer-fine:p-1.5
+              pointer-fine:opacity-0 pointer-fine:group-hover:opacity-100`,
               isFocusVisible && "pointer-fine:focus:opacity-100",
             )}
             variant="ghost"
