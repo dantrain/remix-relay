@@ -4,7 +4,8 @@
     "**/.env.*local"
   ],
   "globalEnv": [
-    "NODE_ENV"
+    "NODE_ENV",
+    "MODE"
   ],
   "tasks": {
     "build": {

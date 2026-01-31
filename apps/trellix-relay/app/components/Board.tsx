@@ -292,11 +292,14 @@ export function Board({ boardRef, scrollToRight }: BoardProps) {
     setDraggedFromContainer(null);
   };
 
+  // Reset recentlyMovedToNewContainer only when drag ends, not on every columns change.
+  // Resetting it during active dragging can cause collision detection instability
+  // and lead to "Maximum update depth exceeded" errors during rapid cross-column movements.
   useEffect(() => {
-    requestAnimationFrame(() => {
+    if (activeId === null) {
       recentlyMovedToNewContainer.current = false;
-    });
-  }, [columns]);
+    }
+  }, [activeId]);
 
   function renderSortableItemDragOverlay(id: UniqueIdentifier) {
     const { column, item } = exists(findItem(id, columns));
