@@ -1,23 +1,46 @@
-import type { Dispatch, PropsWithChildren, SetStateAction } from "react";
-import { createContext, useState } from "react";
+import type { PropsWithChildren } from "react";
+import { createContext, use, useMemo, useSyncExternalStore } from "react";
 
-export const DeferredQueryContext = createContext<
-  Promise<unknown> | null | undefined
->(undefined);
-export const SetDeferredQueryContext = createContext<
-  Dispatch<SetStateAction<Promise<unknown> | null | undefined>>
->(() => {});
+type DeferredQueryValue = Promise<unknown> | null | undefined;
+
+type DeferredQueryStore = {
+  get: () => DeferredQueryValue;
+  set: (value: DeferredQueryValue) => void;
+  subscribe: (listener: () => void) => () => void;
+};
+
+function createDeferredQueryStore(): DeferredQueryStore {
+  let value: DeferredQueryValue = undefined;
+  const listeners = new Set<() => void>();
+
+  return {
+    get: () => value,
+    set: (newValue) => {
+      value = newValue;
+      listeners.forEach((l) => l());
+    },
+    subscribe: (listener) => {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+  };
+}
+
+export const DeferredQueryStoreContext = createContext<DeferredQueryStore>(
+  createDeferredQueryStore(),
+);
+
+export function useDeferredQuery(): DeferredQueryValue {
+  const store = use(DeferredQueryStoreContext);
+  return useSyncExternalStore(store.subscribe, store.get, () => undefined);
+}
 
 export function RemixRelayProvider({ children }: PropsWithChildren) {
-  const [deferredQueries, setDeferredQueries] = useState<
-    Promise<unknown> | null | undefined
-  >(undefined);
+  const store = useMemo(() => createDeferredQueryStore(), []);
 
   return (
-    <SetDeferredQueryContext value={setDeferredQueries}>
-      <DeferredQueryContext value={deferredQueries}>
-        {children}
-      </DeferredQueryContext>
-    </SetDeferredQueryContext>
+    <DeferredQueryStoreContext value={store}>
+      {children}
+    </DeferredQueryStoreContext>
   );
 }

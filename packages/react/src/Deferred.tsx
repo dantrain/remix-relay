@@ -1,6 +1,6 @@
-import { Suspense, SuspenseProps, use, useSyncExternalStore } from "react";
+import { Suspense, SuspenseProps, useSyncExternalStore } from "react";
 import { Await } from "react-router";
-import { DeferredQueryContext } from "./deferred-query-context";
+import { useDeferredQuery } from "./deferred-query-context";
 
 function useIsMounted() {
   return useSyncExternalStore(
@@ -12,7 +12,7 @@ function useIsMounted() {
 
 export function Deferred({ children, ...rest }: SuspenseProps) {
   const mounted = useIsMounted();
-  const deferredQuery = use(DeferredQueryContext);
+  const deferredQuery = useDeferredQuery();
 
   // SSR or context not yet initialized - show fallback
   if (!mounted || deferredQuery === undefined) {
