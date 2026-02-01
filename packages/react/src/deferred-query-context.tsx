@@ -1,16 +1,17 @@
 import type { Dispatch, PropsWithChildren, SetStateAction } from "react";
 import { createContext, useState } from "react";
 
-export const DeferredQueryContext = createContext<Promise<unknown> | null>(
-  null,
-);
+export const DeferredQueryContext = createContext<
+  Promise<unknown> | null | undefined
+>(undefined);
 export const SetDeferredQueryContext = createContext<
-  Dispatch<SetStateAction<Promise<unknown> | null>>
+  Dispatch<SetStateAction<Promise<unknown> | null | undefined>>
 >(() => {});
 
 export function RemixRelayProvider({ children }: PropsWithChildren) {
-  const [deferredQueries, setDeferredQueries] =
-    useState<Promise<unknown> | null>(null);
+  const [deferredQueries, setDeferredQueries] = useState<
+    Promise<unknown> | null | undefined
+  >(undefined);
 
   return (
     <SetDeferredQueryContext value={setDeferredQueries}>

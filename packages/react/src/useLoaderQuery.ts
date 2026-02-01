@@ -74,6 +74,8 @@ function useCommonLoaderQuery<TQuery extends OperationType>(
           return deferredResults;
         }),
       );
+    } else {
+      setDeferredQueries(null);
     }
   }, [deferredQueries, preloadedQuery, setDeferredQueries, setDeferredResult]);
 

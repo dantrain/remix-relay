@@ -12,18 +12,22 @@ function useIsMounted() {
 
 export function Deferred({ children, ...rest }: SuspenseProps) {
   const mounted = useIsMounted();
-
   const deferredQuery = use(DeferredQueryContext);
 
-  return mounted ? (
+  // SSR or context not yet initialized - show fallback
+  if (!mounted || deferredQuery === undefined) {
+    return <>{rest.fallback}</>;
+  }
+
+  // No deferred data in this query - render children directly
+  if (deferredQuery === null) {
+    return <>{children}</>;
+  }
+
+  // Has deferred data - use Await
+  return (
     <Suspense {...rest}>
-      {deferredQuery ? (
-        <Await resolve={deferredQuery}>{children}</Await>
-      ) : (
-        children
-      )}
+      <Await resolve={deferredQuery}>{children}</Await>
     </Suspense>
-  ) : (
-    <>{rest.fallback}</>
   );
 }
