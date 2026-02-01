@@ -5,29 +5,30 @@ import { Item, ItemProps } from "./Item";
 export type SortableItemProps = {
   id: UniqueIdentifier;
   containerId: UniqueIdentifier;
-  draggedFromContainer: UniqueIdentifier | null;
+  activeItemContainer: UniqueIdentifier | null | undefined;
 } & Omit<ItemProps, "dragging" | "transition" | "transform" | "listeners">;
 
 export function SortableItem({
   id,
   containerId,
-  draggedFromContainer,
+  activeItemContainer,
   ...rest
 }: SortableItemProps) {
   const { setNodeRef, listeners, isDragging, transform, transition } =
     useSortable({ id });
 
-  // Items in the source column should always have transition so they animate
-  // up when a sibling is dragged away. Items in other columns should only
-  // have transition when there's a transform to prevent items above the
-  // drop position from animating on cross-column drop.
-  const isInSourceColumn = containerId === draggedFromContainer;
+  // Items in columns that the dragged item has LEFT should always have
+  // transition so they animate to fill the gap. Items in the column the
+  // dragged item is currently IN should only have transition when there's
+  // a transform to prevent items above the drop position from animating.
+  const shouldForceTransition =
+    activeItemContainer != null && containerId !== activeItemContainer;
 
   return (
     <Item
       ref={setNodeRef}
       dragging={isDragging}
-      transition={transform || isInSourceColumn ? transition : undefined}
+      transition={transform || shouldForceTransition ? transition : undefined}
       transform={transform}
       listeners={listeners}
       {...rest}

@@ -339,6 +339,8 @@ export function Board({ boardRef, scrollToRight }: BoardProps) {
     (columnRefs.current[id] ??= createRef<HTMLDivElement>());
 
   const isDraggingColumn = activeId && containers.includes(activeId);
+  const activeItemContainer =
+    activeId && !isDraggingColumn ? findContainer(activeId, columns) : null;
 
   return (
     <DndContext
@@ -585,7 +587,7 @@ export function Board({ boardRef, scrollToRight }: BoardProps) {
                                 key={item.id}
                                 id={item.id}
                                 containerId={containerId}
-                                draggedFromContainer={draggedFromContainer}
+                                activeItemContainer={activeItemContainer}
                                 itemRef={item.itemRef}
                                 connectionId={container.itemConnectionId}
                               />
