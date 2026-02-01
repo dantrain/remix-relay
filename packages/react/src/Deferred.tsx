@@ -14,8 +14,8 @@ export function Deferred({ children, ...rest }: SuspenseProps) {
   const mounted = useIsMounted();
   const deferredQuery = use(DeferredQueryContext);
 
-  // SSR - show fallback
-  if (!mounted) {
+  // SSR or context not yet set - show fallback
+  if (!mounted || deferredQuery === undefined) {
     return <>{rest.fallback}</>;
   }
 
