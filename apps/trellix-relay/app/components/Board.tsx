@@ -584,9 +584,6 @@ export function Board({ boardRef, scrollToRight }: BoardProps) {
                               <SortableItem
                                 key={item.id}
                                 id={item.id}
-                                recentlyMovedToNewContainer={
-                                  recentlyMovedToNewContainer
-                                }
                                 itemRef={item.itemRef}
                                 connectionId={container.itemConnectionId}
                               />
