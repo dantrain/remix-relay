@@ -267,6 +267,7 @@ export function Board({ boardRef, scrollToRight }: BoardProps) {
 
   const lastOverId = useRef<UniqueIdentifier | null>(null);
   const recentlyMovedToNewContainer = useRef(false);
+  const isUpdatingRef = useRef(false);
 
   const collisionDetectionStrategy: CollisionDetection = useMemo(
     () =>
@@ -350,6 +351,11 @@ export function Board({ boardRef, scrollToRight }: BoardProps) {
         setDraggedFromContainer(findContainer(active.id, columns) ?? null);
       }}
       onDragOver={({ active, over }) => {
+        // Prevent rapid repeated calls that could cause update loops
+        if (isUpdatingRef.current) {
+          return;
+        }
+
         const overId = over?.id;
 
         if (overId == null || active.id in columns) {
@@ -364,6 +370,11 @@ export function Board({ boardRef, scrollToRight }: BoardProps) {
         }
 
         if (activeContainer !== overContainer) {
+          isUpdatingRef.current = true;
+          requestAnimationFrame(() => {
+            isUpdatingRef.current = false;
+          });
+
           setColumns((columns) => {
             const activeItems = exists(columns[activeContainer]?.items);
             const overItems = exists(columns[overContainer]?.items);
