@@ -11,7 +11,6 @@ dockerfile = './Dockerfile'
 
 [env]
 PORT = '3000'
-SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd1c3hxaHVxcGFoYndvaGlpb21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTc0NDA2NTUsImV4cCI6MjAzMzAxNjY1NX0.Pbra5UB6-rVsBDhG7bC9wECaRpF3GbwvRUE5tA-6fsw'
 SUPABASE_URL = 'https://gusxqhuqpahbwohiioms.supabase.co'
 
 [http_service]

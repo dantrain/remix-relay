@@ -23,15 +23,15 @@ export const loader = ({ context }: Route.LoaderArgs) => {
 
   return {
     SUPABASE_URL: context.env.SUPABASE_URL,
-    SUPABASE_ANON_KEY: context.env.SUPABASE_ANON_KEY,
+    SUPABASE_PUBLISHABLE_KEY: context.env.SUPABASE_PUBLISHABLE_KEY,
   };
 };
 
 export default function SignInPage({
-  loaderData: { SUPABASE_URL, SUPABASE_ANON_KEY },
+  loaderData: { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY },
 }: Route.ComponentProps) {
   const [supabase] = useState(() =>
-    createBrowserClient(SUPABASE_URL, SUPABASE_ANON_KEY),
+    createBrowserClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY),
   );
 
   const [signingIn, setSigningIn] = useState(false);

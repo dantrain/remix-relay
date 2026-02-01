@@ -19,8 +19,8 @@ const supabaseParams = JSON.parse(
 );
 
 process.env.NODE_ENV = "development";
-process.env.SUPABASE_ANON_KEY = supabaseParams.ANON_KEY;
-process.env.SUPABASE_SERVICE_ROLE_KEY = supabaseParams.SERVICE_ROLE_KEY;
+process.env.SUPABASE_PUBLISHABLE_KEY = supabaseParams.PUBLISHABLE_KEY;
+process.env.SUPABASE_SECRET_KEY = supabaseParams.SECRET_KEY;
 
 $`node --import tsx/esm --watch-path=./server ./server/index.ts`.pipe(
   process.stdout,

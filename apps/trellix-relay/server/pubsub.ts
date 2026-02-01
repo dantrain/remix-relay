@@ -16,7 +16,7 @@ type Registration = {
 
 const globalSupabase = createClient<Database>(
   env.SUPABASE_URL,
-  env.SUPABASE_SERVICE_ROLE_KEY,
+  env.SUPABASE_SECRET_KEY,
 );
 
 export class PubSub {
