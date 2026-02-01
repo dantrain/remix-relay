@@ -45,9 +45,6 @@
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc -b --noEmit"
   },
-  "dependencies": {
-    "tiny-invariant": "^1.3.3"
-  },
   "devDependencies": {
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",

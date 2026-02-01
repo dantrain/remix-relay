@@ -745,10 +745,6 @@ importers:
         version: 8.54.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
 
   packages/react:
-    dependencies:
-      tiny-invariant:
-        specifier: ^1.3.3
-        version: 1.3.3
     devDependencies:
       '@remix-relay/eslint-config':
         specifier: workspace:*
@@ -778,8 +774,8 @@ importers:
         specifier: ^9.39.0
         version: 9.39.2(jiti@2.6.1)
       graphql:
-        specifier: 17.0.0-alpha.2
-        version: 17.0.0-alpha.2
+        specifier: 17.0.0-alpha.9
+        version: 17.0.0-alpha.9
       jiti:
         specifier: ^2.6.0
         version: 2.6.1
@@ -806,10 +802,6 @@ importers:
         version: 5.9.3
 
   packages/server:
-    dependencies:
-      tiny-invariant:
-        specifier: ^1.3.3
-        version: 1.3.3
     devDependencies:
       '@remix-relay/eslint-config':
         specifier: workspace:*
@@ -5703,10 +5695,6 @@ packages:
   graphql@15.3.0:
     resolution: {integrity: sha512-GTCJtzJmkFLWRfFJuoo9RWWa/FfamUHgiFosxi/X1Ani4AVWbeyBenZTNX6dM+7WSbbFfTo/25eh0LLkwHMw2w==}
     engines: {node: '>= 10.x'}
-
-  graphql@17.0.0-alpha.2:
-    resolution: {integrity: sha512-aRAd/BQ5hSO0+l7x+sHBfJVUp2JUOjPTE/iwJ3BhtYNH/MC7n4gjlZbKvnBVFZZAczyMS3vezS4teEZivoqIzw==}
-    engines: {node: ^14.19.0 || ^16.10.0 || >=18.0.0}
 
   graphql@17.0.0-alpha.9:
     resolution: {integrity: sha512-jVK1BsvX5pUIEpRDlEgeKJr80GAxl3B8ISsFDjXHtl2xAxMXVGTEFF4Q4R8NH0Gw7yMwcHDndkNjoNT5CbwHKA==}
@@ -13592,8 +13580,6 @@ snapshots:
       tslib: 2.8.1
 
   graphql@15.3.0: {}
-
-  graphql@17.0.0-alpha.2: {}
 
   graphql@17.0.0-alpha.9: {}
 

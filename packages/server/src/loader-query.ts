@@ -15,7 +15,7 @@ import type {
   VariablesOf,
 } from "relay-runtime";
 import { PayloadExtensions } from "relay-runtime/lib/network/RelayNetworkTypes";
-import invariant from "tiny-invariant";
+import { invariant } from "./invariant";
 
 // PendingResult is not exported from graphql, so we define it here
 interface PendingResult {
