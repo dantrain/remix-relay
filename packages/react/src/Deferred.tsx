@@ -1,6 +1,6 @@
-import { Suspense, SuspenseProps, useSyncExternalStore } from "react";
+import { Suspense, SuspenseProps, use, useSyncExternalStore } from "react";
 import { Await } from "react-router";
-import { useDeferredQuery } from "./deferred-query-context";
+import { DeferredQueryContext } from "./deferred-query-context";
 
 function useIsMounted() {
   return useSyncExternalStore(
@@ -12,22 +12,21 @@ function useIsMounted() {
 
 export function Deferred({ children, ...rest }: SuspenseProps) {
   const mounted = useIsMounted();
-  const deferredQuery = useDeferredQuery();
+  const deferredQuery = use(DeferredQueryContext);
 
-  // SSR or context not yet initialized - show fallback
-  if (!mounted || deferredQuery === undefined) {
+  // SSR - show fallback
+  if (!mounted) {
     return <>{rest.fallback}</>;
   }
 
-  // No deferred data in this query - render children directly
-  if (deferredQuery === null) {
-    return <>{children}</>;
-  }
-
-  // Has deferred data - use Await
+  // Always wrap in Suspense to catch any suspension
   return (
     <Suspense {...rest}>
-      <Await resolve={deferredQuery}>{children}</Await>
+      {deferredQuery ? (
+        <Await resolve={deferredQuery}>{children}</Await>
+      ) : (
+        children
+      )}
     </Suspense>
   );
 }

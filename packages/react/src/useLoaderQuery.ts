@@ -1,4 +1,4 @@
-import { use, useMemo, useRef, useState } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import { flushSync } from "react-dom";
 import type {
   GraphQLTaggedNode,
@@ -16,7 +16,7 @@ import type {
   VariablesOf,
 } from "relay-runtime";
 import invariant from "tiny-invariant";
-import { DeferredQueryStoreContext } from "./deferred-query-context";
+import { SetDeferredQueryContext } from "./deferred-query-context";
 import { responseCache } from "./get-cached-response";
 
 const { usePreloadedQuery, useQueryLoader, useRelayEnvironment } = relay;
@@ -57,20 +57,12 @@ function useCommonLoaderQuery<TQuery extends OperationType>(
 
   const [deferredResult, setDeferredResult] = useState(preloadedQuery);
 
-  const store = use(DeferredQueryStoreContext);
+  const setDeferredQueries = use(SetDeferredQueryContext);
 
-  // Track transformed promise to avoid recreating on every render
-  const transformedPromiseRef = useRef<Promise<unknown> | null>(null);
-  const prevDeferredQueriesRef = useRef<typeof deferredQueries | symbol>(
-    Symbol(),
-  );
-
-  // Set store synchronously during render (before Deferred reads it)
-  if (deferredQueries !== prevDeferredQueriesRef.current) {
-    prevDeferredQueriesRef.current = deferredQueries;
+  useEffect(() => {
     if (deferredQueries) {
-      transformedPromiseRef.current = deferredQueries.then(
-        async (deferredResults) => {
+      setDeferredQueries(
+        deferredQueries.then(async (deferredResults) => {
           deferredResults.forEach((result) => {
             flushSync(() => {
               setDeferredResult(
@@ -79,14 +71,12 @@ function useCommonLoaderQuery<TQuery extends OperationType>(
             });
           });
           return deferredResults;
-        },
+        }),
       );
-      store.set(transformedPromiseRef.current);
     } else {
-      transformedPromiseRef.current = null;
-      store.set(null);
+      setDeferredQueries(null);
     }
-  }
+  }, [deferredQueries, setDeferredQueries]);
 
   const environment = useRelayEnvironment();
 
