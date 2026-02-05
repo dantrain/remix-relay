@@ -16,7 +16,7 @@
     "write-graphql-schema": "tsx ./scripts/write-graphql-schema.ts"
   },
   "dependencies": {
-    "@apollo/server": "5.0.0",
+    "@apollo/server": "^5.1.0",
     "@as-integrations/express5": "^1.1.2",
     "@paralleldrive/cuid2": "^3.3.0",
     "@pothos/core": "^4.12.0",
@@ -34,7 +34,7 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "express": "^5.2.1",
-    "graphql": "17.0.0-alpha.2",
+    "graphql": "17.0.0-alpha.9",
     "graphql-relay": "^0.10.2",
     "graphql-subscriptions": "^3.0.0",
     "graphql-ws": "^6.0.7",

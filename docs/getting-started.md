@@ -27,7 +27,7 @@ pnpm create react-router@latest --template remix-run/react-router-templates/node
 For this guide we'll use [Pothos](https://pothos-graphql.dev/) to create the GraphQL schema.
 
 ```shell
-pnpm add @pothos/core graphql@17.0.0-alpha.2
+pnpm add @pothos/core graphql@17.0.0-alpha.9
 ```
 
 > [!NOTE]
@@ -191,24 +191,20 @@ Add an `app/lib/relay-environment.ts` file.
 
 ```typescript
 import { meros } from "meros/browser";
+import type { FetchFunction } from "relay-runtime";
 import {
-  type CacheConfig,
-  type FetchFunction,
-  type RequestParameters,
-  type Variables,
   Environment,
   Network,
   Observable,
   RecordSource,
   Store,
 } from "relay-runtime";
-import { getCachedResponse } from "@remix-relay/react";
+import {
+  getCachedResponse,
+  processMultipartResponse,
+} from "@remix-relay/react";
 
-const fetchFn: FetchFunction = (
-  params: RequestParameters,
-  variables: Variables,
-  cacheConfig: CacheConfig,
-) => {
+const fetchFn: FetchFunction = (params, variables, cacheConfig) => {
   return (
     getCachedResponse(params, variables, cacheConfig) ??
     Observable.create((sink) => {
@@ -218,7 +214,7 @@ const fetchFn: FetchFunction = (
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Accept: "multipart/mixed; deferSpec=20220824, application/json",
+              Accept: "multipart/mixed; incrementalSpec=v0.2, application/json",
             },
             body: JSON.stringify({
               query: params.text,
@@ -228,15 +224,8 @@ const fetchFn: FetchFunction = (
 
           const parts = await meros(response);
 
-          if (parts instanceof Response) {
-            sink.next(await parts.json());
-          } else {
-            for await (const part of parts) {
-              sink.next({
-                ...part.body,
-                ...part.body?.incremental?.[0],
-              });
-            }
+          for await (const payload of processMultipartResponse(parts)) {
+            sink.next(payload);
           }
         } finally {
           sink.complete();
@@ -265,7 +254,7 @@ export function getCurrentEnvironment() {
 }
 ```
 
-Note the use of `fetch` to request data, and the [meros](https://github.com/maraisr/meros) library to read the multipart response. This enables streaming of client requests.
+Note the use of `fetch` to request data, and the [meros](https://github.com/maraisr/meros) library to read the multipart response.
 
 Add providers and a Suspense boundary to `app/root.tsx`.
 
