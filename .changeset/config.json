@@ -1,0 +1,13 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@latest/schema.json",
+  "changelog": [
+    "@changesets/changelog-github",
+    { "repo": "dantrain/remix-relay" }
+  ],
+  "commit": false,
+  "fixed": [["@remix-relay/react", "@remix-relay/server"]],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch"
+}
