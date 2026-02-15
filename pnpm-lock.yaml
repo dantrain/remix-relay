@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@pothos/core@4.12.0':
+    hash: eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7
+    path: patches/@pothos__core@4.12.0.patch
+
 importers:
 
   .:
@@ -58,13 +63,13 @@ importers:
         version: 3.3.0
       '@pothos/core':
         specifier: ^4.12.0
-        version: 4.12.0(graphql@17.0.0-alpha.9)
+        version: 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-alpha.9)
       '@pothos/plugin-relay':
         specifier: ^4.6.2
-        version: 4.6.2(@pothos/core@4.12.0(graphql@17.0.0-alpha.9))(graphql@17.0.0-alpha.9)
+        version: 4.6.2(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-alpha.9))(graphql@17.0.0-alpha.9)
       '@pothos/plugin-zod':
         specifier: ^4.3.0
-        version: 4.3.0(@pothos/core@4.12.0(graphql@17.0.0-alpha.9))(graphql@17.0.0-alpha.9)(zod@4.3.6)
+        version: 4.3.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-alpha.9))(graphql@17.0.0-alpha.9)(zod@4.3.6)
       '@react-router/express':
         specifier: ^7.13.0
         version: 7.13.0(express@5.2.1)(react-router@7.13.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)
@@ -263,10 +268,10 @@ importers:
         version: 3.18.0(graphql-yoga@5.18.0(graphql@17.0.0-alpha.9))(graphql@17.0.0-alpha.9)
       '@pothos/core':
         specifier: ^4.12.0
-        version: 4.12.0(graphql@17.0.0-alpha.9)
+        version: 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-alpha.9)
       '@pothos/plugin-relay':
         specifier: ^4.6.2
-        version: 4.6.2(@pothos/core@4.12.0(graphql@17.0.0-alpha.9))(graphql@17.0.0-alpha.9)
+        version: 4.6.2(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-alpha.9))(graphql@17.0.0-alpha.9)
       '@react-router/cloudflare':
         specifier: ^7.13.0
         version: 7.13.0(@cloudflare/workers-types@4.20260131.0)(react-router@7.13.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)
@@ -456,13 +461,13 @@ importers:
         version: 3.3.0
       '@pothos/core':
         specifier: ^4.12.0
-        version: 4.12.0(graphql@17.0.0-alpha.9)
+        version: 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-alpha.9)
       '@pothos/plugin-relay':
         specifier: ^4.6.2
-        version: 4.6.2(@pothos/core@4.12.0(graphql@17.0.0-alpha.9))(graphql@17.0.0-alpha.9)
+        version: 4.6.2(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-alpha.9))(graphql@17.0.0-alpha.9)
       '@pothos/plugin-zod':
         specifier: ^4.3.0
-        version: 4.3.0(@pothos/core@4.12.0(graphql@17.0.0-alpha.9))(graphql@17.0.0-alpha.9)(zod@4.3.6)
+        version: 4.3.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-alpha.9))(graphql@17.0.0-alpha.9)(zod@4.3.6)
       '@radix-ui/react-dialog':
         specifier: ^1.1.15
         version: 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.10))(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -10338,18 +10343,18 @@ snapshots:
 
   '@poppinss/exception@1.2.2': {}
 
-  '@pothos/core@4.12.0(graphql@17.0.0-alpha.9)':
+  '@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-alpha.9)':
     dependencies:
       graphql: 17.0.0-alpha.9
 
-  '@pothos/plugin-relay@4.6.2(@pothos/core@4.12.0(graphql@17.0.0-alpha.9))(graphql@17.0.0-alpha.9)':
+  '@pothos/plugin-relay@4.6.2(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-alpha.9))(graphql@17.0.0-alpha.9)':
     dependencies:
-      '@pothos/core': 4.12.0(graphql@17.0.0-alpha.9)
+      '@pothos/core': 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-alpha.9)
       graphql: 17.0.0-alpha.9
 
-  '@pothos/plugin-zod@4.3.0(@pothos/core@4.12.0(graphql@17.0.0-alpha.9))(graphql@17.0.0-alpha.9)(zod@4.3.6)':
+  '@pothos/plugin-zod@4.3.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-alpha.9))(graphql@17.0.0-alpha.9)(zod@4.3.6)':
     dependencies:
-      '@pothos/core': 4.12.0(graphql@17.0.0-alpha.9)
+      '@pothos/core': 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-alpha.9)
       graphql: 17.0.0-alpha.9
       zod: 4.3.6
 
