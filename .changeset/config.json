@@ -9,5 +9,10 @@
   "linked": [],
   "access": "public",
   "baseBranch": "main",
-  "updateInternalDependencies": "patch"
+  "updateInternalDependencies": "patch",
+  "ignore": [
+    "counter-app",
+    "movie-app",
+    "trellix-relay"
+  ]
 }
