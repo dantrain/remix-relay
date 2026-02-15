@@ -20,7 +20,10 @@ import {
 import { PayloadExtensions } from "relay-runtime/lib/network/RelayNetworkTypes";
 import { toast } from "sonner";
 import invariant from "tiny-invariant";
-import { getCachedResponse } from "@remix-relay/react";
+import {
+  getCachedResponse,
+  processMultipartResponse,
+} from "@remix-relay/react";
 import { trackPromise } from "~/components/Progress";
 
 const isServer = typeof document === "undefined";
@@ -40,7 +43,7 @@ const fetchFn: FetchFunction = (
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Accept: "multipart/mixed; deferSpec=20220824, application/json",
+              Accept: "multipart/mixed; incrementalSpec=v0.2, application/json",
             },
             body: JSON.stringify({
               query: params.text,
@@ -56,24 +59,8 @@ const fetchFn: FetchFunction = (
 
           const parts = await meros(response);
 
-          if (parts instanceof Response) {
-            const result = await parts.json();
-            if (result.errors) {
-              throw new Error(result.errors?.[0]?.message);
-            }
-
-            sink.next(result);
-          } else {
-            for await (const part of parts) {
-              if (part.body.errors) {
-                throw new Error(part.body.errors?.[0]?.message);
-              }
-
-              sink.next({
-                ...part.body,
-                ...part.body?.incremental?.[0],
-              });
-            }
+          for await (const payload of processMultipartResponse(parts)) {
+            sink.next(payload);
           }
         } catch (err) {
           if (!isServer) {

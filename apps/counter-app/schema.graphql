@@ -17,7 +17,7 @@ directive @stream(
   if: Boolean! = true
 
   """Number of items to return immediately"""
-  initialCount: Int = 0
+  initialCount: Int! = 0
 
   """Unique name"""
   label: String

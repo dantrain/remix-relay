@@ -15,9 +15,9 @@ import type {
   RequestParameters,
   VariablesOf,
 } from "relay-runtime";
-import invariant from "tiny-invariant";
 import { SetDeferredQueryContext } from "./deferred-query-context";
 import { responseCache } from "./get-cached-response";
+import { invariant } from "./invariant";
 
 const { usePreloadedQuery, useQueryLoader, useRelayEnvironment } = relay;
 

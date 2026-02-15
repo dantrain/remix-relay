@@ -12,7 +12,10 @@ import {
   RecordSource,
   Store,
 } from "relay-runtime";
-import { getCachedResponse } from "@remix-relay/react";
+import {
+  getCachedResponse,
+  processMultipartResponse,
+} from "@remix-relay/react";
 
 const isServer = typeof document === "undefined";
 
@@ -30,7 +33,7 @@ const fetchFn: FetchFunction = (
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Accept: "multipart/mixed; deferSpec=20220824, application/json",
+              Accept: "multipart/mixed; incrementalSpec=v0.2, application/json",
             },
             body: JSON.stringify({
               doc_id: params.id,
@@ -40,23 +43,8 @@ const fetchFn: FetchFunction = (
 
           const parts = await meros(response);
 
-          // Check if it's a Response-like object (has .json method)
-          if (parts && typeof (parts as Response).json === "function") {
-            sink.next(await (parts as Response).json());
-          } else {
-            for await (const part of parts as AsyncIterable<{
-              json: boolean;
-              body: unknown;
-            }>) {
-              const data = part.json
-                ? {
-                    ...(part.body as object),
-                    ...((part.body as { incremental?: object[] })
-                      ?.incremental?.[0] ?? {}),
-                  }
-                : JSON.parse(part.body as string);
-              sink.next(data);
-            }
+          for await (const payload of processMultipartResponse(parts)) {
+            sink.next(payload);
           }
         } catch (err) {
           if (!isServer) {
