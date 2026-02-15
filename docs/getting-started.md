@@ -216,10 +216,7 @@ const fetchFn: FetchFunction = (params, variables, cacheConfig) => {
               "Content-Type": "application/json",
               Accept: "multipart/mixed; incrementalSpec=v0.2, application/json",
             },
-            body: JSON.stringify({
-              query: params.text,
-              variables,
-            }),
+            body: JSON.stringify({ query: params.text, variables }),
           });
 
           const parts = await meros(response);
@@ -254,7 +251,7 @@ export function getCurrentEnvironment() {
 }
 ```
 
-Note the use of `fetch` to request data, and the [meros](https://github.com/maraisr/meros) library to read the multipart response.
+Note the use of `fetch` to request data, and the [meros](https://github.com/maraisr/meros) library to read the multipart response. The `processMultipartResponse` utility from `@remix-relay/react` handles the incremental delivery format used by `@defer`.
 
 Add providers and a Suspense boundary to `app/root.tsx`.
 
