@@ -1,5 +1,4 @@
-import { use, useEffect, useMemo, useState } from "react";
-import { flushSync } from "react-dom";
+import { useMemo } from "react";
 import type {
   GraphQLTaggedNode,
   PreloadFetchPolicy,
@@ -15,8 +14,7 @@ import type {
   RequestParameters,
   VariablesOf,
 } from "relay-runtime";
-import { SetDeferredQueryContext } from "./deferred-query-context";
-import { responseCache } from "./get-cached-response";
+import { responseCache, storePendingDeferred } from "./get-cached-response";
 import { invariant } from "./invariant";
 
 const { usePreloadedQuery, useQueryLoader, useRelayEnvironment } = relay;
@@ -27,10 +25,15 @@ export type SerializablePreloadedQuery<TQuery extends OperationType> = {
   response: GraphQLResponse;
 };
 
+type DeferredChunkNode<TQuery extends OperationType> = {
+  data: SerializablePreloadedQuery<TQuery>;
+  next: Promise<DeferredChunkNode<TQuery> | null>;
+};
+
 type LoaderData<TQuery extends OperationType> =
   | {
       preloadedQuery: SerializablePreloadedQuery<TQuery>;
-      deferredQueries: Promise<SerializablePreloadedQuery<TQuery>[]>;
+      deferredChunk: Promise<DeferredChunkNode<TQuery> | null> | null;
     }
   | { queryRef: PreloadedQuery<TQuery> };
 
@@ -48,58 +51,40 @@ function useCommonLoaderQuery<TQuery extends OperationType>(
       ? (loaderData.preloadedQuery as unknown as SerializablePreloadedQuery<TQuery>)
       : null;
 
-  const deferredQueries =
-    "deferredQueries" in loaderData
-      ? (loaderData.deferredQueries as unknown as Promise<
-          SerializablePreloadedQuery<TQuery>[]
-        >)
+  const deferredChunk =
+    "deferredChunk" in loaderData
+      ? (loaderData.deferredChunk as Promise<DeferredChunkNode<TQuery> | null> | null)
       : null;
-
-  const [deferredResult, setDeferredResult] = useState(preloadedQuery);
-
-  const setDeferredQueries = use(SetDeferredQueryContext);
-
-  useEffect(() => {
-    if (deferredQueries) {
-      setDeferredQueries(
-        deferredQueries.then(async (deferredResults) => {
-          deferredResults.forEach((result) => {
-            flushSync(() => {
-              setDeferredResult(
-                result as unknown as SerializablePreloadedQuery<TQuery>,
-              );
-            });
-          });
-          return deferredResults;
-        }),
-      );
-    } else {
-      setDeferredQueries(null);
-    }
-  }, [deferredQueries, setDeferredQueries]);
 
   const environment = useRelayEnvironment();
 
   useMemo(() => {
-    if (deferredResult) {
-      writePreloadedQueryToCache(deferredResult);
+    if (preloadedQuery) {
+      writePreloadedQueryToCache(preloadedQuery);
+
+      if (deferredChunk) {
+        const cacheKey =
+          preloadedQuery.params.id ?? preloadedQuery.params.cacheID;
+
+        if (cacheKey) {
+          storePendingDeferred(cacheKey, deferredChunk);
+        }
+      }
     }
-  }, [deferredResult]);
+  }, [preloadedQuery, deferredChunk]);
 
   let ref: PreloadedQuery<TQuery> | null =
     "queryRef" in loaderData
       ? (loaderData.queryRef as unknown as PreloadedQuery<TQuery>)
-      : deferredResult
+      : preloadedQuery
         ? {
             environment,
-            fetchKey: `${
-              deferredResult.params.id ?? deferredResult.params.cacheID
-            }${simpleHash(deferredResult.response)}`,
+            fetchKey: preloadedQuery.params.id ?? preloadedQuery.params.cacheID,
             fetchPolicy,
             isDisposed: false,
-            name: deferredResult.params.name,
+            name: preloadedQuery.params.name,
             kind: "PreloadedQuery",
-            variables: deferredResult.variables,
+            variables: preloadedQuery.variables,
             dispose: () => {},
           }
         : null;
@@ -125,6 +110,7 @@ export function useLoaderQuery<TQuery extends OperationType>(
   fetchPolicy: PreloadFetchPolicy = "network-only",
 ) {
   const loaderData: LoaderData<TQuery> = useLoaderData();
+
   return useCommonLoaderQuery(query, fetchPolicy, loaderData);
 }
 
@@ -137,6 +123,7 @@ export function useRouteLoaderQuery<TQuery extends OperationType>(
     useRouteLoaderData(routeId);
 
   invariant(loaderData, `Missing loader data for routeId ${routeId}`);
+
   return useCommonLoaderQuery(query, fetchPolicy, loaderData);
 }
 
@@ -155,13 +142,4 @@ function writePreloadedQueryToCache<TQuery extends OperationType>(
     preloadedQueryObject.variables,
     preloadedQueryObject.response,
   );
-}
-
-function simpleHash(input: unknown): number {
-  return JSON.stringify(input)
-    .split("")
-    .reduce((a, b) => {
-      a = (a << 5) - a + b.charCodeAt(0);
-      return a & a;
-    }, 0);
 }

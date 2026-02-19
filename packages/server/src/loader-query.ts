@@ -30,10 +30,12 @@ function getAtPath(
   path: ReadonlyArray<string | number>,
 ): Record<string, unknown> | undefined {
   let current: unknown = data;
+
   for (const key of path) {
     if (current === null || current === undefined) return undefined;
     current = (current as Record<string | number, unknown>)[key];
   }
+
   return current as Record<string, unknown> | undefined;
 }
 
@@ -72,6 +74,14 @@ type DeferredResponse<TData = unknown, TExtensions = unknown> = {
   extensions?: TExtensions;
 };
 
+export type DeferredChunkNode<TQuery extends OperationType> = {
+  data: SerializablePreloadedQuery<
+    TQuery,
+    DeferredResponse<TQuery["response"], PayloadExtensions>
+  >;
+  next: Promise<DeferredChunkNode<TQuery> | null>;
+};
+
 type LoaderQuery = <TQuery extends OperationType>(
   ...args: LoaderQueryArgs<TQuery>
 ) => Promise<
@@ -80,19 +90,14 @@ type LoaderQuery = <TQuery extends OperationType>(
         TQuery,
         ExecutionResult<TQuery["response"], PayloadExtensions>
       >;
-      deferredQueries: null;
+      deferredChunk: null;
     }
   | {
       preloadedQuery: SerializablePreloadedQuery<
         TQuery,
         InitialIncrementalExecutionResult<TQuery["response"], PayloadExtensions>
       >;
-      deferredQueries: Promise<
-        SerializablePreloadedQuery<
-          TQuery,
-          DeferredResponse<TQuery["response"], PayloadExtensions>
-        >[]
-      >;
+      deferredChunk: Promise<DeferredChunkNode<TQuery> | null>;
     }
 >;
 
@@ -135,7 +140,7 @@ export const getLoaderQuery = <TContext>(
         response: result,
       };
 
-      return { preloadedQuery, deferredQueries: null };
+      return { preloadedQuery, deferredChunk: null };
     }
 
     const preloadedQuery = {
@@ -146,75 +151,111 @@ export const getLoaderQuery = <TContext>(
 
     // Track pending items by id to resolve paths
     const pendingById = new Map<string, PendingResult>();
+
     for (const pending of result.initialResult.pending) {
       pendingById.set(pending.id, pending);
     }
 
-    const deferredQueries = (async () => {
-      const chunks: DeferredResponse<TQuery["response"], PayloadExtensions>[] =
-        [];
+    // Build a linked-promise chain: each node resolves as its data arrives
+    let resolveHead: (value: DeferredChunkNode<TQuery> | null) => void;
+    let rejectHead: (reason: unknown) => void;
 
-      for await (const chunk of result.subsequentResults) {
-        // Track any new pending items
-        if (chunk.pending) {
-          for (const pending of chunk.pending) {
-            pendingById.set(pending.id, pending);
+    const headPromise = new Promise<DeferredChunkNode<TQuery> | null>(
+      (resolve, reject) => {
+        resolveHead = resolve;
+        rejectHead = reject;
+      },
+    );
+
+    let resolveCurrent = resolveHead!;
+    let rejectCurrent = rejectHead!;
+    let chunkIndex = 0;
+
+    // Fire-and-forget async iteration
+    (async () => {
+      try {
+        for await (const chunk of result.subsequentResults) {
+          // Track any new pending items
+          if (chunk.pending) {
+            for (const pending of chunk.pending) {
+              pendingById.set(pending.id, pending);
+            }
+          }
+
+          // Process incremental results
+          if (chunk.incremental) {
+            for (const inc of chunk.incremental) {
+              const pending = pendingById.get(inc.id);
+              const basePath = pending?.path ?? [];
+              const subPath = (inc as IncrementalDeferResult).subPath ?? [];
+              const fullPath = [...basePath, ...subPath];
+
+              const incData = (inc as IncrementalDeferResult).data as Record<
+                string,
+                unknown
+              >;
+
+              // Relay needs the parent object's `id` to properly normalize deferred data.
+              const parentData = getAtPath(
+                result.initialResult.data as Record<string, unknown>,
+                fullPath,
+              );
+              const mergedData =
+                parentData?.id !== undefined
+                  ? { id: parentData.id, ...incData }
+                  : incData;
+
+              const transformed: DeferredResponse<
+                TQuery["response"],
+                PayloadExtensions
+              > = {
+                hasNext: chunk.hasNext,
+                data: mergedData as TQuery["response"],
+                path: fullPath,
+                label: pending?.label,
+              };
+
+              const currentIndex = chunkIndex++;
+
+              // Create next link in the chain
+              let resolveNext: (
+                value: DeferredChunkNode<TQuery> | null,
+              ) => void;
+              let rejectNext: (reason: unknown) => void;
+
+              const nextPromise = new Promise<DeferredChunkNode<TQuery> | null>(
+                (resolve, reject) => {
+                  resolveNext = resolve;
+                  rejectNext = reject;
+                },
+              );
+
+              // Resolve the current link
+              resolveCurrent({
+                data: {
+                  params: {
+                    ...node.params,
+                    cacheID: `${node.params.id ?? node.params.cacheID}-${currentIndex}`,
+                  } as RequestParameters,
+                  variables,
+                  response: transformed,
+                },
+                next: nextPromise,
+              });
+
+              resolveCurrent = resolveNext!;
+              rejectCurrent = rejectNext!;
+            }
           }
         }
 
-        // Process incremental results
-        if (chunk.incremental) {
-          for (const inc of chunk.incremental) {
-            // Get the pending item to resolve the path
-            const pending = pendingById.get(inc.id);
-            const basePath = pending?.path ?? [];
-            const subPath = (inc as IncrementalDeferResult).subPath ?? [];
-            const fullPath = [...basePath, ...subPath];
-
-            // Get the incremental data
-            const incData = (inc as IncrementalDeferResult).data as Record<
-              string,
-              unknown
-            >;
-
-            // Relay needs the parent object's `id` to properly normalize deferred data.
-            // GraphQL-js de-duplicates fields, so `id` may only be in the initial result.
-            // We merge the parent's `id` from the initial data into the incremental result.
-            const parentData = getAtPath(
-              result.initialResult.data as Record<string, unknown>,
-              fullPath,
-            );
-            const mergedData =
-              parentData?.id !== undefined
-                ? { id: parentData.id, ...incData }
-                : incData;
-
-            // Transform to Relay-compatible format with path
-            const transformed: DeferredResponse<
-              TQuery["response"],
-              PayloadExtensions
-            > = {
-              hasNext: chunk.hasNext,
-              data: mergedData as TQuery["response"],
-              path: fullPath,
-              label: pending?.label,
-            };
-
-            chunks.push(transformed);
-          }
-        }
+        // Iteration complete - terminate the chain
+        resolveCurrent(null);
+      } catch (error) {
+        rejectCurrent(error);
       }
-
-      return chunks.map((response, index) => ({
-        params: {
-          ...node.params,
-          cacheID: `${node.params.id ?? node.params.cacheID}-${index}`,
-        },
-        variables,
-        response,
-      }));
     })();
 
-    return { preloadedQuery, deferredQueries };
+    return { preloadedQuery, deferredChunk: headPromise };
   };
 };

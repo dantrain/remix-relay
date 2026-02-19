@@ -1,1 +1,5 @@
-export { type LoaderQueryArgs, getLoaderQuery } from "./loader-query";
+export {
+  type DeferredChunkNode,
+  type LoaderQueryArgs,
+  getLoaderQuery,
+} from "./loader-query";

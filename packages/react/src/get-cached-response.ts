@@ -11,6 +11,32 @@ export const responseCache: QueryResponseCache = new QueryResponseCache({
   ttl: 5000,
 });
 
+// Module-level store for pending deferred promise chains
+const pendingDeferredStore = new Map<
+  string,
+  Promise<{
+    data: { response: GraphQLResponse };
+    next: Promise<unknown>;
+  } | null>
+>();
+
+export function storePendingDeferred(
+  cacheKey: string,
+  headPromise: Promise<unknown>,
+) {
+  pendingDeferredStore.set(
+    cacheKey,
+    headPromise as Promise<{
+      data: { response: GraphQLResponse };
+      next: Promise<unknown>;
+    } | null>,
+  );
+}
+
+export function clearPendingDeferred(cacheKey: string) {
+  pendingDeferredStore.delete(cacheKey);
+}
+
 export function getCachedResponse(
   params: RequestParameters,
   variables: Variables,
@@ -26,16 +52,45 @@ export function getCachedResponse(
 
   const fromCache = responseCache.get(cacheKey, variables);
 
+  if (fromCache === null) {
+    return null;
+  }
+
+  const headPromise = pendingDeferredStore.get(cacheKey);
+
+  if (headPromise) {
+    // Consume once
+    pendingDeferredStore.delete(cacheKey);
+
+    return Observable.create((sink) => {
+      // Emit initial response synchronously
+      sink.next(fromCache);
+
+      // Follow the linked-promise chain
+      (async () => {
+        try {
+          let current = await headPromise;
+
+          while (current !== null) {
+            sink.next(current.data.response as GraphQLResponse);
+            current = (await current.next) as typeof current;
+          }
+
+          sink.complete();
+        } catch (error) {
+          sink.error(error instanceof Error ? error : new Error(String(error)));
+        }
+      })();
+    });
+  }
+
+  // Fallback: check for already-cached deferred chunks
   const deferredFromCache: GraphQLResponse[] = [];
 
   for (let i = 0; ; i++) {
     const deferred = responseCache.get(`${cacheKey}-${i}`, variables);
     if (!deferred) break;
     deferredFromCache.push(deferred);
-  }
-
-  if (fromCache === null) {
-    return null;
   }
 
   return Observable.create((sink) => {
