@@ -200,6 +200,7 @@ export const getLoaderQuery = <TContext>(
                 result.initialResult.data as Record<string, unknown>,
                 fullPath,
               );
+
               const mergedData =
                 parentData?.id !== undefined
                   ? { id: parentData.id, ...incData }
@@ -221,6 +222,7 @@ export const getLoaderQuery = <TContext>(
               let resolveNext: (
                 value: DeferredChunkNode<TQuery> | null,
               ) => void;
+
               let rejectNext: (reason: unknown) => void;
 
               const nextPromise = new Promise<DeferredChunkNode<TQuery> | null>(
