@@ -12,7 +12,6 @@ import {
   useRouteError,
 } from "react-router";
 import { useDocumentTitle } from "usehooks-ts";
-import { RemixRelayProvider } from "@remix-relay/react";
 import { Toaster } from "@remix-relay/ui";
 import { getCurrentEnvironment } from "~/lib/relay-environment";
 import Progress from "./components/Progress";
@@ -43,17 +42,15 @@ export function Layout({ children }: { children: ReactNode }) {
 
 export default function App() {
   return (
-    <RemixRelayProvider>
-      <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
-        <ResubscribeProvider>
-          <Progress />
-          <Suspense fallback={<Spinner className="mx-auto h-36" />}>
-            <Outlet />
-          </Suspense>
-          <Toaster variant="light" />
-        </ResubscribeProvider>
-      </RelayEnvironmentProvider>
-    </RemixRelayProvider>
+    <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
+      <ResubscribeProvider>
+        <Progress />
+        <Suspense fallback={<Spinner className="mx-auto h-36" />}>
+          <Outlet />
+        </Suspense>
+        <Toaster variant="light" />
+      </ResubscribeProvider>
+    </RelayEnvironmentProvider>
   );
 }
 export function ErrorBoundary() {

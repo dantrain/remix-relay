@@ -12,7 +12,6 @@ import {
   useLocation,
   useRouteLoaderData,
 } from "react-router";
-import { RemixRelayProvider } from "@remix-relay/react";
 import { Button, Spinner } from "@remix-relay/ui";
 import { authenticate, getSessionStorage } from "./lib/auth.server";
 import { getCurrentEnvironment } from "./lib/relay-environment";
@@ -59,27 +58,25 @@ export default function App({ loaderData: user }: Route.ComponentProps) {
   const location = useLocation();
 
   return (
-    <RemixRelayProvider>
-      <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
-        <div className="relative mx-auto max-w-3xl p-4 pb-8 sm:p-8">
-          <div className="absolute right-4 sm:right-8">
-            {user ? (
-              <Form method="post">
-                <Button className="text-2xl" type="submit">
-                  🔓
-                </Button>
-              </Form>
-            ) : location.pathname !== "/signin" ? (
-              <Button className="text-2xl" asChild>
-                <Link to="/signin">🔐</Link>
+    <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
+      <div className="relative mx-auto max-w-3xl p-4 pb-8 sm:p-8">
+        <div className="absolute right-4 sm:right-8">
+          {user ? (
+            <Form method="post">
+              <Button className="text-2xl" type="submit">
+                🔓
               </Button>
-            ) : null}
-          </div>
-          <Suspense fallback={<Spinner className="h-36" />}>
-            <Outlet />
-          </Suspense>
+            </Form>
+          ) : location.pathname !== "/signin" ? (
+            <Button className="text-2xl" asChild>
+              <Link to="/signin">🔐</Link>
+            </Button>
+          ) : null}
         </div>
-      </RelayEnvironmentProvider>
-    </RemixRelayProvider>
+        <Suspense fallback={<Spinner className="h-36" />}>
+          <Outlet />
+        </Suspense>
+      </div>
+    </RelayEnvironmentProvider>
   );
 }

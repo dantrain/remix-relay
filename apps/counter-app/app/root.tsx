@@ -8,7 +8,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-import { RemixRelayProvider } from "@remix-relay/react";
 import { Spinner, Toaster } from "@remix-relay/ui";
 import { getCurrentEnvironment } from "~/lib/relay-environment";
 import Progress from "./components/Progress";
@@ -28,19 +27,17 @@ export default function App() {
         <Links />
       </head>
       <body className="bg-slate-950 text-white">
-        <RemixRelayProvider>
-          <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
-            <ResubscribeProvider>
-              <Progress />
-              <div className="mx-auto max-w-3xl p-4 sm:p-8">
-                <Suspense fallback={<Spinner className="h-36" />}>
-                  <Outlet />
-                </Suspense>
-              </div>
-              <Toaster />
-            </ResubscribeProvider>
-          </RelayEnvironmentProvider>
-        </RemixRelayProvider>
+        <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
+          <ResubscribeProvider>
+            <Progress />
+            <div className="mx-auto max-w-3xl p-4 sm:p-8">
+              <Suspense fallback={<Spinner className="h-36" />}>
+                <Outlet />
+              </Suspense>
+            </div>
+            <Toaster />
+          </ResubscribeProvider>
+        </RelayEnvironmentProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

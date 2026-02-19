@@ -256,7 +256,6 @@ Note the use of `fetch` to request data, and the [meros](https://github.com/mara
 Add providers and a Suspense boundary to `app/root.tsx`.
 
 ```diff
-+import { RemixRelayProvider } from "@remix-relay/react";
 +import { Suspense } from "react";
 +import { RelayEnvironmentProvider } from "react-relay";
 +import { getCurrentEnvironment } from "./lib/relay-environment";
@@ -265,13 +264,11 @@ Add providers and a Suspense boundary to `app/root.tsx`.
 
 export default function App() {
   return (
-+   <RemixRelayProvider>
-+     <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
-+       <Suspense>
-          <Outlet />
-+       </Suspense>
-+     </RelayEnvironmentProvider>
-+   </RemixRelayProvider>
++   <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
++     <Suspense>
+        <Outlet />
++     </Suspense>
++   </RelayEnvironmentProvider>
   );
 }
 ```
@@ -423,7 +420,7 @@ export default function Home() {
 }
 ```
 
-The `Deferred` component acts as a Suspense boundary and works with the `RemixRelayProvider` to enable streaming.
+The `Deferred` component acts as a Suspense boundary to enable streaming.
 
 Run the Relay compiler once more with `pnpm run relay` to regenerate the types.
 
