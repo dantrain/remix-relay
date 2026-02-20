@@ -253,7 +253,7 @@ export function getCurrentEnvironment() {
 
 Note the use of `fetch` to request data, and the [meros](https://github.com/maraisr/meros) library to read the multipart response. The `processMultipartResponse` utility from `@remix-relay/react` handles the incremental delivery format used by `@defer`.
 
-Add providers and a Suspense boundary to `app/root.tsx`.
+Add the Relay provider and a Suspense boundary to `app/root.tsx`.
 
 ```diff
 +import { Suspense } from "react";
