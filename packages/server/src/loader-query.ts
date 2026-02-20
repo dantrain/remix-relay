@@ -195,16 +195,16 @@ export const getLoaderQuery = <TContext>(
                 unknown
               >;
 
-              // Relay needs the parent object's `id` to properly normalize deferred data.
+              // Merge all parent fields so overlapping fields (already sent in
+              // the initial response) are present for Relay's normalizer.
               const parentData = getAtPath(
                 result.initialResult.data as Record<string, unknown>,
                 fullPath,
               );
 
-              const mergedData =
-                parentData?.id !== undefined
-                  ? { id: parentData.id, ...incData }
-                  : incData;
+              const mergedData = parentData
+                ? { ...parentData, ...incData }
+                : incData;
 
               const transformed: DeferredResponse<
                 TQuery["response"],
