@@ -52,14 +52,14 @@
     "@types/node": "^25.1.0",
     "@types/relay-runtime": "^20.1.1",
     "eslint": "^9.39.0",
-    "graphql": "17.0.0-alpha.9",
+    "graphql": "17.0.0-alpha.14",
     "jiti": "^2.6.0",
     "relay-runtime": "^20.1.1",
     "tsup": "^8.5.1",
     "typescript": "~5.9.3"
   },
   "peerDependencies": {
-    "graphql": "17.0.0-alpha.9",
+    "graphql": "17.0.0-alpha.14",
     "relay-runtime": ">=16"
   }
 }

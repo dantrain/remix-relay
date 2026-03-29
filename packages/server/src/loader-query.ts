@@ -124,6 +124,7 @@ export const getLoaderQuery = <TContext>(
       document,
       variableValues: variables,
       contextValue: context,
+      enableEarlyExecution: true,
     });
 
     if (!isIncrementalResult(result)) {

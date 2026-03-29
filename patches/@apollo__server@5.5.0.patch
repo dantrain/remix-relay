@@ -1,0 +1,26 @@
+diff --git a/dist/cjs/incrementalDeliveryPolyfill.js b/dist/cjs/incrementalDeliveryPolyfill.js
+index 5dc4efc99abee25aaf0527c5bd0dccd05ff19e9f..6ac9ff11ef6b22aff6175f9a28aaac5af68b274c 100644
+--- a/dist/cjs/incrementalDeliveryPolyfill.js
++++ b/dist/cjs/incrementalDeliveryPolyfill.js
+@@ -43,7 +43,7 @@ async function tryToLoadGraphQL17() {
+         return;
+     }
+     const graphql = await Promise.resolve().then(() => __importStar(require('graphql')));
+-    if (graphql.version === '17.0.0-alpha.9' &&
++    if (graphql.version.startsWith('17.0.0-alpha.') &&
+         'experimentalExecuteIncrementally' in graphql) {
+         graphqlExperimentalExecuteIncrementally = graphql
+             .experimentalExecuteIncrementally;
+diff --git a/dist/esm/incrementalDeliveryPolyfill.js b/dist/esm/incrementalDeliveryPolyfill.js
+index bf717d053d47f576a72f5e732592cfd9ecc8c73a..6be808004edb6d18014005c58db270697dac7fbd 100644
+--- a/dist/esm/incrementalDeliveryPolyfill.js
++++ b/dist/esm/incrementalDeliveryPolyfill.js
+@@ -7,7 +7,7 @@ async function tryToLoadGraphQL17() {
+         return;
+     }
+     const graphql = await import('graphql');
+-    if (graphql.version === '17.0.0-alpha.9' &&
++    if (graphql.version.startsWith('17.0.0-alpha.') &&
+         'experimentalExecuteIncrementally' in graphql) {
+         graphqlExperimentalExecuteIncrementally = graphql
+             .experimentalExecuteIncrementally;

@@ -33,11 +33,12 @@
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {
-        "graphql": "17.0.0-alpha.9"
+        "graphql": "17.0.0-alpha.14"
       }
     },
     "patchedDependencies": {
-      "@pothos/core@4.12.0": "patches/@pothos__core@4.12.0.patch"
+      "@pothos/core@4.12.0": "patches/@pothos__core@4.12.0.patch",
+      "@apollo/server@5.5.0": "patches/@apollo__server@5.5.0.patch"
     }
   }
 }
