@@ -1,0 +1,65 @@
+diff --git a/esm/utils/index.js b/esm/utils/index.js
+index 4e059410d6b20bde16171e83c65379407efb870e..666a7f0f59e319552aff4da69e610a20dbad0972 100644
+--- a/esm/utils/index.js
++++ b/esm/utils/index.js
+@@ -116,9 +116,14 @@ export function unwrapInputListParam(param) {
+     }
+     return result;
+ }
++function normalizeVariableValues(variableValues) {
++    if (variableValues == null) return variableValues;
++    if (typeof variableValues === 'object' && 'coerced' in variableValues) return variableValues;
++    return { sources: Object.create(null), coerced: variableValues };
++}
+ export function getMappedArgumentValues(def, node, context, info) {
+     var _def_extensions;
+-    const args = getArgumentValues(def, node, info.variableValues);
++    const args = getArgumentValues(def, node, normalizeVariableValues(info.variableValues));
+     const mappers = (_def_extensions = def.extensions) === null || _def_extensions === void 0 ? void 0 : _def_extensions.pothosArgMappers;
+     if (mappers && mappers.length > 0) {
+         return reduceMaybeAsync(mappers, args, (acc, argMapper) => argMapper(acc, context, info));
+diff --git a/lib/utils/index.js b/lib/utils/index.js
+index 85e0d76c2b57ac486c113d6226e48a6b988c8b9b..b30139c699f89e8ad516ee6ad667072bc5ea1714 100644
+--- a/lib/utils/index.js
++++ b/lib/utils/index.js
+@@ -177,9 +177,14 @@ function completeValue(valOrPromise, onSuccess, onError) {
+     }
+     return result;
+ }
++function normalizeVariableValues(variableValues) {
++    if (variableValues == null) return variableValues;
++    if (typeof variableValues === 'object' && 'coerced' in variableValues) return variableValues;
++    return { sources: Object.create(null), coerced: variableValues };
++}
+ function getMappedArgumentValues(def, node, context, info) {
+     var _def_extensions;
+-    const args = (0, _graphql.getArgumentValues)(def, node, info.variableValues);
++    const args = (0, _graphql.getArgumentValues)(def, node, normalizeVariableValues(info.variableValues));
+     const mappers = (_def_extensions = def.extensions) === null || _def_extensions === void 0 ? void 0 : _def_extensions.pothosArgMappers;
+     if (mappers && mappers.length > 0) {
+         return reduceMaybeAsync(mappers, args, (acc, argMapper)=>argMapper(acc, context, info));
+diff --git a/src/utils/index.ts b/src/utils/index.ts
+index 254232406d9558c63c6137d31d5a55f48f83f343..5bfa92d22c914628c0b2de178450ffd754b3e3b0 100644
+--- a/src/utils/index.ts
++++ b/src/utils/index.ts
+@@ -172,13 +172,19 @@ export function completeValue<T, R>(
+   return result as Awaited<R>;
+ }
+ 
++function normalizeVariableValues(variableValues: any) {
++  if (variableValues == null) return variableValues;
++  if (typeof variableValues === 'object' && 'coerced' in variableValues) return variableValues;
++  return { sources: Object.create(null), coerced: variableValues };
++}
++
+ export function getMappedArgumentValues(
+   def: GraphQLDirective | GraphQLField<unknown, unknown>,
+   node: DirectiveNode | FieldNode,
+   context: object,
+   info: PartialResolveInfo,
+ ) {
+-  const args = getArgumentValues(def, node, info.variableValues);
++  const args = getArgumentValues(def, node, normalizeVariableValues(info.variableValues));
+   const mappers = def.extensions?.pothosArgMappers as
+     | PothosOutputFieldConfig<SchemaTypes>['argMappers']
+     | undefined;
