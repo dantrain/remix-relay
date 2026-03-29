@@ -55,7 +55,7 @@
     "@types/react-relay": "^18.2.1",
     "@types/relay-runtime": "^20.1.1",
     "eslint": "^9.39.0",
-    "graphql": "17.0.0-alpha.9",
+    "graphql": "17.0.0-alpha.14",
     "jiti": "^2.6.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
