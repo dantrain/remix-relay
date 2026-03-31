@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useDeferStream } from "@graphql-yoga/plugin-defer-stream";
 import { usePersistedOperations } from "@graphql-yoga/plugin-persisted-operations";
 import { drizzle } from "drizzle-orm/d1";
 import { createYoga, GraphQLParams } from "graphql-yoga";
@@ -27,7 +26,6 @@ const yoga = createYoga<PothosContext>({
         );
       },
     }),
-    useDeferStream(),
   ],
 });
 

@@ -263,9 +263,6 @@ importers:
 
   apps/movie-app:
     dependencies:
-      '@graphql-yoga/plugin-defer-stream':
-        specifier: ^3.18.1
-        version: 3.18.1(graphql-yoga@5.18.1(graphql@17.0.0-alpha.14))(graphql@17.0.0-alpha.14)
       '@graphql-yoga/plugin-persisted-operations':
         specifier: ^3.18.0
         version: 3.18.0(graphql-yoga@5.18.1(graphql@17.0.0-alpha.14))(graphql@17.0.0-alpha.14)
@@ -2307,13 +2304,6 @@ packages:
   '@graphql-yoga/logger@2.0.1':
     resolution: {integrity: sha512-Nv0BoDGLMg9QBKy9cIswQ3/6aKaKjlTh87x3GiBg2Z4RrjyrM48DvOOK0pJh1C1At+b0mUIM67cwZcFTDLN4sA==}
     engines: {node: '>=18.0.0'}
-
-  '@graphql-yoga/plugin-defer-stream@3.18.1':
-    resolution: {integrity: sha512-m8/In1xTAjRv8WoetXK+ZQ2Ye8WfmUHawUMz3vHY+jjnIvJz3mHUBcFIJC5hGQb/R8loksuU/IaqJW1SnQeykw==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      graphql: ^15.2.0 || ^16.0.0
-      graphql-yoga: ^5.18.1
 
   '@graphql-yoga/plugin-persisted-operations@3.18.0':
     resolution: {integrity: sha512-1jizZvvW6+LyCZ7J9oxFg0PqNAphd+ltFVXZOdDB9qMr7qRxxBJ9Q6uU+m7KJZ3SoEobOddE2O/IKVcbx8FrIQ==}
@@ -9705,12 +9695,6 @@ snapshots:
   '@graphql-yoga/logger@2.0.1':
     dependencies:
       tslib: 2.8.1
-
-  '@graphql-yoga/plugin-defer-stream@3.18.1(graphql-yoga@5.18.1(graphql@17.0.0-alpha.14))(graphql@17.0.0-alpha.14)':
-    dependencies:
-      '@graphql-tools/utils': 10.11.0(graphql@17.0.0-alpha.14)
-      graphql: 17.0.0-alpha.14
-      graphql-yoga: 5.18.1(graphql@17.0.0-alpha.14)
 
   '@graphql-yoga/plugin-persisted-operations@3.18.0(graphql-yoga@5.18.1(graphql@17.0.0-alpha.14))(graphql@17.0.0-alpha.14)':
     dependencies:

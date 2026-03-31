@@ -19,7 +19,6 @@
     "write-graphql-schema": "tsx ./scripts/write-graphql-schema.ts"
   },
   "dependencies": {
-    "@graphql-yoga/plugin-defer-stream": "^3.18.1",
     "@graphql-yoga/plugin-persisted-operations": "^3.18.0",
     "@pothos/core": "^4.12.0",
     "@pothos/plugin-relay": "^4.6.2",
