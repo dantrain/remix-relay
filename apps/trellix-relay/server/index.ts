@@ -223,7 +223,7 @@ app.all(
   }),
 );
 
-httpServer.listen(env.PORT, () => {
+httpServer.listen(env.PORT, "0.0.0.0", () => {
   console.log(`🚀 App running at http://localhost:${env.PORT}`);
   console.log(
     `🚀 Query endpoint ready at http://localhost:${env.PORT}/graphql`,
