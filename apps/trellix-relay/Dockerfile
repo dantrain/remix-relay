@@ -14,7 +14,7 @@ ENV NODE_ENV="production"
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
-RUN corepack enable
+RUN npm install --global corepack@latest && corepack enable
 
 # Throw-away build stage to reduce size of final image
 FROM base AS build
