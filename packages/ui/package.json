@@ -41,7 +41,7 @@
     "sonner": "^2.0.7",
     "tailwindcss": "^4.1.18",
     "tsup": "^8.5.1",
-    "typescript": "~5.9.3"
+    "typescript": "~6.0.3"
   },
   "peerDependencies": {
     "sonner": "^1.4.0"
