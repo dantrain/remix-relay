@@ -1,5 +1,11 @@
 # @remix-relay/server
 
+## 4.2.0
+
+### Minor Changes
+
+- [`7d80eaa`](https://github.com/dantrain/remix-relay/commit/7d80eaa9099a00e8f00e91f250a143f5c12a12ae) Thanks [@dantrain](https://github.com/dantrain)! - Bump required `graphql` peer dependency from `17.0.0-alpha.14` to `17.0.0-beta.1`.
+
 ## 4.1.0
 
 ### Minor Changes
