@@ -72,7 +72,6 @@
     "vite-plugin-babel": "^1.7.3",
     "vite-plugin-cjs-interop": "^4.0.1",
     "vite-plugin-relay": "^2.1.0",
-    "vite-tsconfig-paths": "^6.1.1",
     "wrangler": "^4.95.0",
     "zx": "^8.8.5"
   },

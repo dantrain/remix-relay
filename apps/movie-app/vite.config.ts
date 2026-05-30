@@ -4,11 +4,9 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import babel from "vite-plugin-babel";
 import relay from "vite-plugin-relay";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [
-    tsconfigPaths(),
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     tailwindcss(),
     relay,
@@ -21,6 +19,7 @@ export default defineConfig({
       },
     }),
   ],
+  resolve: { tsconfigPaths: true },
   ssr: {
     resolve: {
       conditions: ["workerd", "worker", "browser"],
