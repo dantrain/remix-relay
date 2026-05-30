@@ -21,5 +21,6 @@ export default defineConfig(({ command }) => ({
       },
     }),
   ],
+  resolve: { tsconfigPaths: true },
   ssr: command === "build" ? { noExternal: /(relay|@mui)/ } : {},
 }));
