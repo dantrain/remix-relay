@@ -111,10 +111,10 @@ export function Column({
         </div>
       </div>
       <div
-        className="sm:scrollbar-thin sm:scrollbar-track-slate-100
-          sm:scrollbar-thumb-slate-400 sm:scrollbar-thumb-rounded-full
-          sm:hover:scrollbar-thumb-slate-500 sm:active:scrollbar-thumb-slate-500
-          flex-1 overflow-y-auto"
+        className="sm:scrollbar-thumb-rounded-full flex-1 overflow-y-auto
+          sm:scrollbar-thin sm:scrollbar-thumb-slate-400
+          sm:scrollbar-track-slate-100 sm:hover:scrollbar-thumb-slate-500
+          sm:active:scrollbar-thumb-slate-500"
         ref={scrollContainerRef}
       >
         <AutoHeight duration={isCreating ? 0 : 200}>
