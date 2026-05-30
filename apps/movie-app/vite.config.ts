@@ -14,7 +14,7 @@ export default defineConfig({
     relay,
     reactRouter(),
     babel({
-      filter: /\.tsx?$/,
+      include: /\.tsx?$/,
       babelConfig: {
         presets: ["@babel/preset-typescript"],
         plugins: [["babel-plugin-react-compiler"]],
