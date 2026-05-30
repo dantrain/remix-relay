@@ -18,12 +18,12 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
-    "@react-aria/utils": "^3.32.0",
+    "@react-aria/utils": "^3.34.1",
     "@tanem/react-nprogress": "^5.0.58",
     "class-variance-authority": "^0.7.1",
-    "react-aria": "^3.45.0",
+    "react-aria": "^3.49.0",
     "react-transition-group": "^4.4.5",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@remix-relay/eslint-config": "workspace:*",
