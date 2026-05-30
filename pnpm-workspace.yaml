@@ -1,7 +1,20 @@
 packages:
   - apps/*
   - packages/*
-onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
-  - core-js-pure
-  - supabase
+minimumReleaseAgeExclude:
+  - '@cloudflare/workers-types'
+allowBuilds:
+  '@apollo/protobufjs': false
+  '@tailwindcss/oxide': true
+  better-sqlite3: false
+  core-js-pure: true
+  esbuild: false
+  sharp: false
+  supabase: true
+  workerd: false
+peerDependencyRules:
+  allowedVersions:
+    graphql: 17.0.0-beta.1
+patchedDependencies:
+  '@pothos/core@4.12.0': patches/@pothos__core@4.12.0.patch
+  '@apollo/server@5.5.1': patches/@apollo__server@5.5.1.patch
