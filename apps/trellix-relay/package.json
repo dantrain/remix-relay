@@ -78,7 +78,7 @@
   "devDependencies": {
     "@ast-grep/napi": "^0.40.5",
     "@dotenvx/dotenvx": "^1.52.0",
-    "@pnpm/make-dedicated-lockfile": "^1000.0.37",
+    "@pnpm/make-dedicated-lockfile": "^1000.0.41",
     "@react-router/dev": "^7.13.0",
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
