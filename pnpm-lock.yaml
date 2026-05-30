@@ -68,8 +68,8 @@ importers:
         specifier: ^4.12.0
         version: 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1)
       '@pothos/plugin-relay':
-        specifier: ^4.6.2
-        version: 4.6.2(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)
+        specifier: ^4.7.0
+        version: 4.7.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)
       '@pothos/plugin-zod':
         specifier: ^4.3.0
         version: 4.3.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)(zod@4.3.6)
@@ -119,8 +119,8 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0(graphql@17.0.0-beta.1)
       graphql-ws:
-        specifier: ^6.0.7
-        version: 6.0.7(graphql@17.0.0-beta.1)(ws@8.19.0)
+        specifier: ^6.0.8
+        version: 6.0.8(graphql@17.0.0-beta.1)(ws@8.21.0)
       isbot:
         specifier: ^5.1.34
         version: 5.1.34
@@ -155,8 +155,8 @@ importers:
         specifier: ^1.3.3
         version: 1.3.3
       ws:
-        specifier: ^8.19.0
-        version: 8.19.0
+        specifier: ^8.21.0
+        version: 8.21.0
       zod:
         specifier: ^4.3.6
         version: 4.3.6
@@ -258,14 +258,14 @@ importers:
   apps/movie-app:
     dependencies:
       '@graphql-yoga/plugin-persisted-operations':
-        specifier: ^3.18.0
-        version: 3.18.0(graphql-yoga@5.18.1(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)
+        specifier: ^3.21.0
+        version: 3.21.0(graphql-yoga@5.21.0(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)
       '@pothos/core':
         specifier: ^4.12.0
         version: 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1)
       '@pothos/plugin-relay':
-        specifier: ^4.6.2
-        version: 4.6.2(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)
+        specifier: ^4.7.0
+        version: 4.7.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)
       '@react-router/cloudflare':
         specifier: ^7.16.0
         version: 7.16.0(@cloudflare/workers-types@4.20260530.1)(react-router@7.16.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(typescript@6.0.3)
@@ -283,13 +283,13 @@ importers:
         version: 0.7.1
       drizzle-orm:
         specifier: ^0.45.1
-        version: 0.45.1(@cloudflare/workers-types@4.20260530.1)(@libsql/client-wasm@0.14.0)(@types/better-sqlite3@7.6.13)(better-sqlite3@12.6.2)(postgres@3.4.8)
+        version: 0.45.1(@cloudflare/workers-types@4.20260530.1)(@libsql/client-wasm@0.14.0)(@types/better-sqlite3@7.6.13)(better-sqlite3@12.6.2)(postgres@3.4.9)
       graphql:
         specifier: 17.0.0-beta.1
         version: 17.0.0-beta.1
       graphql-yoga:
-        specifier: ^5.18.1
-        version: 5.18.1(graphql@17.0.0-beta.1)
+        specifier: ^5.21.0
+        version: 5.21.0(graphql@17.0.0-beta.1)
       isbot:
         specifier: ^5.1.34
         version: 5.1.34
@@ -451,8 +451,8 @@ importers:
         specifier: ^4.12.0
         version: 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1)
       '@pothos/plugin-relay':
-        specifier: ^4.6.2
-        version: 4.6.2(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)
+        specifier: ^4.7.0
+        version: 4.7.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)
       '@pothos/plugin-zod':
         specifier: ^4.3.0
         version: 4.3.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)(zod@4.3.6)
@@ -500,7 +500,7 @@ importers:
         version: 2.8.6
       drizzle-orm:
         specifier: ^0.45.1
-        version: 0.45.1(@cloudflare/workers-types@4.20260530.1)(@libsql/client-wasm@0.14.0)(@types/better-sqlite3@7.6.13)(better-sqlite3@12.6.2)(postgres@3.4.8)
+        version: 0.45.1(@cloudflare/workers-types@4.20260530.1)(@libsql/client-wasm@0.14.0)(@types/better-sqlite3@7.6.13)(better-sqlite3@12.6.2)(postgres@3.4.9)
       express:
         specifier: ^5.2.1
         version: 5.2.1
@@ -514,8 +514,8 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0(graphql@17.0.0-beta.1)
       graphql-ws:
-        specifier: ^6.0.7
-        version: 6.0.7(graphql@17.0.0-beta.1)(ws@8.19.0)
+        specifier: ^6.0.8
+        version: 6.0.8(graphql@17.0.0-beta.1)(ws@8.21.0)
       isbot:
         specifier: ^5.1.34
         version: 5.1.34
@@ -538,8 +538,8 @@ importers:
         specifier: ^7.1.1
         version: 7.1.1
       postgres:
-        specifier: ^3.4.8
-        version: 3.4.8
+        specifier: ^3.4.9
+        version: 3.4.9
       react:
         specifier: ^19.2.6
         version: 19.2.6
@@ -583,8 +583,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@19.2.3(@types/react@19.2.15))(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       ws:
-        specifier: ^8.19.0
-        version: 8.19.0
+        specifier: ^8.21.0
+        version: 8.21.0
       zod:
         specifier: ^4.3.6
         version: 4.3.6
@@ -2736,8 +2736,8 @@ packages:
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
 
-  '@graphql-tools/executor@1.5.1':
-    resolution: {integrity: sha512-n94Qcu875Mji9GQ52n5UbgOTxlgvFJicBPYD+FRks9HKIQpdNPjkkrKZUYNG51XKa+bf03rxNflm4+wXhoHHrA==}
+  '@graphql-tools/executor@1.5.3':
+    resolution: {integrity: sha512-mgBFC0bsrZPZLu9EnydpMnAuQ8Iiq0CEbUcsmvXsm2/iYektGHDN/+bmb7hicA6dWZtdPfklYJmr21WD0GnOfA==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
@@ -2748,8 +2748,20 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
+  '@graphql-tools/merge@9.1.9':
+    resolution: {integrity: sha512-iHUWNjRHeQRYdgIMIuChThOwoKzA9vrzYeslgfBo5eUYEyHGZCoDPjAavssoYXLwstYt1dZj2J22jSzc2DrN0Q==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+
   '@graphql-tools/schema@10.0.25':
     resolution: {integrity: sha512-/PqE8US8kdQ7lB9M5+jlW8AyVjRGCKU7TSktuW3WNKSKmDO0MK1wakvb5gGdyT49MjAIb4a3LWxIpwo5VygZuw==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+
+  '@graphql-tools/schema@10.0.33':
+    resolution: {integrity: sha512-O6P3RIftO0jafnSsFAqpjurUuUxJ43s/AdPVLQsBkI6y4Ic/tKm4C1Qm1KKQsCDTOxXPJClh/v3g7k7yLKCFBQ==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
@@ -2760,8 +2772,8 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
-  '@graphql-tools/utils@11.0.0':
-    resolution: {integrity: sha512-bM1HeZdXA2C3LSIeLOnH/bcqSgbQgKEDrjxODjqi3y58xai2TkNrtYcQSoWzGbt9VMN1dORGjR7Vem8SPnUFQA==}
+  '@graphql-tools/utils@11.1.0':
+    resolution: {integrity: sha512-PtFVG4r8Z2LEBSaPYQMusBiB3o6kjLVJyjCLbnWem/SpSuM21v6LTmgpkXfYU1qpBV2UGsFyuEnSJInl8fR1Ag==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
@@ -2775,12 +2787,12 @@ packages:
     resolution: {integrity: sha512-Nv0BoDGLMg9QBKy9cIswQ3/6aKaKjlTh87x3GiBg2Z4RrjyrM48DvOOK0pJh1C1At+b0mUIM67cwZcFTDLN4sA==}
     engines: {node: '>=18.0.0'}
 
-  '@graphql-yoga/plugin-persisted-operations@3.18.0':
-    resolution: {integrity: sha512-1jizZvvW6+LyCZ7J9oxFg0PqNAphd+ltFVXZOdDB9qMr7qRxxBJ9Q6uU+m7KJZ3SoEobOddE2O/IKVcbx8FrIQ==}
+  '@graphql-yoga/plugin-persisted-operations@3.21.0':
+    resolution: {integrity: sha512-JzzaHzqFXiMgTHA9Qsl1r/Ll9t2WA1Lg3R2+MZcKodaBFS0XSaJSHrQigaxe8hrN4EohNlrx3P8w7Z03J3k/iw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       graphql: ^15.2.0 || ^16.0.0
-      graphql-yoga: ^5.18.0
+      graphql-yoga: ^5.21.0
 
   '@graphql-yoga/subscription@5.0.5':
     resolution: {integrity: sha512-oCMWOqFs6QV96/NZRt/ZhTQvzjkGB4YohBOpKM4jH/lDT4qb7Lex/aGCxpi/JD9njw3zBBtMqxbaC22+tFHVvw==}
@@ -3532,8 +3544,8 @@ packages:
     peerDependencies:
       graphql: ^16.10.0
 
-  '@pothos/plugin-relay@4.6.2':
-    resolution: {integrity: sha512-9aweCv9T53z4+CmE+JF8QoXeAEd+wT/rZflZNzrvH6ln2Lj6qy/EVEcL5BMr6en3/IYHH+ROyHAAsy12t4uIUQ==}
+  '@pothos/plugin-relay@4.7.0':
+    resolution: {integrity: sha512-IQ7f7WLu7uXxiZBcJgUTdspjIVzX3bgvd8XjnzxGJUbn/uE5HlVyCFmvhJffHIIS2OKSHhOOJRMwIwVwauwnSg==}
     peerDependencies:
       '@pothos/core': '*'
       graphql: ^16.10.0
@@ -5862,8 +5874,8 @@ packages:
     peerDependencies:
       graphql: ^15.7.2 || ^16.0.0
 
-  graphql-ws@6.0.7:
-    resolution: {integrity: sha512-yoLRW+KRlDmnnROdAu7sX77VNLC0bsFoZyGQJLy1cF+X/SkLg/fWkRGrEEYQK8o2cafJ2wmEaMqMEZB3U3DYDg==}
+  graphql-ws@6.0.8:
+    resolution: {integrity: sha512-m3EOaNsUBXwAnkBWbzPfe0Nq8pXUfxsWnolC54sru3FzHvhTZL0Ouf/BoQsaGAXqM+YPerXOJ47BUnmgmoupCw==}
     engines: {node: '>=20'}
     peerDependencies:
       '@fastify/websocket': ^10 || ^11
@@ -5878,8 +5890,8 @@ packages:
       ws:
         optional: true
 
-  graphql-yoga@5.18.1:
-    resolution: {integrity: sha512-GiDSlvibfY/vyurbkBOKMO+adF6bTCzKr80FYWta59s1Lx87oVo8T6Nu/0hrxrGv0SrAUkqUpcpr4Ee7XlYmBw==}
+  graphql-yoga@5.21.0:
+    resolution: {integrity: sha512-PS37UoDihx8209RRl1ogttzWevNYDnGvP7beHkwHzUpUdfZTHsVRTVe1ysGXre1EjwUAePbpez302YSrq70Ngw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       graphql: ^15.2.0 || ^16.0.0
@@ -6932,8 +6944,8 @@ packages:
     resolution: {integrity: sha512-FfR8sjd4em2T6fb3I2MwAJU7HWVMr9zba+enmQeeWFfCbm+UOC/0X4DS8XtpUTMwWMGbjKYP7xjfNekzyGmB3A==}
     engines: {node: ^10 || ^12 || >=14}
 
-  postgres@3.4.8:
-    resolution: {integrity: sha512-d+JFcLM17njZaOLkv6SCev7uoLaBtfK86vMUXhW1Z4glPWh4jozno9APvW/XKFJ3CCxVoC7OL38BqRydtu5nGg==}
+  postgres@3.4.9:
+    resolution: {integrity: sha512-GD3qdB0x1z9xgFI6cdRD6xu2Sp2WCOEoe3mtnyB5Ee0XrrL5Pe+e4CCnJrRMnL1zYtRDZmQQVbvOttLnKDLnaw==}
     engines: {node: '>=12'}
 
   prebuild-install@7.1.3:
@@ -8091,8 +8103,8 @@ packages:
     resolution: {integrity: sha512-FdNA4RyH1L43TlvGG8qOMIfcEczwA5ij+zLXUy3Z83CjxhLvcV7/Q/8pk22wnCgYw7PJhtK+7lhO+qqyT4NdvQ==}
     engines: {node: '>=16.14'}
 
-  ws@8.19.0:
-    resolution: {integrity: sha512-blAT2mjOEIi0ZzruJfIhb3nps74PRWTCz1IjglWEEpQl5XS/UNama6u2/rjFkDDouqr4L67ry+1aGIALViWjDg==}
+  ws@8.20.1:
+    resolution: {integrity: sha512-It4dO0K5v//JtTXuPkfEOaI3uUN87iYPnqo/ZzqCoG3g8uhA66QUMs/SrM0YK7/NAu+r4LMh/9dq2A7k+rHs+w==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -8103,8 +8115,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  ws@8.20.1:
-    resolution: {integrity: sha512-It4dO0K5v//JtTXuPkfEOaI3uUN87iYPnqo/ZzqCoG3g8uhA66QUMs/SrM0YK7/NAu+r4LMh/9dq2A7k+rHs+w==}
+  ws@8.21.0:
+    resolution: {integrity: sha512-Vsp28b7DRcimFQvrqu2Wek3z1iYxDCWqHYB8Qsnk/S4RfaCQzPGPyBNuVjJV3cd6UiKtUtp6sNM77gWvzcCH+g==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -9743,9 +9755,9 @@ snapshots:
 
   '@floating-ui/utils@0.2.10': {}
 
-  '@graphql-tools/executor@1.5.1(graphql@17.0.0-beta.1)':
+  '@graphql-tools/executor@1.5.3(graphql@17.0.0-beta.1)':
     dependencies:
-      '@graphql-tools/utils': 11.0.0(graphql@17.0.0-beta.1)
+      '@graphql-tools/utils': 11.1.0(graphql@17.0.0-beta.1)
       '@graphql-typed-document-node/core': 3.2.0(graphql@17.0.0-beta.1)
       '@repeaterjs/repeater': 3.0.6
       '@whatwg-node/disposablestack': 0.0.6
@@ -9759,10 +9771,23 @@ snapshots:
       graphql: 17.0.0-beta.1
       tslib: 2.8.1
 
+  '@graphql-tools/merge@9.1.9(graphql@17.0.0-beta.1)':
+    dependencies:
+      '@graphql-tools/utils': 11.1.0(graphql@17.0.0-beta.1)
+      graphql: 17.0.0-beta.1
+      tslib: 2.8.1
+
   '@graphql-tools/schema@10.0.25(graphql@17.0.0-beta.1)':
     dependencies:
       '@graphql-tools/merge': 9.1.1(graphql@17.0.0-beta.1)
       '@graphql-tools/utils': 10.11.0(graphql@17.0.0-beta.1)
+      graphql: 17.0.0-beta.1
+      tslib: 2.8.1
+
+  '@graphql-tools/schema@10.0.33(graphql@17.0.0-beta.1)':
+    dependencies:
+      '@graphql-tools/merge': 9.1.9(graphql@17.0.0-beta.1)
+      '@graphql-tools/utils': 11.1.0(graphql@17.0.0-beta.1)
       graphql: 17.0.0-beta.1
       tslib: 2.8.1
 
@@ -9774,7 +9799,7 @@ snapshots:
       graphql: 17.0.0-beta.1
       tslib: 2.8.1
 
-  '@graphql-tools/utils@11.0.0(graphql@17.0.0-beta.1)':
+  '@graphql-tools/utils@11.1.0(graphql@17.0.0-beta.1)':
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@17.0.0-beta.1)
       '@whatwg-node/promise-helpers': 1.3.2
@@ -9790,11 +9815,11 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@graphql-yoga/plugin-persisted-operations@3.18.0(graphql-yoga@5.18.1(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)':
+  '@graphql-yoga/plugin-persisted-operations@3.21.0(graphql-yoga@5.21.0(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)':
     dependencies:
       '@whatwg-node/promise-helpers': 1.3.2
       graphql: 17.0.0-beta.1
-      graphql-yoga: 5.18.1(graphql@17.0.0-beta.1)
+      graphql-yoga: 5.21.0(graphql@17.0.0-beta.1)
 
   '@graphql-yoga/subscription@5.0.5':
     dependencies:
@@ -10517,7 +10542,7 @@ snapshots:
     dependencies:
       graphql: 17.0.0-beta.1
 
-  '@pothos/plugin-relay@4.6.2(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)':
+  '@pothos/plugin-relay@4.7.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)':
     dependencies:
       '@pothos/core': 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1)
       graphql: 17.0.0-beta.1
@@ -11117,7 +11142,7 @@ snapshots:
       '@supabase/node-fetch': 2.6.15
       '@types/phoenix': 1.6.6
       '@types/ws': 8.18.1
-      ws: 8.19.0
+      ws: 8.21.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -11127,7 +11152,7 @@ snapshots:
       '@types/phoenix': 1.6.6
       '@types/ws': 8.18.1
       tslib: 2.8.1
-      ws: 8.19.0
+      ws: 8.21.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -12202,13 +12227,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.45.1(@cloudflare/workers-types@4.20260530.1)(@libsql/client-wasm@0.14.0)(@types/better-sqlite3@7.6.13)(better-sqlite3@12.6.2)(postgres@3.4.8):
+  drizzle-orm@0.45.1(@cloudflare/workers-types@4.20260530.1)(@libsql/client-wasm@0.14.0)(@types/better-sqlite3@7.6.13)(better-sqlite3@12.6.2)(postgres@3.4.9):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20260530.1
       '@libsql/client-wasm': 0.14.0
       '@types/better-sqlite3': 7.6.13
       better-sqlite3: 12.6.2
-      postgres: 3.4.8
+      postgres: 3.4.9
 
   dunder-proto@1.0.1:
     dependencies:
@@ -13176,18 +13201,18 @@ snapshots:
     dependencies:
       graphql: 17.0.0-beta.1
 
-  graphql-ws@6.0.7(graphql@17.0.0-beta.1)(ws@8.19.0):
+  graphql-ws@6.0.8(graphql@17.0.0-beta.1)(ws@8.21.0):
     dependencies:
       graphql: 17.0.0-beta.1
     optionalDependencies:
-      ws: 8.19.0
+      ws: 8.21.0
 
-  graphql-yoga@5.18.1(graphql@17.0.0-beta.1):
+  graphql-yoga@5.21.0(graphql@17.0.0-beta.1):
     dependencies:
       '@envelop/core': 5.5.1
       '@envelop/instrumentation': 1.0.0
-      '@graphql-tools/executor': 1.5.1(graphql@17.0.0-beta.1)
-      '@graphql-tools/schema': 10.0.25(graphql@17.0.0-beta.1)
+      '@graphql-tools/executor': 1.5.3(graphql@17.0.0-beta.1)
+      '@graphql-tools/schema': 10.0.33(graphql@17.0.0-beta.1)
       '@graphql-tools/utils': 10.11.0(graphql@17.0.0-beta.1)
       '@graphql-yoga/logger': 2.0.1
       '@graphql-yoga/subscription': 5.0.5
@@ -14126,7 +14151,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postgres@3.4.8: {}
+  postgres@3.4.9: {}
 
   prebuild-install@7.1.3:
     dependencies:
@@ -15488,9 +15513,9 @@ snapshots:
       js-yaml: 4.1.1
       write-file-atomic: 5.0.1
 
-  ws@8.19.0: {}
-
   ws@8.20.1: {}
+
+  ws@8.21.0: {}
 
   yallist@3.1.1: {}
 
