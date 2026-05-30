@@ -48,5 +48,5 @@ export default function Progress() {
     };
   }, [setIsLoading]);
 
-  return <UiProgress isLoading={isLoading} />;
+  return <UiProgress isLoading={true} />;
 }
