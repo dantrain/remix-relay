@@ -71,7 +71,7 @@
     "@types/react-dom": "^19.2.3",
     "@types/ws": "^8.18.1",
     "babel-plugin-react-compiler": "19.1.0-rc.3",
-    "eslint": "^9.39.0",
+    "eslint": "^9.39.4",
     "jiti": "^2.7.0",
     "supabase": "2.70.5",
     "tailwindcss": "^4.1.18",
