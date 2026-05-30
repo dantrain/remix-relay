@@ -28,12 +28,12 @@
   },
   "packageManager": "pnpm@10.5.2",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {
-        "graphql": "17.0.0-alpha.14"
+        "graphql": "17.0.0-beta.1"
       }
     },
     "patchedDependencies": {

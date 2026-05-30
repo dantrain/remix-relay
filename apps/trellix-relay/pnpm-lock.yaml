@@ -4,16 +4,24 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@apollo/server@5.5.0':
+    hash: 3be83d5717b4f56de3345dacc979ef8fd2e5487fdc4589d1c0f62aca52617d85
+    path: patches/@apollo__server@5.5.0.patch
+  '@pothos/core@4.12.0':
+    hash: eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7
+    path: patches/@pothos__core@4.12.0.patch
+
 importers:
 
   .:
     dependencies:
       '@apollo/server':
-        specifier: 5.0.0
-        version: 5.0.0(graphql@17.0.0-alpha.2)
+        specifier: ^5.5.0
+        version: 5.5.0(patch_hash=3be83d5717b4f56de3345dacc979ef8fd2e5487fdc4589d1c0f62aca52617d85)(graphql@17.0.0-beta.1)
       '@as-integrations/express5':
         specifier: ^1.1.2
-        version: 1.1.2(@apollo/server@5.0.0(graphql@17.0.0-alpha.2))(express@5.2.1)
+        version: 1.1.2(@apollo/server@5.5.0(patch_hash=3be83d5717b4f56de3345dacc979ef8fd2e5487fdc4589d1c0f62aca52617d85)(graphql@17.0.0-beta.1))(express@5.2.1)
       '@dnd-kit/core':
         specifier: ^6.3.1
         version: 6.3.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -34,13 +42,13 @@ importers:
         version: 3.3.0
       '@pothos/core':
         specifier: ^4.12.0
-        version: 4.12.0(graphql@17.0.0-alpha.2)
+        version: 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1)
       '@pothos/plugin-relay':
         specifier: ^4.6.2
-        version: 4.6.2(@pothos/core@4.12.0(graphql@17.0.0-alpha.2))(graphql@17.0.0-alpha.2)
+        version: 4.6.2(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)
       '@pothos/plugin-zod':
         specifier: ^4.3.0
-        version: 4.3.0(@pothos/core@4.12.0(graphql@17.0.0-alpha.2))(graphql@17.0.0-alpha.2)(zod@4.3.6)
+        version: 4.3.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)(zod@4.3.6)
       '@radix-ui/react-dialog':
         specifier: ^1.1.15
         version: 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.10))(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -57,11 +65,11 @@ importers:
         specifier: ^7.13.0
         version: 7.13.0(react-router@7.13.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)
       '@supabase/ssr':
-        specifier: 0.8.0
-        version: 0.8.0(@supabase/supabase-js@2.88.0)
+        specifier: 0.5.2
+        version: 0.5.2(@supabase/supabase-js@2.54.0)
       '@supabase/supabase-js':
-        specifier: 2.88.0
-        version: 2.88.0
+        specifier: 2.54.0
+        version: 2.54.0
       '@tailwindcss/forms':
         specifier: ^0.5.11
         version: 0.5.11(tailwindcss@4.1.18)
@@ -81,17 +89,17 @@ importers:
         specifier: ^5.2.1
         version: 5.2.1
       graphql:
-        specifier: 17.0.0-alpha.2
-        version: 17.0.0-alpha.2
+        specifier: 17.0.0-beta.1
+        version: 17.0.0-beta.1
       graphql-relay:
         specifier: ^0.10.2
-        version: 0.10.2(graphql@17.0.0-alpha.2)
+        version: 0.10.2(graphql@17.0.0-beta.1)
       graphql-subscriptions:
         specifier: ^3.0.0
-        version: 3.0.0(graphql@17.0.0-alpha.2)
+        version: 3.0.0(graphql@17.0.0-beta.1)
       graphql-ws:
         specifier: ^6.0.7
-        version: 6.0.7(graphql@17.0.0-alpha.2)(ws@8.19.0)
+        version: 6.0.7(graphql@17.0.0-beta.1)(ws@8.19.0)
       isbot:
         specifier: ^5.1.34
         version: 5.1.34
@@ -129,8 +137,8 @@ importers:
         specifier: ^19.2.4
         version: 19.2.4(react@19.2.4)
       react-relay:
-        specifier: ^20.1.1
-        version: 20.1.1(react@19.2.4)
+        specifier: ^21.0.1
+        version: 21.0.1(react@19.2.4)
       react-router:
         specifier: ^7.13.0
         version: 7.13.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -138,11 +146,11 @@ importers:
         specifier: ^4.4.5
         version: 4.4.5(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       relay-compiler:
-        specifier: ^20.1.1
-        version: 20.1.1
+        specifier: ^21.0.1
+        version: 21.0.1
       relay-runtime:
-        specifier: ^20.1.1
-        version: 20.1.1
+        specifier: ^21.0.1
+        version: 21.0.1
       sonner:
         specifier: ^2.0.7
         version: 2.0.7(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -204,15 +212,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.10)
-      '@types/react-relay':
-        specifier: ^18.2.1
-        version: 18.2.1
       '@types/react-transition-group':
         specifier: ^4.4.12
         version: 4.4.12(@types/react@19.2.10)
-      '@types/relay-runtime':
-        specifier: ^20.1.1
-        version: 20.1.1
       '@types/ws':
         specifier: ^8.18.1
         version: 8.18.1
@@ -288,8 +290,8 @@ packages:
     peerDependencies:
       graphql: 14.x || 15.x || 16.x
 
-  '@apollo/server@5.0.0':
-    resolution: {integrity: sha512-PHopOm7pr69k7eDJvCBU4cZy9Z19qyCFKB9/luLnf2YCatu2WOYhoQPNr3dAoe//xv0RZFhxXbRcnK6IXIP7Nw==}
+  '@apollo/server@5.5.0':
+    resolution: {integrity: sha512-vWtodBOK/SZwBTJzItECOmLfL8E8pn/IdvP7pnxN5g2tny9iW4+9sxdajE798wV1H2+PYp/rRcl/soSHIBKMPw==}
     engines: {node: '>=20'}
     peerDependencies:
       graphql: ^16.11.0
@@ -1526,8 +1528,8 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
-  '@graphql-tools/utils@10.9.1':
-    resolution: {integrity: sha512-B1wwkXk9UvU7LCBkPs8513WxOQ2H8Fo5p8HR1+Id9WmYE5+bd51vqN+MbrqvWczHCH2gwkREgHJN88tE0n1FCw==}
+  '@graphql-tools/utils@10.11.0':
+    resolution: {integrity: sha512-iBFR9GXIs0gCD+yc3hoNswViL1O5josI33dUqiNStFI/MHLCEPduasceAcazRH77YONKNiviHBV8f7OgcT4o2Q==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
@@ -3140,34 +3142,33 @@ packages:
   '@speed-highlight/core@1.2.7':
     resolution: {integrity: sha512-0dxmVj4gxg3Jg879kvFS/msl4s9F3T9UXC1InxgOf7t5NvcPD97u/WTA5vL/IxWHMn7qSxBozqrnnE2wvl1m8g==}
 
-  '@supabase/auth-js@2.88.0':
-    resolution: {integrity: sha512-r/tlKD1Sv5w5AGmxVdBK17KwVkGOHMjihqw+HeW7Qsyes5ajLeyjL0M7jXZom1+NW4yINacKqOR9gqGmWzW9eA==}
-    engines: {node: '>=20.0.0'}
+  '@supabase/auth-js@2.71.1':
+    resolution: {integrity: sha512-mMIQHBRc+SKpZFRB2qtupuzulaUhFYupNyxqDj5Jp/LyPvcWvjaJzZzObv6URtL/O6lPxkanASnotGtNpS3H2Q==}
 
-  '@supabase/functions-js@2.88.0':
-    resolution: {integrity: sha512-p934lg2x9m0bVBXKl2EAwbyIVif21FD1VGtLNGU4iuPOyB6b0bzyRAFnK95pLj48CMJk0DU+q35TDOGcFAyxwQ==}
-    engines: {node: '>=20.0.0'}
+  '@supabase/functions-js@2.4.5':
+    resolution: {integrity: sha512-v5GSqb9zbosquTo6gBwIiq7W9eQ7rE5QazsK/ezNiQXdCbY+bH8D9qEaBIkhVvX4ZRW5rP03gEfw5yw9tiq4EQ==}
 
-  '@supabase/postgrest-js@2.88.0':
-    resolution: {integrity: sha512-8DMGXWQUGM/4e8vtW95dLlNtETTVAyCAr7NyLFACDgVaaPUsDqZvS45LjBNd18fu3n6q/zZwCk4XL2yYWBHTVA==}
-    engines: {node: '>=20.0.0'}
+  '@supabase/node-fetch@2.6.15':
+    resolution: {integrity: sha512-1ibVeYUacxWYi9i0cf5efil6adJ9WRyZBLivgjs+AUpewx1F3xPi7gLgaASI2SmIQxPoCEjAsLAzKPgMJVgOUQ==}
+    engines: {node: 4.x || >=6.0.0}
 
-  '@supabase/realtime-js@2.88.0':
-    resolution: {integrity: sha512-4yMVLLq6I2KSzINlBK22vGJJYzJo9FAbfKZl7ZuarvzAClq48skgLWF7dlBCC3B/9wQckKhCfPfvyT0JVz3SXg==}
-    engines: {node: '>=20.0.0'}
+  '@supabase/postgrest-js@1.19.4':
+    resolution: {integrity: sha512-O4soKqKtZIW3olqmbXXbKugUtByD2jPa8kL2m2c1oozAO11uCcGrRhkZL0kVxjBLrXHE0mdSkFsMj7jDSfyNpw==}
 
-  '@supabase/ssr@0.8.0':
-    resolution: {integrity: sha512-/PKk8kNFSs8QvvJ2vOww1mF5/c5W8y42duYtXvkOSe+yZKRgTTZywYG2l41pjhNomqESZCpZtXuWmYjFRMV+dw==}
+  '@supabase/realtime-js@2.15.0':
+    resolution: {integrity: sha512-SEIWApsxyoAe68WU2/5PCCuBwa11LL4Bb8K3r2FHCt3ROpaTthmDiWEhnLMGayP05N4QeYrMk0kyTZOwid/Hjw==}
+
+  '@supabase/ssr@0.5.2':
+    resolution: {integrity: sha512-n3plRhr2Bs8Xun1o4S3k1CDv17iH5QY9YcoEvXX3bxV1/5XSasA0mNXYycFmADIdtdE6BG9MRjP5CGIs8qxC8A==}
     peerDependencies:
-      '@supabase/supabase-js': ^2.76.1
+      '@supabase/supabase-js': ^2.43.4
 
-  '@supabase/storage-js@2.88.0':
-    resolution: {integrity: sha512-iM1CFKzTX0XIesHA/szcCqZG54BkXoSzqlVRB/O8s2u2GsXi0oUTko0ruOgDheNcWwOABKt88b0Fs4IVfDq7tg==}
+  '@supabase/storage-js@2.93.3':
+    resolution: {integrity: sha512-cw4qXiLrx3apglDM02Tx/w/stvFlrkKocC6vCvuFAz3JtVEl1zH8MUfDQDTH59kJAQVaVdbewrMWSoBob7REnA==}
     engines: {node: '>=20.0.0'}
 
-  '@supabase/supabase-js@2.88.0':
-    resolution: {integrity: sha512-XcvV+0x3ybSG1WBoRH0U0cizT1pyzkXD4lLiPaMLpj+A0jahvcrcrijBT+IQpLXOa2hbNLuHkS7yqJW67r4+nQ==}
-    engines: {node: '>=20.0.0'}
+  '@supabase/supabase-js@2.54.0':
+    resolution: {integrity: sha512-DLw83YwBfAaFiL3oWV26+sHRdeCGtxmIKccjh/Pndze3BWM4fZghzYKhk3ElOQU8Bluq4AkkCJ5bM5Szl/sfRg==}
 
   '@swc/helpers@0.5.17':
     resolution: {integrity: sha512-5IKx/Y13RsYd+sauPb2x+U/xZikHjolzfuDgTAl/Tdf3Q8rslRvC19NKDLgAJQ6wsqADk10ntlv08nPFw/gO/A==}
@@ -3284,6 +3285,9 @@ packages:
     peerDependencies:
       '@types/express': '*'
 
+  '@types/cookie@0.6.0':
+    resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
+
   '@types/cors@2.8.19':
     resolution: {integrity: sha512-mFNylyeyqN93lfe/9CSxOGREz8cpzAhH+E93xJ4xWQf62V8sQ/24reV2nyzUWM6H6Xji+GGHpkbLe7pVoUEskg==}
 
@@ -3346,9 +3350,6 @@ packages:
     peerDependencies:
       '@types/react': ^19.2.0
 
-  '@types/react-relay@18.2.1':
-    resolution: {integrity: sha512-KgmFapsxAylhxcFfaAv5GZZJhTHnDvV8IDZVsUm5afpJUvgZC1Y68ssfOGsFfiFY/2EhxHM/YPfpdKbfmF3Ecg==}
-
   '@types/react-transition-group@4.4.12':
     resolution: {integrity: sha512-8TV6R3h2j7a91c+1DXdJi3Syo69zzIZbz7Lg5tORM5LEJG7X/E6a1V3drRyBRZq7/utz7A+c4OgYLiLcYGHG6w==}
     peerDependencies:
@@ -3356,9 +3357,6 @@ packages:
 
   '@types/react@19.2.10':
     resolution: {integrity: sha512-WPigyYuGhgZ/cTPRXB2EwUw+XvsRA3GqHlsP4qteqrnnjDrApbS7MxcGr/hke5iUoeB7E/gQtrs9I37zAJ0Vjw==}
-
-  '@types/relay-runtime@20.1.1':
-    resolution: {integrity: sha512-loM2iJteknnJcsxrynmBVb7pIDkSkJUuCMnAa/oDFcrvaxkDvq8iy0J2UshMdDy14iJJocDblXeAu7c6Q1+Ucw==}
 
   '@types/send@0.17.5':
     resolution: {integrity: sha512-z6F2D3cOStZvuk2SaP6YrwkNO65iTZcwA2ZkSABegdkAh/lf+Aa/YQndZVfmEXT5vgAp6zv06VQ3ejSVjAny4w==}
@@ -3919,10 +3917,6 @@ packages:
       sqlite3:
         optional: true
 
-  dset@3.1.4:
-    resolution: {integrity: sha512-2QF/g9/zTaPDc3BjNcVTGoBbXBgYfMTTceLaYcFJ/W9kggFUkhxD/hMEeuLKbugyef9SqAx8cpgwlIP/jinUTA==}
-    engines: {node: '>=4'}
-
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
@@ -4262,6 +4256,7 @@ packages:
 
   glob@10.4.5:
     resolution: {integrity: sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   globals@11.12.0:
@@ -4316,9 +4311,9 @@ packages:
     resolution: {integrity: sha512-GTCJtzJmkFLWRfFJuoo9RWWa/FfamUHgiFosxi/X1Ani4AVWbeyBenZTNX6dM+7WSbbFfTo/25eh0LLkwHMw2w==}
     engines: {node: '>= 10.x'}
 
-  graphql@17.0.0-alpha.2:
-    resolution: {integrity: sha512-aRAd/BQ5hSO0+l7x+sHBfJVUp2JUOjPTE/iwJ3BhtYNH/MC7n4gjlZbKvnBVFZZAczyMS3vezS4teEZivoqIzw==}
-    engines: {node: ^14.19.0 || ^16.10.0 || >=18.0.0}
+  graphql@17.0.0-beta.1:
+    resolution: {integrity: sha512-TBRNst65vBb5iQUpd4hHZtszltNvNSKGTWXh0aF56y26iAmBvIkR6oQyDaDHAorqXS+O66N1orq9h3LFy81CQA==}
+    engines: {node: ^22.0.0 || ^24.0.0 || ^25.0.0 || >=26.0.0}
 
   has-flag@3.0.0:
     resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
@@ -4995,9 +4990,6 @@ packages:
   pathe@2.0.3:
     resolution: {integrity: sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w==}
 
-  picocolors@1.0.1:
-    resolution: {integrity: sha512-anP1Z8qwhkbmu7MFP5iTt+wQKXgwzf7zTyGlcdzabySa9vd0Xt392U0rVmz9poOaBj0uHJKyyo9/upk0HrEQew==}
-
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
@@ -5141,8 +5133,8 @@ packages:
     resolution: {integrity: sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==}
     engines: {node: '>=0.10.0'}
 
-  react-relay@20.1.1:
-    resolution: {integrity: sha512-pwl7wHHXCOx32dOg4TVNkhVojgGVvOBMo9pcMGeM1BIFYvmwGauKTtBB+qr5buXHGooCL8TXjMVg+ZLizIsbeQ==}
+  react-relay@21.0.1:
+    resolution: {integrity: sha512-08BBmpdolP8vslClnszG+g4vkcbVHvaoR0BDHyhicwpCfbtnVGe73/MfPja/xj30eLWSP5WPYNqZupTdEPZvtw==}
     peerDependencies:
       react: ^16.9.0 || ^17 || ^18 || ^19
 
@@ -5215,12 +5207,12 @@ packages:
   regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
 
-  relay-compiler@20.1.1:
-    resolution: {integrity: sha512-J/FFFLS/3vnbDkyQMw8l3Ev7dNHXMgC1RAs0fITz4Q63TFPOw142knKxY1Mm5ZZBABkAs9g2JghXaqM+phwTxw==}
+  relay-compiler@21.0.1:
+    resolution: {integrity: sha512-Wqlg3MtHyBlAYByVo24Wy9H3n2bAw991gPmzdo3XfNv+TzhI8zuGogtiae+7NORI7zhghgZaHC7Sp8S8ZPRYEA==}
     hasBin: true
 
-  relay-runtime@20.1.1:
-    resolution: {integrity: sha512-N98ZkkyuIHdXmHaPuljihM1QbFYXATF0gxA0CESFphszsQzXs9A/zZloVfzdOI/xg3B3CfM/5nozvIoeTDIcfw==}
+  relay-runtime@21.0.1:
+    resolution: {integrity: sha512-OS+We56sp6gkGVEcce9VCNOeg/sMbxT9unEoerQPgNAICHowSWrXNc6LJxF2OqjypxYF7kaLDSPPiaPii2Pw1g==}
 
   rename-overwrite@6.0.3:
     resolution: {integrity: sha512-Daqe51STnrCUq/t4dbzCtfNBLElrqVpCtuWK0MuPrzUi6K/13E98y3E8/kzuMZt6IEmghMnF41J0AidrFqjZUA==}
@@ -5498,7 +5490,7 @@ packages:
   tar@7.5.2:
     resolution: {integrity: sha512-7NyxrTE4Anh8km8iEy7o0QYPs+0JKBTj5ZaqHg6B39erLg0qYXN3BijtShwbsNSvQ+LN75+KV+C4QR/f6Gwnpg==}
     engines: {node: '>=18'}
-    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting i@izs.me
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   thenify-all@1.6.0:
     resolution: {integrity: sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==}
@@ -5911,9 +5903,9 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@apollo/cache-control-types@1.0.3(graphql@17.0.0-alpha.2)':
+  '@apollo/cache-control-types@1.0.3(graphql@17.0.0-beta.1)':
     dependencies:
-      graphql: 17.0.0-alpha.2
+      graphql: 17.0.0-beta.1
 
   '@apollo/protobufjs@1.2.7':
     dependencies:
@@ -5930,32 +5922,33 @@ snapshots:
       '@types/long': 4.0.2
       long: 4.0.0
 
-  '@apollo/server-gateway-interface@2.0.0(graphql@17.0.0-alpha.2)':
+  '@apollo/server-gateway-interface@2.0.0(graphql@17.0.0-beta.1)':
     dependencies:
       '@apollo/usage-reporting-protobuf': 4.1.1
       '@apollo/utils.fetcher': 3.1.0
       '@apollo/utils.keyvaluecache': 4.0.0
       '@apollo/utils.logger': 3.0.0
-      graphql: 17.0.0-alpha.2
+      graphql: 17.0.0-beta.1
 
-  '@apollo/server@5.0.0(graphql@17.0.0-alpha.2)':
+  '@apollo/server@5.5.0(patch_hash=3be83d5717b4f56de3345dacc979ef8fd2e5487fdc4589d1c0f62aca52617d85)(graphql@17.0.0-beta.1)':
     dependencies:
-      '@apollo/cache-control-types': 1.0.3(graphql@17.0.0-alpha.2)
-      '@apollo/server-gateway-interface': 2.0.0(graphql@17.0.0-alpha.2)
+      '@apollo/cache-control-types': 1.0.3(graphql@17.0.0-beta.1)
+      '@apollo/server-gateway-interface': 2.0.0(graphql@17.0.0-beta.1)
       '@apollo/usage-reporting-protobuf': 4.1.1
       '@apollo/utils.createhash': 3.0.1
       '@apollo/utils.fetcher': 3.1.0
       '@apollo/utils.isnodelike': 3.0.0
       '@apollo/utils.keyvaluecache': 4.0.0
       '@apollo/utils.logger': 3.0.0
-      '@apollo/utils.usagereporting': 2.1.0(graphql@17.0.0-alpha.2)
+      '@apollo/utils.usagereporting': 2.1.0(graphql@17.0.0-beta.1)
       '@apollo/utils.withrequired': 3.0.0
-      '@graphql-tools/schema': 10.0.25(graphql@17.0.0-alpha.2)
+      '@graphql-tools/schema': 10.0.25(graphql@17.0.0-beta.1)
       async-retry: 1.3.3
       body-parser: 2.2.2
+      content-type: 1.0.5
       cors: 2.8.6
       finalhandler: 2.1.0
-      graphql: 17.0.0-alpha.2
+      graphql: 17.0.0-beta.1
       loglevel: 1.9.2
       lru-cache: 11.2.2
       negotiator: 1.0.0
@@ -5973,9 +5966,9 @@ snapshots:
       '@apollo/utils.isnodelike': 3.0.0
       sha.js: 2.4.12
 
-  '@apollo/utils.dropunuseddefinitions@2.0.1(graphql@17.0.0-alpha.2)':
+  '@apollo/utils.dropunuseddefinitions@2.0.1(graphql@17.0.0-beta.1)':
     dependencies:
-      graphql: 17.0.0-alpha.2
+      graphql: 17.0.0-beta.1
 
   '@apollo/utils.fetcher@3.1.0': {}
 
@@ -5988,38 +5981,38 @@ snapshots:
 
   '@apollo/utils.logger@3.0.0': {}
 
-  '@apollo/utils.printwithreducedwhitespace@2.0.1(graphql@17.0.0-alpha.2)':
+  '@apollo/utils.printwithreducedwhitespace@2.0.1(graphql@17.0.0-beta.1)':
     dependencies:
-      graphql: 17.0.0-alpha.2
+      graphql: 17.0.0-beta.1
 
-  '@apollo/utils.removealiases@2.0.1(graphql@17.0.0-alpha.2)':
+  '@apollo/utils.removealiases@2.0.1(graphql@17.0.0-beta.1)':
     dependencies:
-      graphql: 17.0.0-alpha.2
+      graphql: 17.0.0-beta.1
 
-  '@apollo/utils.sortast@2.0.1(graphql@17.0.0-alpha.2)':
+  '@apollo/utils.sortast@2.0.1(graphql@17.0.0-beta.1)':
     dependencies:
-      graphql: 17.0.0-alpha.2
+      graphql: 17.0.0-beta.1
       lodash.sortby: 4.7.0
 
-  '@apollo/utils.stripsensitiveliterals@2.0.1(graphql@17.0.0-alpha.2)':
+  '@apollo/utils.stripsensitiveliterals@2.0.1(graphql@17.0.0-beta.1)':
     dependencies:
-      graphql: 17.0.0-alpha.2
+      graphql: 17.0.0-beta.1
 
-  '@apollo/utils.usagereporting@2.1.0(graphql@17.0.0-alpha.2)':
+  '@apollo/utils.usagereporting@2.1.0(graphql@17.0.0-beta.1)':
     dependencies:
       '@apollo/usage-reporting-protobuf': 4.1.1
-      '@apollo/utils.dropunuseddefinitions': 2.0.1(graphql@17.0.0-alpha.2)
-      '@apollo/utils.printwithreducedwhitespace': 2.0.1(graphql@17.0.0-alpha.2)
-      '@apollo/utils.removealiases': 2.0.1(graphql@17.0.0-alpha.2)
-      '@apollo/utils.sortast': 2.0.1(graphql@17.0.0-alpha.2)
-      '@apollo/utils.stripsensitiveliterals': 2.0.1(graphql@17.0.0-alpha.2)
-      graphql: 17.0.0-alpha.2
+      '@apollo/utils.dropunuseddefinitions': 2.0.1(graphql@17.0.0-beta.1)
+      '@apollo/utils.printwithreducedwhitespace': 2.0.1(graphql@17.0.0-beta.1)
+      '@apollo/utils.removealiases': 2.0.1(graphql@17.0.0-beta.1)
+      '@apollo/utils.sortast': 2.0.1(graphql@17.0.0-beta.1)
+      '@apollo/utils.stripsensitiveliterals': 2.0.1(graphql@17.0.0-beta.1)
+      graphql: 17.0.0-beta.1
 
   '@apollo/utils.withrequired@3.0.0': {}
 
-  '@as-integrations/express5@1.1.2(@apollo/server@5.0.0(graphql@17.0.0-alpha.2))(express@5.2.1)':
+  '@as-integrations/express5@1.1.2(@apollo/server@5.5.0(patch_hash=3be83d5717b4f56de3345dacc979ef8fd2e5487fdc4589d1c0f62aca52617d85)(graphql@17.0.0-beta.1))(express@5.2.1)':
     dependencies:
-      '@apollo/server': 5.0.0(graphql@17.0.0-alpha.2)
+      '@apollo/server': 5.5.0(patch_hash=3be83d5717b4f56de3345dacc979ef8fd2e5487fdc4589d1c0f62aca52617d85)(graphql@17.0.0-beta.1)
       express: 5.2.1
 
   '@ast-grep/napi-darwin-arm64@0.40.5':
@@ -6064,7 +6057,7 @@ snapshots:
   '@babel/code-frame@7.24.7':
     dependencies:
       '@babel/highlight': 7.24.7
-      picocolors: 1.0.1
+      picocolors: 1.1.1
 
   '@babel/code-frame@7.26.2':
     dependencies:
@@ -6357,7 +6350,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       chalk: 2.4.2
       js-tokens: 4.0.0
-      picocolors: 1.0.1
+      picocolors: 1.1.1
 
   '@babel/parser@7.24.7':
     dependencies:
@@ -7014,31 +7007,30 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@graphql-tools/merge@9.1.1(graphql@17.0.0-alpha.2)':
+  '@graphql-tools/merge@9.1.1(graphql@17.0.0-beta.1)':
     dependencies:
-      '@graphql-tools/utils': 10.9.1(graphql@17.0.0-alpha.2)
-      graphql: 17.0.0-alpha.2
+      '@graphql-tools/utils': 10.11.0(graphql@17.0.0-beta.1)
+      graphql: 17.0.0-beta.1
       tslib: 2.8.1
 
-  '@graphql-tools/schema@10.0.25(graphql@17.0.0-alpha.2)':
+  '@graphql-tools/schema@10.0.25(graphql@17.0.0-beta.1)':
     dependencies:
-      '@graphql-tools/merge': 9.1.1(graphql@17.0.0-alpha.2)
-      '@graphql-tools/utils': 10.9.1(graphql@17.0.0-alpha.2)
-      graphql: 17.0.0-alpha.2
+      '@graphql-tools/merge': 9.1.1(graphql@17.0.0-beta.1)
+      '@graphql-tools/utils': 10.11.0(graphql@17.0.0-beta.1)
+      graphql: 17.0.0-beta.1
       tslib: 2.8.1
 
-  '@graphql-tools/utils@10.9.1(graphql@17.0.0-alpha.2)':
+  '@graphql-tools/utils@10.11.0(graphql@17.0.0-beta.1)':
     dependencies:
-      '@graphql-typed-document-node/core': 3.2.0(graphql@17.0.0-alpha.2)
+      '@graphql-typed-document-node/core': 3.2.0(graphql@17.0.0-beta.1)
       '@whatwg-node/promise-helpers': 1.3.2
       cross-inspect: 1.0.1
-      dset: 3.1.4
-      graphql: 17.0.0-alpha.2
+      graphql: 17.0.0-beta.1
       tslib: 2.8.1
 
-  '@graphql-typed-document-node/core@3.2.0(graphql@17.0.0-alpha.2)':
+  '@graphql-typed-document-node/core@3.2.0(graphql@17.0.0-beta.1)':
     dependencies:
-      graphql: 17.0.0-alpha.2
+      graphql: 17.0.0-beta.1
 
   '@gwhitney/detect-indent@7.0.1': {}
 
@@ -7261,7 +7253,7 @@ snapshots:
 
   '@mui/utils@6.4.9(@types/react@19.2.10)(react@19.2.4)':
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       '@mui/types': 7.2.24(@types/react@19.2.10)
       '@types/prop-types': 15.7.15
       clsx: 2.1.1
@@ -7580,19 +7572,19 @@ snapshots:
   '@poppinss/exception@1.2.2':
     optional: true
 
-  '@pothos/core@4.12.0(graphql@17.0.0-alpha.2)':
+  '@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1)':
     dependencies:
-      graphql: 17.0.0-alpha.2
+      graphql: 17.0.0-beta.1
 
-  '@pothos/plugin-relay@4.6.2(@pothos/core@4.12.0(graphql@17.0.0-alpha.2))(graphql@17.0.0-alpha.2)':
+  '@pothos/plugin-relay@4.6.2(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)':
     dependencies:
-      '@pothos/core': 4.12.0(graphql@17.0.0-alpha.2)
-      graphql: 17.0.0-alpha.2
+      '@pothos/core': 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1)
+      graphql: 17.0.0-beta.1
 
-  '@pothos/plugin-zod@4.3.0(@pothos/core@4.12.0(graphql@17.0.0-alpha.2))(graphql@17.0.0-alpha.2)(zod@4.3.6)':
+  '@pothos/plugin-zod@4.3.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1))(graphql@17.0.0-beta.1)(zod@4.3.6)':
     dependencies:
-      '@pothos/core': 4.12.0(graphql@17.0.0-alpha.2)
-      graphql: 17.0.0-alpha.2
+      '@pothos/core': 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.0-beta.1)
+      graphql: 17.0.0-beta.1
       zod: 4.3.6
 
   '@protobufjs/aspromise@1.1.2': {}
@@ -9000,45 +8992,51 @@ snapshots:
   '@speed-highlight/core@1.2.7':
     optional: true
 
-  '@supabase/auth-js@2.88.0':
+  '@supabase/auth-js@2.71.1':
     dependencies:
-      tslib: 2.8.1
+      '@supabase/node-fetch': 2.6.15
 
-  '@supabase/functions-js@2.88.0':
+  '@supabase/functions-js@2.4.5':
     dependencies:
-      tslib: 2.8.1
+      '@supabase/node-fetch': 2.6.15
 
-  '@supabase/postgrest-js@2.88.0':
+  '@supabase/node-fetch@2.6.15':
     dependencies:
-      tslib: 2.8.1
+      whatwg-url: 5.0.0
 
-  '@supabase/realtime-js@2.88.0':
+  '@supabase/postgrest-js@1.19.4':
     dependencies:
+      '@supabase/node-fetch': 2.6.15
+
+  '@supabase/realtime-js@2.15.0':
+    dependencies:
+      '@supabase/node-fetch': 2.6.15
       '@types/phoenix': 1.6.6
       '@types/ws': 8.18.1
-      tslib: 2.8.1
       ws: 8.19.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@supabase/ssr@0.8.0(@supabase/supabase-js@2.88.0)':
+  '@supabase/ssr@0.5.2(@supabase/supabase-js@2.54.0)':
     dependencies:
-      '@supabase/supabase-js': 2.88.0
-      cookie: 1.0.2
+      '@supabase/supabase-js': 2.54.0
+      '@types/cookie': 0.6.0
+      cookie: 0.7.2
 
-  '@supabase/storage-js@2.88.0':
+  '@supabase/storage-js@2.93.3':
     dependencies:
       iceberg-js: 0.8.1
       tslib: 2.8.1
 
-  '@supabase/supabase-js@2.88.0':
+  '@supabase/supabase-js@2.54.0':
     dependencies:
-      '@supabase/auth-js': 2.88.0
-      '@supabase/functions-js': 2.88.0
-      '@supabase/postgrest-js': 2.88.0
-      '@supabase/realtime-js': 2.88.0
-      '@supabase/storage-js': 2.88.0
+      '@supabase/auth-js': 2.71.1
+      '@supabase/functions-js': 2.4.5
+      '@supabase/node-fetch': 2.6.15
+      '@supabase/postgrest-js': 1.19.4
+      '@supabase/realtime-js': 2.15.0
+      '@supabase/storage-js': 2.93.3
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -9143,6 +9141,8 @@ snapshots:
     dependencies:
       '@types/express': 5.0.6
 
+  '@types/cookie@0.6.0': {}
+
   '@types/cors@2.8.19':
     dependencies:
       '@types/node': 25.1.0
@@ -9203,11 +9203,6 @@ snapshots:
     dependencies:
       '@types/react': 19.2.10
 
-  '@types/react-relay@18.2.1':
-    dependencies:
-      '@types/react': 19.2.10
-      '@types/relay-runtime': 20.1.1
-
   '@types/react-transition-group@4.4.12(@types/react@19.2.10)':
     dependencies:
       '@types/react': 19.2.10
@@ -9215,8 +9210,6 @@ snapshots:
   '@types/react@19.2.10':
     dependencies:
       csstype: 3.2.3
-
-  '@types/relay-runtime@20.1.1': {}
 
   '@types/send@0.17.5':
     dependencies:
@@ -9704,8 +9697,6 @@ snapshots:
       '@types/better-sqlite3': 7.6.13
       better-sqlite3: 12.6.2
       postgres: 3.4.8
-
-  dset@3.1.4: {}
 
   dunder-proto@1.0.1:
     dependencies:
@@ -10251,23 +10242,23 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  graphql-relay@0.10.2(graphql@17.0.0-alpha.2):
+  graphql-relay@0.10.2(graphql@17.0.0-beta.1):
     dependencies:
-      graphql: 17.0.0-alpha.2
+      graphql: 17.0.0-beta.1
 
-  graphql-subscriptions@3.0.0(graphql@17.0.0-alpha.2):
+  graphql-subscriptions@3.0.0(graphql@17.0.0-beta.1):
     dependencies:
-      graphql: 17.0.0-alpha.2
+      graphql: 17.0.0-beta.1
 
-  graphql-ws@6.0.7(graphql@17.0.0-alpha.2)(ws@8.19.0):
+  graphql-ws@6.0.7(graphql@17.0.0-beta.1)(ws@8.19.0):
     dependencies:
-      graphql: 17.0.0-alpha.2
+      graphql: 17.0.0-beta.1
     optionalDependencies:
       ws: 8.19.0
 
   graphql@15.3.0: {}
 
-  graphql@17.0.0-alpha.2: {}
+  graphql@17.0.0-beta.1: {}
 
   has-flag@3.0.0: {}
 
@@ -10831,8 +10822,6 @@ snapshots:
 
   pathe@2.0.3: {}
 
-  picocolors@1.0.1: {}
-
   picocolors@1.1.1: {}
 
   picomatch@4.0.3: {}
@@ -11020,14 +11009,14 @@ snapshots:
 
   react-refresh@0.14.2: {}
 
-  react-relay@20.1.1(react@19.2.4):
+  react-relay@21.0.1(react@19.2.4):
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       fbjs: 3.0.5
       invariant: 2.2.4
       nullthrows: 1.1.1
       react: 19.2.4
-      relay-runtime: 20.1.1
+      relay-runtime: 21.0.1
     transitivePeerDependencies:
       - encoding
 
@@ -11095,11 +11084,11 @@ snapshots:
 
   regenerator-runtime@0.14.1: {}
 
-  relay-compiler@20.1.1: {}
+  relay-compiler@21.0.1: {}
 
-  relay-runtime@20.1.1:
+  relay-runtime@21.0.1:
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       fbjs: 3.0.5
       invariant: 2.2.4
     transitivePeerDependencies:
