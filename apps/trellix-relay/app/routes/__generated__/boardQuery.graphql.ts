@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<e1e5c61bb8765fcf89e450a8d2ab8804>>
+ * @generated SignedSource<<f84ed6fcc7925e43d3bfaf12ff05e6ef>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -51,7 +50,7 @@ v2 = {
   "name": "viewer",
   "plural": false,
   "selections": [
-    (v1/*: any*/)
+    (v1/*:: as any*/)
   ],
   "storageKey": null
 },
@@ -90,22 +89,22 @@ v6 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "BoardQuery",
     "selections": [
-      (v2/*: any*/),
+      (v2/*:: as any*/),
       {
         "alias": null,
-        "args": (v3/*: any*/),
+        "args": (v3/*:: as any*/),
         "concreteType": "Board",
         "kind": "LinkedField",
         "name": "board",
         "plural": false,
         "selections": [
-          (v1/*: any*/),
-          (v4/*: any*/),
+          (v1/*:: as any*/),
+          (v4/*:: as any*/),
           {
             "kind": "Defer",
             "selections": [
@@ -135,28 +134,28 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Operation",
     "name": "BoardQuery",
     "selections": [
-      (v2/*: any*/),
+      (v2/*:: as any*/),
       {
         "alias": null,
-        "args": (v3/*: any*/),
+        "args": (v3/*:: as any*/),
         "concreteType": "Board",
         "kind": "LinkedField",
         "name": "board",
         "plural": false,
         "selections": [
-          (v1/*: any*/),
-          (v4/*: any*/),
+          (v1/*:: as any*/),
+          (v4/*:: as any*/),
           {
             "if": null,
             "kind": "Defer",
             "label": "BoardQuery$defer$BoardTitleFragment",
             "selections": [
-              (v1/*: any*/),
-              (v4/*: any*/)
+              (v1/*:: as any*/),
+              (v4/*:: as any*/)
             ]
           },
           {
@@ -164,7 +163,7 @@ return {
             "kind": "Defer",
             "label": "BoardQuery$defer$BoardFragment",
             "selections": [
-              (v1/*: any*/),
+              (v1/*:: as any*/),
               {
                 "alias": null,
                 "args": null,
@@ -189,9 +188,9 @@ return {
                         "name": "node",
                         "plural": false,
                         "selections": [
-                          (v1/*: any*/),
-                          (v5/*: any*/),
-                          (v4/*: any*/),
+                          (v1/*:: as any*/),
+                          (v5/*:: as any*/),
+                          (v4/*:: as any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -216,9 +215,9 @@ return {
                                     "name": "node",
                                     "plural": false,
                                     "selections": [
-                                      (v1/*: any*/),
-                                      (v5/*: any*/),
-                                      (v4/*: any*/),
+                                      (v1/*:: as any*/),
+                                      (v5/*:: as any*/),
+                                      (v4/*:: as any*/),
                                       {
                                         "alias": null,
                                         "args": null,
@@ -232,7 +231,7 @@ return {
                                 ],
                                 "storageKey": null
                               },
-                              (v6/*: any*/)
+                              (v6/*:: as any*/)
                             ],
                             "storageKey": null
                           }
@@ -242,7 +241,7 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v6/*: any*/)
+                  (v6/*:: as any*/)
                 ],
                 "storageKey": null
               }

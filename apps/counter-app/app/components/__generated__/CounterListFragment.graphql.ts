@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<7858556503564e0e6308778d91571400>>
+ * @generated SignedSource<<380064ce62f5c3e075e9dfcd05630c4b>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -42,7 +41,7 @@ return {
   "metadata": null,
   "name": "CounterListFragment",
   "selections": [
-    (v0/*: any*/),
+    (v0/*:: as any*/),
     {
       "alias": null,
       "args": null,
@@ -67,7 +66,7 @@ return {
               "name": "node",
               "plural": false,
               "selections": [
-                (v0/*: any*/),
+                (v0/*:: as any*/),
                 {
                   "args": null,
                   "kind": "FragmentSpread",

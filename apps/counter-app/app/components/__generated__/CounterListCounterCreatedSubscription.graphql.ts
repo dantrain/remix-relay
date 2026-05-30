@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<fe6e7ed82a1ffa29e159682858762e85>>
+ * @generated SignedSource<<6def91cb714ffbe86046efbca9924ef3>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -41,7 +40,7 @@ v1 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "CounterListCounterCreatedSubscription",
@@ -54,7 +53,7 @@ return {
         "name": "counterCreated",
         "plural": false,
         "selections": [
-          (v1/*: any*/),
+          (v1/*:: as any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -69,7 +68,7 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Operation",
     "name": "CounterListCounterCreatedSubscription",
     "selections": [
@@ -81,7 +80,7 @@ return {
         "name": "counterCreated",
         "plural": false,
         "selections": [
-          (v1/*: any*/),
+          (v1/*:: as any*/),
           {
             "alias": null,
             "args": null,

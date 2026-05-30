@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<4f3abf7c3477df082e6ae9cdc4830da3>>
+ * @generated SignedSource<<bbad0891b152a4344095f01d435ad2a5>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -41,7 +40,7 @@ v1 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "BoardColumnCreatedSubscription",
@@ -54,7 +53,7 @@ return {
         "name": "columnCreated",
         "plural": false,
         "selections": [
-          (v1/*: any*/),
+          (v1/*:: as any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -69,7 +68,7 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Operation",
     "name": "BoardColumnCreatedSubscription",
     "selections": [
@@ -81,7 +80,7 @@ return {
         "name": "columnCreated",
         "plural": false,
         "selections": [
-          (v1/*: any*/),
+          (v1/*:: as any*/),
           {
             "alias": null,
             "args": null,
@@ -113,7 +112,7 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v1/*: any*/),
+                      (v1/*:: as any*/),
                       {
                         "alias": null,
                         "args": null,

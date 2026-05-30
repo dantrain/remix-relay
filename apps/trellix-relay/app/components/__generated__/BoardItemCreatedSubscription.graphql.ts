@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<aedd7c124a64dbd0c0c7b6f7090ec915>>
+ * @generated SignedSource<<037ed574682940c818b42a3a80b2d646>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -53,8 +52,8 @@ return {
         "name": "itemCreated",
         "plural": false,
         "selections": [
-          (v0/*: any*/),
-          (v1/*: any*/),
+          (v0/*:: as any*/),
+          (v1/*:: as any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -81,8 +80,8 @@ return {
         "name": "itemCreated",
         "plural": false,
         "selections": [
-          (v0/*: any*/),
-          (v1/*: any*/),
+          (v0/*:: as any*/),
+          (v1/*:: as any*/),
           {
             "alias": null,
             "args": null,

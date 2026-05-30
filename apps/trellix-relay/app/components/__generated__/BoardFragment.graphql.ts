@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<57507d9f7a8088bad236a3d1f1c60535>>
+ * @generated SignedSource<<ba54fc799bd1dde97c6d5c40bf3778f0>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -72,7 +71,7 @@ return {
   "metadata": null,
   "name": "BoardFragment",
   "selections": [
-    (v0/*: any*/),
+    (v0/*:: as any*/),
     {
       "alias": null,
       "args": null,
@@ -97,8 +96,8 @@ return {
               "name": "node",
               "plural": false,
               "selections": [
-                (v0/*: any*/),
-                (v1/*: any*/),
+                (v0/*:: as any*/),
+                (v1/*:: as any*/),
                 {
                   "args": null,
                   "kind": "FragmentSpread",
@@ -128,8 +127,8 @@ return {
                           "name": "node",
                           "plural": false,
                           "selections": [
-                            (v0/*: any*/),
-                            (v1/*: any*/),
+                            (v0/*:: as any*/),
+                            (v1/*:: as any*/),
                             {
                               "args": null,
                               "kind": "FragmentSpread",
@@ -141,7 +140,7 @@ return {
                       ],
                       "storageKey": null
                     },
-                    (v2/*: any*/)
+                    (v2/*:: as any*/)
                   ],
                   "storageKey": null
                 }
@@ -151,7 +150,7 @@ return {
           ],
           "storageKey": null
         },
-        (v2/*: any*/)
+        (v2/*:: as any*/)
       ],
       "storageKey": null
     }

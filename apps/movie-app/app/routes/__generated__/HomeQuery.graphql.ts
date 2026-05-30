@@ -1,8 +1,7 @@
 /**
- * @generated SignedSource<<0a61bc35f6d5c3176fa18daf69d260cb>>
+ * @generated SignedSource<<d36df854555026b4db8ff124bb974230>>
  * @relayHash e70821ba395880a2c188262b4016a317
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -68,7 +67,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v0/*: any*/),
+                  (v0/*:: as any*/),
                   {
                     "args": null,
                     "kind": "FragmentSpread",
@@ -117,7 +116,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v0/*: any*/),
+                  (v0/*:: as any*/),
                   {
                     "alias": null,
                     "args": null,

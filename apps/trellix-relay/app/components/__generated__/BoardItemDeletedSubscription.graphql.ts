@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<bc74cf717e755b15d98d94db85d7c335>>
+ * @generated SignedSource<<5add3ff102061d228fb2dffa0099619d>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -39,7 +38,7 @@ v1 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "BoardItemDeletedSubscription",
@@ -52,7 +51,7 @@ return {
         "name": "itemDeleted",
         "plural": false,
         "selections": [
-          (v1/*: any*/)
+          (v1/*:: as any*/)
         ],
         "storageKey": null
       }
@@ -62,7 +61,7 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Operation",
     "name": "BoardItemDeletedSubscription",
     "selections": [
@@ -74,7 +73,7 @@ return {
         "name": "itemDeleted",
         "plural": false,
         "selections": [
-          (v1/*: any*/),
+          (v1/*:: as any*/),
           {
             "alias": null,
             "args": null,

@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<afaa7a1ede10f435fd296de113dab1f4>>
+ * @generated SignedSource<<c4bae7cdab83f865c045c2d50688f574>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -44,7 +43,7 @@ return {
   "metadata": null,
   "name": "ColumnFragment",
   "selections": [
-    (v0/*: any*/),
+    (v0/*:: as any*/),
     {
       "alias": null,
       "args": null,
@@ -81,7 +80,7 @@ return {
               "name": "node",
               "plural": false,
               "selections": [
-                (v0/*: any*/),
+                (v0/*:: as any*/),
                 {
                   "alias": null,
                   "args": null,

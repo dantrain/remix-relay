@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<d75f64b2c2b8430a6e378eceb22e1246>>
+ * @generated SignedSource<<33f5171b71b8a9c9a8419e0ebd0df7ea>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -80,7 +79,7 @@ return {
             "kind": "Defer",
             "label": "IndexQuery$defer$CounterListFragment",
             "selections": [
-              (v0/*: any*/),
+              (v0/*:: as any*/),
               {
                 "alias": null,
                 "args": null,
@@ -105,7 +104,7 @@ return {
                         "name": "node",
                         "plural": false,
                         "selections": [
-                          (v0/*: any*/),
+                          (v0/*:: as any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -136,7 +135,7 @@ return {
               }
             ]
           },
-          (v0/*: any*/)
+          (v0/*:: as any*/)
         ],
         "storageKey": null
       }

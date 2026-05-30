@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<b95a8e66bf4309bb4b407d5d76f30b0d>>
+ * @generated SignedSource<<c79b47940c79aa55b3c018fb98b2a9fa>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -39,7 +38,7 @@ v1 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "CounterListCounterDeletedSubscription",
@@ -52,7 +51,7 @@ return {
         "name": "counterDeleted",
         "plural": false,
         "selections": [
-          (v1/*: any*/)
+          (v1/*:: as any*/)
         ],
         "storageKey": null
       }
@@ -62,7 +61,7 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Operation",
     "name": "CounterListCounterDeletedSubscription",
     "selections": [
@@ -74,7 +73,7 @@ return {
         "name": "counterDeleted",
         "plural": false,
         "selections": [
-          (v1/*: any*/),
+          (v1/*:: as any*/),
           {
             "alias": null,
             "args": null,

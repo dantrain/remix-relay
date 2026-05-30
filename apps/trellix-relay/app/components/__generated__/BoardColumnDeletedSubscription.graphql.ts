@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<75d493b820dd5cc1902cfb27deaf77d8>>
+ * @generated SignedSource<<e3f68425ec012e4010ee03611b772b31>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -39,7 +38,7 @@ v1 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "BoardColumnDeletedSubscription",
@@ -52,7 +51,7 @@ return {
         "name": "columnDeleted",
         "plural": false,
         "selections": [
-          (v1/*: any*/)
+          (v1/*:: as any*/)
         ],
         "storageKey": null
       }
@@ -62,7 +61,7 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Operation",
     "name": "BoardColumnDeletedSubscription",
     "selections": [
@@ -74,7 +73,7 @@ return {
         "name": "columnDeleted",
         "plural": false,
         "selections": [
-          (v1/*: any*/),
+          (v1/*:: as any*/),
           {
             "alias": null,
             "args": null,

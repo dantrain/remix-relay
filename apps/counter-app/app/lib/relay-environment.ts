@@ -16,7 +16,7 @@ import {
   RecordSource,
   Store,
 } from "relay-runtime";
-import { PayloadExtensions } from "relay-runtime/lib/network/RelayNetworkTypes";
+import type { PayloadExtensions } from "relay-runtime/network/RelayNetworkTypes";
 import { toast } from "sonner";
 import invariant from "tiny-invariant";
 import {

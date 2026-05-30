@@ -50,11 +50,10 @@
     "@remix-relay/typescript-config": "workspace:*",
     "@types/eslint": "^9.6.1",
     "@types/node": "^25.1.0",
-    "@types/relay-runtime": "^20.1.1",
     "eslint": "^9.39.0",
     "graphql": "17.0.0-alpha.14",
     "jiti": "^2.6.0",
-    "relay-runtime": "^20.1.1",
+    "relay-runtime": "^21.0.1",
     "tsup": "^8.5.1",
     "typescript": "~5.9.3"
   },
