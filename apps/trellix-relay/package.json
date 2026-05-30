@@ -96,7 +96,7 @@
     "babel-plugin-react-compiler": "19.1.0-rc.3",
     "drizzle-kit": "^0.31.8",
     "eslint": "^9.39.0",
-    "jiti": "^2.6.0",
+    "jiti": "^2.7.0",
     "supabase": "2.70.5",
     "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^4.1.18",

@@ -54,7 +54,7 @@
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.0",
     "graphql": "17.0.0-beta.1",
-    "jiti": "^2.6.0",
+    "jiti": "^2.7.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-relay": "^21.0.1",

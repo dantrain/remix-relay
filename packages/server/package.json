@@ -52,7 +52,7 @@
     "@types/node": "^25.1.0",
     "eslint": "^9.39.0",
     "graphql": "17.0.0-beta.1",
-    "jiti": "^2.6.0",
+    "jiti": "^2.7.0",
     "relay-runtime": "^21.0.1",
     "tsup": "^8.5.1",
     "typescript": "~5.9.3"

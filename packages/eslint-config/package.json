@@ -15,14 +15,14 @@
     "eslint": "^9.39.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-only-warn": "^1.2.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-turbo": "^2.8.1",
-    "globals": "^17.1.0",
-    "jiti": "^2.6.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-turbo": "^2.9.16",
+    "globals": "^17.6.0",
+    "jiti": "^2.7.0",
     "typescript": "~5.9.3",
-    "typescript-eslint": "^8.53.0"
+    "typescript-eslint": "^8.60.0"
   }
 }

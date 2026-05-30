@@ -63,7 +63,7 @@
     "better-sqlite3": "^12.6.2",
     "drizzle-kit": "^0.31.8",
     "eslint": "^9.39.0",
-    "jiti": "^2.6.0",
+    "jiti": "^2.7.0",
     "node-fetch": "^3.3.2",
     "tailwindcss": "^4.1.18",
     "tsx": "^4.21.0",

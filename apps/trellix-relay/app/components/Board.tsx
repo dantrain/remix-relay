@@ -274,7 +274,9 @@ export function Board({ boardRef, scrollToRight }: BoardProps) {
       getCollisionDetectionStrategy(
         activeId,
         columns,
+        // eslint-disable-next-line react-hooks/refs
         lastOverId,
+        // eslint-disable-next-line react-hooks/refs
         recentlyMovedToNewContainer,
       ),
     [activeId, columns],
