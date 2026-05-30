@@ -49,7 +49,7 @@
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
     "@types/eslint": "^9.6.1",
-    "@types/node": "^25.1.0",
+    "@types/node": "^25.9.1",
     "eslint": "^9.39.4",
     "graphql": "17.0.0-beta.1",
     "jiti": "^2.7.0",

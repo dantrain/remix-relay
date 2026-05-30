@@ -49,7 +49,7 @@
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
     "@types/eslint": "^9.6.1",
-    "@types/node": "^25.1.0",
+    "@types/node": "^25.9.1",
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.4",
