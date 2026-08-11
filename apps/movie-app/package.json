@@ -62,7 +62,7 @@
     "babel-plugin-react-compiler": "19.1.0-rc.3",
     "better-sqlite3": "^12.10.0",
     "drizzle-kit": "^0.31.10",
-    "eslint": "^9.39.4",
+    "eslint": "^10.8.1",
     "jiti": "^2.7.0",
     "node-fetch": "^3.3.2",
     "tailwindcss": "^4.3.0",

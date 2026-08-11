@@ -27,7 +27,9 @@ export default [
     plugins: {
       "react-hooks": pluginReactHooks,
     },
-    settings: { react: { version: "detect" } },
+    // Pinned rather than "detect" because eslint-plugin-react's version
+    // detection uses context.getFilename(), removed in ESLint 10.
+    settings: { react: { version: "19.2" } },
     rules: {
       ...pluginReactHooks.configs.recommended.rules,
       "react/no-unescaped-entities": ["error", { forbid: [">", "}"] }],

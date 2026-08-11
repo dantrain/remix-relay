@@ -48,11 +48,10 @@
   "devDependencies": {
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
-    "@types/eslint": "^9.6.1",
     "@types/node": "^25.9.1",
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
-    "eslint": "^9.39.4",
+    "eslint": "^10.8.1",
     "graphql": "17.0.0-beta.1",
     "jiti": "^2.7.0",
     "react": "^19.2.6",
