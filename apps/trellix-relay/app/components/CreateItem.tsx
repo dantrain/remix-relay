@@ -1,4 +1,3 @@
-import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import { createId } from "@paralleldrive/cuid2";
 import { toGlobalId } from "graphql-relay";
 import exists from "lib/exists";
@@ -15,6 +14,7 @@ import {
   useState,
 } from "react";
 import { graphql, useMutation } from "react-relay";
+import TextareaAutosize from "react-textarea-autosize";
 import { useMediaQuery, useOnClickOutside } from "usehooks-ts";
 import { Button } from "@remix-relay/ui";
 import { cn } from "~/lib/cn";

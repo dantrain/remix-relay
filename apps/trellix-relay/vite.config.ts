@@ -8,7 +8,7 @@ import relay from "vite-plugin-relay";
 export default defineConfig(({ command }) => ({
   plugins: [
     cjsInterop({
-      dependencies: ["react-relay", "@mui/base"],
+      dependencies: ["react-relay"],
     }),
     tailwindcss(),
     relay,
@@ -22,5 +22,5 @@ export default defineConfig(({ command }) => ({
     }),
   ],
   resolve: { tsconfigPaths: true },
-  ssr: command === "build" ? { noExternal: /(relay|@mui)/ } : {},
+  ssr: command === "build" ? { noExternal: /relay/ } : {},
 }));

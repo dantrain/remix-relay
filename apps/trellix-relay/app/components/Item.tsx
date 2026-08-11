@@ -1,6 +1,5 @@
 import type { DraggableSyntheticListeners } from "@dnd-kit/core";
 import type { Transform } from "@dnd-kit/utilities";
-import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -25,6 +24,7 @@ import {
   useFragment,
   useMutation,
 } from "react-relay";
+import TextareaAutosize from "react-textarea-autosize";
 import invariant from "tiny-invariant";
 import { Button } from "@remix-relay/ui";
 import { useSubscribe } from "~/hooks/useSubscribe";
