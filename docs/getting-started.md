@@ -27,11 +27,8 @@ pnpm create react-router@latest --template remix-run/react-router-templates/node
 For this guide we'll use [Pothos](https://pothos-graphql.dev/) to create the GraphQL schema.
 
 ```shell
-pnpm add @pothos/core graphql@^17.0.0
+pnpm add @pothos/core graphql
 ```
-
-> [!NOTE]
-> Version 17 of the [graphql](https://github.com/graphql/graphql-js) package is required, as it includes support for the `@defer` directive.
 
 Add a `server/graphql-schema.ts` file.
 
