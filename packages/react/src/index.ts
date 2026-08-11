@@ -1,6 +1,9 @@
-export { Deferred } from "./Deferred";
-export { clientLoaderQuery, getClientLoaderQuery } from "./client-loader-query";
-export { getCachedResponse } from "./get-cached-response";
-export { processMultipartResponse } from "./incremental-response";
-export { metaQuery } from "./meta-query";
-export { useLoaderQuery, useRouteLoaderQuery } from "./useLoaderQuery";
+export { Deferred } from "./Deferred.js";
+export {
+  clientLoaderQuery,
+  getClientLoaderQuery,
+} from "./client-loader-query.js";
+export { getCachedResponse } from "./get-cached-response.js";
+export { processMultipartResponse } from "./incremental-response.js";
+export { metaQuery } from "./meta-query.js";
+export { useLoaderQuery, useRouteLoaderQuery } from "./useLoaderQuery.js";

@@ -5,7 +5,7 @@ import type {
   PreloadedQuery,
 } from "react-relay";
 import relay from "react-relay";
-import type { useQueryLoaderHookType } from "react-relay/relay-hooks/useQueryLoader";
+import type { useQueryLoaderHookType } from "react-relay/relay-hooks/useQueryLoader.js";
 import { useLoaderData, useRouteLoaderData } from "react-router";
 import type {
   ConcreteRequest,
@@ -14,8 +14,8 @@ import type {
   RequestParameters,
   VariablesOf,
 } from "relay-runtime";
-import { responseCache, storePendingDeferred } from "./get-cached-response";
-import { invariant } from "./invariant";
+import { responseCache, storePendingDeferred } from "./get-cached-response.js";
+import { invariant } from "./invariant.js";
 
 const { usePreloadedQuery, useQueryLoader, useRelayEnvironment } = relay;
 

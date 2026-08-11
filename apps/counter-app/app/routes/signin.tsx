@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MetaFunction, redirect } from "react-router";
 import { Button } from "@remix-relay/ui";
 import { GitHubIcon, GoogleIcon, MicrosoftIcon } from "~/components/Icons";
+import { envContext, pothosContext } from "~/lib/router-context";
 import type { Route } from ".react-router/types/app/routes/+types/signin";
 
 export const meta: MetaFunction = () => [{ title: "Sign in · Counter App" }];
@@ -11,16 +12,18 @@ export const meta: MetaFunction = () => [{ title: "Sign in · Counter App" }];
 export const headers = () => ({ "Cache-Control": "no-store" });
 
 export const loader = ({ context }: Route.LoaderArgs) => {
-  if (context.pothosContext.user) {
+  if (context.get(pothosContext).user) {
     throw redirect("/", {
       status: 303,
       headers: { "Cache-Control": "no-store" },
     });
   }
 
+  const env = context.get(envContext);
+
   return {
-    SUPABASE_URL: context.env.SUPABASE_URL,
-    SUPABASE_ANON_KEY: context.env.SUPABASE_ANON_KEY,
+    SUPABASE_URL: env.SUPABASE_URL,
+    SUPABASE_ANON_KEY: env.SUPABASE_ANON_KEY,
   };
 };
 

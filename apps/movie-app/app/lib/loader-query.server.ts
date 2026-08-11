@@ -8,12 +8,13 @@ import * as dbSchema from "~/schema/db-schema";
 import { schema } from "~/schema/graphql-schema";
 import queryMap from "../persisted-queries.json";
 import { getSessionStorage } from "./auth.server";
+import { cloudflareContext } from "./router-context";
 
 export const loaderQuery = async <TQuery extends OperationType>(
   { request, context }: LoaderFunctionArgs,
   ...rest: LoaderQueryArgs<TQuery>
 ) => {
-  const env = context.cloudflare.env as Env;
+  const env = context.get(cloudflareContext).env;
   const db = drizzle(env.DB, { schema: dbSchema, casing: "snake_case" });
 
   const user = (

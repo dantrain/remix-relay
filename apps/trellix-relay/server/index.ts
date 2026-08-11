@@ -10,8 +10,10 @@ import express from "express";
 import { useServer } from "graphql-ws/use/ws";
 import { createServer } from "http";
 import path from "path";
+import { RouterContextProvider } from "react-router";
 import invariant from "tiny-invariant";
 import { WebSocketServer } from "ws";
+import { envContext, pothosContext } from "../app/lib/router-context";
 import { createSupabaseClient } from "./create-supabase-client";
 import { getDb } from "./drizzle-client";
 import { env } from "./env";
@@ -209,16 +211,18 @@ app.all(
         )) as any),
     getLoadContext(req) {
       const { session, supabase } = req.context;
+      const context = new RouterContextProvider();
 
-      return {
-        env,
-        pothosContext: {
-          pubsub,
-          supabase,
-          db: session && getDb(session),
-          user: session?.user,
-        },
-      };
+      context.set(envContext, env);
+
+      context.set(pothosContext, {
+        pubsub,
+        supabase,
+        db: session && getDb(session),
+        user: session?.user,
+      });
+
+      return context;
     },
   }),
 );

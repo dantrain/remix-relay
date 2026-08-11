@@ -4,6 +4,7 @@ import { drizzle } from "drizzle-orm/d1";
 import { createYoga, GraphQLParams } from "graphql-yoga";
 import { getSessionStorage } from "~/lib/auth.server";
 import exists from "~/lib/exists";
+import { cloudflareContext } from "~/lib/router-context";
 import { PothosContext } from "~/schema/builder";
 import * as dbSchema from "~/schema/db-schema";
 import { schema } from "~/schema/graphql-schema";
@@ -30,7 +31,7 @@ const yoga = createYoga<PothosContext>({
 });
 
 export async function action({ request, context }: Route.ActionArgs) {
-  const env = context.cloudflare.env as Env;
+  const env = context.get(cloudflareContext).env;
   const db = drizzle(env.DB, { schema: dbSchema, casing: "snake_case" });
 
   const user = (

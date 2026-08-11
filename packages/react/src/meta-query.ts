@@ -4,7 +4,7 @@ import type { OperationType } from "relay-runtime";
 export function metaQuery<TQuery extends OperationType>(
   metaFunction: (
     args: Parameters<MetaFunction>[0] & {
-      data: TQuery["response"];
+      loaderData: TQuery["response"];
     },
   ) => ReturnType<MetaFunction>,
 ): MetaFunction<
@@ -12,16 +12,20 @@ export function metaQuery<TQuery extends OperationType>(
     | { preloadedQuery: { response: { data: TQuery["response"] } } }
     | { data: TQuery["response"] }
 > {
-  return ({ data, ...rest }) => {
+  return ({ loaderData, ...rest }) => {
     const metaData: TQuery["response"] =
-      data && "data" in data
-        ? data.data
-        : data && "preloadedQuery" in data
-          ? (data.preloadedQuery.response as { data: TQuery["response"] }).data
+      loaderData && "data" in loaderData
+        ? loaderData.data
+        : loaderData && "preloadedQuery" in loaderData
+          ? (
+              loaderData.preloadedQuery.response as {
+                data: TQuery["response"];
+              }
+            ).data
           : null;
 
     return metaFunction({
-      data: metaData,
+      loaderData: metaData,
       ...rest,
     });
   };

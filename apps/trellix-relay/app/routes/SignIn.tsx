@@ -7,6 +7,7 @@ import Anchor from "~/components/Anchor";
 import { GitHubIcon } from "~/components/Icons";
 import { Logo } from "~/components/Logo";
 import { Spinner } from "~/components/Spinner";
+import { envContext, pothosContext } from "~/lib/router-context";
 import { Route } from ".react-router/types/app/routes/+types/SignIn";
 
 export const meta = () => [{ title: "Sign in · Trellix Relay" }];
@@ -14,16 +15,18 @@ export const meta = () => [{ title: "Sign in · Trellix Relay" }];
 export const headers = () => ({ "Cache-Control": "no-store" });
 
 export const loader = ({ context }: Route.LoaderArgs) => {
-  if (context.pothosContext.user) {
+  if (context.get(pothosContext).user) {
     throw redirect("/", {
       status: 303,
       headers: { "Cache-Control": "no-store" },
     });
   }
 
+  const env = context.get(envContext);
+
   return {
-    SUPABASE_URL: context.env.SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY: context.env.SUPABASE_PUBLISHABLE_KEY,
+    SUPABASE_URL: env.SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY: env.SUPABASE_PUBLISHABLE_KEY,
   };
 };
 

@@ -29,8 +29,8 @@ const query = graphql`
   }
 `;
 
-export const meta = metaQuery<BoardQuery>(({ data }) => [
-  { title: `${data.board.title} | Trellix Relay` },
+export const meta = metaQuery<BoardQuery>(({ loaderData }) => [
+  { title: `${loaderData.board.title} | Trellix Relay` },
 ]);
 
 export const loader = ({ context, params }: Route.LoaderArgs) =>

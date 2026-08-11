@@ -1,11 +1,15 @@
 import { drizzle } from "drizzle-orm/d1";
-import { AppLoadContext, createCookieSessionStorage } from "react-router";
+import {
+  type RouterContextProvider,
+  createCookieSessionStorage,
+} from "react-router";
 import { Authenticator } from "remix-auth";
 import { GitHubStrategy } from "remix-auth-github";
 import { z } from "zod";
 import * as dbSchema from "~/schema/db-schema";
 import { User, users } from "~/schema/types/User";
 import exists from "./exists";
+import { cloudflareContext } from "./router-context";
 
 const envSchema = z.object({
   ROOT_URL: z.url(),
@@ -14,15 +18,15 @@ const envSchema = z.object({
   GITHUB_CLIENT_SECRET: z.string().min(1),
 });
 
-function getEnv(context: AppLoadContext) {
+function getEnv(context: Readonly<RouterContextProvider>) {
   return envSchema.parse(
     process.env.NODE_ENV === "development"
       ? process.env
-      : context.cloudflare.env,
+      : context.get(cloudflareContext).env,
   );
 }
 
-export function getSessionStorage(context: AppLoadContext) {
+export function getSessionStorage(context: Readonly<RouterContextProvider>) {
   const env = getEnv(context);
 
   return createCookieSessionStorage({
@@ -37,7 +41,7 @@ export function getSessionStorage(context: AppLoadContext) {
   });
 }
 
-export function getAuthenticator(context: AppLoadContext) {
+export function getAuthenticator(context: Readonly<RouterContextProvider>) {
   const env = getEnv(context);
 
   const gitHubStrategy = new GitHubStrategy(
@@ -67,9 +71,7 @@ export function getAuthenticator(context: AppLoadContext) {
         ),
       };
 
-      const cloudflareEnv = exists(
-        (context as AppLoadContext)?.cloudflare.env,
-      ) as Env;
+      const cloudflareEnv = exists(context.get(cloudflareContext).env);
 
       const db = drizzle(cloudflareEnv.DB, {
         schema: dbSchema,
@@ -94,7 +96,7 @@ export function getAuthenticator(context: AppLoadContext) {
 
 export async function authenticate(
   request: Request,
-  context: AppLoadContext,
+  context: Readonly<RouterContextProvider>,
 ): Promise<User | undefined> {
   const session = await getSessionStorage(context).getSession(
     request.headers.get("cookie"),

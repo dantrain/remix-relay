@@ -19,8 +19,8 @@ const query = graphql`
   }
 `;
 
-export const meta = metaQuery<MovieQuery>(({ data }) => [
-  { title: `${data.movie.title} - Movie App` },
+export const meta = metaQuery<MovieQuery>(({ loaderData }) => [
+  { title: `${loaderData.movie.title} - Movie App` },
 ]);
 
 export const loader = (args: Route.LoaderArgs) =>

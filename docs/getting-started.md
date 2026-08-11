@@ -490,8 +490,8 @@ const query = graphql`
   }
 `;
 
-export const meta = metaQuery<itemQuery>(({ data }) => [
-  { title: `${data.item} | New React Router App` },
+export const meta = metaQuery<itemQuery>(({ loaderData }) => [
+  { title: `${loaderData.item} | New React Router App` },
 ]);
 
 export const loader = (args: Route.LoaderArgs) =>

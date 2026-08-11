@@ -4,14 +4,3 @@
 // This empty interface serves as a fallback if worker-configuration.d.ts doesn't exist
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface Env {}
-
-declare module "react-router" {
-  interface AppLoadContext {
-    cloudflare: {
-      env: Env;
-      ctx: ExecutionContext;
-    };
-  }
-}
-
-export {};
