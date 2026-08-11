@@ -6,7 +6,6 @@ settings:
 
 patchedDependencies:
   '@apollo/server@5.5.1': c78f5bc8fb13725be4f11c099c181d7ad4d3bbf186991bdd88caefe66579b210
-  '@pothos/core@4.12.0': eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7
 
 importers:
 
@@ -61,14 +60,14 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
       '@pothos/core':
-        specifier: ^4.12.0
-        version: 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.2)
+        specifier: ^4.13.1
+        version: 4.13.1(graphql@17.0.2)
       '@pothos/plugin-relay':
-        specifier: ^4.7.0
-        version: 4.7.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.2))(graphql@17.0.2)
+        specifier: ^4.7.1
+        version: 4.7.1(@pothos/core@4.13.1(graphql@17.0.2))(graphql@17.0.2)
       '@pothos/plugin-zod':
-        specifier: ^4.3.0
-        version: 4.3.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.2))(graphql@17.0.2)(zod@4.4.3)
+        specifier: ^4.3.1
+        version: 4.3.1(@pothos/core@4.13.1(graphql@17.0.2))(graphql@17.0.2)(zod@4.4.3)
       '@react-router/express':
         specifier: ^7.16.0
         version: 7.16.0(express@5.2.1)(react-router@7.16.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(typescript@6.0.3)
@@ -251,11 +250,11 @@ importers:
         specifier: ^3.21.2
         version: 3.21.2(graphql-yoga@5.21.2(graphql@17.0.2))(graphql@17.0.2)
       '@pothos/core':
-        specifier: ^4.12.0
-        version: 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.2)
+        specifier: ^4.13.1
+        version: 4.13.1(graphql@17.0.2)
       '@pothos/plugin-relay':
-        specifier: ^4.7.0
-        version: 4.7.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.2))(graphql@17.0.2)
+        specifier: ^4.7.1
+        version: 4.7.1(@pothos/core@4.13.1(graphql@17.0.2))(graphql@17.0.2)
       '@react-router/cloudflare':
         specifier: ^7.16.0
         version: 7.16.0(@cloudflare/workers-types@5.20260811.1)(react-router@7.16.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(typescript@6.0.3)
@@ -435,14 +434,14 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
       '@pothos/core':
-        specifier: ^4.12.0
-        version: 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.2)
+        specifier: ^4.13.1
+        version: 4.13.1(graphql@17.0.2)
       '@pothos/plugin-relay':
-        specifier: ^4.7.0
-        version: 4.7.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.2))(graphql@17.0.2)
+        specifier: ^4.7.1
+        version: 4.7.1(@pothos/core@4.13.1(graphql@17.0.2))(graphql@17.0.2)
       '@pothos/plugin-zod':
-        specifier: ^4.3.0
-        version: 4.3.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.2))(graphql@17.0.2)(zod@4.4.3)
+        specifier: ^4.3.1
+        version: 4.3.1(@pothos/core@4.13.1(graphql@17.0.2))(graphql@17.0.2)(zod@4.4.3)
       '@radix-ui/react-dialog':
         specifier: ^1.1.15
         version: 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.15))(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -3416,22 +3415,22 @@ packages:
   '@poppinss/exception@1.2.3':
     resolution: {integrity: sha512-dCED+QRChTVatE9ibtoaxc+WkdzOSjYTKi/+uacHWIsfodVfpsueo3+DKpgU5Px8qXjgmXkSvhXvSCz3fnP9lw==}
 
-  '@pothos/core@4.12.0':
-    resolution: {integrity: sha512-PeiODrj3GjQ7Nbs/5p65DEyBWZTSGGjgGO/BgaMEqS1jBNX/2zJTEQJA9zM5uPmCHUCDjE7Qn2U7lOi0ALp/8A==}
+  '@pothos/core@4.13.1':
+    resolution: {integrity: sha512-2hkLxmvrT7VnbiWAfYhfF09PjaHeflZ5HrBHYzU6Tn/P9tDviuZS7IS5xO4k/KnK5GkRo3YxDzXyn+HnkEkVNw==}
     peerDependencies:
-      graphql: ^16.10.0
+      graphql: ^16.10.0 || ^17.0.0
 
-  '@pothos/plugin-relay@4.7.0':
-    resolution: {integrity: sha512-IQ7f7WLu7uXxiZBcJgUTdspjIVzX3bgvd8XjnzxGJUbn/uE5HlVyCFmvhJffHIIS2OKSHhOOJRMwIwVwauwnSg==}
+  '@pothos/plugin-relay@4.7.1':
+    resolution: {integrity: sha512-aj0xgdcvktx0k6iOvtkfJvb6FYdoWnlQkDMumr1WQm7uTXsJOASYQndytfnS0/0wsctCF/UTTK6Y53+F0UIeMw==}
     peerDependencies:
       '@pothos/core': '*'
-      graphql: ^16.10.0
+      graphql: ^16.10.0 || ^17.0.0
 
-  '@pothos/plugin-zod@4.3.0':
-    resolution: {integrity: sha512-g6fZ1Mp654sVSbXJ4yqgcdHzCI6iZdmtWJwaXutcTwZxMSz5nfOk72kXSHzxWji6zrOs+hzkJXvsLszUFcb63A==}
+  '@pothos/plugin-zod@4.3.1':
+    resolution: {integrity: sha512-37ybbHfjoqibUfPeVnkFbCURdSN8Ea2uu7hXE/349vfTQ7dzejRYw+8QC4ERns+rI0UUMc8ZxS23GET7/K2Rcw==}
     peerDependencies:
       '@pothos/core': '*'
-      graphql: ^16.10.0
+      graphql: ^16.10.0 || ^17.0.0
       zod: ^4.*
 
   '@protobufjs/aspromise@1.1.2':
@@ -10421,18 +10420,18 @@ snapshots:
 
   '@poppinss/exception@1.2.3': {}
 
-  '@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.2)':
+  '@pothos/core@4.13.1(graphql@17.0.2)':
     dependencies:
       graphql: 17.0.2
 
-  '@pothos/plugin-relay@4.7.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.2))(graphql@17.0.2)':
+  '@pothos/plugin-relay@4.7.1(@pothos/core@4.13.1(graphql@17.0.2))(graphql@17.0.2)':
     dependencies:
-      '@pothos/core': 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.2)
+      '@pothos/core': 4.13.1(graphql@17.0.2)
       graphql: 17.0.2
 
-  '@pothos/plugin-zod@4.3.0(@pothos/core@4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.2))(graphql@17.0.2)(zod@4.4.3)':
+  '@pothos/plugin-zod@4.3.1(@pothos/core@4.13.1(graphql@17.0.2))(graphql@17.0.2)(zod@4.4.3)':
     dependencies:
-      '@pothos/core': 4.12.0(patch_hash=eb9349ce24a74f2c430b65e5654a7a50077155a286e0002533162bf85b7c4ca7)(graphql@17.0.2)
+      '@pothos/core': 4.13.1(graphql@17.0.2)
       graphql: 17.0.2
       zod: 4.4.3
 

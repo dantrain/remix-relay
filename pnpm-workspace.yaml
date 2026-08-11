@@ -21,5 +21,4 @@ peerDependencyRules:
     # @react-router/cloudflare still asks for the v4 types.
     '@cloudflare/workers-types': '5'
 patchedDependencies:
-  '@pothos/core@4.12.0': patches/@pothos__core@4.12.0.patch
   '@apollo/server@5.5.1': patches/@apollo__server@5.5.1.patch
