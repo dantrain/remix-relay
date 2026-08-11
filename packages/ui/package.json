@@ -28,7 +28,7 @@
   "devDependencies": {
     "@remix-relay/eslint-config": "workspace:*",
     "@remix-relay/typescript-config": "workspace:*",
-    "@turbo/gen": "^2.9.16",
+    "@turbo/gen": "^2.10.9",
     "@types/eslint": "^9.6.1",
     "@types/node": "^25.9.1",
     "@types/react": "^19.2.15",
