@@ -14,7 +14,7 @@ allowBuilds:
   workerd: false
 peerDependencyRules:
   allowedVersions:
-    graphql: 17.0.0-beta.1
+    graphql: '17'
     # eslint-plugin-react and eslint-plugin-jsx-a11y haven't declared ESLint 10
     # support yet, but work with it.
     eslint: '10'
