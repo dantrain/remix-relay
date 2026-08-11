@@ -18,6 +18,8 @@ peerDependencyRules:
     # eslint-plugin-react and eslint-plugin-jsx-a11y haven't declared ESLint 10
     # support yet, but work with it.
     eslint: '10'
+    # @react-router/cloudflare still asks for the v4 types.
+    '@cloudflare/workers-types': '5'
 patchedDependencies:
   '@pothos/core@4.12.0': patches/@pothos__core@4.12.0.patch
   '@apollo/server@5.5.1': patches/@apollo__server@5.5.1.patch
