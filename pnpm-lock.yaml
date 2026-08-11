@@ -30,8 +30,8 @@ importers:
         specifier: ^3.9.6
         version: 3.9.6
       prettier-plugin-classnames:
-        specifier: ^0.10.1
-        version: 0.10.1(prettier@3.9.6)
+        specifier: ^0.10.4
+        version: 0.10.4(prettier@3.9.6)
       prettier-plugin-merge:
         specifier: ^0.10.1
         version: 0.10.1(prettier@3.9.6)
@@ -42,8 +42,8 @@ importers:
         specifier: ^3.0.2
         version: 3.0.2(prettier@3.9.6)
       prettier-plugin-tailwindcss:
-        specifier: ^0.8.0
-        version: 0.8.0(@trivago/prettier-plugin-sort-imports@6.0.2(prettier@3.9.6))(prettier-plugin-organize-imports@4.3.0(prettier@3.9.6)(typescript@6.0.3))(prettier@3.9.6)
+        specifier: ^0.8.1
+        version: 0.8.1(@trivago/prettier-plugin-sort-imports@6.0.2(prettier@3.9.6))(prettier-plugin-organize-imports@4.3.0(prettier@3.9.6)(typescript@6.0.3))(prettier@3.9.6)
       turbo:
         specifier: ^2.10.9
         version: 2.10.9
@@ -167,10 +167,10 @@ importers:
         version: 1000.0.41
       '@react-router/dev':
         specifier: ^8.3.0
-        version: 8.3.0(@react-router/serve@8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3))(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12))(wrangler@4.120.0(@cloudflare/workers-types@5.20260811.1))
+        version: 8.3.0(@react-router/serve@8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3))(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12))(wrangler@4.120.0(@cloudflare/workers-types@5.20260811.1))
       '@react-router/fs-routes':
         specifier: ^8.3.0
-        version: 8.3.0(@react-router/dev@8.3.0(@react-router/serve@8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3))(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12))(wrangler@4.120.0(@cloudflare/workers-types@5.20260811.1)))(typescript@6.0.3)
+        version: 8.3.0(@react-router/dev@8.3.0(@react-router/serve@8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3))(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12))(wrangler@4.120.0(@cloudflare/workers-types@5.20260811.1)))(typescript@6.0.3)
       '@remix-relay/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -179,7 +179,7 @@ importers:
         version: link:../../packages/typescript-config
       '@tailwindcss/vite':
         specifier: ^4.3.3
-        version: 4.3.3(vite@8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12))
+        version: 4.3.3(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12))
       '@types/cookie-parser':
         specifier: ^1.4.10
         version: 1.4.10(@types/express@5.0.6)
@@ -230,16 +230,16 @@ importers:
         version: 6.0.3
       vite:
         specifier: ^8.2.1
-        version: 8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12)
+        version: 8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)
       vite-plugin-babel:
         specifier: ^1.7.3
-        version: 1.7.3(@babel/core@7.29.7)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12))
+        version: 1.7.3(@babel/core@7.29.7)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12))
       vite-plugin-cjs-interop:
         specifier: ^4.0.3
-        version: 4.0.3(vite@8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12))
+        version: 4.0.3(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12))
       vite-plugin-relay:
         specifier: ^2.1.0
-        version: 2.1.0(babel-plugin-relay@18.1.0)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12))
+        version: 2.1.0(babel-plugin-relay@18.1.0)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12))
       zx:
         specifier: ^8.8.5
         version: 8.8.5
@@ -6611,8 +6611,8 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  prettier-plugin-classnames@0.10.1:
-    resolution: {integrity: sha512-Jz3rqyNCTPfwlg2be8ZIfY/UM5y1VfVZ5iIFVNvdl72brru1p6vlCds+VAt83VrlDxPkjGiKnAx6MMB4OxqjBQ==}
+  prettier-plugin-classnames@0.10.4:
+    resolution: {integrity: sha512-JIheUGkLGEqBwv/OWpizy+C6lY9z1fE9KpQpq8q+3j2xyzon7zBiv8Udn8tNkKwoQObrIg2e++DEVnMZiTOeJw==}
     engines: {node: '>=18'}
     peerDependencies:
       '@prettier/plugin-oxc': '*'
@@ -6651,8 +6651,8 @@ packages:
       prettier:
         optional: true
 
-  prettier-plugin-tailwindcss@0.8.0:
-    resolution: {integrity: sha512-V8ITGH87yuBDF6JpEZTOVlUz/saAwqb8f3HRgUj8Lh+tGCcrmorhsLpYqzygwFwK0PE2Ib6Mv3M7T/uE2tZV1g==}
+  prettier-plugin-tailwindcss@0.8.1:
+    resolution: {integrity: sha512-iaFMYqDsE4ffdDkn5qup0j5f2aCEBFZrdrZnvu9QKTlWx/iGPeQ4HHu7b7fCPMxeo9nwQBiOAh2nSypdFYWJkw==}
     engines: {node: '>=20.19'}
     peerDependencies:
       '@ianvs/prettier-plugin-sort-imports': '*'
@@ -10288,44 +10288,6 @@ snapshots:
     optionalDependencies:
       typescript: 6.0.3
 
-  '@react-router/dev@8.3.0(@react-router/serve@8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3))(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12))(wrangler@4.120.0(@cloudflare/workers-types@5.20260811.1))':
-    dependencies:
-      '@babel/core': 7.29.7
-      '@babel/generator': 7.29.8
-      '@babel/parser': 7.29.8
-      '@babel/plugin-syntax-jsx': 7.29.7(@babel/core@7.29.7)
-      '@babel/preset-typescript': 7.29.7(@babel/core@7.29.7)
-      '@babel/traverse': 7.29.8
-      '@babel/types': 7.29.8
-      '@react-router/node': 8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3)
-      '@remix-run/node-fetch-server': 0.13.3
-      babel-dead-code-elimination: 1.0.12
-      chokidar: 5.0.0
-      dedent: 1.7.2
-      es-module-lexer: 2.3.1
-      exit-hook: 5.1.0
-      isbot: 5.2.1
-      jsesc: 3.1.0
-      lodash: 4.18.1
-      p-map: 7.0.6
-      pathe: 2.0.3
-      picocolors: 1.1.1
-      pkg-types: 2.3.1
-      prettier: 3.9.6
-      react-refresh: 0.18.0
-      react-router: 8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      semver: 7.8.5
-      tinyglobby: 0.2.17
-      valibot: 1.4.2(typescript@6.0.3)
-      vite: 8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12)
-    optionalDependencies:
-      '@react-router/serve': 8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3)
-      typescript: 6.0.3
-      wrangler: 4.120.0(@cloudflare/workers-types@5.20260811.1)
-    transitivePeerDependencies:
-      - babel-plugin-macros
-      - supports-color
-
   '@react-router/dev@8.3.0(@react-router/serve@8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3))(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12))(wrangler@4.120.0(@cloudflare/workers-types@5.20260811.1))':
     dependencies:
       '@babel/core': 7.29.7
@@ -10372,9 +10334,9 @@ snapshots:
     optionalDependencies:
       typescript: 6.0.3
 
-  '@react-router/fs-routes@8.3.0(@react-router/dev@8.3.0(@react-router/serve@8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3))(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12))(wrangler@4.120.0(@cloudflare/workers-types@5.20260811.1)))(typescript@6.0.3)':
+  '@react-router/fs-routes@8.3.0(@react-router/dev@8.3.0(@react-router/serve@8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3))(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12))(wrangler@4.120.0(@cloudflare/workers-types@5.20260811.1)))(typescript@6.0.3)':
     dependencies:
-      '@react-router/dev': 8.3.0(@react-router/serve@8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3))(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12))(wrangler@4.120.0(@cloudflare/workers-types@5.20260811.1))
+      '@react-router/dev': 8.3.0(@react-router/serve@8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3))(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12))(wrangler@4.120.0(@cloudflare/workers-types@5.20260811.1))
       minimatch: 10.2.6
     optionalDependencies:
       typescript: 6.0.3
@@ -10660,13 +10622,6 @@ snapshots:
       '@tailwindcss/oxide': 4.3.3
       postcss: 8.5.26
       tailwindcss: 4.3.3
-
-  '@tailwindcss/vite@4.3.3(vite@8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12))':
-    dependencies:
-      '@tailwindcss/node': 4.3.3
-      '@tailwindcss/oxide': 4.3.3
-      tailwindcss: 4.3.3
-      vite: 8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12)
 
   '@tailwindcss/vite@4.3.3(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12))':
     dependencies:
@@ -13280,7 +13235,7 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-classnames@0.10.1(prettier@3.9.6):
+  prettier-plugin-classnames@0.10.4(prettier@3.9.6):
     dependencies:
       prettier: 3.9.6
       zod: 3.22.4
@@ -13301,7 +13256,7 @@ snapshots:
     optionalDependencies:
       prettier: 3.9.6
 
-  prettier-plugin-tailwindcss@0.8.0(@trivago/prettier-plugin-sort-imports@6.0.2(prettier@3.9.6))(prettier-plugin-organize-imports@4.3.0(prettier@3.9.6)(typescript@6.0.3))(prettier@3.9.6):
+  prettier-plugin-tailwindcss@0.8.1(@trivago/prettier-plugin-sort-imports@6.0.2(prettier@3.9.6))(prettier-plugin-organize-imports@4.3.0(prettier@3.9.6)(typescript@6.0.3))(prettier@3.9.6):
     dependencies:
       prettier: 3.9.6
     optionalDependencies:
@@ -14303,23 +14258,10 @@ snapshots:
       - '@types/react'
       - '@types/react-dom'
 
-  vite-plugin-babel@1.7.3(@babel/core@7.29.7)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12)):
-    dependencies:
-      '@babel/core': 7.29.7
-      vite: 8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12)
-
   vite-plugin-babel@1.7.3(@babel/core@7.29.7)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)):
     dependencies:
       '@babel/core': 7.29.7
       vite: 8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)
-
-  vite-plugin-cjs-interop@4.0.3(vite@8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12)):
-    dependencies:
-      estree-walker: 3.0.3
-      magic-string: 0.30.21
-      minimatch: 10.2.6
-      oxc-parser: 0.134.0
-      vite: 8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12)
 
   vite-plugin-cjs-interop@4.0.3(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)):
     dependencies:
@@ -14329,14 +14271,6 @@ snapshots:
       oxc-parser: 0.134.0
       vite: 8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)
 
-  vite-plugin-relay@2.1.0(babel-plugin-relay@18.1.0)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12)):
-    dependencies:
-      '@babel/core': 7.24.7
-      babel-plugin-relay: 18.1.0
-      vite: 8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12)
-    transitivePeerDependencies:
-      - supports-color
-
   vite-plugin-relay@2.1.0(babel-plugin-relay@18.1.0)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)):
     dependencies:
       '@babel/core': 7.24.7
@@ -14344,20 +14278,6 @@ snapshots:
       vite: 8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)
     transitivePeerDependencies:
       - supports-color
-
-  vite@8.2.1(@types/node@26.2.0)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.23.12):
-    dependencies:
-      lightningcss: 1.33.0
-      picomatch: 4.0.5
-      postcss: 8.5.26
-      rolldown: 1.2.3
-      tinyglobby: 0.2.17
-    optionalDependencies:
-      '@types/node': 26.2.0
-      esbuild: 0.27.2
-      fsevents: 2.3.3
-      jiti: 2.7.0
-      tsx: 4.23.12
 
   vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12):
     dependencies:
