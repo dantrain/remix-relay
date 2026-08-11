@@ -84,6 +84,9 @@ export const app = express();
 +const yoga = createYoga({ schema });
 +
 +app.use(yoga.graphqlEndpoint, yoga);
++
+ app.use(
+   createRequestHandler({
 ```
 
 Run the dev server with `pnpm run dev` and navigate to [http://localhost:3000/graphql](http://localhost:3000/graphql) to open the playground.
@@ -173,9 +176,9 @@ Update `vite.config.ts`.
   plugins: [
 +   cjsInterop({ dependencies: ["react-relay"] }),
 +   relay,
+    tailwindcss(),
     reactRouter(),
-    tsconfigPaths(),
-  ]
+  ],
 ```
 
 `vite-plugin-cjs-interop` allows importing named exports from Relay despite it being a CommonJS module.
@@ -260,13 +263,14 @@ Add the Relay provider and a Suspense boundary to `app/root.tsx`.
 // ...
 
 export default function App() {
-  return (
+- return <Outlet />;
++ return (
 +   <RelayEnvironmentProvider environment={getCurrentEnvironment()}>
 +     <Suspense>
-        <Outlet />
++       <Outlet />
 +     </Suspense>
 +   </RelayEnvironmentProvider>
-  );
++ );
 }
 ```
 
@@ -277,8 +281,8 @@ Add an `app/lib/loader-query.server.ts` file.
 ```typescript
 import type { LoaderFunctionArgs } from "react-router";
 import type { OperationType } from "relay-runtime";
-import { schema } from "server/graphql-schema";
 import { type LoaderQueryArgs, getLoaderQuery } from "@remix-relay/server";
+import { schema } from "../../server/graphql-schema";
 
 export const loaderQuery = <TQuery extends OperationType>(
   _args: LoaderFunctionArgs,
@@ -335,6 +339,7 @@ Run the script with `pnpm run relay`. You should see an `app/routes/__generated_
 Add the remix-relay loader and client loader to `app/routes/home.tsx`, and access the data with the `useLoaderQuery` hook.
 
 ```diff
+-import { valueFromExpressContext } from "~/context";
 +import { useLoaderQuery } from "@remix-relay/react";
 +import { loaderQuery } from "~/lib/loader-query.server";
 +import { clientLoaderQuery } from "~/lib/client-loader-query";
@@ -343,7 +348,7 @@ Add the remix-relay loader and client loader to `app/routes/home.tsx`, and acces
 // ...
 
 -export function loader({ context }: Route.LoaderArgs) {
--  return { message: context.VALUE_FROM_EXPRESS };
+-  return { message: context.get(valueFromExpressContext) };
 -}
 +export const loader = (args: Route.LoaderArgs) => loaderQuery<homeQuery>(args, query, {});
 +
@@ -437,8 +442,8 @@ pnpm add -D concurrently
 Update the `dev` script in `package.json`:
 
 ```diff
--"dev": "cross-env NODE_ENV=development node server.js",
-+"dev": "concurrently --kill-others \"cross-env NODE_ENV=development node server.js\" \"relay-compiler --watch\" \"watchman-make -p 'server/graphql-schema.ts' --run 'pnpm run write-graphql-schema'\""
+-"dev": "cross-env NODE_ENV=development node --conditions development server.js",
++"dev": "concurrently --kill-others \"cross-env NODE_ENV=development node --conditions development server.js\" \"relay-compiler --watch\" \"watchman-make -p 'server/graphql-schema.ts' --run 'pnpm run write-graphql-schema'\""
 ```
 
 This will run the Relay compiler in watch mode and will also watch the `server/graphql-schema.ts` file and run the script to update `schema.graphql`. If you go on to build a schema across multiple files, update the Watchman glob pattern accordingly.
