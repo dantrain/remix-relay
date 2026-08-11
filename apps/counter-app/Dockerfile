@@ -34,6 +34,8 @@ RUN sed -i '/workspace:*/d' package.json
 # any future unreviewed build-script dependency degrades to a warning rather
 # than failing the deploy.
 RUN cat > pnpm-workspace.yaml <<'EOF'
+minimumReleaseAgeExclude:
+  - '@cloudflare/workers-types'
 strictDepBuilds: false
 allowBuilds:
   '@apollo/protobufjs': false
@@ -42,7 +44,6 @@ allowBuilds:
   sharp: false
   workerd: false
 patchedDependencies:
-  '@pothos/core@4.12.0': patches/@pothos__core@4.12.0.patch
   '@apollo/server@5.5.1': patches/@apollo__server@5.5.1.patch
 EOF
 

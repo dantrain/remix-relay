@@ -44,7 +44,6 @@ allowBuilds:
   sharp: false
   workerd: false
 patchedDependencies:
-  '@pothos/core@4.12.0': patches/@pothos__core@4.12.0.patch
   '@apollo/server@5.5.1': patches/@apollo__server@5.5.1.patch
 EOF
 
