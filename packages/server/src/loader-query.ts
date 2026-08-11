@@ -45,8 +45,7 @@ function isConcreteRequest(node: GraphQLTaggedNode): node is ConcreteRequest {
 
 function isIncrementalResult<TData>(
   result:
-    | ExecutionResult<TData>
-    | ExperimentalIncrementalExecutionResults<TData>,
+    ExecutionResult<TData> | ExperimentalIncrementalExecutionResults<TData>,
 ): result is ExperimentalIncrementalExecutionResults<TData> {
   return "initialResult" in result;
 }
